@@ -1,13 +1,66 @@
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+/* CSS for the app */
+.app-container {
+  background-image: url('https://www.pixelstalk.net/wp-content/uploads/2016/07/Download-Free-Pokemon-Lucario-Background.png');
+  background-size: cover;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 750px;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+/* CSS for NavBar */
+.NavBar {
+  background-color: goldenrod;
+  font-size: 15px;
+  height: 10vh;
+  border: 1px solid black;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.logo {
+  border-radius: 16px;
+  height: 70%;
+  width: 15%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.other-links {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  width: 70%;
+  height: 70%
+}
+
+/* CSS for the login/signup components */
+.login-container {
+  border: 1px solid black;
+  border: 16px;
+  height: 550px;
+  display: flex;
+  align-items: space-around;
+  justify-content: space-evenly;
+}
+
+.login-form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.login-input {
+  border-radius: 5px;
+  margin: 5px;
+}
+
+.submit {
+  border-radius: 16px;
+  margin: 5px;
+  background-color: lightskyblue;
 }
