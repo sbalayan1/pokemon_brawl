@@ -5,12 +5,12 @@ class TrainersController < ApplicationController
 
     def index
         trainers = Trainer.all
-        render json: trainers
+        render json: trainers, include: [:pokemon, :pokemon_teams]
     end 
 
     def show
         trainer = Trainer.find(params[:id])
-        render json: trainer
+        render json: trainer, include: [:pokemon, :pokemon_team]
     end
 
     def create

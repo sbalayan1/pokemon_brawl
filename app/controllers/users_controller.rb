@@ -4,7 +4,7 @@ class UsersController < ApplicationController
 
     def index
         user = User.all
-        render json: user 
+        render json: user, include: :trainer
     end 
 
     def show
@@ -12,12 +12,16 @@ class UsersController < ApplicationController
         user ? (render json: user) :  (render json: {error: "Not authorized"}, status: :unauthorized)
     end 
 
-
     def create 
         user = User.create!(user_params)
         session[:user_id] = user.id
         render json: user, status: :created
     end 
+
+    def find_user
+        user = User.find(params[:id])
+        render json: user
+    end
 
     private
 

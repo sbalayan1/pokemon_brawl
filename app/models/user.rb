@@ -1,6 +1,7 @@
 class User < ApplicationRecord
     has_one :trainer
     has_many :battles, through: :trainer
+    has_many :pokemon_teams, through: :trainer
 
     has_secure_password
 

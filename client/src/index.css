@@ -6,7 +6,8 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  height: 750px;
+  height: 1000px;
+  width: 100%
 }
 
 /* CSS for NavBar */
@@ -14,6 +15,7 @@
   background-color: goldenrod;
   font-size: 15px;
   height: 10vh;
+  width: 100%;
   border: 1px solid black;
   display: flex;
   align-items: center;
@@ -63,4 +65,226 @@
   border-radius: 16px;
   margin: 5px;
   background-color: lightskyblue;
+}
+
+
+/* CSS for home component */
+
+.home-container {
+  height: 3000px;
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  flex-direction: column;
+  border: 1px solid black;
+}
+
+.home-battle-container {
+  display: flex;
+  height: 30%;
+  width: 100%;
+  border: 1px solid black;
+}
+
+.home-battle-description-card {
+  display: flex; 
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 50%;
+  border: 1px solid black
+}
+
+.home-image-thumbnail {
+  border: 1px solid black;
+  border-radius: 30px;
+}
+
+.home-image-card {
+  height: 100%;
+  width: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.home-build-team-create-trainer-container {
+  display: flex;
+  height: 20%;
+  width: 100%;
+}
+
+.who-that-pokemon-container-home {
+  display: flex;
+  height: 30%;
+  width: 100%;
+  border: 1px solid black;
+}
+
+.who-that-pokemon-card {
+  background-image: url("https://external-preview.redd.it/e5zoQw-hgw-LCjdhC_4G8IAcHxex5pzda_BD_FPTcBY.png?auto=webp&s=c0b96b5ec20010a15864b8a0c9b202c119e52fe8");
+  background-size: cover;
+  display: flex; 
+  align-items: center;
+  justify-content: center;
+  width: 50%
+}
+
+.who-that-pokemon-image {
+  height: 70%
+}
+.format-card {
+  width: 50%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.home-pokemon-description-container {
+  border: 1px solid black;
+  display: flex;
+  height: 30%;
+  width: 100%;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+.home-pokemon-description-card {
+  border: 1px solid black;
+  border-radius: 16px;
+  height: 90%;
+  width: 20%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* CSS for safari zone/battle components */
+.battle-sfzone-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border: 1px solid yellow;
+  height: 100%;
+  width: 100%;
+}
+
+.zone-container {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  height: 30%;
+  width: 50%;
+  border: 1px solid orange
+}
+
+.trainer-battle-pokeball-container {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid black;
+}
+
+
+.trainer-decision-making-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+  height: 80%;
+  width: 50%;
+  border: 1px solid 
+}
+
+.stats-card {
+  background-color: honeydew;
+  border: 1px solid black;
+  height: 40%;
+  width: 50%;
+}
+
+.trainer-stats-card {
+  background-color: honeydew;
+}
+
+.hp-card {
+  display: flex;
+  justify-content: space-between;
+  border:1px solid black;
+}
+
+.attack-card {
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.zone-image-card {
+  width: 30%;
+  height: 60%;
+  border: 1px solid black;
+}
+
+.move-card {
+  background-color: grey;
+  display: grid;
+  grid-template-columns: repeat(2, 100px);
+  align-items: center;
+  justify-content: center;
+}
+
+.action-button {
+  border-radius: 16px;
+  height: 100%;
+  width: 100%;
+  font-size: 15px;
+}
+
+/* CSS for trainer card  */
+.trainer-container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  width: 100%;
+}
+
+.create-trainer-container {
+  height: 97%;
+  width:100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.trainer-form {
+  margin: 40px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 25%;
+}
+
+.trainer-starter-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+}
+
+.trainer-image-container {
+  margin-top: 20px;
+  height: 50%;
+  width: 100%;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+.trainer-image-select-button {
+  height: 20%
+}
+
+.footer {
+  background-color: green;
+  border: 1px solid black
 }

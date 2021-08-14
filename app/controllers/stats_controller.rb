@@ -8,12 +8,12 @@ class StatsController < ApplicationController
     end
 
     def show
-        stat = stat.find(params[:id])
+        stat = Stat.find(params[:id])
         render json: stat
     end 
 
     def create
-        stat = stat.create!(stat_params)
+        stat = Stat.create!(stat_params)
         render json: stat
     end 
 

@@ -4,7 +4,7 @@ class PokemonTeamsController < ApplicationController
 
     def index
         pokemon_teams = PokemonTeam.all
-        render json: pokemon_teams
+        render json: pokemon_teams, include: [:trainer, :pokemon]
     end
 
     def show
@@ -18,7 +18,6 @@ class PokemonTeamsController < ApplicationController
     end 
 
     private 
-
 
     def pokemon_team_params
         params.permit(:pokemon_id, :trainer_id, :team_member)

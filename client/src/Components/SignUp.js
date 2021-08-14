@@ -2,6 +2,7 @@ import {useState} from 'react'
 import {useHistory} from 'react-router-dom'
 
 let SignUp = () => {
+    const history = useHistory()
     const [username, setUsername] = useState("")
     const [firstName, setFirstName] = useState("")
     const [lastName, setLastName] = useState("")
@@ -34,7 +35,7 @@ let SignUp = () => {
 
         if (userData.id) {
             alert(`Welcome ${user.username}! Please login using your new credentials!!`)
-            // history.push('/login')
+            history.push('/login')
         } else {
             setErrors(userData.errors)
         }

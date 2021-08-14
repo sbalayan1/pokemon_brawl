@@ -2,14 +2,14 @@ import {useState} from 'react'
 import { useHistory } from 'react-router-dom'
 
 let Login = ({currentUser, setCurrentUser}) => {
-    // const history = useHistory()
+    const history = useHistory()
     const [username, setUsername] = useState("")
     const [password, setPassword] = useState("")
     const [errors, setErrors] = useState(null)
 
     let handleSignup = () => {
         console.log('hello world')
-        // history.push('/signup')
+        history.push('/signup')
     }
     
     let handleSubmit = async (e) => {
@@ -20,19 +20,19 @@ let Login = ({currentUser, setCurrentUser}) => {
             username, 
             password
         }
-        console.log(user)
 
         const res = await fetch('http://localhost:3000/login', {
             method: 'POST', 
             headers: {'Content-type':'Application/json'}, 
             body: JSON.stringify(user)
         })
+        
         const userData = await res.json()
 
         if (userData.id) {
             alert(`Welcome ${username}`)
-            setCurrentUser(user) 
-            // history.push('/')
+            setCurrentUser(userData)
+            history.push('/')
         } else {
             console.log(userData.errors)
             setErrors(userData.errors)

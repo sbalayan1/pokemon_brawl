@@ -8,20 +8,19 @@ class MovesController < ApplicationController
     end
 
     def show
-        move = move.find(params[:id])
+        move = Move.find(params[:id])
         render json: move
     end 
 
     def create
-        move = move.create!(move_params)
+        move = Move.create!(move_params)
         render json: move
     end 
 
     private 
 
-
     def move_params
-        params.permit(:name, :power_points, :description, :power)
+        params.require(:move).permit(:name, :power_points, :description, :power)
     end 
 
     def render_invalid(invalid)

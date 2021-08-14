@@ -4,7 +4,7 @@ class PokemonController < ApplicationController
 
     def index
         pokemon = Pokemon.all
-        render json: pokemon
+        render json: pokemon, include: [:moves, :stats]
     end
 
     def show
@@ -17,11 +17,17 @@ class PokemonController < ApplicationController
         render json: pokemon
     end 
 
+    def destroy
+        pokemon = Pokemon.find(params[:id])
+        pokemon.destroy
+        head :no_content
+    end 
+
     private 
 
 
     def pokemon_params
-        params.permit(:name, :level, :img_url, :wins)
+        params.permit(:name, :level, :wins, :front_image, :back_image)
     end 
 
     def render_invalid(invalid)
