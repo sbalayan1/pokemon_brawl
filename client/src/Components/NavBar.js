@@ -38,25 +38,11 @@ let NavBar = () => {
                 > Safari Zone
                 </NavLink>
                 <NavLink
-                    to="/make_a_team"
-                    exact
-                    // style={{linkStyles}}
-                    // activeStyle={{background: 'white'}}
-                > Make a team
-                </NavLink>
-                <NavLink
                     to="/battle"
                     exact
                     // style={{linkStyles}}
                     // activeStyle={{background: 'white'}}
                 > Battle
-                </NavLink>
-                <NavLink
-                    to="/my_profile"
-                    exact
-                    // style={{linkStyles}}
-                    // activeStyle={{background: 'white'}}
-                > Profile
                 </NavLink>
                 <NavLink
                     to="/my_pc"

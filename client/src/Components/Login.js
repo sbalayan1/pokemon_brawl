@@ -50,7 +50,7 @@ let Login = ({currentUser, setCurrentUser}) => {
                     <input className="login-input" type="password" value={password} onChange={(e)=> setPassword(e.target.value)}/>
                     <button className="submit" type="submit">Submit</button>
                 </form>
-                <div className="login-form">
+                <div className="login-form-sign-up">
                     <button className="submit" type="reset" onClick={handleSignup}>Sign Up</button>
                     {errors ? <div>{errors}</div>: null}
                 </div>

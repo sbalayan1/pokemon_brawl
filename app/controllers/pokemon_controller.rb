@@ -4,7 +4,7 @@ class PokemonController < ApplicationController
 
     def index
         pokemon = Pokemon.all
-        render json: pokemon, include: [:moves, :stats]
+        render json: pokemon, include: [:stats, :moves, :abilities, :types]
     end
 
     def show

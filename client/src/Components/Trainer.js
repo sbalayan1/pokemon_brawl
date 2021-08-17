@@ -10,6 +10,7 @@ let Trainer = ({pokemonData, currentUser}) => {
     const [starterPokemon, setStarterPokemon] = useState(null)
     const [count, setCount]=useState(0)
     const [trainer, setTrainer] = useState(null)
+    const [createdNewTrainer, setCreatedNewTrainer] = useState(false)
     const history = useHistory()
 
     let handleGenderChange = (e) => {
@@ -47,33 +48,45 @@ let Trainer = ({pokemonData, currentUser}) => {
         setStarterPokemon(e.target)
     }
 
-    let startJourney = () => {
-        console.log(currentUser)
-
-        // let newTrainer = {
-        //     name: trainerName,
-        //     gender: genderState,
-        //     img_url: starterPokemon.src,
-        //     user_id: currentUser.id
-        // }
-
-        // fetch('http://localhost:3000/trainers',{
-        //     method: 'POST',
-        //     headers: {'Content-type':'Application/json'},
-        //     body: JSON.stringify(newTrainer)
-        // })
-
-        let localPokemon = pokemonData.find(pokemon => pokemon.name === starterPokemon.alt)
-        let pokemonTeam = {
-            pokemon_id: localPokemon.id, 
-            trainer_id: currentUser.trainer.id,
-            team_member: true
+    let takePokedex = () => {
+        let newTrainer = {
+            name: trainerName,
+            gender: genderState,
+            img_url: trainer,
+            user_id: currentUser.id
         }
 
-        fetch('http://localhost:3000/pokemon_teams', {
+        fetch('http://localhost:3000/trainers',{
             method: 'POST',
-            headers: {'Content-Type':'application/json'},
-            body:JSON.stringify(pokemonTeam)
+            headers: {'Content-type':'Application/json'},
+            body: JSON.stringify(newTrainer)
+        })
+
+        setCreatedNewTrainer(true)
+
+    }
+
+    let startJourney = () => {
+        let localPokemon = pokemonData.find(pokemon => pokemon.name === starterPokemon.alt)
+        console.log(localPokemon)
+
+        fetch('http://localhost:3000/trainers')
+        .then(res => res.json())
+        .then(trainer => {
+            let pokemonTeam = {
+                pokemon_id: localPokemon.id, 
+                trainer_id: trainer[trainer.length-1].id,
+                team_member: true
+            }
+
+            console.log(pokemonTeam)
+
+            fetch('http://localhost:3000/pokemon_teams', {
+                method: 'POST',
+                headers: {'Content-Type':'application/json'},
+                body:JSON.stringify(pokemonTeam)
+            })
+
         })
 
         history.push('/battle')
@@ -140,14 +153,26 @@ let Trainer = ({pokemonData, currentUser}) => {
                     }
 
 
-                    {starterPokemon !== null ?
+                    {starterPokemon !== null && createdNewTrainer === false?
                         <div>
                             <img className="home-image-thumbnail" src={starterPokemon.src} alt={starterPokemon.alt} value={starterPokemon.value}/>
-                            <p>"So! You want the {starterPokemon.value} Pokémon, {starterPokemon.alt}? This Pokemon is really energetic! Oh, right! I have a request for you. On the desk there is my invention, Pokédex! It automatically records data on Pokémon you've seen or caught! It's a hi-tech encyclopedia! Take this with you! To make a complete guide on all the Pokémon in the world… That was my dream! But, I'm too old! I can't do it! So, I want you to fulfill my dream for me! Get moving! This is a great undertaking in Pokémon history!</p>
-                            <button onClick={startJourney}>Start</button>
+                            <p>"So! You want the {starterPokemon.value} Pokémon, {starterPokemon.alt}? This Pokemon is really energetic! Oh, right! I have a request for you. On the desk there is my invention, Pokédex! It automatically records data on Pokémon you've seen or caught! It's a hi-tech encyclopedia! Take this with you!</p>
+                            <img className="home-image-thumbnail" src='https://i.gifer.com/DEUr.gif' alt='pokedex'/>
+                            <button onClick={takePokedex}>Take Pokedex</button>
                         </div>
                     :
                         null
+                    }
+
+                    {createdNewTrainer === true ? 
+                        <div>
+                            <p>To make a complete guide on all the Pokémon in the world… That was my dream! But, I'm too old! I can't do it! So, I want you to fulfill my dream for me! Get moving! This is a great undertaking in Pokémon history!</p>
+                            <img className="home-image-thumbnail" src='https://i.gifer.com/DEUr.gif' alt='pokedex'/>
+                            <button onClick={startJourney}>Start</button>
+                        </div>
+
+                    :
+                        null 
                     }
 
 

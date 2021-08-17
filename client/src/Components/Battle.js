@@ -2,6 +2,8 @@ import {useState, useEffect} from 'react'
 import {useHistory} from 'react-router-dom'
 
 
+import PokeBallBattle from './PokeBallBattle'
+
 let Battle = ({userTrainer, opponentTrainer, pokemonData}) => {
     let opponentTrainers = ['https://archives.bulbagarden.net/media/upload/3/30/RB_Old_man_Back.png','https://archives.bulbagarden.net/media/upload/3/30/Spr_RG_Beauty.png','https://archives.bulbagarden.net/media/upload/f/fd/Spr_RG_Bird_Keeper.png','https://archives.bulbagarden.net/media/upload/4/48/Spr_RG_Blackbelt.png','https://archives.bulbagarden.net/media/upload/3/38/Spr_RG_Blue_2.png','https://archives.bulbagarden.net/media/upload/3/3f/Spr_RG_Bug_Catcher.png','https://archives.bulbagarden.net/media/upload/f/f2/Spr_RG_Burglar.png','https://archives.bulbagarden.net/media/upload/9/92/Spr_RG_Channeler.png','https://archives.bulbagarden.net/media/upload/0/0f/Spr_RG_Cooltrainer_M.png','https://archives.bulbagarden.net/media/upload/0/09/Spr_RG_Engineer.png','https://archives.bulbagarden.net/media/upload/e/ee/Spr_RG_Erika.png','https://archives.bulbagarden.net/media/upload/d/d7/Spr_RG_Fisherman.png','https://archives.bulbagarden.net/media/upload/7/7f/Spr_RG_Gambler.png','https://archives.bulbagarden.net/media/upload/0/08/Spr_RG_Gentleman.png','https://archives.bulbagarden.net/media/upload/6/62/Spr_RG_Hiker.png','https://archives.bulbagarden.net/media/upload/3/36/Spr_RG_Juggler.png','https://archives.bulbagarden.net/media/upload/2/29/Spr_RG_Lass.png','https://archives.bulbagarden.net/media/upload/b/b0/Spr_RG_Koga.png','https://archives.bulbagarden.net/media/upload/5/5d/Spr_RG_Psychic.png','https://archives.bulbagarden.net/media/upload/a/a1/Spr_RG_Rocket.png','https://archives.bulbagarden.net/media/upload/5/54/Spr_RG_Sailor.png','https://archives.bulbagarden.net/media/upload/5/51/Spr_RG_Blue_3.png','https://archives.bulbagarden.net/media/upload/5/58/Spr_RG_Lorelei.png','https://archives.bulbagarden.net/media/upload/7/76/Spr_RG_Bruno.png','https://archives.bulbagarden.net/media/upload/b/b8/Spr_RG_Swimmer.png','https://archives.bulbagarden.net/media/upload/9/96/Spr_RG_Youngster.png','https://archives.bulbagarden.net/media/upload/1/1e/Spr_RG_Oak.png','https://archives.bulbagarden.net/media/upload/d/d0/Spr_RG_Jr_Trainer_F.png','https://archives.bulbagarden.net/media/upload/2/2d/Spr_RG_Misty.png']
 
@@ -17,7 +19,12 @@ let Battle = ({userTrainer, opponentTrainer, pokemonData}) => {
     const [superEffective, setSuperEffective] = useState(null)
     const [opponentSuperEffective, setOpponentSuperEffective] = useState(null)
     const [pokeBall, setPokeBall] = useState(null)
+    const [pokeTeam, setTeam] = useState(userTrainer.pokemon_teams.filter(pokemon => pokemon.team_member === true))
+    const [oppPokeTeam, setOppTeam] = useState(opponentTrainer.pokemon_teams.filter(pokemon => pokemon.team_member === true))
+    const [displayTeam, setDisplayTeam] = useState(false)
 
+    const [userTeamCount, setUserTeamCount] = useState(0)
+    const [oppTeamCount, setOppTeamCount] = useState(0)
 
     const [userPokemon, setUserPokemon] = useState(null)
     const [userPokemonMove1, setUserPokemonMove1] = useState(null)
@@ -42,39 +49,39 @@ let Battle = ({userTrainer, opponentTrainer, pokemonData}) => {
         fetch('https://pokeapi.co/api/v2/item/poke-ball')
         .then(res => res.json())
         .then(data => setPokeBall(data.sprites.default))
-
-
-        let teamMembers = (userTrainer.pokemon_teams.filter (pokemon_team => pokemon_team.team_member === true))
-        console.log(pokemonData.filter(pokemon => pokemon.id === teamMembers[0].pokemon_id))
     },[])
 
 
     
     let startBattle = () => {
         setInitialBattleLoad(false)
-        setUserPokemon(pokemonData.find(pokemon => pokemon.name === userTrainer.pokemon[0].name))
-        setUserPokemonHP(pokemonData.find(pokemon => pokemon.name === userTrainer.pokemon[0].name).stats[0].hp)
-        setUserPokemonMove1(pokemonData.find(pokemon => pokemon.name === userTrainer.pokemon[0].name).moves[10])
-        setUserPokemonMove2(pokemonData.find(pokemon => pokemon.name === userTrainer.pokemon[0].name).moves[20])
-        setUserPokemonMove3(pokemonData.find(pokemon => pokemon.name === userTrainer.pokemon[0].name).moves[30])
-        setUserPokemonMove4(pokemonData.find(pokemon => pokemon.name === userTrainer.pokemon[0].name).moves[40])
-        setUserPokemonMove1PP(pokemonData.find(pokemon => pokemon.name === userTrainer.pokemon[0].name).moves[10].power_points)
-        setUserPokemonMove2PP(pokemonData.find(pokemon => pokemon.name === userTrainer.pokemon[0].name).moves[20].power_points)
-        setUserPokemonMove3PP(pokemonData.find(pokemon => pokemon.name === userTrainer.pokemon[0].name).moves[30].power_points)
-        setUserPokemonMove4PP(pokemonData.find(pokemon => pokemon.name === userTrainer.pokemon[0].name).moves[40].power_points)
+        setUserPokemon(pokemonData.find(pokemon => pokemon.id === pokeTeam[userTeamCount].pokemon_id))
+        setUserPokemonHP(pokemonData.find(pokemon => pokemon.id === pokeTeam[userTeamCount].pokemon_id).stats[0].hp)
+        setUserPokemonMove1(pokemonData.find(pokemon => pokemon.id === pokeTeam[userTeamCount].pokemon_id).moves[0])
+        setUserPokemonMove2(pokemonData.find(pokemon => pokemon.id === pokeTeam[userTeamCount].pokemon_id).moves[1])
+        setUserPokemonMove3(pokemonData.find(pokemon => pokemon.id === pokeTeam[userTeamCount].pokemon_id).moves[2])
+        setUserPokemonMove4(pokemonData.find(pokemon => pokemon.id === pokeTeam[userTeamCount].pokemon_id).moves[3])
+        setUserPokemonMove1PP(pokemonData.find(pokemon => pokemon.id === pokeTeam[userTeamCount].pokemon_id).moves[0].power_points)
+        setUserPokemonMove2PP(pokemonData.find(pokemon => pokemon.id === pokeTeam[userTeamCount].pokemon_id).moves[1].power_points)
+        setUserPokemonMove3PP(pokemonData.find(pokemon => pokemon.id === pokeTeam[userTeamCount].pokemon_id).moves[2].power_points)
+        setUserPokemonMove4PP(pokemonData.find(pokemon => pokemon.id === pokeTeam[userTeamCount].pokemon_id).moves[3].power_points)
 
 
-        setOpponentPokemon(pokemonData.find(pokemon => pokemon.name === opponentTrainer.pokemon[0].name))
-        setOpponentPokemonMove1(pokemonData.find(pokemon => pokemon.name === opponentTrainer.pokemon[0].name).moves[10])
-        setOpponentPokemonMove2(pokemonData.find(pokemon => pokemon.name === opponentTrainer.pokemon[0].name).moves[20])
-        setOpponentPokemonMove3(pokemonData.find(pokemon => pokemon.name === opponentTrainer.pokemon[0].name).moves[30])
-        setOpponentPokemonMove4(pokemonData.find(pokemon => pokemon.name === opponentTrainer.pokemon[0].name).moves[40])
-        setOpponentPokemonHP(pokemonData.find(pokemon => pokemon.name === userTrainer.pokemon[0].name).stats[0].hp)
+        setOpponentPokemon(pokemonData.find(pokemon => pokemon.id === oppPokeTeam[oppTeamCount].pokemon_id))
+        setOpponentPokemonMove1(pokemonData.find(pokemon => pokemon.id === oppPokeTeam[oppTeamCount].pokemon_id).moves[0])
+        setOpponentPokemonMove2(pokemonData.find(pokemon => pokemon.id === oppPokeTeam[oppTeamCount].pokemon_id).moves[1])
+        setOpponentPokemonMove3(pokemonData.find(pokemon => pokemon.id === oppPokeTeam[oppTeamCount].pokemon_id).moves[2])
+        setOpponentPokemonMove4(pokemonData.find(pokemon => pokemon.id === oppPokeTeam[oppTeamCount].pokemon_id).moves[3])
+        setOpponentPokemonHP(pokemonData.find(pokemon => pokemon.id === oppPokeTeam[oppTeamCount].pokemon_id).stats[0].hp)
     }
 
     let handleSelectInitialMove = (e) => {
-        if(e.target.value === 'Fight' || e.target.value === 'Pokemon' || e.target.value === 'Bag') {
+        if(e.target.value === 'Fight' || e.target.value === 'Bag') {
             setInitialMove(e.target.value)
+        } else if (e.target.value === 'Pokemon') {
+            console.log(displayTeam)
+            console.log(!displayTeam)
+            setDisplayTeam(!displayTeam)
         } else if (e.target.value === 'Run') {
             alert("You flee'd the battle. A loss will be registered to the database. Feel free to try again!!! Sending you back to the home page.")
             history.push('/')
@@ -159,8 +166,32 @@ let Battle = ({userTrainer, opponentTrainer, pokemonData}) => {
         setSuperEffective(null)
 
         if(opponentPokemonHP <= 0) {
-            alert('You won the battle')
-            history.push('/')
+            if (oppTeamCount < oppPokeTeam.length-1 ) {
+                alert(`${opponentTrainer.name} sent out ${pokemonData.find(pokemon => pokemon.id === oppPokeTeam[oppTeamCount+1].pokemon_id).name}`)
+                setOppTeamCount(oppTeamCount+1)
+                setOpponentPokemon(pokemonData.find(pokemon => pokemon.id === oppPokeTeam[oppTeamCount+1].pokemon_id))
+                setOpponentPokemonMove1(pokemonData.find(pokemon => pokemon.id === oppPokeTeam[oppTeamCount+1].pokemon_id).moves[0])
+                setOpponentPokemonMove2(pokemonData.find(pokemon => pokemon.id === oppPokeTeam[oppTeamCount+1].pokemon_id).moves[1])
+                setOpponentPokemonMove3(pokemonData.find(pokemon => pokemon.id === oppPokeTeam[oppTeamCount+1].pokemon_id).moves[2])
+                setOpponentPokemonMove4(pokemonData.find(pokemon => pokemon.id === oppPokeTeam[oppTeamCount+1].pokemon_id).moves[3])
+                setOpponentPokemonHP(pokemonData.find(pokemon => pokemon.id === oppPokeTeam[oppTeamCount+1].pokemon_id).stats[0].hp)
+                initiateOpponentMove()
+
+            } else if (oppTeamCount === oppPokeTeam.length-1) {
+                alert('You won the battle')
+
+                fetch('http://localhost:3000/battles', {
+                    method: 'POST', 
+                    headers: {'Content-Type':'Application/json'},
+                    body: JSON.stringify({
+                        trainer_id: userTrainer.id,
+                        opponent_id: opponentTrainer.id,
+                        win_loss: true
+                    })
+                })
+
+                history.push('/')
+            }
         } else {
             initiateOpponentMove()
         }
@@ -173,9 +204,54 @@ let Battle = ({userTrainer, opponentTrainer, pokemonData}) => {
         setSuperEffective(null)
 
         if(userPokemonHP <= 0) {
-            alert('You lost the battle')
-            history.push('/')
+            if (userTeamCount < pokeTeam.length-1) {
+                alert(`You sent out ${pokemonData.find(pokemon => pokemon.id === pokeTeam[userTeamCount+1].pokemon_id).name}`)
+
+                setUserTeamCount(userTeamCount+1)
+                setUserPokemon(pokemonData.find(pokemon => pokemon.id === pokeTeam[userTeamCount+1].pokemon_id))
+                setUserPokemonHP(pokemonData.find(pokemon => pokemon.id === pokeTeam[userTeamCount+1].pokemon_id).stats[0].hp)
+                setUserPokemonMove1(pokemonData.find(pokemon => pokemon.id === pokeTeam[userTeamCount+1].pokemon_id).moves[0])
+                setUserPokemonMove2(pokemonData.find(pokemon => pokemon.id === pokeTeam[userTeamCount+1].pokemon_id).moves[1])
+                setUserPokemonMove3(pokemonData.find(pokemon => pokemon.id === pokeTeam[userTeamCount+1].pokemon_id).moves[2])
+                setUserPokemonMove4(pokemonData.find(pokemon => pokemon.id === pokeTeam[userTeamCount+1].pokemon_id).moves[3])
+                setUserPokemonMove1PP(pokemonData.find(pokemon => pokemon.id === pokeTeam[userTeamCount+1].pokemon_id).moves[0].power_points)
+                setUserPokemonMove2PP(pokemonData.find(pokemon => pokemon.id === pokeTeam[userTeamCount+1].pokemon_id).moves[1].power_points)
+                setUserPokemonMove3PP(pokemonData.find(pokemon => pokemon.id === pokeTeam[userTeamCount+1].pokemon_id).moves[2].power_points)
+                setUserPokemonMove4PP(pokemonData.find(pokemon => pokemon.id === pokeTeam[userTeamCount+1].pokemon_id).moves[3].power_points)
+
+            } else if (userTeamCount === pokeTeam.length-1) {
+                
+                alert('You lost the battle')
+                fetch('http://localhost:3000/battles', {
+                    method: 'POST', 
+                    headers: {'Content-Type':'Application/json'},
+                    body: JSON.stringify({
+                        trainer_id: userTrainer.id,
+                        opponent_id: opponentTrainer.id,
+                        win_loss: false
+                    })
+                })
+                history.push('/')
+            }
         }
+    }
+
+    let sendOutPokemon = (e) => {
+        setUserPokemon(pokemonData.find(pokemon => pokemon.front_image === e.target.src))
+        setUserPokemonHP(pokemonData.find(pokemon => pokemon.front_image === e.target.src).stats[0].hp)
+        setUserPokemonMove1(pokemonData.find(pokemon => pokemon.front_image === e.target.src).moves[0])
+        setUserPokemonMove2(pokemonData.find(pokemon => pokemon.front_image === e.target.src).moves[1])
+        setUserPokemonMove3(pokemonData.find(pokemon => pokemon.front_image === e.target.src).moves[2])
+        setUserPokemonMove4(pokemonData.find(pokemon => pokemon.front_image === e.target.src).moves[3])
+        setUserPokemonMove1PP(pokemonData.find(pokemon => pokemon.front_image === e.target.src).moves[0].power_points)
+        setUserPokemonMove2PP(pokemonData.find(pokemon => pokemon.front_image === e.target.src).moves[1].power_points)
+        setUserPokemonMove3PP(pokemonData.find(pokemon => pokemon.front_image === e.target.src).moves[2].power_points)
+        setUserPokemonMove4PP(pokemonData.find(pokemon => pokemon.front_image === e.target.src).moves[3].power_points)
+
+
+        alert(`${userTrainer.name} sent out ${pokemonData.find(pokemon => pokemon.front_image === e.target.src).name}`)
+
+        initiateOpponentMove()
     }
 
     return (
@@ -183,24 +259,22 @@ let Battle = ({userTrainer, opponentTrainer, pokemonData}) => {
 
             {/* initial battle load  */}
             {initialBattleLoad === true && userPokemon === null && opponentPokemon === null ?  
-                <div className="battle-sfzone-container">
-                    <div className="zone-container">
+                <div className="battle-sfzone-container-load">
+                    <div className="zone-container" style={{backgroundImage:'url(https://www.models-resource.com/resources/big_icons/22/21700.png)', backgroundSize:'cover', height: '50%'}}>
                         <img className="zone-image-card" src={opponentTrainers[Math.floor(Math.random() * opponentTrainers.length)]} alt="opponent-trainer"/>
                     </div>
-                    <p>Trainer {opponentTrainer.name} wants to battle!</p>
+                    <p className="battle-p-tag-load">Trainer {opponentTrainer.name} wants to battle!</p>
                     <button onClick={startBattle}>Start</button>
                 </div>
             :
             // move select 
                 <div className="battle-sfzone-container">
-                    <div className="zone-container">
+                    <div className="zone-container" >
                         <div className="trainer-battle-pokeball-container">
-                            <img src={pokeBall} alt="poke-ball"/>
-                            <img src={pokeBall} alt="poke-ball"/>
-                            <img src={pokeBall} alt="poke-ball"/>
-                            <img src={pokeBall} alt="poke-ball"/>
-                            <img src={pokeBall} alt="poke-ball"/>
-                            <img src={pokeBall} alt="poke-ball"/>
+                            {oppPokeTeam.map(pokemon => {
+                                return (<PokeBallBattle pokeBall={pokeBall} pokemon={pokemon}/>)
+                            })}
+
                         </div>
                         <div className="stats-card">
                             <div className="hp-card">
@@ -215,10 +289,16 @@ let Battle = ({userTrainer, opponentTrainer, pokemonData}) => {
                                 <p><small>Speed: {opponentPokemon.stats[0].speed}</small></p>
                             </div>
                         </div>
-                        <img className="zone-image-card" src={opponentTrainer.pokemon[0].front_image} alt="opponent-pokemon-image"/>
+                        <img className="zone-image-card" src={opponentPokemon.front_image} alt="opponent-pokemon-image"/>
                     </div>
+
+
+                    {opponentBattleMove === null && opponentDamage === null? null : <img className="pokemon-attack" src="http://31.media.tumblr.com/9c77fb5630504da806464f80097aeb7f/tumblr_mie1te7yfk1r5fhkdo1_500.gif" alt="dragonite-hyperbeam"/>}
+                    {userBattleMove === null ? null : <img className="pokemon-attack" src="https://c.tenor.com/98nZAGp5ooQAAAAC/pokemon-tyranitar.gif" alt="tyranitar-hyperbeam"/>}
+
+
                     <div className="zone-container">
-                        <img className="zone-image-card" src={userTrainer.pokemon[0].back_image} alt="user-pokemon-image"/>
+                        <img className="zone-image-card" src={userPokemon.back_image} alt="user-pokemon-image"/>
                         <div className="trainer-decision-making-container">
                             <div className="trainer-stats-card">
                                 <div className="hp-card">
@@ -272,12 +352,15 @@ let Battle = ({userTrainer, opponentTrainer, pokemonData}) => {
                         }
                         </div>
                         <div className="trainer-battle-pokeball-container">
-                            <img src={pokeBall} alt="poke-ball"/>
-                            <img src={pokeBall} alt="poke-ball"/>
-                            <img src={pokeBall} alt="poke-ball"/>
-                            <img src={pokeBall} alt="poke-ball"/>
-                            <img src={pokeBall} alt="poke-ball"/>
-                            <img src={pokeBall} alt="poke-ball"/>
+                            {displayTeam === false ? 
+                                pokeTeam.map(pokemon => {
+                                    return (<PokeBallBattle pokemon={pokemon} pokeBall={pokeBall}/>)
+                                })
+                            : 
+                                pokeTeam.map(pokemon => {
+                                    return (<img style={pokemon.pokemon_id === userPokemon.id ? {border: '1px solid yellow'} : null} className="poke-ball-battle-pokemon" src={pokemonData.find(poke => poke.id === pokemon.pokemon_id).front_image} onClick={sendOutPokemon}/>)
+                                })
+                            }
                         </div>
                     </div>
                           

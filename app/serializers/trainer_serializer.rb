@@ -3,4 +3,5 @@ class TrainerSerializer < ActiveModel::Serializer
   
   has_many :pokemon_teams
   has_many :pokemon, through: :pokemon_teams
+  has_many :battles
 end

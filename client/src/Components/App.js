@@ -16,11 +16,12 @@ let App = () => {
   const history = useHistory()
   const [currentUser, setCurrentUser] = useState(null)
   const [pokemonData, setPokemonData] = useState()
-  const [statData, setStatData] =  useState()
+  const [typeData, setTypeData] = useState()
   const [hiddenPokemon, setHiddenPokemon] = useState()
-  const [loading, setLoading] = useState(false)
   const [userTrainer, setUserTrainer] = useState()
   const [opponentTrainer, setOpponentTrainer]=useState()
+  const [userTrainerPokemon, setUserTrainerPokemon] = useState()
+  const [copyUserTrainerPokemon, setCopyUserTrainerPokemon] = useState()
 
   // *************USED TO SEED DATA FROM POKEMON API TO LOCAL DATABASE*******************
             // useEffect(() => {
@@ -217,6 +218,10 @@ let App = () => {
     //   }
     // })
 
+    // fetch('http://localhost:3000/types')
+    // .then(res => res.json())
+    // .then(data => setTypeData(data))
+
     fetch('http://localhost:3000/pokemon')
     .then(res => res.json())
     .then(data => {
@@ -226,87 +231,120 @@ let App = () => {
 
   },[])
 
-  // useEffect(() => {
+  // let seedAbilities = () => {
+  //   fetch('https://pokeapi.co/api/v2/pokemon?limit=151')
+  //   .then(res => res.json())
+  //   .then(apiData => {
+  //     apiData.results.map (pokemon => {
+  //       fetch(`${pokemon.url}`)
+  //       .then(res => res.json())
+  //       .then(pokemonApiData => {
+  //         pokemonApiData.abilities.map(pokeAbility => {
+  //           let foundAbility = abilityData.find(ability => ability.name === pokeAbility.ability.name)
+  //           let foundPokemon = pokemonData.find(pokemon => pokemon.name === pokemonApiData.name)
+  //           let pokemon_abilities = {
+  //             ability_id: foundAbility.id,
+  //             pokemon_id: foundPokemon.id
+  //           }
+
+  //           fetch('http://localhost:3000/pokemon_abilities', {
+  //             method: 'POST',
+  //             headers: {'Content-type':'application/json'}, 
+  //             body: JSON.stringify(pokemon_abilities)
+  //           })
+  //         })
+  //       })
+  //     })
+  //   })
+  // }
+
+  // seedAbilities()
+
+  // let seedTypes = () => {
+  //   fetch('https://pokeapi.co/api/v2/pokemon?limit=151')
+  //   .then(res => res.json())
+  //   .then(pokeAPIData => {
+  //     pokeAPIData.results.map(poke => {
+  //       fetch(`${poke.url}`)
+  //       .then(res => res.json())
+  //       .then(pokePoke => {
+  //         pokePoke.types.map(type => { 
+  //           let foundType = typeData.find(localType => localType.name === type.type.name)
+  //           let foundPokemon = pokemonData.find(pokemon => pokemon.name === pokePoke.name)
+
+  //           let pokemonType = {
+  //             pokemon_id: foundPokemon.id,
+  //             type_id: foundType.id
+  //           }
+
+  //           fetch('http://localhost:3000/pokemon_types', {
+  //             method:'POST',
+  //             headers: {'Content-type':'application/json'},
+  //             body: JSON.stringify(pokemonType)
+  //           })
+  //         })
+  //       })
+  //     })
+  //   })
+  // }
+
+  // seedTypes()
+
+  // let seedPokemonMoves = () => {
   //   fetch('http://localhost:3000/pokemon')
   //   .then(res => res.json())
-  //   .then(data => {
-  //     setPokemonData(data)
-  //     setHiddenPokemon(data[Math.floor(Math.random() * data.length)])
-  //     setLoading(true)
-  //   })
-  // },[])
+  //   .then(pokeData => {
+  //     pokeData.map(pokemon => {
+  //       if(pokemon.moves.length === 0) {
+  //         let pokemonMove1 = {
+  //           pokemon_id: pokemon.id,
+  //           move_id: 921
+  //         }
 
-  console.log(currentUser)
+  //         let pokemonMove2 = {
+  //           pokemon_id: pokemon.id, 
+  //           move_id: 889
+  //         }
 
-  // return (
-  //   <div>
-  //     <NavBar/>
-  //     <Switch>
-  //       {currentUser === null || loading === false? 
-  //         <div className="app-container">
-  //           <Route path="/login">
-  //             <Login 
-  //               currentUser={currentUser} 
-  //               setCurrentUser={setCurrentUser}
-  //             />
-  //           </Route>
-  //           <Route path="/signup">
-  //             <SignUp
-  //               currentUser={currentUser} 
-  //               setCurrentUser={setCurrentUser}
-  //             />
-  //           </Route>
-  //         </div>
-  //       :
-  //        <div className="app-container">
-  //          <Route exact path ='/login'>
-  //             <Login 
-  //               currentUser={currentUser} 
-  //               setCurrentUser={setCurrentUser}
-  //             />
-  //           </Route>
-  //           <Route exact path ='/logout'>
-  //             <Logout setCurrentUser={setCurrentUser}/>
-  //           </Route>
-  //           <Route exact path='/signup'>
-  //             <SignUp currentUser={currentUser} setCurrentUser={setCurrentUser}/>  
-  //           </Route>
-  //           <Route exact path='/safari_zone'>
-  //             <SafariZone/>
-  //           </Route>
-  //           <Route exact path='/create_a_trainer'>
-  //             <Trainer 
-  //               currentUser={currentUser}
-  //               pokemonData={pokemonData}
-  //             />
-  //           </Route>
-  //           <Route exact path='/battle'>
-  //             <Battle 
-  //               pokemonData={pokemonData}
-  //               userTrainer={userTrainer}
-  //               opponentTrainer={opponentTrainer}
-  //             />
-  //           </Route>
-  //           <Route exact path='/'>
-  //             <Home 
-  //               currentUser={currentUser} 
-  //               setCurrentUser={setCurrentUser}
-  //               pokemonData={pokemonData}
-  //               setPokemonData={setPokemonData}
-  //               hiddenPokemon={hiddenPokemon}
-  //               userTrainer={userTrainer}
-  //               setUserTrainer={setUserTrainer}
-  //               opponentTrainer={opponentTrainer}
-  //               setOpponentTrainer={setOpponentTrainer}
-  //             />
-  //           </Route>
-  //        </div> 
+  //         let pokemonMove3 = {
+  //           pokemon_id: pokemon.id, 
+  //           move_id: 956
+  //         }
+
+  //         let pokemonMove4 = {
+  //           pokemon_id: pokemon.id,
+  //           move_id: 896
+  //         }
+
+  //         fetch('http://localhost:3000/pokemon_moves', {
+  //           method: 'POST',
+  //           headers: {'Content-Type':'Application/json'},
+  //           body: JSON.stringify(pokemonMove1)
+  //         })
+
+  //         fetch('http://localhost:3000/pokemon_moves', {
+  //           method: 'POST',
+  //           headers: {'Content-Type':'Application/json'},
+  //           body: JSON.stringify(pokemonMove2)
+  //         })
+
+  //         fetch('http://localhost:3000/pokemon_moves', {
+  //           method: 'POST',
+  //           headers: {'Content-Type':'Application/json'},
+  //           body: JSON.stringify(pokemonMove3)
+  //         })
+
+  //         fetch('http://localhost:3000/pokemon_moves', {
+  //           method: 'POST',
+  //           headers: {'Content-Type':'Application/json'},
+  //           body: JSON.stringify(pokemonMove4)
+  //         })
   //       }
-  //     </Switch>
+  //     })
+  //   })
+  // }
 
-  //   </div>
-
-  // )
+  // seedPokemonMoves()
 
   if (currentUser === null) {
     history.push('/login')
@@ -362,7 +400,12 @@ let App = () => {
             <Route exact path='/my_pc'>
               <PC
                 pokemonData={pokemonData}
+                userTrainer={userTrainer}
                 currentUser={currentUser}
+                userTrainerPokemon={userTrainerPokemon}
+                setUserTrainerPokemon={setUserTrainerPokemon}
+                copyUserTrainerPokemon={copyUserTrainerPokemon}
+                setCopyUserTrainerPokemon={setCopyUserTrainerPokemon}
               />
             </Route>
             <Route exact path='/'>
@@ -376,6 +419,10 @@ let App = () => {
                 setUserTrainer={setUserTrainer}
                 opponentTrainer={opponentTrainer}
                 setOpponentTrainer={setOpponentTrainer}
+                userTrainerPokemon={userTrainerPokemon}
+                setUserTrainerPokemon={setUserTrainerPokemon}
+                copyUserTrainerPokemon={copyUserTrainerPokemon}
+                setCopyUserTrainerPokemon={setCopyUserTrainerPokemon}
               />
             </Route>
           </Switch>

@@ -10,10 +10,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_08_11_083907) do
+ActiveRecord::Schema.define(version: 2021_08_15_005833) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "abilities", force: :cascade do |t|
+    t.string "name"
+    t.string "description"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
 
   create_table "battles", force: :cascade do |t|
     t.integer "trainer_id"
@@ -28,6 +35,13 @@ ActiveRecord::Schema.define(version: 2021_08_11_083907) do
     t.integer "power_points"
     t.string "description"
     t.integer "power"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "pokemon_abilities", force: :cascade do |t|
+    t.integer "pokemon_id"
+    t.integer "ability_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
@@ -50,6 +64,13 @@ ActiveRecord::Schema.define(version: 2021_08_11_083907) do
     t.integer "trainer_id"
     t.integer "pokemon_id"
     t.boolean "team_member"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "pokemon_types", force: :cascade do |t|
+    t.integer "pokemon_id"
+    t.integer "type_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
@@ -82,6 +103,12 @@ ActiveRecord::Schema.define(version: 2021_08_11_083907) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.boolean "gender"
+  end
+
+  create_table "types", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "users", force: :cascade do |t|
