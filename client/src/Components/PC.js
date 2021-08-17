@@ -116,7 +116,16 @@ let PC = ({pokemonData, currentUser, userTrainer, userTrainerPokemon, setUserTra
                                 <div>
                                     <h4>Stats</h4>
                                     {selectedPokemon.stats.map(stat => {
-                                        return (<Stat stat={stat}/>)
+                                        return (
+                                            <div className="pc-select-stat-2">
+                                                <p><b>HP:</b> {stat.hp}</p>
+                                                <p><b>ATK:</b> {stat.attack}</p>
+                                                <p><b>DEF:</b> {stat.defense}</p>
+                                                <p><b>SPD:</b> {stat.speed}</p>
+                                                <p><b>SP ATK:</b> {stat.sp_attack}</p>
+                                                <p><b>SP DEF:</b> {stat.sp_defense}</p>
+                                            </div>
+                                        )
                                     })}
                                 </div>
                                 <div className="pc-select-ability">

@@ -1,6 +1,6 @@
 import {useEffect, useState} from 'react'
 import {useHistory} from 'react-router-dom'
-
+import * as React from 'react'
 
 import Ability from './Ability'
 import Stat from './Stat'
@@ -132,7 +132,7 @@ let Home = ({currentUser, pokemonData, hiddenPokemon, userTrainer, setUserTraine
                     <button style={{backgroundColor:'lightblue'}} onClick={handleBattle}>Battle</button>
                 </div>
                 <div className="home-image-card" style={displayNidoVGengar === false ? {backgroundColor:'orangered'} : {backgroundColor:'black'}}>
-                    {displayNidoVGengar === false ? <img className="home-image-card" style={{backgroundColor:'crimson'}} src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/6.png" alt="pokemon-image" onClick={viewNidoGeng}/> : <img style={{height:'300px'},{backgroundColor:'black'}} className="home-image-card" src="https://pa1.narvii.com/5739/0cfc841303d738f67cdb9e5f286606c0ae1ab749_hq.gif" alt="nidoVgengar" onClick={viewNidoGeng}/>}
+                    {displayNidoVGengar === false ? <img className="home-image-card" style={{backgroundColor:'crimson', borderRadius:'16px'}} src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/6.png" alt="pokemon-image" onClick={viewNidoGeng}/> : <img style={{height:'300px'},{backgroundColor:'black'}} className="home-image-card" src="https://pa1.narvii.com/5739/0cfc841303d738f67cdb9e5f286606c0ae1ab749_hq.gif" alt="nidoVgengar" onClick={viewNidoGeng}/>}
                 </div>
             </div>
             <div className="home-build-team-create-trainer-container">

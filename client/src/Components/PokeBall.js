@@ -1,5 +1,3 @@
-import {useState} from 'react'
-
 let PokeBall = ({pokeBall, pokemon, pokemonData, displayTeam, setDisplayTeam, copyTeam, setTeam, setCopyTeam, userTrainer}) => {
 
     let handleClick = (e) => {
