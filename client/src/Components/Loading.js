@@ -1,12 +1,11 @@
 import {useState, useEffect} from 'react'
 import {useHistory} from 'react-router-dom'
 
-let Loading = ({pokemonData, setPokemonData, hiddenPokemon, setHiddenPokemon}) => {
+let Loading = ({pokemonData, setPokemonData, randPokemon, setRandPokemon, pokeBall, setPokeBall}) => {
     const history = useHistory()
     const [loaded, setLoaded] = useState(false)
     const [displayPoke, setDisplayPoke] = useState(false)
-    const [randPokemon, setRandPokemon] = useState()
-    const [pokeBall, setPokeBall] = useState()
+
 
     let displayPokemon = () => {
         // setRandPokemon(pokemonData[Math.floor(Math.random() * pokemonData.length)].front_image)
@@ -15,24 +14,16 @@ let Loading = ({pokemonData, setPokemonData, hiddenPokemon, setHiddenPokemon}) =
 
     useEffect(() => {
 
-        fetch('http://localhost:3000/pokemon')
-        .then(res => res.json())
-        .then(data => {
-            setPokemonData(data)
-            setRandPokemon(data[Math.floor(Math.random() * data.length)].front_image)
-            setHiddenPokemon(data[Math.floor(Math.random() * data.length)])
-        })
-
-        fetch('https://pokeapi.co/api/v2/item/poke-ball')
-        .then(res => res.json())
-        .then(data => {
-            setPokeBall(data.sprites.default)
-        })
+        // fetch('http://localhost:3000/pokemon')
+        // .then(res => res.json())
+        // .then(data => {
+        //     setPokemonData(data)
+        // })
 
         setTimeout(() => {
             setLoaded(true)
     
-        }, 6000)
+        }, 5000)
     },[])
     
     return (

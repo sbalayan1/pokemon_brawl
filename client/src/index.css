@@ -23,13 +23,14 @@
 }
 
 .logo {
+  margin-left: 5px;
   border-radius: 16px;
   height: 70%;
   width: 15%;
   display: flex;
-  flex-direction: column;
   justify-content: center;
   align-items: center;
+  background-color:yellow;
 }
 
 .other-links {
@@ -98,7 +99,6 @@
 .home-image-thumbnail {
   border-radius: 16px;
 }
-
 
 .home-image-thumbnail:hover {
   -webkit-animation-name: wiggle;
@@ -206,6 +206,11 @@
   align-items: center;
   border: 1px solid black;
   overflow-y: scroll;
+  transition: transform .2s
+}
+
+.home-pokemon-description-card:hover {
+  transform: scale(1.5); 
 }
 
 .home-poke-type-card {
@@ -218,6 +223,34 @@
   margin: 10px;
   width: 90%
 }
+
+.dragonite-button {
+  background-color: lightgoldenrodyellow;
+}
+
+.dragonite-button:hover {
+  background-color: yellowgreen;
+}
+
+.mewtwo-button {
+  background-color: lightgray
+}
+
+.mewtwo-button:hover {
+  background-color: yellow
+}
+
+.home-battle-button {
+  background-color:lightblue;
+  width: 15%; 
+  margin-bottom:5px; 
+  font-size:14px
+}
+
+.home-battle-button:hover {
+  background-color: cyan;
+}
+
 
 /* CSS for safari zone/battle components */
 .battle-sfzone-container-load {
@@ -270,7 +303,7 @@
   align-items: center;
   height: 30%;
   width: 50%;
-  border: 1px solid orange;
+  border: 3px solid orange;
   background-image: url('https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/2fb2821a-1406-4a1d-9b04-6668f278e944/d841b5t-d14186ca-887a-4f10-b4ca-b16d5aaff49a.jpg?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7InBhdGgiOiJcL2ZcLzJmYjI4MjFhLTE0MDYtNGExZC05YjA0LTY2NjhmMjc4ZTk0NFwvZDg0MWI1dC1kMTQxODZjYS04ODdhLTRmMTAtYjRjYS1iMTZkNWFhZmY0OWEuanBnIn1dXSwiYXVkIjpbInVybjpzZXJ2aWNlOmZpbGUuZG93bmxvYWQiXX0.5Pv6KPt53igISARqXxlqkRR4qtwKEB3LhHLyc1OQ9Wo');
   background-size: cover;
 
@@ -427,6 +460,69 @@
   -webkit-animation-timing-function: ease-in-out;
   -ms-animation-timing-function: ease-in-out;
 
+}
+
+.flying-pidgeot-container {
+  height: 100px;
+  width: 50px;
+  transform: scale(0) translateX(-10vw);
+	will-change: transform;
+
+	animation-name: fly-right-one;
+	animation-timing-function: linear;
+	animation-iteration-count: infinite;
+  animation-duration: 14s;
+	animation-delay: 0;
+}
+
+.flying-pidgeot {
+  will-change: background-position;
+	animation-name: fly-cycle;
+	animation-timing-function: steps(10);
+	animation-iteration-count: infinite;
+  animation-duration: 1s;
+  animation-delay: 0s;		
+
+}
+
+@keyframes fly-cycle {
+	100% {
+		background-position: -900px 0;
+	}	
+}
+
+@keyframes fly-right-one {
+	0% {
+		transform: scale(0.6) translateX(-10vw);
+	}
+
+	10% {
+		transform: translateY(2vh) translateX(10vw) scale(0.8);
+	}
+
+	20% {
+		transform: translateY(0vh) translateX(30vw) scale(0.9);
+	}
+
+	30% {
+		transform: translateY(4vh) translateX(50vw) scale(1);
+	}
+
+	40% {
+		transform: translateY(2vh) translateX(70vw) scale(1);
+	}
+
+	50% {
+		transform: translateY(0vh) translateX(90vw) scale(1);
+	}
+
+	60% {
+		transform: translateY(0vh) translateX(100vw) scale(1);
+	}
+
+	100% {
+		transform: translateY(0vh) translateX(110vw) scale(1);
+	}
 }
 
 /* CSS for trainer component  */
@@ -624,7 +720,13 @@
   align-items: center;
   overflow-y: scroll;
   border-radius: 8px;
+  transition: transform .2s
 }
+
+.pc-select-pokemon-card:hover {
+  transform: scale(1.15)
+}
+
 
 .select-poke-card {
   display: flex;

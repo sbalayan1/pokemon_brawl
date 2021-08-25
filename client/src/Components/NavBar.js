@@ -10,16 +10,14 @@ const linkStyles = {
     color: "white",
   };
 
-let NavBar = () => {
+let NavBar = ({pokeBall}) => {
     return (
         <div className='NavBar'>
             <div className='logo'>
+                <img src={pokeBall} alt='pokeball'/>
                 <NavLink 
                     to="/"
-                    exact
-                    // style={{linkStyles}}
-                    // activeStyle={{background: 'white'}}
-                > PokemonBrawl
+                 style={{color:'crimson'}}> PokemonBrawl
                 </NavLink>
             </div>
             <div className='other-links'>
@@ -50,6 +48,13 @@ let NavBar = () => {
                     // style={{linkStyles}}
                     // activeStyle={{background: 'white'}}
                 > My PC
+                </NavLink>
+                <NavLink
+                    to="/leaderboards"
+                    exact
+                    // style={{linkStyles}}
+                    // activeStyle={{background: 'white'}}
+                >Leaderboards
                 </NavLink>
                 <NavLink
                     to="/logout"

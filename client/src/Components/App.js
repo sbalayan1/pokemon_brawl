@@ -3,6 +3,7 @@ import { Switch, Route, useHistory } from 'react-router-dom'
 import * as React from 'react'
 import {Container} from 'nes-react'
 
+
 //import react components
 import NavBar from './NavBar'
 import SignUp from './SignUp';
@@ -14,6 +15,7 @@ import Trainer from './Trainer'
 import Battle from './Battle'
 import PC from './PC'
 import Loading from './Loading'
+import Leaderboards from './Leaderboards'
 
 let App = () => {
   const history = useHistory()
@@ -25,6 +27,33 @@ let App = () => {
   const [opponentTrainer, setOpponentTrainer]=useState()
   const [userTrainerPokemon, setUserTrainerPokemon] = useState()
   const [copyUserTrainerPokemon, setCopyUserTrainerPokemon] = useState()
+  const [trainers, setTrainers] = useState()
+  const [randPokemon, setRandPokemon] = useState()
+  const [pokeBall, setPokeBall] = useState()
+
+  useEffect(() => {
+      fetch('http://localhost:3000/trainers')
+      .then(res => res.json())
+      .then(data => {
+          setTrainers(data)
+      })
+
+      
+      fetch('http://localhost:3000/pokemon')
+      .then(res => res.json())
+      .then(data => {
+          setRandPokemon(data[Math.floor(Math.random() * data.length)].front_image)
+          setHiddenPokemon(data[Math.floor(Math.random() * data.length)])
+          setPokemonData(data)
+      })
+
+      fetch('https://pokeapi.co/api/v2/item/poke-ball')
+      .then(res => res.json())
+      .then(data => {
+          setPokeBall(data.sprites.default)
+      })
+
+  },[])
 
   // *************USED TO SEED DATA FROM POKEMON API TO LOCAL DATABASE*******************
             // useEffect(() => {
@@ -353,7 +382,7 @@ let App = () => {
     history.push('/login')
     return (
       <div>
-        <NavBar currentUser={currentUser} setCurrentUser={setCurrentUser}/>
+        <NavBar currentUser={currentUser} setCurrentUser={setCurrentUser} pokeBall={pokeBall}/>
         <div className="app-container">
           <Switch>
             <Route exact path ='/login'>
@@ -369,7 +398,7 @@ let App = () => {
   } else {
     return (
       <div>
-        <NavBar currentUser={currentUser} setCurrentUser={setCurrentUser}/>
+        <NavBar currentUser={currentUser} setCurrentUser={setCurrentUser} pokeBall={pokeBall}/>
         <div className="app-container">
           <Switch>
             <Route exact path ='/login'>
@@ -387,6 +416,10 @@ let App = () => {
                 setPokemonData={setPokemonData}
                 hiddenPokemon={hiddenPokemon}
                 setHiddenPokemon={setHiddenPokemon}
+                randPokemon={randPokemon}
+                setRandPokemon={setRandPokemon}
+                pokeBall={pokeBall}
+                setPokeBall={setPokeBall}
               />
             </Route>
             <Route exact path='/safari_zone'>
@@ -421,6 +454,12 @@ let App = () => {
                 setUserTrainerPokemon={setUserTrainerPokemon}
                 copyUserTrainerPokemon={copyUserTrainerPokemon}
                 setCopyUserTrainerPokemon={setCopyUserTrainerPokemon}
+              />
+            </Route>
+            <Route exact path='/leaderboards'>
+              <Leaderboards
+                trainers={trainers}
+                setTrainers={setTrainers}
               />
             </Route>
             <Route exact path='/'>

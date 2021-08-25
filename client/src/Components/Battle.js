@@ -5,7 +5,7 @@ import {useHistory} from 'react-router-dom'
 import PokeBallBattle from './PokeBallBattle'
 
 let Battle = ({userTrainer, opponentTrainer, pokemonData}) => {
-    let opponentTrainers = ['https://archives.bulbagarden.net/media/upload/3/30/RB_Old_man_Back.png','https://archives.bulbagarden.net/media/upload/3/30/Spr_RG_Beauty.png','https://archives.bulbagarden.net/media/upload/f/fd/Spr_RG_Bird_Keeper.png','https://archives.bulbagarden.net/media/upload/4/48/Spr_RG_Blackbelt.png','https://archives.bulbagarden.net/media/upload/3/38/Spr_RG_Blue_2.png','https://archives.bulbagarden.net/media/upload/3/3f/Spr_RG_Bug_Catcher.png','https://archives.bulbagarden.net/media/upload/f/f2/Spr_RG_Burglar.png','https://archives.bulbagarden.net/media/upload/9/92/Spr_RG_Channeler.png','https://archives.bulbagarden.net/media/upload/0/0f/Spr_RG_Cooltrainer_M.png','https://archives.bulbagarden.net/media/upload/0/09/Spr_RG_Engineer.png','https://archives.bulbagarden.net/media/upload/e/ee/Spr_RG_Erika.png','https://archives.bulbagarden.net/media/upload/d/d7/Spr_RG_Fisherman.png','https://archives.bulbagarden.net/media/upload/7/7f/Spr_RG_Gambler.png','https://archives.bulbagarden.net/media/upload/0/08/Spr_RG_Gentleman.png','https://archives.bulbagarden.net/media/upload/6/62/Spr_RG_Hiker.png','https://archives.bulbagarden.net/media/upload/3/36/Spr_RG_Juggler.png','https://archives.bulbagarden.net/media/upload/2/29/Spr_RG_Lass.png','https://archives.bulbagarden.net/media/upload/b/b0/Spr_RG_Koga.png','https://archives.bulbagarden.net/media/upload/5/5d/Spr_RG_Psychic.png','https://archives.bulbagarden.net/media/upload/a/a1/Spr_RG_Rocket.png','https://archives.bulbagarden.net/media/upload/5/54/Spr_RG_Sailor.png','https://archives.bulbagarden.net/media/upload/5/51/Spr_RG_Blue_3.png','https://archives.bulbagarden.net/media/upload/5/58/Spr_RG_Lorelei.png','https://archives.bulbagarden.net/media/upload/7/76/Spr_RG_Bruno.png','https://archives.bulbagarden.net/media/upload/b/b8/Spr_RG_Swimmer.png','https://archives.bulbagarden.net/media/upload/9/96/Spr_RG_Youngster.png','https://archives.bulbagarden.net/media/upload/1/1e/Spr_RG_Oak.png','https://archives.bulbagarden.net/media/upload/d/d0/Spr_RG_Jr_Trainer_F.png','https://archives.bulbagarden.net/media/upload/2/2d/Spr_RG_Misty.png']
+    let opponentTrainers = ['https://archives.bulbagarden.net/media/upload/3/30/RB_Old_man_Back.png','https://archives.bulbagarden.net/media/upload/f/f2/Spr_RG_Burglar.png','https://archives.bulbagarden.net/media/upload/0/09/Spr_RG_Engineer.png','https://archives.bulbagarden.net/media/upload/e/ee/Spr_RG_Erika.png','https://archives.bulbagarden.net/media/upload/d/d7/Spr_RG_Fisherman.png','https://archives.bulbagarden.net/media/upload/a/a1/Spr_RG_Rocket.png','https://archives.bulbagarden.net/media/upload/9/96/Spr_RG_Youngster.png','https://archives.bulbagarden.net/media/upload/1/1e/Spr_RG_Oak.png']
 
     const history = useHistory()
     const [initialBattleLoad, setInitialBattleLoad] = useState(true)
@@ -43,6 +43,12 @@ let Battle = ({userTrainer, opponentTrainer, pokemonData}) => {
     const [opponentPokemonMove3, setOpponentPokemonMove3] = useState(null)
     const [opponentPokemonMove4, setOpponentPokemonMove4] = useState(null)
     const [opponentPokemonHP, setOpponentPokemonHP] = useState(null)
+
+    const [flyingPokemon1, setFlyingPokemon1] = useState(pokemonData.find(pokemon => pokemon.name === 'pidgey').front_image)
+    const [flyingPokemon2, setFlyingPokemon2] = useState(pokemonData.find(pokemon => pokemon.name === 'pidgeotto').front_image)
+    const [flyingPokemon3, setFlyingPokemon3] = useState(pokemonData.find(pokemon => pokemon.name === 'pidgeot').front_image)
+
+    let randomStatements = ['Welcome to the Battle!!', "This looks like it's going to be a hot one!", 'The new guy is really strong.', 'WATCH OUT!!!']
 
 
     useEffect(() => {
@@ -267,8 +273,7 @@ let Battle = ({userTrainer, opponentTrainer, pokemonData}) => {
     }
 
     return (
-        <div className="battle-sfzone-container"> 
-
+        <div className="battle-sfzone-container">
             {/* initial battle load  */}
             {initialBattleLoad === true && userPokemon === null && opponentPokemon === null ?  
                 <div className="battle-sfzone-container-load">
@@ -281,6 +286,14 @@ let Battle = ({userTrainer, opponentTrainer, pokemonData}) => {
             :
             // move select 
                 <div className="battle-sfzone-container">
+                    <div style={{width:'100%'}}>
+                        <div className="flying-pidgeot-container" style={{display:'flex'}}>
+                                <p>{randomStatements[Math.floor(Math.random()*randomStatements.length)]}</p>
+                                <img className="flying-pidgeot" src={flyingPokemon3} alt="flying-pidgeot"/>
+                                <img className="flying-pidgeot" src={flyingPokemon2} alt="flying-pidgeot"/>
+                                <img className="flying-pidgeot" src={flyingPokemon1} alt="flying-pidgeot"/>
+                        </div>
+                    </div>
                     <div className="zone-container" >
                         <div className="opponent-decision-making-container">
                             <div className="trainer-battle-pokeball-container">
@@ -375,7 +388,7 @@ let Battle = ({userTrainer, opponentTrainer, pokemonData}) => {
                                 })
                             : 
                                 pokeTeam.map(pokemon => {
-                                    return (<img style={pokemon.pokemon_id === userPokemon.id ? {border: '1px solid yellow', height:'60px', width:'60px'} : {height:'60px', width: '60px'}} className="poke-ball-battle-pokemon" src={pokemonData.find(poke => poke.id === pokemon.pokemon_id).front_image} onClick={sendOutPokemon}/>)
+                                    return (<img style={pokemon.pokemon_id === userPokemon.id ? {border: '1px solid yellow', height:'56px', width:'60px'} : {height:'56px', width: '60px'}} className="poke-ball-battle-pokemon" src={pokemonData.find(poke => poke.id === pokemon.pokemon_id).front_image} onClick={sendOutPokemon}/>)
                                 })
                             }
                         </div>

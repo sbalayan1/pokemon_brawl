@@ -131,7 +131,7 @@ let Home = ({currentUser, pokemonData, hiddenPokemon, userTrainer, setUserTraine
                     <div style={{backgroundColor:'lightgrey', height:'80%', display: 'flex', flexDirection:'column', justifyContent:'flex-end'}}>
                         <h2 style={{marginLeft:'5px'}}>Pokemon Brawl is a Pokemon Battle simulator.</h2>
                         <p style={{marginLeft:'10px', marginTop:'10px', fontSize: '15px'}}><small>Play Pokémon battles online! Play with randomly generated teams, or build your own!</small></p>
-                        <button style={{backgroundColor:'lightblue', width: '15%', marginBottom:'5px', fontSize:'14px'}} onClick={handleBattle}>Battle</button>
+                        <button className="home-battle-button" onClick={handleBattle}>Battle</button>
                     </div>
                     <div style={{backgroundColor:'darkgrey', width: '100%', height: '20%'}}></div>
                 </div>
@@ -151,7 +151,7 @@ let Home = ({currentUser, pokemonData, hiddenPokemon, userTrainer, setUserTraine
                         :
                             <img style={{height:'110px'}} src="https://giffiles.alphacoders.com/480/48081.gif" alt="pokemon-image" onClick={viewDragonite}/>
                         }
-                        <button onClick={handleTeam} style={{backgroundColor:'lightgoldenrodyellow'}}>Build my team</button>
+                        <button className="dragonite-button" onClick={handleTeam}>Build my team</button>
                     </div>
                     <div style={{backgroundColor:'crimson', height:'10%', width:'100%', borderRadius:'16px'}}></div>
                 </div>
@@ -161,7 +161,7 @@ let Home = ({currentUser, pokemonData, hiddenPokemon, userTrainer, setUserTraine
                         <img style={{height:'110px'}} className="home-image-thumbnail" src="http://24.media.tumblr.com/096c8fb8e51532f442c31277293125a5/tumblr_mpzo1sXWK11sa13zpo1_500.gif"  alt="pokemon-image" onClick={viewMewTwo}/>
 
                     }
-                    {userTrainer === null ?  <button style={{backgroundColor:'violet'}} onClick={handleTrainer}>Create a trainer</button> : <button style={{backgroundColor:'lightgrey'}} onClick={handleCatchPokemon}>Catch Pokemon</button>}
+                    {userTrainer === null ?  <button style={{backgroundColor:'violet'}} onClick={handleTrainer}>Create a trainer</button> : <button className="mewtwo-button" onClick={handleCatchPokemon}>Catch Pokemon</button>}
                 </div>
             </div>
             <div className="who-that-pokemon-container-home">
