@@ -124,7 +124,7 @@ let Trainer = ({pokemonData, currentUser, setUserTrainer, setOpponentTrainer, se
                     }
         
                     {genderState !== null && trainer !== null && trainerName === null ?
-                        <div>
+                        <div style={{height:'500px'}}>
                             <p>Erm, what was your name again?</p>
                             <input className="trainer-input" type="text" value={trainerName}/>
                             <button onClick={handleClick} type="button">Submit</button>
@@ -184,7 +184,7 @@ let Trainer = ({pokemonData, currentUser, setUserTrainer, setOpponentTrainer, se
 
                 </div>
             </div>
-            <div className="footer" style={{height: '3%', width:'100%'}}>Copyright</div>
+            <div className="footer" style={{height: '3%', width:'100%'}}>Copyright 2021 - SeanB</div>
         </div>
     )
 }

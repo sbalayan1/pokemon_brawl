@@ -153,14 +153,14 @@ let SafariZone = ({pokemonData, userTrainer}) => {
 
 
     return (
-        <div className="battle-sfzone-container">
+        <div className="battle-sfzone-container" style={{height:'1000px'}}>
             {safariZoneLoad === false ? 
                 <div className="sf-zone-load-container">
                     <img style={{height:'400px', border:'3px solid orange'}} src='https://comicvine.gamespot.com/a/uploads/original/11/114183/5211397-safari_zone_anime.png' alt="safari-zone"/>
                     <button className="action-button" onClick={enterSafariZone}>Enter the Safari Zone</button>
                 </div>
             :
-                <div style={{width: '100%'}}> 
+                <div style={{width: '100%', height:'1000px'}}> 
                     <div className="flying-pidgeot-container" style={{display:'flex'}}>
                             <p>Welcome to the Safari Zone!!</p>
                             <img className="flying-pidgeot" src={flyingPokemon3} alt="flying-pidgeot"/>

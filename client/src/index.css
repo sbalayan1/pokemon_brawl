@@ -43,7 +43,7 @@
 
 /* CSS for the login/signup components */
 .login-container {
-  height: 800px
+  height: 1000px
 }
 
 .login-form {
@@ -243,6 +243,7 @@
 .home-battle-button {
   background-color:lightblue;
   width: 15%; 
+  margin-left:5px;
   margin-bottom:5px; 
   font-size:14px
 }
