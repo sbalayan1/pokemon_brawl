@@ -52,13 +52,6 @@ let NavBar = () => {
                 > My PC
                 </NavLink>
                 <NavLink
-                    to="/signup"
-                    exact
-                    // style={{linkStyles}}
-                    // activeStyle={{background: 'white'}}
-                >Sign Up
-                </NavLink>
-                <NavLink
                     to="/logout"
                     exact
                     // style={{linkStyles}}

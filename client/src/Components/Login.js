@@ -32,7 +32,7 @@ let Login = ({currentUser, setCurrentUser}) => {
         if (userData.id) {
             alert(`Welcome ${username}`)
             setCurrentUser(userData)
-            history.push('/')
+            history.push('/loading')
         } else {
             console.log(userData.errors)
             setErrors(userData.errors)

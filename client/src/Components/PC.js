@@ -66,7 +66,7 @@ let PC = ({pokemonData, currentUser, userTrainer, userTrainerPokemon, setUserTra
             </div>
             <div className="team-container">
                 <div style={{backgroundColor:"lightgray", borderRight:'1px solid black', borderTopLeftRadius: '16px', borderBottomLeftRadius:'16px'}}>
-                    <h3>My Team</h3>
+                    <h3 style={{marginLeft:'5px'}}>My Team</h3>
                 </div>
                 <div style={{display:'flex', justifyContent:'space-evenly', width:'100%'}}>
                     {copyTeam.map (pokemon => <PokeBall pokemon={pokemon} pokeBall={pokeBall} pokemonData={pokemonData} displayTeam={displayTeam} setDisplayTeam={setDisplayTeam} setTeam={setTeam} copyTeam={copyTeam} setCopyTeam={setCopyTeam} userTrainer={userTrainer}/>

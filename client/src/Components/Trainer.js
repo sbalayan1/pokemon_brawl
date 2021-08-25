@@ -1,8 +1,7 @@
 import {useState} from 'react'
 import {useHistory} from 'react-router-dom'
 
-let Trainer = ({pokemonData, currentUser}) => {
-
+let Trainer = ({pokemonData, currentUser, setUserTrainer, setOpponentTrainer, setUserTrainerPokemon, setCopyUserTrainerPokemon}) => {
     let trainerImages = ['https://archives.bulbagarden.net/media/upload/3/30/RB_Old_man_Back.png','https://archives.bulbagarden.net/media/upload/3/30/Spr_RG_Beauty.png','https://archives.bulbagarden.net/media/upload/f/fd/Spr_RG_Bird_Keeper.png','https://archives.bulbagarden.net/media/upload/4/48/Spr_RG_Blackbelt.png','https://archives.bulbagarden.net/media/upload/3/38/Spr_RG_Blue_2.png','https://archives.bulbagarden.net/media/upload/3/3f/Spr_RG_Bug_Catcher.png','https://archives.bulbagarden.net/media/upload/f/f2/Spr_RG_Burglar.png','https://archives.bulbagarden.net/media/upload/9/92/Spr_RG_Channeler.png','https://archives.bulbagarden.net/media/upload/0/0f/Spr_RG_Cooltrainer_M.png','https://archives.bulbagarden.net/media/upload/0/09/Spr_RG_Engineer.png','https://archives.bulbagarden.net/media/upload/e/ee/Spr_RG_Erika.png','https://archives.bulbagarden.net/media/upload/d/d7/Spr_RG_Fisherman.png','https://archives.bulbagarden.net/media/upload/7/7f/Spr_RG_Gambler.png','https://archives.bulbagarden.net/media/upload/0/08/Spr_RG_Gentleman.png','https://archives.bulbagarden.net/media/upload/6/62/Spr_RG_Hiker.png','https://archives.bulbagarden.net/media/upload/3/36/Spr_RG_Juggler.png','https://archives.bulbagarden.net/media/upload/2/29/Spr_RG_Lass.png','https://archives.bulbagarden.net/media/upload/b/b0/Spr_RG_Koga.png','https://archives.bulbagarden.net/media/upload/5/5d/Spr_RG_Psychic.png','https://archives.bulbagarden.net/media/upload/a/a1/Spr_RG_Rocket.png','https://archives.bulbagarden.net/media/upload/5/54/Spr_RG_Sailor.png','https://archives.bulbagarden.net/media/upload/5/51/Spr_RG_Blue_3.png','https://archives.bulbagarden.net/media/upload/5/58/Spr_RG_Lorelei.png','https://archives.bulbagarden.net/media/upload/7/76/Spr_RG_Bruno.png','https://archives.bulbagarden.net/media/upload/b/b8/Spr_RG_Swimmer.png','https://archives.bulbagarden.net/media/upload/9/96/Spr_RG_Youngster.png','https://archives.bulbagarden.net/media/upload/1/1e/Spr_RG_Oak.png','https://archives.bulbagarden.net/media/upload/d/d0/Spr_RG_Jr_Trainer_F.png','https://archives.bulbagarden.net/media/upload/2/2d/Spr_RG_Misty.png']
 
     const [trainerName, setTrainerName]= useState(null)
@@ -63,7 +62,6 @@ let Trainer = ({pokemonData, currentUser}) => {
         })
 
         setCreatedNewTrainer(true)
-
     }
 
     let startJourney = () => {
@@ -72,10 +70,10 @@ let Trainer = ({pokemonData, currentUser}) => {
 
         fetch('http://localhost:3000/trainers')
         .then(res => res.json())
-        .then(trainer => {
+        .then(data => {
             let pokemonTeam = {
                 pokemon_id: localPokemon.id, 
-                trainer_id: trainer[trainer.length-1].id,
+                trainer_id: data[data.length-1].id,
                 team_member: true
             }
 
@@ -86,6 +84,12 @@ let Trainer = ({pokemonData, currentUser}) => {
                 headers: {'Content-Type':'application/json'},
                 body:JSON.stringify(pokemonTeam)
             })
+
+            setUserTrainer(data.find(trainer=> trainer.user_id === currentUser.id))
+            let opponentTrainers = data.filter(trainer => trainer.user_id !== currentUser.id)
+            setOpponentTrainer(opponentTrainers[Math.floor(Math.random() * opponentTrainers.length)])
+            setUserTrainerPokemon(data.find(trainer=> trainer.user_id === currentUser.id).pokemon)
+            setCopyUserTrainerPokemon(data.find(trainer=> trainer.user_id === currentUser.id).pokemon)
 
         })
 
@@ -100,7 +104,7 @@ let Trainer = ({pokemonData, currentUser}) => {
                     {genderState === null || trainer === null ?
                         <div className='trainer-form-card-1'>
                             <h4>Hello there!</h4>
-                            <p>Welcome to the world of pokémon! My name is Oak! People call me the pokémon Prof! This world is inhabited by creatures called Pokémon! For some people, pokémon are pets. Others use them for fights. Myself...I study pokémon as a profession. <b>Are you a boy or a girl?</b></p>
+                            <p style={{fontSize:'12px'}}>Welcome to the world of pokémon! My name is Oak! People call me the pokémon Prof! This world is inhabited by creatures called Pokémon! For some people, pokémon are pets. Others use them for fights. Myself...I study pokémon as a profession. <b>Are you a boy or a girl?</b></p>
                             <select onChange={handleGenderChange}>
                                 <option>Select</option>
                                 <option>Boy</option>
@@ -128,14 +132,14 @@ let Trainer = ({pokemonData, currentUser}) => {
                     }
 
                     {genderState !== null && trainerName !== null && starterPokemon===null?
-                        <p>Right! So your name is <b>{trainerName}</b>! Your very own Pokemon lengend is about to unfold! A world of dreams and adventures with Pokemon awaits! Let's go!</p>
+                        <p style={{fontSize:'12px'}}>Right! So your name is <b>{trainerName}</b>! Your very own Pokemon lengend is about to unfold! A world of dreams and adventures with Pokemon awaits! Let's go!</p>
                     : 
                         null
                     }
 
                     {trainerName !== null && genderState !== null && starterPokemon===null ? 
                         <div>
-                            <p>Oh, that's right. Just wait! Here <b>{trainerName}</b>! There are 3 Pokémon here! Haha! They are inside the Poké Balls. When I was young, I was a serious Pokémon trainer! In my old age, I have only 3 left, but you can have one! Choose!</p>
+                            <p style={{fontSize:'12px'}}>Oh, that's right. Just wait! Here <b>{trainerName}</b>! There are 3 Pokémon here! Haha! They are inside the Poké Balls. When I was young, I was a serious Pokémon trainer! In my old age, I have only 3 left, but you can have one! Choose!</p>
                             <div className="trainer-starter-card">
                                 <div>
                                     <img className="home-image-thumbnail" src={pokemonData[23].front_image} alt="charmander" onClick={selectPokemon} value='fire'/>
@@ -156,7 +160,7 @@ let Trainer = ({pokemonData, currentUser}) => {
                     {starterPokemon !== null && createdNewTrainer === false?
                         <div>
                             <img className="home-image-thumbnail" src={starterPokemon.src} alt={starterPokemon.alt} value={starterPokemon.value}/>
-                            <p>"So! You want the {starterPokemon.value} Pokémon, {starterPokemon.alt}? This Pokemon is really energetic! Oh, right! I have a request for you. On the desk there is my invention, Pokédex! It automatically records data on Pokémon you've seen or caught! It's a hi-tech encyclopedia! Take this with you!</p>
+                            <p style={{fontSize:'12px'}}>"So! You want the {starterPokemon.value} Pokémon, {starterPokemon.alt}? This Pokemon is really energetic! Oh, right! I have a request for you. On the desk there is my invention, Pokédex! It automatically records data on Pokémon you've seen or caught! It's a hi-tech encyclopedia! Take this with you!</p>
                             <img className="home-image-thumbnail" src='https://i.gifer.com/DEUr.gif' alt='pokedex'/>
                             <button onClick={takePokedex}>Take Pokedex</button>
                         </div>
@@ -166,7 +170,7 @@ let Trainer = ({pokemonData, currentUser}) => {
 
                     {createdNewTrainer === true ? 
                         <div>
-                            <p>To make a complete guide on all the Pokémon in the world… That was my dream! But, I'm too old! I can't do it! So, I want you to fulfill my dream for me! Get moving! This is a great undertaking in Pokémon history!</p>
+                            <p style={{fontSize:'12px'}}>To make a complete guide on all the Pokémon in the world… That was my dream! But, I'm too old! I can't do it! So, I want you to fulfill my dream for me! Get moving! This is a great undertaking in Pokémon history!</p>
                             <img className="home-image-thumbnail" src='https://i.gifer.com/DEUr.gif' alt='pokedex'/>
                             <button onClick={startJourney}>Start</button>
                         </div>
@@ -184,58 +188,3 @@ let Trainer = ({pokemonData, currentUser}) => {
 }
 
 export default Trainer
-
-
-
-// <div className="trainer-form">
-//                         <img src="https://png.pngitem.com/pimgs/s/5-56389_professor-oak-based-on-professor-oak-pokemon-hd.png" alt="oak-image"/>
-//                         {genderState === null ?
-//                             <div className='trainer-form-card-1'>
-//                                 <h4>Hello there!</h4>
-//                                 <p>Welcome to the world of pokémon! My name is Oak! People call me the pokémon Prof! This world is inhabited by creatures called Pokémon! For some people, pokémon are pets. Others use them for fights. Myself...I study pokémon as a profession. <b>Are you a boy or a girl?</b></p>
-//                                 <select onChange={handleGenderChange}>
-//                                     <option>Select</option>
-//                                     <option>Boy</option>
-//                                     <option>Girl</option>
-//                                 </select>
-//                             </div>
-//                         :
-//                             null
-//                         }
-    
-//                         {genderState !== null && trainerName === null ?
-//                             <div>
-//                                 <p>Erm, what was your name again?</p>
-//                                 <input className="trainer-input" type="text" value={trainerName}/>
-//                                 <button onClick={handleClick} type="button">Submit</button>
-//                             </div>
-//                         :
-//                             null
-//                         }
-
-//                         {genderState !== null && trainerName !== null ?
-//                             <p>Right! So your name is <b>{trainerName}</b>! Your very own Pokemon lengend is about to unfold! A world of dreams and adventures with Pokemon awaits! Let's go!</p>
-//                         : 
-//                             null
-//                         }
-
-//                         {trainerName !== null && genderState !== null ? 
-//                             <div>
-//                                 <p>Oh, that's right. Just wait! Here <b>{trainerName}</b>! There are 3 Pokémon here! Haha! They are inside the Poké Balls. When I was young, I was a serious Pokémon trainer! In my old age, I have only 3 left, but you can have one! Choose!</p>
-//                                 <div className="trainer-starter-card">
-//                                     <div>
-//                                         <img className="home-image-thumbnail" src={pokemonData[23].front_image} alt="charmander" onClick={selectPokemon} value='charmander'/>
-//                                     </div>
-//                                     <div>
-//                                         <img className="home-image-thumbnail" src={pokemonData[5].front_image} alt="squirtle" onClick={selectPokemon} value='squirtle'/>
-//                                     </div>
-//                                     <div>
-//                                         <img className="home-image-thumbnail" src={pokemonData[0].front_image} alt="bulbasaur" onClick={selectPokemon} value='bulbasaur'/>
-//                                     </div>
-//                                 </div>
-//                             </div>
-//                         :
-//                             null
-//                         }
-
-//                     </div>

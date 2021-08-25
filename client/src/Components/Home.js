@@ -1,6 +1,7 @@
 import {useEffect, useState} from 'react'
 import {useHistory} from 'react-router-dom'
 import * as React from 'react'
+import {Container} from 'nes-react'
 
 import Ability from './Ability'
 import Stat from './Stat'
@@ -126,23 +127,33 @@ let Home = ({currentUser, pokemonData, hiddenPokemon, userTrainer, setUserTraine
     return (
         <div className="home-container">
             <div className="home-battle-container">
-                <div className="home-battle-description-card" style={{backgroundColor:'lightgrey'}}>
-                    <h2>Pokemon Brawl is a Pokemon</h2>
-                    <p><small>Play Pokémon battles online! Play with randomly generated teams, or build your own!</small></p>
-                    <button style={{backgroundColor:'lightblue'}} onClick={handleBattle}>Battle</button>
+                <div className="home-battle-description-card">
+                    <div style={{backgroundColor:'lightgrey', height:'80%', display: 'flex', flexDirection:'column', justifyContent:'flex-end'}}>
+                        <h2 style={{marginLeft:'5px'}}>Pokemon Brawl is a Pokemon Battle simulator.</h2>
+                        <p style={{marginLeft:'10px', marginTop:'10px', fontSize: '15px'}}><small>Play Pokémon battles online! Play with randomly generated teams, or build your own!</small></p>
+                        <button style={{backgroundColor:'lightblue', width: '15%', marginBottom:'5px', fontSize:'14px'}} onClick={handleBattle}>Battle</button>
+                    </div>
+                    <div style={{backgroundColor:'darkgrey', width: '100%', height: '20%'}}></div>
                 </div>
                 <div className="home-image-card" style={displayNidoVGengar === false ? {backgroundColor:'orangered'} : {backgroundColor:'black'}}>
-                    {displayNidoVGengar === false ? <img className="home-image-card" style={{backgroundColor:'crimson', borderRadius:'16px'}} src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/6.png" alt="pokemon-image" onClick={viewNidoGeng}/> : <img style={{height:'300px'},{backgroundColor:'black'}} className="home-image-card" src="https://pa1.narvii.com/5739/0cfc841303d738f67cdb9e5f286606c0ae1ab749_hq.gif" alt="nidoVgengar" onClick={viewNidoGeng}/>}
+                    <div style={{height:'50vh', width:'10%', backgroundColor:'orange'}}></div>
+                    <div style={{height:'50vh', width: '100%', marginLeft:'150px'}}>
+                        {displayNidoVGengar === false ? <img className="home-image-card" style={{backgroundColor:'crimson', borderRadius:'16px'}} src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/6.png" alt="pokemon-image" onClick={viewNidoGeng}/> 
+                        : <img style={{height:'300px'},{backgroundColor:'black'}} className="home-image-card" src="https://pa1.narvii.com/5739/0cfc841303d738f67cdb9e5f286606c0ae1ab749_hq.gif" alt="nidoVgengar" onClick={viewNidoGeng}/>}
+                    </div>
                 </div>
             </div>
             <div className="home-build-team-create-trainer-container">
-                <div className="home-battle-description-card" style={{backgroundColor:'lightyellow'}}>
-
-                    {displayDragonite === false ? <img className="home-image-thumbnail" style={{backgroundColor:'gold'}} src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/149.png"  alt="pokemon-image" onClick={viewDragonite}/>
-                    :
-                        <img style={{height:'110px'}} src="https://giffiles.alphacoders.com/480/48081.gif" alt="pokemon-image" onClick={viewDragonite}/>
-                    }
-                    <button onClick={handleTeam} style={{backgroundColor:'lightgoldenrodyellow'}}>Build my team</button>
+                <div className="home-battle-description-card" style={{backgroundColor:'lightyellow', display: 'flex', justifyContent:'space-evenly'}}>
+                    <div style={{backgroundColor:'crimson', height:'10%', width:'100%', borderRadius:'16px'}}></div>
+                    <div>
+                        {displayDragonite === false ? <img className="home-image-thumbnail" style={{backgroundColor:'gold'}} src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/149.png"  alt="pokemon-image" onClick={viewDragonite}/>
+                        :
+                            <img style={{height:'110px'}} src="https://giffiles.alphacoders.com/480/48081.gif" alt="pokemon-image" onClick={viewDragonite}/>
+                        }
+                        <button onClick={handleTeam} style={{backgroundColor:'lightgoldenrodyellow'}}>Build my team</button>
+                    </div>
+                    <div style={{backgroundColor:'crimson', height:'10%', width:'100%', borderRadius:'16px'}}></div>
                 </div>
                 <div className="home-battle-description-card" style={{backgroundColor:'violet'}}>
                     {displayMewTwo === false ? <img className="home-image-thumbnail" style={{backgroundColor:'purple'}} src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/150.png" alt="pokemon-image" onClick={viewMewTwo}/>
@@ -169,7 +180,7 @@ let Home = ({currentUser, pokemonData, hiddenPokemon, userTrainer, setUserTraine
                     </div>
                 :
                     <div className="home-battle-description-card">
-                        <h1>You caught {foundPokemon}!!</h1>
+                        <h2>You caught {foundPokemon}!!</h2>
                         <img className="who-that-pokemon-image-2" src={hiddenPokemon.front_image} alt='pokemon-image'/>
                         <p>Check your PC to see your new Pokemon!</p>
                     </div>
@@ -236,13 +247,13 @@ let Home = ({currentUser, pokemonData, hiddenPokemon, userTrainer, setUserTraine
                         <h5 style={{margin:'5px'}}>
                             snow-cloak
                         </h5>
-                        <p style={{margin:'5px'}}>
+                        <p style={{margin:'5px', fontSize:'12px'}}>
                             Boosts evasion in a hailstorm.
                         </p>
-                        <h5 style={{margin:'5px'}}>
+                        <h5 style={{margin:'5px', fontSize:'12px'}}>
                             pressure
                         </h5>
-                        <p style={{margin:'5px'}}>
+                        <p style={{margin:'5px', fontSize:'12px'}}>
                             Raises foe's PP usage.
                         </p>
 

@@ -79,9 +79,7 @@ let Battle = ({userTrainer, opponentTrainer, pokemonData}) => {
         if(e.target.value === 'Fight' || e.target.value === 'Bag') {
             setInitialMove(e.target.value)
         } else if (e.target.value === 'Pokemon') {
-            console.log(displayTeam)
-            console.log(!displayTeam)
-            setDisplayTeam(!displayTeam)
+            setDisplayTeam(!displayTeam)        
         } else if (e.target.value === 'Run') {
             alert("You flee'd the battle. A loss will be registered to the database. Feel free to try again!!! Sending you back to the home page.")
             history.push('/')
@@ -89,19 +87,24 @@ let Battle = ({userTrainer, opponentTrainer, pokemonData}) => {
     }
 
     let handleSelectBattleMovePrompt = (e) => {
-        let userPokemonMoves = [userPokemonMove1, userPokemonMove2, userPokemonMove3, userPokemonMove4]
-        setBattleMovePrompt(userPokemonMoves.find(move => move.name === e.target.value))
 
-        if (e.target.value === userPokemonMove1.name) {
-            setBattleMovePP(userPokemonMove1PP)
-        } else if (e.target.value === userPokemonMove2.name ) {
-            setBattleMovePP(userPokemonMove2PP)
-        } else if (e.target.value === userPokemonMove3.name) {
-            setBattleMovePP(userPokemonMove3PP)
-        } else if (e.target.value === userPokemonMove4.name) {
-            setBattleMovePP(userPokemonMove4PP)
+        if (displayTeam === false) {
+            let userPokemonMoves = [userPokemonMove1, userPokemonMove2, userPokemonMove3, userPokemonMove4]
+            setBattleMovePrompt(userPokemonMoves.find(move => move.name === e.target.value))
+    
+            if (e.target.value === userPokemonMove1.name) {
+                setBattleMovePP(userPokemonMove1PP)
+            } else if (e.target.value === userPokemonMove2.name ) {
+                setBattleMovePP(userPokemonMove2PP)
+            } else if (e.target.value === userPokemonMove3.name) {
+                setBattleMovePP(userPokemonMove3PP)
+            } else if (e.target.value === userPokemonMove4.name) {
+                setBattleMovePP(userPokemonMove4PP)
+            } else {
+                console.log ('broken')
+            }
         } else {
-            console.log ('broken')
+            alert('You cannot choose an attack while viewing your Pokemon!!')
         }
     }
 
@@ -199,8 +202,10 @@ let Battle = ({userTrainer, opponentTrainer, pokemonData}) => {
     }
 
     let endOpponentTurn = () => {
+        console.log('you clicked me')
         setOpponentBattleMove(null)
         setOpponentDamage(null)
+        setOpponentSuperEffective(null)
         setSuperEffective(null)
 
         if(userPokemonHP <= 0) {
@@ -237,21 +242,28 @@ let Battle = ({userTrainer, opponentTrainer, pokemonData}) => {
     }
 
     let sendOutPokemon = (e) => {
-        setUserPokemon(pokemonData.find(pokemon => pokemon.front_image === e.target.src))
-        setUserPokemonHP(pokemonData.find(pokemon => pokemon.front_image === e.target.src).stats[0].hp)
-        setUserPokemonMove1(pokemonData.find(pokemon => pokemon.front_image === e.target.src).moves[0])
-        setUserPokemonMove2(pokemonData.find(pokemon => pokemon.front_image === e.target.src).moves[1])
-        setUserPokemonMove3(pokemonData.find(pokemon => pokemon.front_image === e.target.src).moves[2])
-        setUserPokemonMove4(pokemonData.find(pokemon => pokemon.front_image === e.target.src).moves[3])
-        setUserPokemonMove1PP(pokemonData.find(pokemon => pokemon.front_image === e.target.src).moves[0].power_points)
-        setUserPokemonMove2PP(pokemonData.find(pokemon => pokemon.front_image === e.target.src).moves[1].power_points)
-        setUserPokemonMove3PP(pokemonData.find(pokemon => pokemon.front_image === e.target.src).moves[2].power_points)
-        setUserPokemonMove4PP(pokemonData.find(pokemon => pokemon.front_image === e.target.src).moves[3].power_points)
 
 
-        alert(`${userTrainer.name} sent out ${pokemonData.find(pokemon => pokemon.front_image === e.target.src).name}`)
+        if (userPokemon !== pokemonData.find(pokemon => pokemon.front_image === e.target.src)) {
+            setUserPokemon(pokemonData.find(pokemon => pokemon.front_image === e.target.src))
+            setUserPokemonHP(pokemonData.find(pokemon => pokemon.front_image === e.target.src).stats[0].hp)
+            setUserPokemonMove1(pokemonData.find(pokemon => pokemon.front_image === e.target.src).moves[0])
+            setUserPokemonMove2(pokemonData.find(pokemon => pokemon.front_image === e.target.src).moves[1])
+            setUserPokemonMove3(pokemonData.find(pokemon => pokemon.front_image === e.target.src).moves[2])
+            setUserPokemonMove4(pokemonData.find(pokemon => pokemon.front_image === e.target.src).moves[3])
+            setUserPokemonMove1PP(pokemonData.find(pokemon => pokemon.front_image === e.target.src).moves[0].power_points)
+            setUserPokemonMove2PP(pokemonData.find(pokemon => pokemon.front_image === e.target.src).moves[1].power_points)
+            setUserPokemonMove3PP(pokemonData.find(pokemon => pokemon.front_image === e.target.src).moves[2].power_points)
+            setUserPokemonMove4PP(pokemonData.find(pokemon => pokemon.front_image === e.target.src).moves[3].power_points)
+    
+    
+            alert(`${userTrainer.name} sent out ${pokemonData.find(pokemon => pokemon.front_image === e.target.src).name}`)
+    
+            initiateOpponentMove()
+        } else {
+            alert('That Pokemon is already out! Choose a different Pokemon!!')
+        }
 
-        initiateOpponentMove()
     }
 
     return (
@@ -270,26 +282,27 @@ let Battle = ({userTrainer, opponentTrainer, pokemonData}) => {
             // move select 
                 <div className="battle-sfzone-container">
                     <div className="zone-container" >
-                        <div className="trainer-battle-pokeball-container">
-                            {oppPokeTeam.map(pokemon => {
-                                return (<PokeBallBattle pokeBall={pokeBall} pokemon={pokemon}/>)
-                            })}
-
-                        </div>
-                        <div className="stats-card">
-                            <div className="hp-card">
-                                <p style={userDamage > 0 ? {backgroundColor:'red'}: null} >HP: {opponentPokemonHP}</p>
-                                <p>LVL: {opponentPokemon.level}</p>
+                        <div className="opponent-decision-making-container">
+                            <div className="trainer-battle-pokeball-container">
+                                {oppPokeTeam.map(pokemon => {
+                                    return (<PokeBallBattle pokeBall={pokeBall} pokemon={pokemon}/>)
+                                })}
                             </div>
-                            <div className="attack-card">
-                                <p><small>Attack: {opponentPokemon.stats[0].attack}</small></p>
-                                <p><small>Defense: {opponentPokemon.stats[0].defense}</small></p>
-                                <p><small>SP Attack: {opponentPokemon.stats[0].sp_attack}</small></p>
-                                <p><small>SP Defense: {opponentPokemon.stats[0].sp_defense}</small></p>
-                                <p><small>Speed: {opponentPokemon.stats[0].speed}</small></p>
+                            <div className="stats-card">
+                                <div className="hp-card">
+                                    <p style={userDamage > 0 ? {backgroundColor:'red', marginLeft:'5px'}: {marginLeft:'5px'}} >HP: {opponentPokemonHP}</p>
+                                    <p>LVL: {opponentPokemon.level}</p>
+                                </div>
+                                <div className="attack-card">
+                                    <p style={{marginLeft:'5px'}}><small>ATK: {opponentPokemon.stats[0].attack}</small></p>
+                                    <p><small>DEF: {opponentPokemon.stats[0].defense}</small></p>
+                                    <p><small>SP ATK: {opponentPokemon.stats[0].sp_attack}</small></p>
+                                    <p><small>SP DEF: {opponentPokemon.stats[0].sp_defense}</small></p>
+                                    <p><small>SPD: {opponentPokemon.stats[0].speed}</small></p>
+                                </div>
                             </div>
+                            <img className="zone-image-card" src={opponentPokemon.front_image} alt="opponent-pokemon-image"/>
                         </div>
-                        <img className="zone-image-card" src={opponentPokemon.front_image} alt="opponent-pokemon-image"/>
                     </div>
 
 
@@ -297,27 +310,27 @@ let Battle = ({userTrainer, opponentTrainer, pokemonData}) => {
                     {userBattleMove === null ? null : <img className="pokemon-attack" src="https://c.tenor.com/98nZAGp5ooQAAAAC/pokemon-tyranitar.gif" alt="tyranitar-hyperbeam"/>}
 
 
-                    <div className="zone-container">
+                    <div className="zone-container" style={{height:'350px'}}>
                         <img className="zone-image-card" src={userPokemon.back_image} alt="user-pokemon-image"/>
                         <div className="trainer-decision-making-container">
                             <div className="trainer-stats-card">
                                 <div className="hp-card">
-                                    <p style={opponentDamage>0 ? {backgroundColor:'red'}: null}>HP: {userPokemonHP}</p>
+                                    <p style={opponentDamage>0 ? {backgroundColor:'red', marginLeft:'5px'} : {marginLeft:'5px'}}>HP: {userPokemonHP}</p>
                                     <p>LVL: {userPokemon.level}</p>
                                 </div>
                                 <div className="attack-card">
-                                    <p><small>Attack: {userPokemon.stats[0].attack}</small></p>
-                                    <p><small>Defense: {userPokemon.stats[0].defense}</small></p>
-                                    <p><small>SP Attack: {userPokemon.stats[0].sp_attack}</small></p>
-                                    <p><small>SP Defense: {userPokemon.stats[0].sp_defense}</small></p>
-                                    <p><small>Speed: {userPokemon.stats[0].speed}</small></p>
+                                    <p style={{marginLeft:'5px'}}><small>ATK: {userPokemon.stats[0].attack}</small></p>
+                                    <p><small>DEF: {userPokemon.stats[0].defense}</small></p>
+                                    <p><small>SP ATK: {userPokemon.stats[0].sp_attack}</small></p>
+                                    <p><small>SP DEF: {userPokemon.stats[0].sp_defense}</small></p>
+                                    <p><small>SPD: {userPokemon.stats[0].speed}</small></p>
                                 </div>
                             </div>
                         
 
                         {initialMove === null && opponentBattleMove === null && opponentDamage === null && userBattleMove === null ? 
                             <div className="move-card">
-                                <button className="action-button" onClick={handleSelectInitialMove} value="Fight">Fight</button>
+                                {displayTeam === false ? <button className="action-button" onClick={handleSelectInitialMove} value="Fight">Fight</button> : <button style={{backgroundColor:'black'} }className="action-button" value="Fight">Fight</button> }
                                 <button className="action-button" onClick={handleSelectInitialMove} value="Bag">Bag</button>
                                 <button className="action-button" onClick={handleSelectInitialMove} value="Pokemon">Pokemon</button>
                                 <button className="action-button" onClick={handleSelectInitialMove} value="Run">Run</button>
@@ -329,10 +342,10 @@ let Battle = ({userTrainer, opponentTrainer, pokemonData}) => {
 
                         {initialMove === 'Fight' && battleMovePrompt === null ? 
                             <div className="move-card">
-                                <button className="action-button" onClick={handleSelectBattleMovePrompt} value={userPokemonMove1.name}>{userPokemonMove1.name}</button>
-                                <button className="action-button" onClick={handleSelectBattleMovePrompt} value={userPokemonMove2.name}>{userPokemonMove2.name}</button>
-                                <button className="action-button" onClick={handleSelectBattleMovePrompt} value={userPokemonMove3.name}>{userPokemonMove3.name}</button>
-                                <button className="action-button" onClick={handleSelectBattleMovePrompt} value={userPokemonMove4.name}>{userPokemonMove4.name}</button>
+                                <button style={{fontSize:'9px'}} className="action-button" onClick={handleSelectBattleMovePrompt} value={userPokemonMove1.name}>{userPokemonMove1.name}</button>
+                                <button style={{fontSize:'9px'}} className="action-button" onClick={handleSelectBattleMovePrompt} value={userPokemonMove2.name}>{userPokemonMove2.name}</button>
+                                <button style={{fontSize:'9px'}} className="action-button" onClick={handleSelectBattleMovePrompt} value={userPokemonMove3.name}>{userPokemonMove3.name}</button>
+                                <button style={{fontSize:'9px'}} className="action-button" onClick={handleSelectBattleMovePrompt} value={userPokemonMove4.name}>{userPokemonMove4.name}</button>
                             </div>
                         
                         :
@@ -341,12 +354,16 @@ let Battle = ({userTrainer, opponentTrainer, pokemonData}) => {
 
                         {battleMovePrompt === null ? null 
                         :
-                            <div className="move-card">
-                                <h4>{battleMovePrompt.name}</h4>
-                                <p>{battleMovePrompt.description}</p>
-                                <p>Power:{battleMovePrompt.power}</p>
-                                <p>PP:{battleMovePP}</p>
-                                <button className="action-button" onClick={handleSelectBattleMove}>Use {battleMovePrompt.name}</button>
+                            <div style={{justifyContent:'space-evenly', marginTop:'10px'}} className="trainer-move-card">
+                                <div>
+                                    <h5 style={{fontSize:'10px', marginLeft:'8px'}}>{battleMovePrompt.name}</h5>
+                                    <p style={{fontSize:'10px'}}>{battleMovePrompt.description}</p>
+                                </div>
+                                <div style={{display:'flex', justifyContent:'space-between'}}>
+                                    <p style={{fontSize:'10px'}}>Power:{battleMovePrompt.power}</p>
+                                    <p style={{fontSize:'10px'}}>PP:{battleMovePP}</p>
+                                </div>
+                                <button style={{fontSize:'9px'}} className="action-button" onClick={handleSelectBattleMove}>Use {battleMovePrompt.name}</button>
                                 <button className="action-button" onClick={returnToBattleMoves}>Back</button>
                             </div>
                         }
@@ -358,7 +375,7 @@ let Battle = ({userTrainer, opponentTrainer, pokemonData}) => {
                                 })
                             : 
                                 pokeTeam.map(pokemon => {
-                                    return (<img style={pokemon.pokemon_id === userPokemon.id ? {border: '1px solid yellow'} : null} className="poke-ball-battle-pokemon" src={pokemonData.find(poke => poke.id === pokemon.pokemon_id).front_image} onClick={sendOutPokemon}/>)
+                                    return (<img style={pokemon.pokemon_id === userPokemon.id ? {border: '1px solid yellow', height:'60px', width:'60px'} : {height:'60px', width: '60px'}} className="poke-ball-battle-pokemon" src={pokemonData.find(poke => poke.id === pokemon.pokemon_id).front_image} onClick={sendOutPokemon}/>)
                                 })
                             }
                         </div>
@@ -394,7 +411,7 @@ let Battle = ({userTrainer, opponentTrainer, pokemonData}) => {
                     {opponentSuperEffective === null ? null 
                     :
                         <div>
-                            <p>It's super effective. {userPokemon.name} knocked out {opponentPokemon.name}</p>
+                            <p>It's super effective. {opponentPokemon.name} knocked out {userPokemon.name}</p>
                             <button className="action-button" onClick={endOpponentTurn}>End Turn</button>
                         </div>
                     }

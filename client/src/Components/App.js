@@ -1,5 +1,7 @@
 import {useState, useEffect} from 'react'
 import { Switch, Route, useHistory } from 'react-router-dom'
+import * as React from 'react'
+import {Container} from 'nes-react'
 
 //import react components
 import NavBar from './NavBar'
@@ -11,6 +13,7 @@ import SafariZone from './SafariZone'
 import Trainer from './Trainer'
 import Battle from './Battle'
 import PC from './PC'
+import Loading from './Loading'
 
 let App = () => {
   const history = useHistory()
@@ -202,7 +205,7 @@ let App = () => {
 
   // seedStats()
 
-  useEffect(() => {
+  // useEffect(() => {
     // fetch('http://localhost:3000/user', {
     //   method: 'GET',
     //   credentials: 'include'
@@ -222,14 +225,14 @@ let App = () => {
     // .then(res => res.json())
     // .then(data => setTypeData(data))
 
-    fetch('http://localhost:3000/pokemon')
-    .then(res => res.json())
-    .then(data => {
-      setPokemonData(data)
-      setHiddenPokemon(data[Math.floor(Math.random() * data.length)])
-    })
+  //   fetch('http://localhost:3000/pokemon')
+  //   .then(res => res.json())
+  //   .then(data => {
+  //     setPokemonData(data)
+  //     setHiddenPokemon(data[Math.floor(Math.random() * data.length)])
+  //   })
 
-  },[])
+  // },[])
 
   // let seedAbilities = () => {
   //   fetch('https://pokeapi.co/api/v2/pokemon?limit=151')
@@ -378,16 +381,28 @@ let App = () => {
             <Route exact path ='/logout'>
               <Logout setCurrentUser={setCurrentUser}/>
             </Route>
-            <Route exact path='/signup'>
-              <SignUp currentUser={currentUser} setCurrentUser={setCurrentUser}/>  
+            <Route exact path ='/loading'>
+              <Loading 
+                pokemonData={pokemonData}
+                setPokemonData={setPokemonData}
+                hiddenPokemon={hiddenPokemon}
+                setHiddenPokemon={setHiddenPokemon}
+              />
             </Route>
             <Route exact path='/safari_zone'>
-              <SafariZone/>
+              <SafariZone
+                pokemonData={pokemonData}
+                userTrainer={userTrainer}
+              />
             </Route>
             <Route exact path='/create_a_trainer'>
               <Trainer 
                 currentUser={currentUser}
                 pokemonData={pokemonData}
+                setUserTrainer={setUserTrainer}
+                setOpponentTrainer={setOpponentTrainer}
+                setUserTrainerPokemon={setUserTrainerPokemon}
+                setCopyUserTrainerPokemon={setCopyUserTrainerPokemon}
               />
             </Route>
             <Route exact path='/battle'>
