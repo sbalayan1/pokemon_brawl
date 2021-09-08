@@ -1,12 +1,10 @@
 import {useState, useEffect} from 'react'
-
 import Pokemon from './Pokemon'
 import PokeBall from './PokeBall'
-import Stat from './Stat'
 import Ability from './Ability'
 import Move from './Move'
 
-let PC = ({pokemonData, currentUser, userTrainer, userTrainerPokemon, setUserTrainerPokemon, copyUserTrainerPokemon, setCopyUserTrainerPokemon}) => {
+let PC = ({pokemonData, userTrainer, copyUserTrainerPokemon}) => {
     const [searchedPokemon, setSearchedPokemon] = useState(null)
     const [selectedPokemon, setSelectedPokemon] = useState(null)
     const [pokeBall, setPokeBall] = useState(null)
@@ -22,8 +20,6 @@ let PC = ({pokemonData, currentUser, userTrainer, userTrainerPokemon, setUserTra
         }
     }
 
-    console.log(copyUserTrainerPokemon)
-    console.log(userTrainerPokemon)
     let displayPokemon =  copyUserTrainerPokemon.filter(pokemon => pokemon.name.includes(searchedPokemon))
 
     useEffect(() => {
@@ -69,8 +65,19 @@ let PC = ({pokemonData, currentUser, userTrainer, userTrainerPokemon, setUserTra
                     <h3 style={{marginLeft:'5px'}}>My Team</h3>
                 </div>
                 <div style={{display:'flex', justifyContent:'space-evenly', width:'100%'}}>
-                    {copyTeam.map (pokemon => <PokeBall pokemon={pokemon} pokeBall={pokeBall} pokemonData={pokemonData} displayTeam={displayTeam} setDisplayTeam={setDisplayTeam} setTeam={setTeam} copyTeam={copyTeam} setCopyTeam={setCopyTeam} userTrainer={userTrainer}/>
-                )}
+                    {copyTeam.map (pokemon => 
+                        <PokeBall 
+                            pokemon={pokemon} 
+                            pokeBall={pokeBall} 
+                            pokemonData={pokemonData} 
+                            displayTeam={displayTeam} 
+                            setDisplayTeam={setDisplayTeam} 
+                            setTeam={setTeam} 
+                            copyTeam={copyTeam} 
+                            setCopyTeam={setCopyTeam} 
+                            userTrainer={userTrainer}
+                        />
+                    )}
                 </div>
             </div>
             <div className="pc-pokemon-container">
@@ -79,10 +86,32 @@ let PC = ({pokemonData, currentUser, userTrainer, userTrainerPokemon, setUserTra
                         <h3 className="my-pokemon-header">My Pokemon</h3>
                         <div className="pc-pokemon-card">
                             {searchedPokemon === null ? 
-                                copyUserTrainerPokemon.map(pokemon => <Pokemon pokemonData={pokemonData} pokemon={pokemon} pokeTeam={pokeTeam} copyTeam={copyTeam} setCopyTeam={setCopyTeam} setTeam={setTeam} userTrainer={userTrainer} setSelectedPokemon={setSelectedPokemon} setTypeCount={setTypeCount}/>)
+                                copyUserTrainerPokemon.map(pokemon => 
+                                    <Pokemon 
+                                        pokemonData={pokemonData} 
+                                        pokemon={pokemon} 
+                                        copyTeam={copyTeam} 
+                                        setCopyTeam={setCopyTeam} 
+                                        setTeam={setTeam} 
+                                        userTrainer={userTrainer} 
+                                        setSelectedPokemon={setSelectedPokemon} 
+                                        setTypeCount={setTypeCount}
+                                    />
+                                )
                                 
                             :
-                                displayPokemon.map (pokemon => <Pokemon  pokemonData={pokemonData} pokemon={pokemon} pokeTeam={pokeTeam} copyTeam={copyTeam} setCopyTeam={setCopyTeam}  setTeam={setTeam} userTrainer={userTrainer} setSelectedPokemon={setSelectedPokemon} setTypeCount={setTypeCount}/>)
+                                displayPokemon.map (pokemon => 
+                                    <Pokemon 
+                                        pokemonData={pokemonData} 
+                                        pokemon={pokemon} 
+                                        copyTeam={copyTeam} 
+                                        setCopyTeam={setCopyTeam}  
+                                        setTeam={setTeam} 
+                                        userTrainer={userTrainer} 
+                                        setSelectedPokemon={setSelectedPokemon} 
+                                        setTypeCount={setTypeCount}
+                                    />
+                                )
                             }
                         </div>
                     </div>

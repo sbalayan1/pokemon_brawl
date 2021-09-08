@@ -15,7 +15,6 @@ let Trainer = ({pokemonData, currentUser, setUserTrainer, setOpponentTrainer, se
     const history = useHistory()
 
     let handleGenderChange = (e) => {
-
         if (e.target.value === 'boy'){
             setGenderState(true)
         } else {
@@ -24,7 +23,6 @@ let Trainer = ({pokemonData, currentUser, setUserTrainer, setOpponentTrainer, se
     }
 
     let navigateTrainerAvatars = (e) => {
-
         if(e.target.value === 'left'&& count<=trainerImages.length){
             setCount(count-1)
         }
@@ -39,7 +37,6 @@ let Trainer = ({pokemonData, currentUser, setUserTrainer, setOpponentTrainer, se
     let selectTrainerAvatar = (e) => {
         setTrainer(trainerImages[count])
     }
-
 
     let handleClick = (e) => {
         setTrainerName(e.target.previousSibling.value)
@@ -68,7 +65,6 @@ let Trainer = ({pokemonData, currentUser, setUserTrainer, setOpponentTrainer, se
 
     let startJourney = () => {
         let localPokemon = pokemonData.find(pokemon => pokemon.name === starterPokemon.alt)
-        console.log(localPokemon)
 
         fetch('http://localhost:3000/trainers')
         .then(res => res.json())
@@ -78,8 +74,6 @@ let Trainer = ({pokemonData, currentUser, setUserTrainer, setOpponentTrainer, se
                 trainer_id: data[data.length-1].id,
                 team_member: true
             }
-
-            console.log(pokemonTeam)
 
             fetch('http://localhost:3000/pokemon_teams', {
                 method: 'POST',

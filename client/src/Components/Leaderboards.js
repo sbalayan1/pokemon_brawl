@@ -1,8 +1,6 @@
-
 import TrainerRecord from './TrainerRecord'
 
-let Leaderboards = ({trainers, setTrainers}) => {
-    console.log(trainers)
+let Leaderboards = ({trainers}) => {
     return (
         <div className='battle-sfzone-container'>
             <div style={{backgroundColor:'lightgray', marginTop:'10px', border:'3px solid blue'}}>

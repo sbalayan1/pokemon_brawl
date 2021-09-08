@@ -1,20 +1,16 @@
 import {useState} from 'react'
 import {useHistory} from 'react-router-dom'
-
 import Move from './Move'
 import Ability from './Ability'
 
 
-let SafariZone = ({pokemonData, userTrainer}) => {
-    let trainerImages = ['https://archives.bulbagarden.net/media/upload/3/30/RB_Old_man_Back.png','https://archives.bulbagarden.net/media/upload/3/30/Spr_RG_Beauty.png','https://archives.bulbagarden.net/media/upload/f/fd/Spr_RG_Bird_Keeper.png','https://archives.bulbagarden.net/media/upload/4/48/Spr_RG_Blackbelt.png','https://archives.bulbagarden.net/media/upload/3/38/Spr_RG_Blue_2.png','https://archives.bulbagarden.net/media/upload/3/3f/Spr_RG_Bug_Catcher.png','https://archives.bulbagarden.net/media/upload/f/f2/Spr_RG_Burglar.png','https://archives.bulbagarden.net/media/upload/9/92/Spr_RG_Channeler.png','https://archives.bulbagarden.net/media/upload/0/0f/Spr_RG_Cooltrainer_M.png','https://archives.bulbagarden.net/media/upload/0/09/Spr_RG_Engineer.png','https://archives.bulbagarden.net/media/upload/e/ee/Spr_RG_Erika.png','https://archives.bulbagarden.net/media/upload/d/d7/Spr_RG_Fisherman.png','https://archives.bulbagarden.net/media/upload/7/7f/Spr_RG_Gambler.png','https://archives.bulbagarden.net/media/upload/0/08/Spr_RG_Gentleman.png','https://archives.bulbagarden.net/media/upload/6/62/Spr_RG_Hiker.png','https://archives.bulbagarden.net/media/upload/3/36/Spr_RG_Juggler.png','https://archives.bulbagarden.net/media/upload/2/29/Spr_RG_Lass.png','https://archives.bulbagarden.net/media/upload/b/b0/Spr_RG_Koga.png','https://archives.bulbagarden.net/media/upload/5/5d/Spr_RG_Psychic.png','https://archives.bulbagarden.net/media/upload/a/a1/Spr_RG_Rocket.png','https://archives.bulbagarden.net/media/upload/5/54/Spr_RG_Sailor.png','https://archives.bulbagarden.net/media/upload/5/51/Spr_RG_Blue_3.png','https://archives.bulbagarden.net/media/upload/5/58/Spr_RG_Lorelei.png','https://archives.bulbagarden.net/media/upload/7/76/Spr_RG_Bruno.png','https://archives.bulbagarden.net/media/upload/b/b8/Spr_RG_Swimmer.png','https://archives.bulbagarden.net/media/upload/9/96/Spr_RG_Youngster.png','https://archives.bulbagarden.net/media/upload/1/1e/Spr_RG_Oak.png','https://archives.bulbagarden.net/media/upload/d/d0/Spr_RG_Jr_Trainer_F.png','https://archives.bulbagarden.net/media/upload/2/2d/Spr_RG_Misty.png']
-
-       
+let SafariZone = ({pokemonData, userTrainer}) => {       
     let catchRates = [0.1,0.2,0.3,0.4,0.5,0.6,0.7, 0.8, 0.9, 1]
     const history = useHistory()
     const [safariZoneLoad, setSafariZoneLoad] = useState(false)
-    const [targetPokemon, setTargetPokemon] = useState(pokemonData[Math.floor(Math.random()*pokemonData.length)])
+    const targetPokemon = pokemonData[Math.floor(Math.random()*pokemonData.length)]
     const [selectedPokemon, setSelectedPokemon] = useState(null)
-    const [pokemonCatchRate, setPokemonCatchRate] = useState(catchRates[Math.floor(Math.random()*catchRates.length)])
+    const pokemonCatchRate = catchRates[Math.floor(Math.random()*catchRates.length)]
     const [catchRate, setCatchRate] = useState((((3*targetPokemon.stats[0].hp) - (2*targetPokemon.stats[0].hp)) * pokemonCatchRate)/(3*targetPokemon.stats[0].hp))
     const [targetPokeHP, setTargetPokeHP] = useState(targetPokemon.stats[0].hp)
     const [initialMove, setInitialMove] = useState(null)
@@ -25,14 +21,11 @@ let SafariZone = ({pokemonData, userTrainer}) => {
     const [baitCount, setBaitCount] = useState(0)
     const [caught, setCaught] = useState(null)
     const [displayPokemon, setDisplayPokemon] = useState(false)
-    const [flyingPokemon1, setFlyingPokemon1] = useState(pokemonData.find(pokemon => pokemon.name === 'pidgey').front_image)
-    const [flyingPokemon2, setFlyingPokemon2] = useState(pokemonData.find(pokemon => pokemon.name === 'pidgeotto').front_image)
-    const [flyingPokemon3, setFlyingPokemon3] = useState(pokemonData.find(pokemon => pokemon.name === 'pidgeot').front_image)
-    
+    const flyingPokemon1 = pokemonData.find(pokemon => pokemon.name === 'pidgey').front_image
+    const flyingPokemon2 = pokemonData.find(pokemon => pokemon.name === 'pidgeotto').front_image
+    const flyingPokemon3 = pokemonData.find(pokemon => pokemon.name === 'pidgeot').front_image
     const [typeCount, setTypeCount] = useState(null)
-
     let targetPokemonMoves = ['watching', 'flee']
-
 
     let enterSafariZone = () => {
         setSafariZoneLoad(true)
@@ -120,7 +113,6 @@ let SafariZone = ({pokemonData, userTrainer}) => {
                     team_member: false
                 }
 
-
                 fetch('http://localhost:3000/pokemon_teams', {
                 method: 'POST', 
                 headers: {'Content-type':'application/json'},
@@ -128,9 +120,6 @@ let SafariZone = ({pokemonData, userTrainer}) => {
                 })
 
             } else {
-
-                console.log(pokeBallsUsed)
-                console.log(1/catchRate)
                 alert(`Oh no! ${targetPokemon.name} broke free!!`)
                 setCatchingPokemon(null)
                 setCaught(null)
@@ -198,7 +187,8 @@ let SafariZone = ({pokemonData, userTrainer}) => {
                                 null
                             }
                 
-                            {initialMove === 'threw a PokeBall' ?  <img className="pokemon-attack" src='https://c.tenor.com/AkILqGsdIFoAAAAM/pokemon-ash.gif' alt='ash-throwing-pokeball'/>
+                            {initialMove === 'threw a PokeBall' ?  
+                                <img className="pokemon-attack" src='https://c.tenor.com/AkILqGsdIFoAAAAM/pokemon-ash.gif' alt='ash-throwing-pokeball'/>
                             :
                                 null
                             }
@@ -255,7 +245,8 @@ let SafariZone = ({pokemonData, userTrainer}) => {
                                 null
                             }
 
-                            {catchingPokemon === true ?  <img className="pokemon-attack" src='https://i.imgur.com/Fyj3etH.gif' alt='ash-throwing-pokeball'/>
+                            {catchingPokemon === true ?  
+                                <img className="pokemon-attack" src='https://i.imgur.com/Fyj3etH.gif' alt='ash-throwing-pokeball'/>
                             :
                                 null
                             }
@@ -270,8 +261,7 @@ let SafariZone = ({pokemonData, userTrainer}) => {
                                 null
                             }
 
-                            {caught === null ? 
-                            
+                            {caught === null ?        
                                 <div className="zone-container" style={{width:'100%'}}>
                                     <img className="zone-image-card" src='https://archives.bulbagarden.net/media/upload/3/30/RB_Old_man_Back.png'/>
                                     <div className="trainer-decision-making-container">
@@ -298,14 +288,12 @@ let SafariZone = ({pokemonData, userTrainer}) => {
                                         }   
                                     </div>
                                 </div>
-
                             :
-
                                 null
                             }
                         </div>
-                        {displayPokemon === false ? null 
-                        
+                        {displayPokemon === false ? 
+                            null 
                         :
 
                             <div className="pc-select-pokemon-card" style={{height:'800px', width: '350px'}}>

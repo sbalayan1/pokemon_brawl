@@ -1,21 +1,18 @@
 import {useState} from 'react'
 import { useHistory } from 'react-router-dom'
 
-let Login = ({currentUser, setCurrentUser}) => {
+let Login = ({setCurrentUser}) => {
     const history = useHistory()
     const [username, setUsername] = useState("")
     const [password, setPassword] = useState("")
     const [errors, setErrors] = useState(null)
 
     let handleSignup = () => {
-        console.log('hello world')
         history.push('/signup')
     }
     
     let handleSubmit = async (e) => {
         e.preventDefault()
-        console.log('hello the button is working')
-
         const user = {
             username, 
             password
@@ -34,7 +31,6 @@ let Login = ({currentUser, setCurrentUser}) => {
             setCurrentUser(userData)
             history.push('/loading')
         } else {
-            console.log(userData.errors)
             setErrors(userData.errors)
         }
     }

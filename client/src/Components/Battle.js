@@ -1,13 +1,13 @@
 import {useState, useEffect} from 'react'
 import {useHistory} from 'react-router-dom'
-
-
 import PokeBallBattle from './PokeBallBattle'
 
 let Battle = ({userTrainer, opponentTrainer, pokemonData}) => {
     let opponentTrainers = ['https://archives.bulbagarden.net/media/upload/3/30/RB_Old_man_Back.png','https://archives.bulbagarden.net/media/upload/f/f2/Spr_RG_Burglar.png','https://archives.bulbagarden.net/media/upload/0/09/Spr_RG_Engineer.png','https://archives.bulbagarden.net/media/upload/e/ee/Spr_RG_Erika.png','https://archives.bulbagarden.net/media/upload/d/d7/Spr_RG_Fisherman.png','https://archives.bulbagarden.net/media/upload/a/a1/Spr_RG_Rocket.png','https://archives.bulbagarden.net/media/upload/9/96/Spr_RG_Youngster.png','https://archives.bulbagarden.net/media/upload/1/1e/Spr_RG_Oak.png']
 
     const history = useHistory()
+
+
     const [initialBattleLoad, setInitialBattleLoad] = useState(true)
     const [initialMove, setInitialMove] = useState(null)
     const [battleMovePrompt, setBattleMovePrompt] = useState(null)
@@ -19,10 +19,7 @@ let Battle = ({userTrainer, opponentTrainer, pokemonData}) => {
     const [superEffective, setSuperEffective] = useState(null)
     const [opponentSuperEffective, setOpponentSuperEffective] = useState(null)
     const [pokeBall, setPokeBall] = useState(null)
-    const [pokeTeam, setTeam] = useState(userTrainer.pokemon_teams.filter(pokemon => pokemon.team_member === true))
-    const [oppPokeTeam, setOppTeam] = useState(opponentTrainer.pokemon_teams.filter(pokemon => pokemon.team_member === true))
     const [displayTeam, setDisplayTeam] = useState(false)
-
     const [userTeamCount, setUserTeamCount] = useState(0)
     const [oppTeamCount, setOppTeamCount] = useState(0)
 
@@ -44,12 +41,13 @@ let Battle = ({userTrainer, opponentTrainer, pokemonData}) => {
     const [opponentPokemonMove4, setOpponentPokemonMove4] = useState(null)
     const [opponentPokemonHP, setOpponentPokemonHP] = useState(null)
 
-    const [flyingPokemon1, setFlyingPokemon1] = useState(pokemonData.find(pokemon => pokemon.name === 'pidgey').front_image)
-    const [flyingPokemon2, setFlyingPokemon2] = useState(pokemonData.find(pokemon => pokemon.name === 'pidgeotto').front_image)
-    const [flyingPokemon3, setFlyingPokemon3] = useState(pokemonData.find(pokemon => pokemon.name === 'pidgeot').front_image)
+    const pokeTeam = userTrainer.pokemon_teams.filter(pokemon => pokemon.team_member === true)
+    const oppPokeTeam= opponentTrainer.pokemon_teams.filter(pokemon => pokemon.team_member === true)
+    const flyingPokemon1 = pokemonData.find(pokemon => pokemon.name === 'pidgey').front_image
+    const flyingPokemon2 = pokemonData.find(pokemon => pokemon.name === 'pidgeotto').front_image
+    const flyingPokemon3 = pokemonData.find(pokemon => pokemon.name === 'pidgeot').front_image
 
     let randomStatements = ['Welcome to the Battle!!', "This looks like it's going to be a hot one!", 'The new guy is really strong.', 'WATCH OUT!!!']
-
 
     useEffect(() => {
         fetch('https://pokeapi.co/api/v2/item/poke-ball')
@@ -57,8 +55,6 @@ let Battle = ({userTrainer, opponentTrainer, pokemonData}) => {
         .then(data => setPokeBall(data.sprites.default))
     },[])
 
-
-    
     let startBattle = () => {
         setInitialBattleLoad(false)
         setUserPokemon(pokemonData.find(pokemon => pokemon.id === pokeTeam[userTeamCount].pokemon_id))
@@ -106,8 +102,6 @@ let Battle = ({userTrainer, opponentTrainer, pokemonData}) => {
                 setBattleMovePP(userPokemonMove3PP)
             } else if (e.target.value === userPokemonMove4.name) {
                 setBattleMovePP(userPokemonMove4PP)
-            } else {
-                console.log ('broken')
             }
         } else {
             alert('You cannot choose an attack while viewing your Pokemon!!')
@@ -132,8 +126,6 @@ let Battle = ({userTrainer, opponentTrainer, pokemonData}) => {
             setUserPokemonMove3PP(userPokemonMove3PP - 1)
         } else if (battleMovePrompt.name === userPokemonMove4.name) {
             setUserPokemonMove4PP(userPokemonMove4PP - 1)
-        } else {
-            console.log ('broken')
         }
 
         if (opponentPokemonHP - ((((2*userPokemon.level)/5)*(userPokemon.stats[0].attack/opponentPokemon.stats[0].defense)*battleMovePrompt.power)/50)+2 <= 0) {
@@ -155,14 +147,11 @@ let Battle = ({userTrainer, opponentTrainer, pokemonData}) => {
         setOpponentBattleMove(null)
     }
 
-    let displayDamage = () => {
-        
+    let displayDamage = () => {   
         if (userPokemonHP - opponentDamage <= 0) {
-            console.log('hit')
             setOpponentSuperEffective(true)
             setUserPokemonHP(0)
         } else {
-            console.log('miss')
             setUserPokemonHP(userPokemonHP - opponentDamage)
         }
 
@@ -208,7 +197,6 @@ let Battle = ({userTrainer, opponentTrainer, pokemonData}) => {
     }
 
     let endOpponentTurn = () => {
-        console.log('you clicked me')
         setOpponentBattleMove(null)
         setOpponentDamage(null)
         setOpponentSuperEffective(null)
@@ -248,8 +236,6 @@ let Battle = ({userTrainer, opponentTrainer, pokemonData}) => {
     }
 
     let sendOutPokemon = (e) => {
-
-
         if (userPokemon !== pokemonData.find(pokemon => pokemon.front_image === e.target.src)) {
             setUserPokemon(pokemonData.find(pokemon => pokemon.front_image === e.target.src))
             setUserPokemonHP(pokemonData.find(pokemon => pokemon.front_image === e.target.src).stats[0].hp)
@@ -261,7 +247,6 @@ let Battle = ({userTrainer, opponentTrainer, pokemonData}) => {
             setUserPokemonMove2PP(pokemonData.find(pokemon => pokemon.front_image === e.target.src).moves[1].power_points)
             setUserPokemonMove3PP(pokemonData.find(pokemon => pokemon.front_image === e.target.src).moves[2].power_points)
             setUserPokemonMove4PP(pokemonData.find(pokemon => pokemon.front_image === e.target.src).moves[3].power_points)
-    
     
             alert(`${userTrainer.name} sent out ${pokemonData.find(pokemon => pokemon.front_image === e.target.src).name}`)
     
@@ -298,7 +283,7 @@ let Battle = ({userTrainer, opponentTrainer, pokemonData}) => {
                         <div className="opponent-decision-making-container">
                             <div className="trainer-battle-pokeball-container">
                                 {oppPokeTeam.map(pokemon => {
-                                    return (<PokeBallBattle pokeBall={pokeBall} pokemon={pokemon}/>)
+                                    return (<PokeBallBattle pokeBall={pokeBall}/>)
                                 })}
                             </div>
                             <div className="stats-card">

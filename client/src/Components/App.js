@@ -3,7 +3,6 @@ import { Switch, Route, useHistory } from 'react-router-dom'
 import * as React from 'react'
 import {Container} from 'nes-react'
 
-
 //import react components
 import NavBar from './NavBar'
 import SignUp from './SignUp';
@@ -21,7 +20,6 @@ let App = () => {
   const history = useHistory()
   const [currentUser, setCurrentUser] = useState(null)
   const [pokemonData, setPokemonData] = useState()
-  const [typeData, setTypeData] = useState()
   const [hiddenPokemon, setHiddenPokemon] = useState()
   const [userTrainer, setUserTrainer] = useState()
   const [opponentTrainer, setOpponentTrainer]=useState()
@@ -37,7 +35,6 @@ let App = () => {
       .then(data => {
           setTrainers(data)
       })
-
       
       fetch('http://localhost:3000/pokemon')
       .then(res => res.json())
@@ -382,14 +379,21 @@ let App = () => {
     history.push('/login')
     return (
       <div>
-        <NavBar currentUser={currentUser} setCurrentUser={setCurrentUser} pokeBall={pokeBall}/>
+        <NavBar 
+          pokeBall={pokeBall}
+        />
         <div className="app-container">
           <Switch>
             <Route exact path ='/login'>
-              <Login currentUser={currentUser} setCurrentUser={setCurrentUser}/>
+              <Login 
+                setCurrentUser={setCurrentUser}
+              />
             </Route>
             <Route exact path='/signup'>
-              <SignUp currentUser={currentUser} setCurrentUser={setCurrentUser}/>  
+              <SignUp 
+                currentUser={currentUser} 
+                setCurrentUser={setCurrentUser}
+              />  
             </Route>
           </Switch>
         </div>
@@ -398,28 +402,27 @@ let App = () => {
   } else {
     return (
       <div>
-        <NavBar currentUser={currentUser} setCurrentUser={setCurrentUser} pokeBall={pokeBall}/>
+        <NavBar 
+          pokeBall={pokeBall}
+        />
         <div className="app-container">
           <Switch>
             <Route exact path ='/login'>
               <Login 
-                currentUser={currentUser} 
                 setCurrentUser={setCurrentUser}
               />
             </Route>
             <Route exact path ='/logout'>
-              <Logout setCurrentUser={setCurrentUser}/>
+              <Logout 
+                setCurrentUser={setCurrentUser}
+              />
             </Route>
             <Route exact path ='/loading'>
               <Loading 
-                pokemonData={pokemonData}
-                setPokemonData={setPokemonData}
                 hiddenPokemon={hiddenPokemon}
                 setHiddenPokemon={setHiddenPokemon}
                 randPokemon={randPokemon}
-                setRandPokemon={setRandPokemon}
                 pokeBall={pokeBall}
-                setPokeBall={setPokeBall}
               />
             </Route>
             <Route exact path='/safari_zone'>
@@ -449,17 +452,12 @@ let App = () => {
               <PC
                 pokemonData={pokemonData}
                 userTrainer={userTrainer}
-                currentUser={currentUser}
-                userTrainerPokemon={userTrainerPokemon}
-                setUserTrainerPokemon={setUserTrainerPokemon}
                 copyUserTrainerPokemon={copyUserTrainerPokemon}
-                setCopyUserTrainerPokemon={setCopyUserTrainerPokemon}
               />
             </Route>
             <Route exact path='/leaderboards'>
               <Leaderboards
                 trainers={trainers}
-                setTrainers={setTrainers}
               />
             </Route>
             <Route exact path='/'>
@@ -475,7 +473,6 @@ let App = () => {
                 setOpponentTrainer={setOpponentTrainer}
                 userTrainerPokemon={userTrainerPokemon}
                 setUserTrainerPokemon={setUserTrainerPokemon}
-                copyUserTrainerPokemon={copyUserTrainerPokemon}
                 setCopyUserTrainerPokemon={setCopyUserTrainerPokemon}
               />
             </Route>

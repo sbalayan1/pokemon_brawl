@@ -59,7 +59,7 @@
 # PokemonTeam.create(trainer_id: 7, pokemon_id: Pokemon.all[23].id, team_member: true)
 # PokemonTeam.create(trainer_id: 8, pokemon_id: Pokemon.all[0].id, team_member: true)
 # PokemonTeam.create(trainer_id: 9, pokemon_id: Pokemon.all[5].id, team_member: true)
-PokemonTeam.create(trainer_id: 18, pokemon_id: Pokemon.all[23].id, team_member: true)
+# PokemonTeam.create(trainer_id: 18, pokemon_id: Pokemon.all[23].id, team_member: true)
 
 
 # puts 'done seeding'
@@ -106,9 +106,9 @@ PokemonTeam.create(trainer_id: 18, pokemon_id: Pokemon.all[23].id, team_member: 
 #     PokemonTeam.create(trainer_id: 9, pokemon_id: Pokemon.all[number].id, team_member: true)
 # end 
 
-5.times do
-    number = rand(0..151)
-    PokemonTeam.create(trainer_id: 18, pokemon_id: Pokemon.all[number].id, team_member: true)
-end 
+# 5.times do
+#     number = rand(0..151)
+#     PokemonTeam.create(trainer_id: 18, pokemon_id: Pokemon.all[number].id, team_member: true)
+# end 
 
 # puts 'done seeding'

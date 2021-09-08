@@ -5,7 +5,6 @@ let PokeBall = ({pokeBall, pokemon, pokemonData, displayTeam, setDisplayTeam, co
     }
 
     let removeFromTeam = (e) => {
-
         alert(`You removed ${pokemonData.find(poke => poke.id === pokemon.pokemon_id).name} from your team`)
         fetch(`http://localhost:3000/pokemon_team/${pokemon.id}`, {
             method: 'PATCH', 

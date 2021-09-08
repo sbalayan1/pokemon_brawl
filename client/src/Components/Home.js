@@ -7,7 +7,7 @@ import Ability from './Ability'
 import Stat from './Stat'
 
 
-let Home = ({currentUser, pokemonData, hiddenPokemon, userTrainer, setUserTrainer, setOpponentTrainer, userTrainerPokemon, setUserTrainerPokemon, copyUserTrainerPokemon, setCopyUserTrainerPokemon}) => {
+let Home = ({currentUser, pokemonData, hiddenPokemon, userTrainer, setUserTrainer, setOpponentTrainer, userTrainerPokemon, setUserTrainerPokemon, setCopyUserTrainerPokemon}) => {
     const history = useHistory()
     const [foundPokemon, setFoundPokemon] = useState(null)
     const [catchPokemon, setCatchPokemon] = useState(null)
@@ -62,7 +62,6 @@ let Home = ({currentUser, pokemonData, hiddenPokemon, userTrainer, setUserTraine
     }
 
     let viewNidoGeng = () => {
-        console.log('clicked')
         setDisplayNidoVGengar(!displayNidoVGengar)
     }
 
