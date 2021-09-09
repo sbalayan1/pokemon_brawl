@@ -7,11 +7,11 @@
 </h1>
 
 <p>
-  Just like old Pokemon Games, PokemonBrawl is a mock Pokemon Battle Application that allows users to catch Pokemon, build and customize teams, and battle other trainers!
+  🎮Just like old Pokemon Games, PokemonBrawl is a mock Pokemon Battle Application that allows users to catch Pokemon, build and customize teams, and battle other trainers!
 </p>
 
 <h2>
-  Table of Contents
+  📖Table of Contents
 </h2>
 <ul> 
   <li>Features</li>
@@ -23,11 +23,11 @@
 </ul>
 
 <h2>
-  Features
+  ⚒️Features
 </h2>
 
 <h2>
-  Demo
+  📹Demo
 </h2>
 
 <a href="https://www.loom.com/share/d5a1338edc5e44c9af19149239ee4b51?sharedAppSource=personal_library" target="_blank">
@@ -35,17 +35,25 @@
 alt="PokemonBrawl Loom Video" width="240" height="180" border="10" /></a>
 
 <h2>
-  Instructions
+  📜Instructions
 </h2>
 
 <h2>
-  Coming Soon
+  ⚠️Coming Soon
 </h2>
 
 <h2>
-  About
+  🙋‍♂️About
 </h2>
 
 <h2>
-  Contact
+  📫Contact
 </h2>
+
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white)][1]
+[![Blog](https://img.shields.io/badge/Medium-12100E?style=for-the-badge&logo=medium&logoColor=white)][2]
+[![Email](https://img.shields.io/badge/Gmail-D14836?style=for-the-badge&logo=gmail&logoColor=white)][3]
+
+[1]: https://www.linkedin.com/in/sean-balayan/
+[2]: https://sheeep.medium.com/
+[3]: balayans2014@gmail.com
