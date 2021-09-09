@@ -26,6 +26,30 @@
   ⚒️Features
 </h2>
 
+<h4>
+  Sign up and Login via BCrypt auth
+</h4>
+
+<h4>
+  Catch Pokemon via Who's that Pokemon? or the Safari Zone
+</h4>
+
+<h4>
+  View the Pokemon in your PC
+</h4>
+
+<h4>
+  Build and customize your team
+</h4>
+
+<h4>
+  Battle random trainers
+</h4>
+
+<h4>
+  View current Battle Leaderboards
+</h4>
+
 <h2>
   📹Demo
 </h2>
