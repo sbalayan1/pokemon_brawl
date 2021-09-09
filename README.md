@@ -14,13 +14,21 @@
   📖Table of Contents
 </h2>
 <ul> 
-  <li>Features</li>
   <li>Demo</li>
+  <li>Features</li>
   <li>Instructions</li>
   <li>Coming Soon</li>
   <li>About</li>
   <li>Contact</li>
 </ul>
+
+<h2>
+  📹Demo
+</h2>
+
+<a href="https://www.loom.com/share/d5a1338edc5e44c9af19149239ee4b51?sharedAppSource=personal_library" target="_blank">
+<img src="https://www.loom.com/share/d5a1338edc5e44c9af19149239ee4b51" 
+alt="PokemonBrawl Loom Video" width="240" height="180" border="10" /></a>
 
 <h2>
   ⚒️Features
@@ -49,14 +57,6 @@
 <h4>
   View current Battle Leaderboards
 </h4>
-
-<h2>
-  📹Demo
-</h2>
-
-<a href="https://www.loom.com/share/d5a1338edc5e44c9af19149239ee4b51?sharedAppSource=personal_library" target="_blank">
-<img src="https://www.loom.com/share/d5a1338edc5e44c9af19149239ee4b51" 
-alt="PokemonBrawl Loom Video" width="240" height="180" border="10" /></a>
 
 <h2>
   📜Instructions
