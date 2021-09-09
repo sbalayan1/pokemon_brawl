@@ -1,7 +1,5 @@
-import {useState} from 'react'
-
 let TrainerRecord = ({trainer}) => {
-    const [totalBattles, setTotalBattles] = useState(trainer.battles.length)
+    const totalBattles = trainer.battles.length
     const wins = trainer.battles.filter(battle => battle.win_loss === true).length
     const loss = trainer.battles.filter(battle => battle.win_loss === false).length
  

@@ -14,7 +14,6 @@ let SignUp = () => {
 
     let handleSubmit = async (e) => {
         e.preventDefault(e)
-        console.log('hello the button is working')
         const user = {
             username: username, 
             first_name: firstName, 
@@ -31,7 +30,6 @@ let SignUp = () => {
         })
 
         const userData = await res.json()
-        console.log(userData)
 
         if (userData.id) {
             alert(`Welcome ${user.username}! Please login using your new credentials!!`)
