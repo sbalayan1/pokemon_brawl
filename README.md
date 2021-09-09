@@ -17,6 +17,7 @@
   <li>Demo</li>
   <li>Features</li>
   <li>Instructions</li>
+  <li>Wireframes</li>
   <li>Coming Soon</li>
   <li>About</li>
   <li>Contact</li>
@@ -61,6 +62,12 @@ alt="PokemonBrawl Loom Video" width="240" height="180" border="10" /></a>
 <h2>
   📜Instructions
 </h2>
+
+<h2>
+  Wireframes
+</h2>
+
+<p> https://miro.com/app/dashboard/ </p>
 
 <h2>
   ⚠️Coming Soon
