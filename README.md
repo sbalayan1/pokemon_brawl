@@ -1,5 +1,5 @@
 <div align="center">
-  <img height="90px" src="https://static.wikia.nocookie.net/pokemon-fano/images/6/6f/Poke_Ball.png/revision/latest/scale-to-width-down/767?cb=20140520015336" alt="PokeBall"/>
+  <img height="100px" src="https://static.wikia.nocookie.net/pokemon-fano/images/6/6f/Poke_Ball.png/revision/latest/scale-to-width-down/767?cb=20140520015336" alt="PokeBall"/>
 </div>
   
 <h1 align="center">
