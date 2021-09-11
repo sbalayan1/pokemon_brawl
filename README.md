@@ -77,6 +77,16 @@ alt="PokemonBrawl Loom Video" width="240" height="180" border="10" /></a>
   🙋‍♂️About
 </h2>
 
+<p>
+After graduating from the University of San Francisco, I spent some time working as a Hedge Fund Associate at Asymmetry Capital Management. There I assisted the Healthcare Investment team with equity valuation, financial modeling, and research. After some time I came to the the conclusion that this career wasn't for me and left. Feeling lost, unstructured, and unfulfilled, albeit with endless potential, I eventually found myself applying to Flatiron School. And of course the rest is history. 
+
+Now that I've graduated I spend most of my time coding and searching for new opportunities. Current interests include equity markets, crypto, AI, machine learning, game development, and anything tech related. 
+
+Front End -> JavaScript, React
+Back End -> Ruby on Rails
+Other Skills -> Redux, SQL, PostgreSQL, ActiveRecord, BCrypt, MaterialUI, Postman API, JSON, MVC Architecture, REST conventions, Rack, Hooks, State, Event Handling, Conditional Rendering
+</p>
+
 <h2>
   📫Contact
 </h2>
