@@ -73,9 +73,24 @@ alt="PokemonBrawl Loom Video" width="240" height="180" border="10" /></a>
   ⚠️Coming Soon
 </h2>
 
+<p>
+  Currently working on fixing issues with seed data. I need to learn how to make API calls to my backend so I can seed the Pokemon data. The hope here is that this will fix issues with deploying to Heroku and we will be able to have a functioning web application. 
+</p>
+
+
 <h2>
   🙋‍♂️About
 </h2>
+
+<p>
+After graduating from the University of San Francisco, I spent some time working as a Hedge Fund Associate at Asymmetry Capital Management. There I assisted the Healthcare Investment team with equity valuation, financial modeling, and research. After some time I came to the the conclusion that this career wasn't for me and left. Feeling lost, unstructured, and unfulfilled, albeit with endless potential, I eventually found myself applying to Flatiron School. And of course the rest is history. 
+
+Now that I've graduated I spend most of my time coding and searching for new opportunities. Current interests include equity markets, crypto, AI, machine learning, game development, and anything tech related. 
+</p>
+
+<p>Front End -> JavaScript, React </p>
+<p>Back End -> Ruby on Rails </p>
+<p>Other Skills -> Redux, SQL, PostgreSQL, ActiveRecord, BCrypt, MaterialUI, Postman API, JSON, MVC Architecture, REST conventions, Rack, Hooks, State, Event Handling, Conditional Rendering</p>
 
 <h2>
   📫Contact
