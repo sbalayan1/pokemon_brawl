@@ -11,6 +11,55 @@
 </p>
 
 <h2>
+  LOOK HERE! Launch the application through your local environment. 
+</h2>
+
+<h4>PostgreSQL Installation for WSL</h4>
+<p>PostgreSQL is utilized as my database. This needs to be downloaded to be used. To install Postgres for WSL, run the following commands from your Ubuntu terminal:</p>
+    
+    - sudo apt update
+    - sudo apt install postgresql postgresql-contrib libpq-dev
+  
+<p>Then confirm that Postgres was installed successfully:</p>
+
+    - psql --version
+
+<p>Run this command to start the Postgres service:</p>
+  
+    - sudo service postgresql start
+  
+<p>Finally, you'll also need to create a database user so that you are able to connect to the database from Rails. First, check what your operating system username is:</p>
+  
+    - whoami
+
+<p>If your username is "ian", for example, you'd need to create a Postgres user with that same name. To do so, run this command to open the Postgres CLI:</p>
+  
+    - sudo -u postgres -i
+
+<p>From the Postgres CLI, run this command (replacing "ian" with your username):</p>
+  
+    - createuser -sr ian
+
+<p>Then enter control + d or type logout to exit.</p>
+
+<h3>Start the application</h3>
+<p>1. In your terminal, run the following commands first to setup, create and seed the database</p>
+
+    - bundle install
+    - rake db:migrate
+    - rake db:seed
+
+<p>2. In your terminal, run the following commands to start the server. A window to localhost:3000 should open in your browser. This serves as your view into the database. You will not need this unless you are developing. Keep this to the side.</p>
+    
+    - bin/rails server
+
+<p>3. In a NEW terminal, run the following commands to start the client and select YES. A window to localhost:3001 should open in your browser. This serves as the user interface for the game. Feel free to make an account, catch pokemon, and battle!</p>
+
+    - npm start --prefix client
+    
+<p>4. CONGRATS! You can now access PokemonBrawl!!</p>
+
+<h2>
   📖Table of Contents
 </h2>
 <ul> 
@@ -35,29 +84,12 @@ alt="PokemonBrawl Loom Video" width="240" height="180" border="10" /></a>
   ⚒️Features
 </h2>
 
-<h4>
-  Sign up and Login via BCrypt auth
-</h4>
-
-<h4>
-  Catch Pokemon via Who's that Pokemon? or the Safari Zone
-</h4>
-
-<h4>
-  View the Pokemon in your PC
-</h4>
-
-<h4>
-  Build and customize your team
-</h4>
-
-<h4>
-  Battle random trainers
-</h4>
-
-<h4>
-  View current Battle Leaderboards
-</h4>
+  - Sign up and Login via BCrypt auth
+  - Catch Pokemon via Who's that Pokemon? or the Safari Zone
+  - View the Pokemon in your PC
+  - Build and customize your team
+  - Battle random trainers
+  - View current Battle Leaderboards
 
 <h2>
   📜Instructions
