@@ -10,8 +10,9 @@ Rails.application.routes.draw do
   delete '/pokemon/:id', to: 'pokemon#destroy'
   patch '/pokemon_team/:id', to: 'pokemon_teams#update'
 
-  get '/pokemon/:id/front_sprite', to: 'pokemon#show_front_sprite'
-  get '/pokemon/:id/back_sprite', to: 'pokemon#show_back_sprite'
+  get '/pokemon/:id/front_sprite', to: 'pokemon#front_sprite'
+  get '/pokemon/:id/back_sprite', to: 'pokemon#back_sprite'
+  get '/pokemon/:id/ability', to: 'pokemon#ability'
   
   resources :users, only: [:index, :show, :create]
   resources :trainers, only: [:index, :show, :create]

@@ -12,14 +12,19 @@ class PokemonController < ApplicationController
         render json: pokemon
     end 
 
-    def show_front_sprite 
+    def front_sprite 
         front_image_url = Pokemon.new().get_pokemon_front_image(params[:id])
         render json: front_image_url
     end 
 
-    def show_back_sprite
+    def back_sprite
         back_image_url = Pokemon.new().get_pokemon_back_image(params[:id])
         render json: back_image_url
+    end 
+
+    def ability
+        ability = Pokemon.new().get_pokemon_ability(params[:id])
+        render json: ability
     end 
 
     def create

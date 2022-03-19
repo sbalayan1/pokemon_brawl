@@ -60,4 +60,20 @@ class Pokemon < ApplicationRecord
         pokemon = get_pokemon id
         pokemon['sprites']['back_shiny']
     end 
+
+    def get_pokemon_ability id
+        pokemon = get_pokemon id
+        url = pokemon['abilities'][0]['ability']['url']
+        uri = URI.parse(url)
+        response = Net::HTTP.get_response(uri)
+        ability = JSON.parse(response.body)
+        ability_description = ability['flavor_text_entries'][0]['flavor_text']
+        effect_description = ability['effect_entries'].filter {|e| e['language']['name'] == 'en'}[0]['effect']
+
+        ability_object = {
+            'name': pokemon['abilities'][0]['ability']['name'],
+            'ability': ability_description,
+            'effect': effect_description
+        }
+    end 
 end
