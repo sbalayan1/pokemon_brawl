@@ -36,7 +36,7 @@ let App = () => {
           setTrainers(data)
       })
       
-      fetch('http://localhost:3000/pokemon')
+      fetch('http://localhost:3000/pokemon/')
       .then(res => res.json())
       .then(data => {
           setRandPokemon(data[Math.floor(Math.random() * data.length)].front_image)
