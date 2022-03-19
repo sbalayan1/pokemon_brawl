@@ -59,6 +59,8 @@
     
 <p>4. CONGRATS! You can now access PokemonBrawl!!</p>
 
+<h2>>⚠️I am currently refactoring my backend!!! The application may not be working at the moment!!!</h2>
+
 <h2>
   📖Table of Contents
 </h2>
