@@ -1,15 +1,6 @@
-# require 'pry'
 require 'open-uri'
 require 'net/http'
 require 'json'
-# require 'awesome_print'
-# id = 10
-# url = "https://pokeapi.co/v2/pokemon/#{id}"
-# uri = URI.parse(url)
-# response = Net::HTTP.get_response(uri)
-# ap JSON.parse(response.body)
-
-
 
 class Pokemon < ApplicationRecord
     has_many :pokemon_teams 
@@ -38,42 +29,55 @@ class Pokemon < ApplicationRecord
         uri = URI.parse(url)
         response = Net::HTTP.get_response(uri)
         pokemon_list = JSON.parse(response.body)
-        pokemon_urls = pokemon_list['results'].map do |pokemon|
-            pokemon['url']
-        end
+        pokemon_urls = pokemon_list['results'].map {|pokemon| pokemon['url'] }
     end
 
     def get_pokemon id
         url = "https://pokeapi.co/api/v2/pokemon/#{id}"
         uri = URI.parse(url)
         response = Net::HTTP.get_response(uri)
-        pokemon = JSON.parse(response.body)
-        pokemon
+        poke = JSON.parse(response.body)
+        
+        pokemon_object = {
+            'name': poke['name'],
+            'front_image': poke['sprites']['front_shiny'],
+            'back_image': poke['sprites']['back_shiny'],
+            'abilities': poke['abilities'],
+            'types': poke['types'].map {|t| t['type']['name']},
+            'moves': poke['moves'].map {|t| t['move']}
+        }
     end
 
     def get_pokemon_front_image id
         pokemon = get_pokemon id
-        pokemon['sprites']['front_shiny']
+        pokemon[:front_image]
     end 
 
     def get_pokemon_back_image id
         pokemon = get_pokemon id
-        pokemon['sprites']['back_shiny']
+        pokemon[:back_image]
     end 
 
     def get_pokemon_ability id
         pokemon = get_pokemon id
-        url = pokemon['abilities'][0]['ability']['url']
-        uri = URI.parse(url)
-        response = Net::HTTP.get_response(uri)
-        ability = JSON.parse(response.body)
-        ability_description = ability['flavor_text_entries'][0]['flavor_text']
-        effect_description = ability['effect_entries'].filter {|e| e['language']['name'] == 'en'}[0]['effect']
+        pokemon[:abilities].map do |pokemon|
+            url = pokemon['ability']['url']
+            uri = URI.parse(url)
+            response = Net::HTTP.get_response(uri)
+            ability = JSON.parse(response.body)
+            ability_description = ability['flavor_text_entries'][0]['flavor_text']
+            effect_description = ability['effect_entries'].filter {|e| e['language']['name'] == 'en'}[0]['short_effect']
 
-        ability_object = {
-            'name': pokemon['abilities'][0]['ability']['name'],
-            'ability': ability_description,
-            'effect': effect_description
-        }
+            ability_object = {
+                'name': pokemon['ability']['name'],
+                'ability': ability_description,
+                'effect': effect_description
+            }
+        end
+    end                         
+
+    def get_pokemon_moves id
+        pokemon = get_pokemon id
+        pokemon[:moves]
     end 
 end

@@ -3,7 +3,7 @@ class MovesController < ApplicationController
     rescue_from ActiveRecord::RecordNotFound, with: :render_not_found
 
     def index
-        moves = Move.all
+        moves = Move.new().get_moves
         render json: moves
     end
 

@@ -12,7 +12,8 @@ Rails.application.routes.draw do
 
   get '/pokemon/:id/front_sprite', to: 'pokemon#front_sprite'
   get '/pokemon/:id/back_sprite', to: 'pokemon#back_sprite'
-  get '/pokemon/:id/ability', to: 'pokemon#ability'
+  get '/pokemon/:id/abilities', to: 'pokemon#ability'
+  get '/pokemon/:id/moves', to: 'pokemon#moves'
   
   resources :users, only: [:index, :show, :create]
   resources :trainers, only: [:index, :show, :create]
