@@ -3,13 +3,23 @@ class PokemonController < ApplicationController
     rescue_from ActiveRecord::RecordNotFound, with: :render_not_found
 
     def index
-        pokemon = Pokemon.get_all_pokemon
+        pokemon = Pokemon.get_all_pokemon_urls
         render json: pokemon
     end
 
     def show
-        pokemon = Pokemon.find(params[:id])
+        pokemon = Pokemon.new().get_pokemon(params[:id])
         render json: pokemon
+    end 
+
+    def show_front_sprite 
+        front_image_url = Pokemon.new().get_pokemon_front_image(params[:id])
+        render json: front_image_url
+    end 
+
+    def show_back_sprite
+        back_image_url = Pokemon.new().get_pokemon_back_image(params[:id])
+        render json: back_image_url
     end 
 
     def create

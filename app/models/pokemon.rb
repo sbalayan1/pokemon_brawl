@@ -3,6 +3,12 @@ require 'open-uri'
 require 'net/http'
 require 'json'
 # require 'awesome_print'
+# id = 10
+# url = "https://pokeapi.co/v2/pokemon/#{id}"
+# uri = URI.parse(url)
+# response = Net::HTTP.get_response(uri)
+# ap JSON.parse(response.body)
+
 
 
 class Pokemon < ApplicationRecord
@@ -27,18 +33,31 @@ class Pokemon < ApplicationRecord
     validates :front_image, presence: true
     validates :back_image, presence: true
 
-    # url =  'https://pokeapi.co/api/v2/pokemon?limit=151'
-    # uri = URI.parse(url)
-    # response = Net::HTTP.get_response(uri)
-    # json_response = JSON.parse(response.body)
-
-    def self.get_all_pokemon
-        url =  'https://pokeapi.co/api/v2/pokemon?limit=151'
+    def self.get_all_pokemon_urls
+        url = 'https://pokeapi.co/api/v2/pokemon?limit=151'
         uri = URI.parse(url)
         response = Net::HTTP.get_response(uri)
         pokemon_list = JSON.parse(response.body)
-        pokemon_list.each do |pokemon|
-            puts pokemon
-        end 
+        pokemon_urls = pokemon_list['results'].map do |pokemon|
+            pokemon['url']
+        end
+    end
+
+    def get_pokemon id
+        url = "https://pokeapi.co/api/v2/pokemon/#{id}"
+        uri = URI.parse(url)
+        response = Net::HTTP.get_response(uri)
+        pokemon = JSON.parse(response.body)
+        pokemon
+    end
+
+    def get_pokemon_front_image id
+        pokemon = get_pokemon id
+        pokemon['sprites']['front_shiny']
+    end 
+
+    def get_pokemon_back_image id
+        pokemon = get_pokemon id
+        pokemon['sprites']['back_shiny']
     end 
 end

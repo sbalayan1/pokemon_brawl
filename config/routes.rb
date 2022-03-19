@@ -5,13 +5,13 @@ Rails.application.routes.draw do
   get '/user', to: 'users#show'
   get '/user/:id', to: 'users#find_user'
   post '/signup', to: 'users#create'
-
   post '/login', to: 'sessions#create'
   delete '/logout', to: 'sessions#destroy'
-
   delete '/pokemon/:id', to: 'pokemon#destroy'
-
   patch '/pokemon_team/:id', to: 'pokemon_teams#update'
+
+  get '/pokemon/:id/front_sprite', to: 'pokemon#show_front_sprite'
+  get '/pokemon/:id/back_sprite', to: 'pokemon#show_back_sprite'
   
   resources :users, only: [:index, :show, :create]
   resources :trainers, only: [:index, :show, :create]
