@@ -29,56 +29,28 @@ let App = () => {
   const [randPokemon, setRandPokemon] = useState()
   const [pokeBall, setPokeBall] = useState()
 
+  let random = Math.floor(Math.random()*151)
+  let fetchData = async () => {
+
+    let trainers = await fetch('http://localhost:3000/trainers')
+    let pokemonData = await fetch('http://localhost:3000/pokemon')
+    let randomPokemon = await fetch(`http://localhost:3000/pokemon/${random}`)
+    let pokeBall = await fetch('https://pokeapi.co/api/v2/item/poke-ball')
+
+    random = Math.floor(Math.random()*151)
+    let hiddenPokemon = await fetch(`http://localhost:3000/pokemon/${random}`)
+
+    return Promise.all([trainers.json(), pokemonData.json(), randomPokemon.json(), hiddenPokemon.json(), pokeBall.json()])
+  }
+
   useEffect(() => {
-      let random;
-      fetch('http://localhost:3000/trainers')
-      .then(res => res.json())
-      .then(data => {
-          setTrainers(data)
+      fetchData().then(data => {
+        setTrainers(data[0])
+        setPokemonData(data[1])
+        setRandPokemon(data[2].front_image)
+        setHiddenPokemon(data[3].front_image)
+        setPokeBall(data[4].sprites.default)
       })
-      
-
-
-      let fetchPokemon = async () => {
-        let getPokemon = await fetch('http://localhost:3000/pokemon/')
-        let random = Math.floor(Math.random() * getPokemon.length), i = 0, getRandPokemon;
-
-        while (i<2) {
-          getRandPokemon = await fetch(`http://localhost:3000/pokemon/${random}`)
-          random = Math.floor(Math.random() * getPokemon.length)
-          i++
-        }
-
-        return Promise.all([getPokemon, getRandPokemon])
-      }
-
-      fetchPokemon()
-
-      fetch('http://localhost:3000/pokemon/')
-      .then(res => res.json())
-      .then(data => {
-          random = Math.floor(Math.random() * data.length)
-          console.log(random)
-          setPokemonData(data)
-      })
-
-      // fetch(`http://localhost:3000/pokemon/${random}`)
-      // .then(res => res.json())
-      // .then(data => {
-      //   setRandPokemon(data.front_image)
-      //   random = Math.floor(Math.random() * pokemonData.length)  
-      // })
- 
-      // fetch(`http://localhost:3000/pokemon/${random}`)
-      // .then(res => res.json())
-      // .then(data => {setHiddenPokemon(data)})
-
-      fetch('https://pokeapi.co/api/v2/item/poke-ball')
-      .then(res => res.json())
-      .then(data => {
-          setPokeBall(data.sprites.default)
-      })
-
   },[])
 
   if (currentUser === null) {
