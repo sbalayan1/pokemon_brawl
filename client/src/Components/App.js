@@ -29,9 +29,8 @@ let App = () => {
   const [randPokemon, setRandPokemon] = useState()
   const [pokeBall, setPokeBall] = useState()
 
-  let random = Math.floor(Math.random()*151)
+  let random = Math.floor(Math.random()*151), homePokemon;
   let fetchData = async () => {
-
     let trainers = await fetch('http://localhost:3000/trainers')
     let pokemonData = await fetch('http://localhost:3000/pokemon')
     let randomPokemon = await fetch(`http://localhost:3000/pokemon/${random}`)
@@ -43,6 +42,16 @@ let App = () => {
     return Promise.all([trainers.json(), pokemonData.json(), randomPokemon.json(), hiddenPokemon.json(), pokeBall.json()])
   }
 
+  let fetchHomePokemon = async () => {
+    let dragonite = await fetch ('http://localhost:3000/pokemon/149')
+    let mewtwo = await fetch('http://localhost:3000/pokemon/151')
+    let articuno = await fetch('http://localhost:3000/pokemon/144')
+    let zapdos = await fetch('http://localhost:3000/pokemon/145')
+    let moltres = await fetch('http://localhost:3000/pokemon/146')
+
+    return Promise.all([dragonite.json(), mewtwo.json(), articuno.json(), zapdos.json(), moltres.json()])
+}
+
   useEffect(() => {
       fetchData().then(data => {
         setTrainers(data[0])
@@ -50,6 +59,11 @@ let App = () => {
         setRandPokemon(data[2].front_image)
         setHiddenPokemon(data[3].front_image)
         setPokeBall(data[4].sprites.default)
+      })
+
+      fetchHomePokemon().then(data => {
+        homePokemon = data
+        console.log(homePokemon)
       })
   },[])
 
@@ -152,6 +166,7 @@ let App = () => {
                 userTrainerPokemon={userTrainerPokemon}
                 setUserTrainerPokemon={setUserTrainerPokemon}
                 setCopyUserTrainerPokemon={setCopyUserTrainerPokemon}
+                homePokemon = {homePokemon}
               />
             </Route>
           </Switch>

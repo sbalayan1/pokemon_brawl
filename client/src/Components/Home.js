@@ -7,7 +7,7 @@ import Ability from './Ability'
 import Stat from './Stat'
 
 
-let Home = ({currentUser, pokemonData, hiddenPokemon, userTrainer, setUserTrainer, setOpponentTrainer, userTrainerPokemon, setUserTrainerPokemon, setCopyUserTrainerPokemon}) => {
+let Home = ({currentUser, pokemonData, hiddenPokemon, userTrainer, setUserTrainer, setOpponentTrainer, userTrainerPokemon, setUserTrainerPokemon, setCopyUserTrainerPokemon, homePokemon}) => {
     const history = useHistory()
     const [foundPokemon, setFoundPokemon] = useState(null)
     const [catchPokemon, setCatchPokemon] = useState(null)
@@ -60,6 +60,9 @@ let Home = ({currentUser, pokemonData, hiddenPokemon, userTrainer, setUserTraine
             alert('You already caught that pokemon!!!')
         }
     }
+    
+    console.log(homePokemon)
+    let dragonite = homePokemon[0], mewtwo = homePokemon[1], articuno = homePokemon[2], zapdos = homePokemon[3], moltres = homePokemon[4]
 
     let viewNidoGeng = () => {
         setDisplayNidoVGengar(!displayNidoVGengar)
@@ -106,9 +109,20 @@ let Home = ({currentUser, pokemonData, hiddenPokemon, userTrainer, setUserTraine
     ]
 
     useEffect(() => {
+        // fetchHomePokemon().then(data => {
+        //     console.log(`fetch working ${data}`)
+        //     dragonite = data[0]
+        //     mewtwo = data[1]
+        //     articuno = data[2]
+        //     zapdos = data[3]
+        //     moltres = data[4]
+        // })
+        
+
         fetch('http://localhost:3000/trainers')
         .then(res => res.json())
         .then(data => {
+            console.log('useEffect fired')
             if (currentUser !== null) {
                 if (data.find(trainer=> trainer.user_id === currentUser.id)===undefined) {
                     history.push('/create_a_trainer')
@@ -193,17 +207,17 @@ let Home = ({currentUser, pokemonData, hiddenPokemon, userTrainer, setUserTraine
                         <img style={{height:'100px'}} className="home-image-thumbnail" src='https://64.media.tumblr.com/283d7a9b2d425f3b9bc526fa544c2415/tumblr_olpgcl6z5p1rc40z5o2_500.gifv'  alt="pokemon-image" onClick={viewZapdos}/>
                     }
 
-                    <p>{pokemonData[51].name.charAt(0).toUpperCase() + pokemonData[51].name.slice(1)}</p>
+                    <p>{zapdos.name.charAt(0).toUpperCase() + zapdos.name.slice(1)}</p>
                     <div className="home-poke-type-card">
-                        <p style={{backgroundColor:colorType.find(findType => findType.type === [...new Map(pokemonData[51].types.map(type => [type['name'], type])).values()][0].name).color}}><small>{[...new Map(pokemonData[51].types.map(type => [type['name'], type])).values()][0].name}</small></p>
-                        <p style={{backgroundColor:colorType.find(findType => findType.type === [...new Map(pokemonData[51].types.map(type => [type['name'], type])).values()][1].name).color}}><small>{[...new Map(pokemonData[51].types.map(type => [type['name'], type])).values()][1].name}</small></p>
+                        <p style={{backgroundColor:colorType.find(findType => findType.type === [...new Map(zapdos.types.map(type => [type['name'], type])).values()][0].name).color}}><small>{[...new Map(zapdos.types.map(type => [type['name'], type])).values()][0].name}</small></p>
+                        <p style={{backgroundColor:colorType.find(findType => findType.type === [...new Map(zapdos.types.map(type => [type['name'], type])).values()][1].name).color}}><small>{[...new Map(zapdos.types.map(type => [type['name'], type])).values()][1].name}</small></p>
                     </div>
                     <h4>Stats</h4>
-                    {pokemonData[51].stats.map(stat => {
+                    {zapdos.stats.map(stat => {
                         return (<Stat stat={stat}/>)
                     })}
                     <div className="home-poke-ability-card">
-                        {[...new Map(pokemonData[51].abilities.map(ability => [ability['name'], ability])).values()].map(ability => {
+                        {[...new Map(zapdos.abilities.map(ability => [ability['name'], ability])).values()].map(ability => {
                                     return(<Ability ability={ability}/>)
                                 })}
                     </div>
@@ -213,17 +227,17 @@ let Home = ({currentUser, pokemonData, hiddenPokemon, userTrainer, setUserTraine
                     :
                         <img style={{height:'100px'}} className="home-image-thumbnail" src='https://thumbs.gfycat.com/CreamyHappyAmazontreeboa-size_restricted.gif'  alt="pokemon-image" onClick={viewMoltres}/>
                     }
-                    <p>{pokemonData[102].name.charAt(0).toUpperCase() + pokemonData[102].name.slice(1)}</p>
+                    <p>{moltres.name.charAt(0).toUpperCase() + moltres.name.slice(1)}</p>
                     <div className="home-poke-type-card">
-                        <p style={{backgroundColor:colorType.find(findType => findType.type === [...new Map(pokemonData[102].types.map(type => [type['name'], type])).values()][1].name).color}}><small>{[...new Map(pokemonData[102].types.map(type => [type['name'], type])).values()][1].name}</small></p>
-                        <p style={{backgroundColor:colorType.find(findType => findType.type === [...new Map(pokemonData[102].types.map(type => [type['name'], type])).values()][0].name).color}}><small>{[...new Map(pokemonData[102].types.map(type => [type['name'], type])).values()][0].name}</small></p>
+                        <p style={{backgroundColor:colorType.find(findType => findType.type === [...new Map(moltres.types.map(type => [type['name'], type])).values()][1].name).color}}><small>{[...new Map(moltres.types.map(type => [type['name'], type])).values()][1].name}</small></p>
+                        <p style={{backgroundColor:colorType.find(findType => findType.type === [...new Map(moltres.types.map(type => [type['name'], type])).values()][0].name).color}}><small>{[...new Map(moltres.types.map(type => [type['name'], type])).values()][0].name}</small></p>
                     </div>
                     <h4>Stats</h4>
-                    {pokemonData[102].stats.map(stat => {
+                    {moltres.stats.map(stat => {
                         return (<Stat stat={stat}/>)
                     })}
                     <div className="home-poke-ability-card">
-                        {[...new Map(pokemonData[102].abilities.map(ability => [ability['name'], ability])).values()].map(ability => {
+                        {[...new Map(moltres.abilities.map(ability => [ability['name'], ability])).values()].map(ability => {
                                     return(<Ability ability={ability}/>)
                                 })}
                     </div>
@@ -233,13 +247,13 @@ let Home = ({currentUser, pokemonData, hiddenPokemon, userTrainer, setUserTraine
                     :
                         <img style={{height:'100px'}} className="home-image-thumbnail" src='http://37.media.tumblr.com/500bc8bf48fce4915723b33cfd38d645/tumblr_ms9yiz777J1rey868o1_500.gif'  alt="pokemon-image" onClick={viewArticuno}/>
                     }
-                    <p>{pokemonData[125].name.charAt(0).toUpperCase() + pokemonData[125].name.slice(1)}</p>
+                    <p>{articuno.name.charAt(0).toUpperCase() + articuno.name.slice(1)}</p>
                     <div className="home-poke-type-card">
-                        <p style={{backgroundColor:colorType.find(findType => findType.type === [...new Map(pokemonData[125].types.map(type => [type['name'], type])).values()][0].name).color}}><small>{[...new Map(pokemonData[125].types.map(type => [type['name'], type])).values()][0].name}</small></p>
-                        <p style={{backgroundColor:colorType.find(findType => findType.type === [...new Map(pokemonData[125].types.map(type => [type['name'], type])).values()][1].name).color}}><small>{[...new Map(pokemonData[125].types.map(type => [type['name'], type])).values()][1].name}</small></p>
+                        <p style={{backgroundColor:colorType.find(findType => findType.type === [...new Map(articuno.types.map(type => [type['name'], type])).values()][0].name).color}}><small>{[...new Map(articuno.types.map(type => [type['name'], type])).values()][0].name}</small></p>
+                        <p style={{backgroundColor:colorType.find(findType => findType.type === [...new Map(articuno.types.map(type => [type['name'], type])).values()][1].name).color}}><small>{[...new Map(articuno.types.map(type => [type['name'], type])).values()][1].name}</small></p>
                     </div>
                     <h4>Stats</h4>
-                    {pokemonData[125].stats.map(stat => {
+                    {articuno.stats.map(stat => {
                         return (<Stat stat={stat}/>)
                     })}
                     <div className="home-poke-ability-card">
