@@ -28,8 +28,9 @@ let App = () => {
   const [trainers, setTrainers] = useState()
   const [randPokemon, setRandPokemon] = useState()
   const [pokeBall, setPokeBall] = useState()
+  const [homePokemon, setHomePokemon] = useState(null)
 
-  let random = Math.floor(Math.random()*151), homePokemon;
+  let random = Math.floor(Math.random()*151)
   let fetchData = async () => {
     let trainers = await fetch('http://localhost:3000/trainers')
     let pokemonData = await fetch('http://localhost:3000/pokemon')
@@ -62,8 +63,7 @@ let App = () => {
       })
 
       fetchHomePokemon().then(data => {
-        homePokemon = data
-        console.log(homePokemon)
+        setHomePokemon(data)
       })
   },[])
 

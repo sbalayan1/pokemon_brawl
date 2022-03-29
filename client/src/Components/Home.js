@@ -60,8 +60,8 @@ let Home = ({currentUser, pokemonData, hiddenPokemon, userTrainer, setUserTraine
             alert('You already caught that pokemon!!!')
         }
     }
-    
-    console.log(homePokemon)
+
+
     let dragonite = homePokemon[0], mewtwo = homePokemon[1], articuno = homePokemon[2], zapdos = homePokemon[3], moltres = homePokemon[4]
 
     let viewNidoGeng = () => {
@@ -109,16 +109,6 @@ let Home = ({currentUser, pokemonData, hiddenPokemon, userTrainer, setUserTraine
     ]
 
     useEffect(() => {
-        // fetchHomePokemon().then(data => {
-        //     console.log(`fetch working ${data}`)
-        //     dragonite = data[0]
-        //     mewtwo = data[1]
-        //     articuno = data[2]
-        //     zapdos = data[3]
-        //     moltres = data[4]
-        // })
-        
-
         fetch('http://localhost:3000/trainers')
         .then(res => res.json())
         .then(data => {
@@ -209,13 +199,19 @@ let Home = ({currentUser, pokemonData, hiddenPokemon, userTrainer, setUserTraine
 
                     <p>{zapdos.name.charAt(0).toUpperCase() + zapdos.name.slice(1)}</p>
                     <div className="home-poke-type-card">
-                        <p style={{backgroundColor:colorType.find(findType => findType.type === [...new Map(zapdos.types.map(type => [type['name'], type])).values()][0].name).color}}><small>{[...new Map(zapdos.types.map(type => [type['name'], type])).values()][0].name}</small></p>
-                        <p style={{backgroundColor:colorType.find(findType => findType.type === [...new Map(zapdos.types.map(type => [type['name'], type])).values()][1].name).color}}><small>{[...new Map(zapdos.types.map(type => [type['name'], type])).values()][1].name}</small></p>
+
+                        <p style={{backgroundColor:colorType.find(findType => findType.type === zapdos.types[0]).color}}>
+                            <small>{zapdos.types[0]}</small>
+                        </p>
+
+                        <p style={{backgroundColor:colorType.find(findType => findType.type === zapdos.types[1]).color}}>
+                            <small>{zapdos.types[1]}</small>
+                        </p>
                     </div>
                     <h4>Stats</h4>
-                    {zapdos.stats.map(stat => {
+                    {/* {zapdos.stats.map(stat => {
                         return (<Stat stat={stat}/>)
-                    })}
+                    })} */}
                     <div className="home-poke-ability-card">
                         {[...new Map(zapdos.abilities.map(ability => [ability['name'], ability])).values()].map(ability => {
                                     return(<Ability ability={ability}/>)
@@ -229,13 +225,17 @@ let Home = ({currentUser, pokemonData, hiddenPokemon, userTrainer, setUserTraine
                     }
                     <p>{moltres.name.charAt(0).toUpperCase() + moltres.name.slice(1)}</p>
                     <div className="home-poke-type-card">
-                        <p style={{backgroundColor:colorType.find(findType => findType.type === [...new Map(moltres.types.map(type => [type['name'], type])).values()][1].name).color}}><small>{[...new Map(moltres.types.map(type => [type['name'], type])).values()][1].name}</small></p>
-                        <p style={{backgroundColor:colorType.find(findType => findType.type === [...new Map(moltres.types.map(type => [type['name'], type])).values()][0].name).color}}><small>{[...new Map(moltres.types.map(type => [type['name'], type])).values()][0].name}</small></p>
+                        <p style={{backgroundColor:colorType.find(findType => findType.type === moltres.types[0]).color}}>
+                            <small>{moltres.types[0]}</small>
+                        </p>
+                        <p style={{backgroundColor:colorType.find(findType => findType.type === moltres.types[1]).color}}>
+                            <small>{moltres.types[1]}</small>
+                        </p>
                     </div>
                     <h4>Stats</h4>
-                    {moltres.stats.map(stat => {
+                    {/* {moltres.stats.map(stat => {
                         return (<Stat stat={stat}/>)
-                    })}
+                    })} */}
                     <div className="home-poke-ability-card">
                         {[...new Map(moltres.abilities.map(ability => [ability['name'], ability])).values()].map(ability => {
                                     return(<Ability ability={ability}/>)
@@ -249,13 +249,17 @@ let Home = ({currentUser, pokemonData, hiddenPokemon, userTrainer, setUserTraine
                     }
                     <p>{articuno.name.charAt(0).toUpperCase() + articuno.name.slice(1)}</p>
                     <div className="home-poke-type-card">
-                        <p style={{backgroundColor:colorType.find(findType => findType.type === [...new Map(articuno.types.map(type => [type['name'], type])).values()][0].name).color}}><small>{[...new Map(articuno.types.map(type => [type['name'], type])).values()][0].name}</small></p>
-                        <p style={{backgroundColor:colorType.find(findType => findType.type === [...new Map(articuno.types.map(type => [type['name'], type])).values()][1].name).color}}><small>{[...new Map(articuno.types.map(type => [type['name'], type])).values()][1].name}</small></p>
+                        <p style={{backgroundColor:colorType.find(findType => findType.type === articuno.types[0]).color}}>
+                            <small>{articuno.types[0]}</small>
+                        </p>
+                        <p style={{backgroundColor:colorType.find(findType => findType.type === articuno.types[1]).color}}>
+                            <small>{articuno.types[1]}</small>
+                        </p>
                     </div>
                     <h4>Stats</h4>
-                    {articuno.stats.map(stat => {
+                    {/* {articuno.stats.map(stat => {
                         return (<Stat stat={stat}/>)
-                    })}
+                    })} */}
                     <div className="home-poke-ability-card">
                         <h5 style={{margin:'5px'}}>
                             snow-cloak
