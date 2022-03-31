@@ -33,16 +33,19 @@ let App = () => {
   let random = Math.floor(Math.random()*151)
   let fetchData = async () => {
     try {
+      let trainers = fetch('http://localhost:3000/trainers')
+      let pokemonData = fetch('http://localhost:3000/pokemon')
+      let randomPokemon = fetch(`http://localhost:3000/pokemon/${random}`)
+      let pokeBall = fetch('https://pokeapi.co/api/v2/item/poke-ball')
+
       random = Math.floor(Math.random()*151)
-      let trainers = await fetch('http://localhost:3000/trainers')
-      let pokemonData = await fetch('http://localhost:3000/pokemon')
-      let randomPokemon = await fetch(`http://localhost:3000/pokemon/${random}`)
-      let pokeBall = await fetch('https://pokeapi.co/api/v2/item/poke-ball')
-      let hiddenPokemon = await fetch(`http://localhost:3000/pokemon/${random}`)
+      let hiddenPokemon = fetch(`http://localhost:3000/pokemon/${random}`)
 
-      let data = await Promise.all([trainers.json(), pokemonData.json(), randomPokemon.json(), hiddenPokemon.json(), pokeBall.json()])
-
-      return data
+      let data = await Promise.all([trainers, pokemonData, randomPokemon, hiddenPokemon, pokeBall])
+      let dataPromises = data.map(res => res.json())
+      let results = await Promise.all(dataPromises)
+      return results
+      
     } catch (error) {
       console.error(error)
     }
@@ -50,14 +53,15 @@ let App = () => {
 
   let fetchHomePokemon = async () => {
     try {
-      let dragonite = await fetch ('http://localhost:3000/pokemon/149')
-      let mewtwo = await fetch('http://localhost:3000/pokemon/151')
-      let articuno = await fetch('http://localhost:3000/pokemon/144')
-      let zapdos = await fetch('http://localhost:3000/pokemon/145')
-      let moltres = await fetch('http://localhost:3000/pokemon/146')
-      let data = await Promise.all([dragonite.json(), mewtwo.json(), articuno.json(), zapdos.json(), moltres.json()])
+      let articuno = fetch('http://localhost:3000/pokemon/144')
+      let zapdos = fetch('http://localhost:3000/pokemon/145')
+      let moltres = fetch('http://localhost:3000/pokemon/146')
 
-      return data
+      let data = await Promise.all([articuno, zapdos, moltres])
+      let dataPromises = data.map(res => res.json())
+      let results = await Promise.all(dataPromises)
+      return results
+
     } catch (error) {
       console.error(error)
     }
@@ -72,9 +76,7 @@ let App = () => {
         setPokeBall(data[4].sprites.default)
       })
 
-      fetchHomePokemon().then(data => {
-        setHomePokemon(data)
-      })
+      fetchHomePokemon().then(data => {setHomePokemon(data)})
   },[])
 
   if (currentUser === null) {
