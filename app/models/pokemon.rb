@@ -39,6 +39,7 @@ class Pokemon < ApplicationRecord
         poke = JSON.parse(response.body)
         
         pokemon_object = {
+            'id': id.to_i,
             'name': poke['name'],
             'front_image': poke['sprites']['front_shiny'],
             'back_image': poke['sprites']['back_shiny'],

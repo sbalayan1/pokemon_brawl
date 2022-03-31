@@ -1,11 +1,22 @@
-let Ability = ({ability}) => {
+import {useEffect} from 'react'
+
+let Ability = ({pokemon}) => {
+    let findAbility = async () => {
+        let foundAbility = await fetch(`http://localhost:3000/pokemon/${pokemon.id}`)
+        return foundAbility
+    }
+
+    useEffect(() => {
+        findAbility().then(res => res.json()).then(data => console.log)
+    }, [])
+
     return (
         <>
             <h5 style={{margin: '5px'}}>
-                {ability.name}
+                {/* {foundAbility[0].name} */}
             </h5>
             <p style={{margin: '5px', fontSize:'12px'}}>
-                {ability.description}
+                {/* {foundAbility[0].description} */}
             </p>
         </>
     )

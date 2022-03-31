@@ -17,6 +17,10 @@ let Home = ({currentUser, pokemonData, hiddenPokemon, userTrainer, setUserTraine
     const [displayZapdos, setDisplayZapdos] = useState(false)
     const [displayMoltres, setDisplayMoltres] = useState(false)
     const [displayArticuno, setDisplayArticuno] = useState(false)
+    const [articuno, setArticuno] = useState(homePokemon[2])
+    const [zapdos, setZapdos] = useState(homePokemon[3])
+    const [moltres, setMoltres] = useState(homePokemon[4])
+
 
     let handleBattle = () => {
         history.push('/battle')
@@ -60,9 +64,6 @@ let Home = ({currentUser, pokemonData, hiddenPokemon, userTrainer, setUserTraine
             alert('You already caught that pokemon!!!')
         }
     }
-
-
-    let dragonite = homePokemon[0], mewtwo = homePokemon[1], articuno = homePokemon[2], zapdos = homePokemon[3], moltres = homePokemon[4]
 
     let viewNidoGeng = () => {
         setDisplayNidoVGengar(!displayNidoVGengar)
@@ -112,7 +113,6 @@ let Home = ({currentUser, pokemonData, hiddenPokemon, userTrainer, setUserTraine
         fetch('http://localhost:3000/trainers')
         .then(res => res.json())
         .then(data => {
-            console.log('useEffect fired')
             if (currentUser !== null) {
                 if (data.find(trainer=> trainer.user_id === currentUser.id)===undefined) {
                     history.push('/create_a_trainer')
@@ -179,7 +179,7 @@ let Home = ({currentUser, pokemonData, hiddenPokemon, userTrainer, setUserTraine
                     <div className="home-battle-description-card">
                         <h1>Who's that Pokemon?</h1>
                         <input onChange={handleChange} placeholder="Guess that Pokemon!!"/>
-                        {foundPokemon !== hiddenPokemon.name? null :  <button onClick={handleSubmit}>Catch that Pokemon!!!</button> }
+                        {foundPokemon !== hiddenPokemon.name? null : <button onClick={handleSubmit}>Catch that Pokemon!!!</button> }
                     </div>
                 :
                     <div className="home-battle-description-card">
@@ -187,7 +187,6 @@ let Home = ({currentUser, pokemonData, hiddenPokemon, userTrainer, setUserTraine
                         <img className="who-that-pokemon-image-2" src={hiddenPokemon.front_image} alt='pokemon-image'/>
                         <p>Check your PC to see your new Pokemon!</p>
                     </div>
-                    
                 }
             </div>
             <div className="home-pokemon-description-container">
@@ -213,9 +212,7 @@ let Home = ({currentUser, pokemonData, hiddenPokemon, userTrainer, setUserTraine
                         return (<Stat stat={stat}/>)
                     })} */}
                     <div className="home-poke-ability-card">
-                        {[...new Map(zapdos.abilities.map(ability => [ability['name'], ability])).values()].map(ability => {
-                                    return(<Ability ability={ability}/>)
-                                })}
+                        {zapdos.abilities.map(ability => <Ability pokemon={zapdos}/>)}
                     </div>
                 </div>
                 <div className="home-pokemon-description-card" style={{backgroundColor:'crimson'}}>
@@ -237,9 +234,10 @@ let Home = ({currentUser, pokemonData, hiddenPokemon, userTrainer, setUserTraine
                         return (<Stat stat={stat}/>)
                     })} */}
                     <div className="home-poke-ability-card">
-                        {[...new Map(moltres.abilities.map(ability => [ability['name'], ability])).values()].map(ability => {
+                        {moltres.abilities.map(ability => <Ability pokemon={moltres}/>)}
+                        {/* {[...new Map(moltres.abilities.map(ability => [ability['name'], ability])).values()].map(ability => {
                                     return(<Ability ability={ability}/>)
-                                })}
+                                })} */}
                     </div>
                 </div>
                 <div className="home-pokemon-description-card" style={{backgroundColor:'aquamarine'}}> 

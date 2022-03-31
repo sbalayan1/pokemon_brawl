@@ -32,25 +32,35 @@ let App = () => {
 
   let random = Math.floor(Math.random()*151)
   let fetchData = async () => {
-    let trainers = await fetch('http://localhost:3000/trainers')
-    let pokemonData = await fetch('http://localhost:3000/pokemon')
-    let randomPokemon = await fetch(`http://localhost:3000/pokemon/${random}`)
-    let pokeBall = await fetch('https://pokeapi.co/api/v2/item/poke-ball')
+    try {
+      random = Math.floor(Math.random()*151)
+      let trainers = await fetch('http://localhost:3000/trainers')
+      let pokemonData = await fetch('http://localhost:3000/pokemon')
+      let randomPokemon = await fetch(`http://localhost:3000/pokemon/${random}`)
+      let pokeBall = await fetch('https://pokeapi.co/api/v2/item/poke-ball')
+      let hiddenPokemon = await fetch(`http://localhost:3000/pokemon/${random}`)
 
-    random = Math.floor(Math.random()*151)
-    let hiddenPokemon = await fetch(`http://localhost:3000/pokemon/${random}`)
+      let data = await Promise.all([trainers.json(), pokemonData.json(), randomPokemon.json(), hiddenPokemon.json(), pokeBall.json()])
 
-    return Promise.all([trainers.json(), pokemonData.json(), randomPokemon.json(), hiddenPokemon.json(), pokeBall.json()])
+      return data
+    } catch (error) {
+      console.error(error)
+    }
   }
 
   let fetchHomePokemon = async () => {
-    let dragonite = await fetch ('http://localhost:3000/pokemon/149')
-    let mewtwo = await fetch('http://localhost:3000/pokemon/151')
-    let articuno = await fetch('http://localhost:3000/pokemon/144')
-    let zapdos = await fetch('http://localhost:3000/pokemon/145')
-    let moltres = await fetch('http://localhost:3000/pokemon/146')
+    try {
+      let dragonite = await fetch ('http://localhost:3000/pokemon/149')
+      let mewtwo = await fetch('http://localhost:3000/pokemon/151')
+      let articuno = await fetch('http://localhost:3000/pokemon/144')
+      let zapdos = await fetch('http://localhost:3000/pokemon/145')
+      let moltres = await fetch('http://localhost:3000/pokemon/146')
+      let data = await Promise.all([dragonite.json(), mewtwo.json(), articuno.json(), zapdos.json(), moltres.json()])
 
-    return Promise.all([dragonite.json(), mewtwo.json(), articuno.json(), zapdos.json(), moltres.json()])
+      return data
+    } catch (error) {
+      console.error(error)
+    }
 }
 
   useEffect(() => {
@@ -58,7 +68,7 @@ let App = () => {
         setTrainers(data[0])
         setPokemonData(data[1])
         setRandPokemon(data[2].front_image)
-        setHiddenPokemon(data[3].front_image)
+        setHiddenPokemon(data[3])
         setPokeBall(data[4].sprites.default)
       })
 
