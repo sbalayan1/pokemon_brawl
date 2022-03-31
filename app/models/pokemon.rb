@@ -25,11 +25,18 @@ class Pokemon < ApplicationRecord
     validates :back_image, presence: true
 
     def self.get_all_pokemon_urls
+        count = 0
         url = 'https://pokeapi.co/api/v2/pokemon?limit=151'
         uri = URI.parse(url)
         response = Net::HTTP.get_response(uri)
         pokemon_list = JSON.parse(response.body)
-        pokemon_urls = pokemon_list['results'].map {|pokemon| pokemon['url'] }
+        pokemon_urls = pokemon_list['results'].map do |pokemon|
+            count += 1
+            pokemon_object = {
+                'id': count, 
+                'url': pokemon['url']
+            }
+        end
     end
 
     def get_pokemon id

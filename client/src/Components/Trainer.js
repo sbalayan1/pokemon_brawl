@@ -1,4 +1,4 @@
-import {useState} from 'react'
+import {useState, useEffect} from 'react'
 import {useHistory} from 'react-router-dom'
 
 let Trainer = ({pokemonData, currentUser, setUserTrainer, setOpponentTrainer, setUserTrainerPokemon, setCopyUserTrainerPokemon}) => {
@@ -10,7 +10,10 @@ let Trainer = ({pokemonData, currentUser, setUserTrainer, setOpponentTrainer, se
     const [count, setCount]=useState(0)
     const [trainer, setTrainer] = useState(null)
     const [createdNewTrainer, setCreatedNewTrainer] = useState(false)
-    const history = useHistory()
+    const history = useHistory();
+    const [charmander, setCharmander] = useState(null)
+    const [bulbasaur, setBulbasaur] = useState(null)
+    const [squirtle, setSquirtle] = useState(null)
 
     let handleGenderChange = (e) => {
         if (e.target.value === 'boy'){
@@ -44,6 +47,36 @@ let Trainer = ({pokemonData, currentUser, setUserTrainer, setOpponentTrainer, se
         setStarterPokemon(e.target)
     }
 
+    let fetchStarters = async () => {
+        try {
+            let bulb = await fetch('http://localhost:3000/pokemon/1')
+            let char = await fetch('http://localhost:3000/pokemon/4')
+            let squir = await fetch('http://localhost:3000/pokemon/7')
+            let data = await Promise.all([bulb, char, squir])
+            let dataPromises = data.map(res => res.json())
+            let results = await Promise.all(dataPromises)
+            return results
+
+        } catch (error) {
+            console.error(error)
+        }
+    }
+
+    let postNewTrainer = async (trainer) => {
+        try {
+            let response = await fetch('http://localhost:3000/trainers', {
+                method: 'POST',
+                headers: {'Content-type':'Application/json'},
+                body: JSON.stringify(trainer)
+            })
+
+            let data = await response.json
+            return data
+        } catch (error) {
+            console.error(error)
+        }
+    }
+
     let takePokedex = () => {
         let newTrainer = {
             name: trainerName,
@@ -52,12 +85,7 @@ let Trainer = ({pokemonData, currentUser, setUserTrainer, setOpponentTrainer, se
             user_id: currentUser.id
         }
 
-        fetch('http://localhost:3000/trainers',{
-            method: 'POST',
-            headers: {'Content-type':'Application/json'},
-            body: JSON.stringify(newTrainer)
-        })
-
+        postNewTrainer(newTrainer)
         setCreatedNewTrainer(true)
     }
 
@@ -89,6 +117,14 @@ let Trainer = ({pokemonData, currentUser, setUserTrainer, setOpponentTrainer, se
 
         history.push('/battle')
     }
+
+    useEffect(() => {
+        fetchStarters().then(data => {
+            setBulbasaur(data[0])
+            setCharmander(data[1])
+            setSquirtle(data[2])
+        })
+    }, [])
 
     return (
         <div className="trainer-container">
@@ -136,13 +172,13 @@ let Trainer = ({pokemonData, currentUser, setUserTrainer, setOpponentTrainer, se
                             <p style={{fontSize:'12px'}}>Oh, that's right. Just wait! Here <b>{trainerName}</b>! There are 3 Pokémon here! Haha! They are inside the Poké Balls. When I was young, I was a serious Pokémon trainer! In my old age, I have only 3 left, but you can have one! Choose!</p>
                             <div className="trainer-starter-card">
                                 <div>
-                                    <img className="home-image-thumbnail" src={pokemonData[23].front_image} alt="charmander" onClick={selectPokemon} value='fire'/>
+                                    <img className="home-image-thumbnail" src={charmander.front_image} alt="charmander" onClick={selectPokemon} value='fire'/>
                                 </div>
                                 <div>
-                                    <img className="home-image-thumbnail" src={pokemonData[5].front_image} alt="squirtle" onClick={selectPokemon} value='water'/>
+                                    <img className="home-image-thumbnail" src={squirtle.front_image} alt="squirtle" onClick={selectPokemon} value='water'/>
                                 </div>
                                 <div>
-                                    <img className="home-image-thumbnail" src={pokemonData[0].front_image} alt="bulbasaur" onClick={selectPokemon} value='plant'/>
+                                    <img className="home-image-thumbnail" src={bulbasaur.front_image} alt="bulbasaur" onClick={selectPokemon} value='plant'/>
                                 </div>
                             </div>
                         </div>

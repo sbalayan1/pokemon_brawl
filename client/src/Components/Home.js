@@ -17,9 +17,9 @@ let Home = ({currentUser, pokemonData, hiddenPokemon, userTrainer, setUserTraine
     const [displayZapdos, setDisplayZapdos] = useState(false)
     const [displayMoltres, setDisplayMoltres] = useState(false)
     const [displayArticuno, setDisplayArticuno] = useState(false)
-    const [articuno, setArticuno] = useState(homePokemon[2])
-    const [zapdos, setZapdos] = useState(homePokemon[3])
-    const [moltres, setMoltres] = useState(homePokemon[4])
+    const [articuno, setArticuno] = useState(homePokemon[0])
+    const [zapdos, setZapdos] = useState(homePokemon[1])
+    const [moltres, setMoltres] = useState(homePokemon[2])
 
 
     let handleBattle = () => {
@@ -211,6 +211,8 @@ let Home = ({currentUser, pokemonData, hiddenPokemon, userTrainer, setUserTraine
                     {/* {zapdos.stats.map(stat => {
                         return (<Stat stat={stat}/>)
                     })} */}
+
+                    {/* needs to be fixed!! */}
                     <div className="home-poke-ability-card">
                         {zapdos.abilities.map(ability => <Ability pokemon={zapdos}/>)}
                     </div>
@@ -233,11 +235,10 @@ let Home = ({currentUser, pokemonData, hiddenPokemon, userTrainer, setUserTraine
                     {/* {moltres.stats.map(stat => {
                         return (<Stat stat={stat}/>)
                     })} */}
+
+                    {/* Needs to be fixed  */}
                     <div className="home-poke-ability-card">
                         {moltres.abilities.map(ability => <Ability pokemon={moltres}/>)}
-                        {/* {[...new Map(moltres.abilities.map(ability => [ability['name'], ability])).values()].map(ability => {
-                                    return(<Ability ability={ability}/>)
-                                })} */}
                     </div>
                 </div>
                 <div className="home-pokemon-description-card" style={{backgroundColor:'aquamarine'}}> 
