@@ -19,15 +19,15 @@ import Leaderboards from './Leaderboards'
 let App = () => {
   const history = useHistory()
   const [currentUser, setCurrentUser] = useState(null)
-  const [pokemonData, setPokemonData] = useState()
-  const [hiddenPokemon, setHiddenPokemon] = useState()
-  const [userTrainer, setUserTrainer] = useState()
-  const [opponentTrainer, setOpponentTrainer]=useState()
-  const [userTrainerPokemon, setUserTrainerPokemon] = useState()
-  const [copyUserTrainerPokemon, setCopyUserTrainerPokemon] = useState()
-  const [trainers, setTrainers] = useState()
-  const [randPokemon, setRandPokemon] = useState()
-  const [pokeBall, setPokeBall] = useState()
+  const [pokemonData, setPokemonData] = useState(null)
+  const [hiddenPokemon, setHiddenPokemon] = useState(null)
+  const [userTrainer, setUserTrainer] = useState(null)
+  const [opponentTrainer, setOpponentTrainer]=useState(null)
+  const [userTrainerPokemon, setUserTrainerPokemon] = useState(null)
+  const [copyUserTrainerPokemon, setCopyUserTrainerPokemon] = useState(null)
+  const [trainers, setTrainers] = useState(null)
+  const [randPokemon, setRandPokemon] = useState(null)
+  const [pokeBall, setPokeBall] = useState(null)
   const [homePokemon, setHomePokemon] = useState(null)
 
   let random = Math.floor(Math.random()*151)
@@ -45,7 +45,7 @@ let App = () => {
       let dataPromises = data.map(res => res.json())
       let results = await Promise.all(dataPromises)
       return results
-      
+
     } catch (error) {
       console.error(error)
     }

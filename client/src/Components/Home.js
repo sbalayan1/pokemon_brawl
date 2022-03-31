@@ -142,7 +142,7 @@ let Home = ({currentUser, pokemonData, hiddenPokemon, userTrainer, setUserTraine
                     <div style={{height:'50vh', width:'10%', backgroundColor:'orange'}}></div>
                     <div style={{height:'50vh', width: '100%', marginLeft:'150px'}}>
                         {displayNidoVGengar === false ? <img className="home-image-card" style={{backgroundColor:'crimson', borderRadius:'16px'}} src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/6.png" alt="pokemon-image" onClick={viewNidoGeng}/> 
-                        : <img style={{height:'300px'},{backgroundColor:'black'}} className="home-image-card" src="https://pa1.narvii.com/5739/0cfc841303d738f67cdb9e5f286606c0ae1ab749_hq.gif" alt="nidoVgengar" onClick={viewNidoGeng}/>}
+                        : <img style={{height:'300px', backgroundColor:'black'}} className="home-image-card" src="https://pa1.narvii.com/5739/0cfc841303d738f67cdb9e5f286606c0ae1ab749_hq.gif" alt="nidoVgengar" onClick={viewNidoGeng}/>}
                     </div>
                 </div>
             </div>
