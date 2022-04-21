@@ -29,7 +29,6 @@ let App = () => {
   const [randPokemon, setRandPokemon] = useState(null)
   const [pokeBall, setPokeBall] = useState(null)
   const [homePokemon, setHomePokemon] = useState(null)
-
   let random = Math.floor(Math.random()*151)
   let fetchData = async () => {
     try {
