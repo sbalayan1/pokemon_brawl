@@ -8,7 +8,6 @@
   "main": "index.js",
   "devDependencies": {},
   "scripts": {
-    "start": "npm start --prefix client",
     "heroku-postbuild": "cd client && npm install && npm run build"
   },
   "repository": {
