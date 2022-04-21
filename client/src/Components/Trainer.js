@@ -3,20 +3,19 @@ import {useHistory} from 'react-router-dom'
 
 let Trainer = ({pokemonData, currentUser, setUserTrainer, setOpponentTrainer, setUserTrainerPokemon, setCopyUserTrainerPokemon}) => {
     let trainerImages = ['https://archives.bulbagarden.net/media/upload/3/30/RB_Old_man_Back.png','https://archives.bulbagarden.net/media/upload/f/f2/Spr_RG_Burglar.png','https://archives.bulbagarden.net/media/upload/0/09/Spr_RG_Engineer.png','https://archives.bulbagarden.net/media/upload/e/ee/Spr_RG_Erika.png','https://archives.bulbagarden.net/media/upload/d/d7/Spr_RG_Fisherman.png','https://archives.bulbagarden.net/media/upload/a/a1/Spr_RG_Rocket.png','https://archives.bulbagarden.net/media/upload/9/96/Spr_RG_Youngster.png','https://archives.bulbagarden.net/media/upload/1/1e/Spr_RG_Oak.png']
-
+    const history = useHistory();
     const [trainerName, setTrainerName]= useState(null)
     const [genderState, setGenderState]= useState(null)
     const [starterPokemon, setStarterPokemon] = useState(null)
     const [count, setCount]=useState(0)
     const [trainer, setTrainer] = useState(null)
     const [createdNewTrainer, setCreatedNewTrainer] = useState(false)
-    const history = useHistory();
     const [charmander, setCharmander] = useState(null)
     const [bulbasaur, setBulbasaur] = useState(null)
     const [squirtle, setSquirtle] = useState(null)
 
     let handleGenderChange = (e) => {
-        if (e.target.value === 'boy'){
+        if (e.target.value.toLowerCase() === 'boy'){
             setGenderState(true)
         } else {
             setGenderState(false)
@@ -70,52 +69,82 @@ let Trainer = ({pokemonData, currentUser, setUserTrainer, setOpponentTrainer, se
                 body: JSON.stringify(trainer)
             })
 
-            let data = await response.json
+            let data = await response.json()
             return data
         } catch (error) {
             console.error(error)
         }
     }
 
+    let newTrainer = {
+        name: trainerName,
+        gender: genderState,
+        img_url: trainer,
+        user_id: currentUser.id
+    }
+
     let takePokedex = () => {
-        let newTrainer = {
+        newTrainer = {
             name: trainerName,
             gender: genderState,
             img_url: trainer,
             user_id: currentUser.id
         }
 
-        postNewTrainer(newTrainer)
+        // postNewTrainer(newTrainer)
         setCreatedNewTrainer(true)
     }
 
-    let startJourney = () => {
-        let localPokemon = pokemonData.find(pokemon => pokemon.name === starterPokemon.alt)
-
-        fetch('http://localhost:3000/trainers')
-        .then(res => res.json())
-        .then(data => {
-            let pokemonTeam = {
-                pokemon_id: localPokemon.id, 
-                trainer_id: data[data.length-1].id,
-                team_member: true
-            }
-
-            fetch('http://localhost:3000/pokemon_teams', {
+    let postPokemonTeam = async (team) => {
+        try {
+            let response = await fetch('http://localhost:3000/pokemon_teams', {
                 method: 'POST',
                 headers: {'Content-Type':'application/json'},
-                body:JSON.stringify(pokemonTeam)
+                body: JSON.stringify(team)
             })
 
-            setUserTrainer(data.find(trainer=> trainer.user_id === currentUser.id))
-            let opponentTrainers = data.filter(trainer => trainer.user_id !== currentUser.id)
-            setOpponentTrainer(opponentTrainers[Math.floor(Math.random() * opponentTrainers.length)])
-            setUserTrainerPokemon(data.find(trainer=> trainer.user_id === currentUser.id).pokemon)
-            setCopyUserTrainerPokemon(data.find(trainer=> trainer.user_id === currentUser.id).pokemon)
+            let data = await response.json()
+            return data
 
-        })
+        } catch(error) {
+            console.log(error)
+        }
+    }
 
-        history.push('/battle')
+    let startJourney = () => {
+        let starter = pokemonData.find(pokemon => pokemon.name === starterPokemon.alt)
+        let pokemonTeam = {
+            pokemon_id: starter.id,
+            trainer_id: newTrainer.user_id,
+            team_member: true
+        }
+
+        // postPokemonTeam(pokemonTeam)
+
+        // fetch('http://localhost:3000/trainers')
+        // .then(res => res.json())
+        // .then(data => {
+        //     let pokemonTeam = {
+        //         pokemon_id: localPokemon.id, 
+        //         trainer_id: data[data.length-1].id,
+        //         team_member: true
+        //     }
+
+        //     fetch('http://localhost:3000/pokemon_teams', {
+        //         method: 'POST',
+        //         headers: {'Content-Type':'application/json'},
+        //         body:JSON.stringify(pokemonTeam)
+        //     })
+
+        //     setUserTrainer(data.find(trainer=> trainer.user_id === currentUser.id))
+        //     let opponentTrainers = data.filter(trainer => trainer.user_id !== currentUser.id)
+        //     setOpponentTrainer(opponentTrainers[Math.floor(Math.random() * opponentTrainers.length)])
+        //     setUserTrainerPokemon(data.find(trainer=> trainer.user_id === currentUser.id).pokemon)
+        //     setCopyUserTrainerPokemon(data.find(trainer=> trainer.user_id === currentUser.id).pokemon)
+
+        // })
+
+        // history.push('/battle')
     }
 
     useEffect(() => {

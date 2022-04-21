@@ -33,7 +33,8 @@ class Pokemon < ApplicationRecord
         pokemon_urls = pokemon_list['results'].map do |pokemon|
             count += 1
             pokemon_object = {
-                'id': count, 
+                'id': count,
+                'name': pokemon['name'],
                 'url': pokemon['url']
             }
         end
