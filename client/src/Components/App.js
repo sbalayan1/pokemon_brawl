@@ -32,13 +32,13 @@ let App = () => {
   let random = Math.floor(Math.random()*151)
   let fetchData = async () => {
     try {
-      let trainers = fetch('http://localhost:5000/trainers')
-      let pokemonData = fetch('http://localhost:5000/pokemon')
-      let randomPokemon = fetch(`http://localhost:5000/pokemon/${random}`)
+      let trainers = fetch('https://pokemon-brawl.herokuapp.com/trainers')
+      let pokemonData = fetch('https://pokemon-brawl.herokuapp.com/pokemon')
+      let randomPokemon = fetch(`https://pokemon-brawl.herokuapp.com/pokemon/${random}`)
       let pokeBall = fetch('https://pokeapi.co/api/v2/item/poke-ball')
 
       random = Math.floor(Math.random()*151)
-      let hiddenPokemon = fetch(`http://localhost:5000/pokemon/${random}`)
+      let hiddenPokemon = fetch(`https://pokemon-brawl.herokuapp.com/${random}`)
 
       let data = await Promise.all([trainers, pokemonData, randomPokemon, hiddenPokemon, pokeBall])
       let dataPromises = data.map(res => res.json())
@@ -52,9 +52,9 @@ let App = () => {
 
   let fetchHomePokemon = async () => {
     try {
-      let articuno = fetch('http://localhost:5000/pokemon/144')
-      let zapdos = fetch('http://localhost:5000/pokemon/145')
-      let moltres = fetch('http://localhost:5000/pokemon/146')
+      let articuno = fetch('https://pokemon-brawl.herokuapp.com/pokemon/144')
+      let zapdos = fetch('https://pokemon-brawl.herokuapp.com/pokemon/145')
+      let moltres = fetch('https://pokemon-brawl.herokuapp.com/pokemon/146')
 
       let data = await Promise.all([articuno, zapdos, moltres])
       let dataPromises = data.map(res => res.json())

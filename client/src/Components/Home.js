@@ -2,10 +2,8 @@ import {useEffect, useState} from 'react'
 import {useHistory} from 'react-router-dom'
 import * as React from 'react'
 import {Container} from 'nes-react'
-
 import Ability from './Ability'
 import Stat from './Stat'
-
 
 let Home = ({currentUser, pokemonData, hiddenPokemon, userTrainer, setUserTrainer, setOpponentTrainer, userTrainerPokemon, setUserTrainerPokemon, setCopyUserTrainerPokemon, homePokemon}) => {
     const history = useHistory()
@@ -52,7 +50,7 @@ let Home = ({currentUser, pokemonData, hiddenPokemon, userTrainer, setUserTraine
 
         if(foundPokemon === hiddenPokemon.name && userTrainer.pokemon.find(pokemon => pokemon.name === foundPokemon) === undefined) {
             setCatchPokemon(true)
-            fetch('http://localhost:3000/pokemon_teams', {
+            fetch('https://pokemon-brawl.herokuapp.com/pokemon_teams', {
                 method: 'POST', 
                 headers: {'Content-type':'application/json'},
                 body: JSON.stringify(pokemonTeam)
@@ -110,7 +108,7 @@ let Home = ({currentUser, pokemonData, hiddenPokemon, userTrainer, setUserTraine
     ]
 
     useEffect(() => {
-        fetch('http://localhost:3000/trainers')
+        fetch('https://pokemon-brawl.herokuapp.com/trainers')
         .then(res => res.json())
         .then(data => {
             if (currentUser !== null) {
