@@ -1,0 +1,27 @@
+{
+  "name": "pokemon_brawl",
+  "version": "1.0.0",
+  "description": "Mock Pokemon Battle Application ",
+  "main": "index.js",
+  "devDependencies": {},
+  "scripts": {
+    "start": "npm start --prefix client -p 4000", 
+    "build": "npm install --prefix client"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sbalayan1/pokemon_brawl.git"
+  },
+  "keywords": [
+    "react",
+    "rails",
+    "javascript",
+    "heroku"
+  ],
+  "author": "Sean Balayan",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/sbalayan1/pokemon_brawl/issues"
+  },
+  "homepage": "https://github.com/sbalayan1/pokemon_brawl#readme"
+}
