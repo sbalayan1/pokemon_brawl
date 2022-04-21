@@ -59,7 +59,7 @@
     
 <p>4. CONGRATS! You can now access PokemonBrawl!!</p>
 
-<h2>>⚠️I am currently refactoring my backend!!! The application may not be working at the moment!!!</h2>
+<h2>>⚠️I am currently refactoring my code!!!! The application may not be working at the moment!!!</h2>
 
 <h2>
   📖Table of Contents
@@ -106,11 +106,6 @@ alt="PokemonBrawl Loom Video" width="240" height="180" border="10" /></a>
 <h2>
   ⚠️Coming Soon
 </h2>
-
-<p>
-  Currently working on fixing issues with seed data. I need to learn how to make API calls to my backend so I can seed the Pokemon data. The hope here is that this will fix issues with deploying to Heroku and we will be able to have a functioning web application. 
-</p>
-
 
 <h2>
   🙋‍♂️About

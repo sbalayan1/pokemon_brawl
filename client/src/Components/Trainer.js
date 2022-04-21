@@ -3,6 +3,7 @@ import {useHistory} from 'react-router-dom'
 
 let Trainer = ({pokemonData, currentUser, setUserTrainer, setOpponentTrainer, setUserTrainerPokemon, setCopyUserTrainerPokemon}) => {
     let trainerImages = ['https://archives.bulbagarden.net/media/upload/3/30/RB_Old_man_Back.png','https://archives.bulbagarden.net/media/upload/f/f2/Spr_RG_Burglar.png','https://archives.bulbagarden.net/media/upload/0/09/Spr_RG_Engineer.png','https://archives.bulbagarden.net/media/upload/e/ee/Spr_RG_Erika.png','https://archives.bulbagarden.net/media/upload/d/d7/Spr_RG_Fisherman.png','https://archives.bulbagarden.net/media/upload/a/a1/Spr_RG_Rocket.png','https://archives.bulbagarden.net/media/upload/9/96/Spr_RG_Youngster.png','https://archives.bulbagarden.net/media/upload/1/1e/Spr_RG_Oak.png']
+    
     const history = useHistory();
     const [trainerName, setTrainerName]= useState(null)
     const [genderState, setGenderState]= useState(null)
@@ -94,6 +95,16 @@ let Trainer = ({pokemonData, currentUser, setUserTrainer, setOpponentTrainer, se
         // postNewTrainer(newTrainer)
         setCreatedNewTrainer(true)
     }
+    
+    let getTrainers = async () => {
+        try {
+            let response = await fetch('http://localhost:3000/trainers')
+            let data = await response.json()
+            return data
+        } catch (error) {
+            console.error(error)
+        }
+    }
 
     let postPokemonTeam = async (team) => {
         try {
@@ -111,7 +122,7 @@ let Trainer = ({pokemonData, currentUser, setUserTrainer, setOpponentTrainer, se
         }
     }
 
-    let startJourney = () => {
+    let startJourney = async () => {
         let starter = pokemonData.find(pokemon => pokemon.name === starterPokemon.alt)
         let pokemonTeam = {
             pokemon_id: starter.id,
@@ -120,6 +131,13 @@ let Trainer = ({pokemonData, currentUser, setUserTrainer, setOpponentTrainer, se
         }
 
         // postPokemonTeam(pokemonTeam)
+        let trainerData = await getTrainers()
+        console.log(trainerData)
+        // setUserTrainer(data.find(trainer=> trainer.user_id === currentUser.id))
+        // let opponentTrainers = trainerData.filter(trainer => trainer.user_id !== currentUser.id)
+        // setOpponentTrainer(opponentTrainers[Math.floor(Math.random() * opponentTrainers.length)])
+        // setUserTrainerPokemon(trainerData.find(trainer=> trainer.user_id === currentUser.id).pokemon)
+        // setCopyUserTrainerPokemon(trainerData.find(trainer=> trainer.user_id === currentUser.id).pokemon)
 
         // fetch('http://localhost:3000/trainers')
         // .then(res => res.json())
