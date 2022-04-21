@@ -2,11 +2,14 @@
   "name": "pokemon_brawl",
   "version": "1.0.0",
   "description": "Mock Pokemon Battle Application ",
+  "engines": {
+    "node": "16.9.0"
+  },
   "main": "index.js",
   "devDependencies": {},
   "scripts": {
-    "start": "npm start --prefix client -p 4000", 
-    "build": "npm install --prefix client"
+    "start": "npm start --prefix client",
+    "heroku-postbuild": "cd client && npm install && npm run build"
   },
   "repository": {
     "type": "git",
