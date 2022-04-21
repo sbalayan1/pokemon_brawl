@@ -1,5 +1,10 @@
 {
   "dependencies": {
     "react-router-dom": "^5.2.0"
+  }, 
+
+  "scripts": {
+    "start": "npm start --prefix client -p 4000",
+    "build": "npm install --prefix client"
   }
 }
