@@ -32,17 +32,18 @@ let App = () => {
   let random = Math.floor(Math.random()*151)
   let fetchData = async () => {
     try {
-      let trainers = fetch('https://pokemon-brawl.herokuapp.com/trainers')
-      let pokemonData = fetch('https://pokemon-brawl.herokuapp.com/pokemon')
-      let randomPokemon = fetch(`https://pokemon-brawl.herokuapp.com/pokemon/${random}`)
+      let trainers = fetch('/api/trainers')
+      let pokemonData = fetch('/api/pokemon')
+      let randomPokemon = fetch(`/api/pokemon/${random}`)
       let pokeBall = fetch('https://pokeapi.co/api/v2/item/poke-ball')
 
       random = Math.floor(Math.random()*151)
-      let hiddenPokemon = fetch(`https://pokemon-brawl.herokuapp.com/${random}`)
+      let hiddenPokemon = fetch(`/api/pokemon/${random}`)
 
       let data = await Promise.all([trainers, pokemonData, randomPokemon, hiddenPokemon, pokeBall])
       let dataPromises = data.map(res => res.json())
       let results = await Promise.all(dataPromises)
+      console.log(results)
       return results
 
     } catch (error) {
@@ -52,9 +53,9 @@ let App = () => {
 
   let fetchHomePokemon = async () => {
     try {
-      let articuno = fetch('https://pokemon-brawl.herokuapp.com/pokemon/144')
-      let zapdos = fetch('https://pokemon-brawl.herokuapp.com/pokemon/145')
-      let moltres = fetch('https://pokemon-brawl.herokuapp.com/pokemon/146')
+      let articuno = fetch('/api/pokemon/144')
+      let zapdos = fetch('/api/pokemon/145')
+      let moltres = fetch('/api/pokemon/146')
 
       let data = await Promise.all([articuno, zapdos, moltres])
       let dataPromises = data.map(res => res.json())
