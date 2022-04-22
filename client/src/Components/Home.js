@@ -50,7 +50,7 @@ let Home = ({currentUser, pokemonData, hiddenPokemon, userTrainer, setUserTraine
 
         if(foundPokemon === hiddenPokemon.name && userTrainer.pokemon.find(pokemon => pokemon.name === foundPokemon) === undefined) {
             setCatchPokemon(true)
-            fetch('https://pokemon-brawl.herokuapp.com/pokemon_teams', {
+            fetch('api/pokemon_teams', {
                 method: 'POST', 
                 headers: {'Content-type':'application/json'},
                 body: JSON.stringify(pokemonTeam)
@@ -108,7 +108,7 @@ let Home = ({currentUser, pokemonData, hiddenPokemon, userTrainer, setUserTraine
     ]
 
     useEffect(() => {
-        fetch('https://pokemon-brawl.herokuapp.com/trainers')
+        fetch('/api/trainers')
         .then(res => res.json())
         .then(data => {
             if (currentUser !== null) {

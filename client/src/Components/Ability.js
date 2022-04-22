@@ -2,7 +2,7 @@ import {useEffect} from 'react'
 
 let Ability = ({pokemon}) => {
     let findAbility = async () => {
-        let foundAbility = await fetch(`http://localhost:3000/pokemon/${pokemon.id}`)
+        let foundAbility = await fetch(`api/pokemon/${pokemon.id}`)
         return foundAbility
     }
 

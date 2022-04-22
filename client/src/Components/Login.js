@@ -18,7 +18,7 @@ let Login = ({setCurrentUser}) => {
             password
         }
 
-        const res = await fetch('http://localhost:3000/login', {
+        const res = await fetch('/api/login', {
             method: 'POST', 
             headers: {'Content-type':'Application/json'}, 
             body: JSON.stringify(user)
