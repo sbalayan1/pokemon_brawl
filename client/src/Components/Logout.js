@@ -1,12 +1,15 @@
 import {useEffect} from 'react'
+import {useHistory} from 'react-router-dom'
 
 let Logout = ({setCurrentUser}) => {
+    let history = useHistory()
     useEffect(() => {
-        fetch('/logout')
-        .then(() => 
+        setTimeout(() => {
+            console.log('running')
             setCurrentUser(null)
-        )
-    },[setCurrentUser])
+            history.push('/login')
+        }, 5000)
+    },[])
 
     return (
         <div>

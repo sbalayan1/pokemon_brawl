@@ -43,7 +43,6 @@ let App = () => {
       let data = await Promise.all([trainers, pokemonData, randomPokemon, hiddenPokemon, pokeBall])
       let dataPromises = data.map(res => res.json())
       let results = await Promise.all(dataPromises)
-      console.log(results)
       return results
 
     } catch (error) {
@@ -81,10 +80,12 @@ let App = () => {
 
   if (currentUser === null) {
     history.push('/login')
+    console.log('hello')
     return (
       <div>
         <NavBar 
           pokeBall={pokeBall}
+          currentUser={currentUser}
         />
         <div className="app-container">
           <Switch>
@@ -99,6 +100,11 @@ let App = () => {
                 setCurrentUser={setCurrentUser}
               />  
             </Route>
+            <Route exact path ='/logout'>
+              <Logout 
+                setCurrentUser={setCurrentUser}
+              />
+            </Route>
           </Switch>
         </div>
       </div>
@@ -108,6 +114,7 @@ let App = () => {
       <div>
         <NavBar 
           pokeBall={pokeBall}
+          currentUser={currentUser}
         />
         <div className="app-container">
           <Switch>

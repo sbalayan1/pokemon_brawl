@@ -111,4 +111,4 @@ puts 'create trainer'
 #     PokemonTeam.create(trainer_id: 18, pokemon_id: Pokemon.all[number].id, team_member: true)
 # end 
 
-# puts 'done seeding'
+puts 'done seeding'
