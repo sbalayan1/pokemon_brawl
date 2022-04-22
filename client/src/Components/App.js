@@ -1,7 +1,7 @@
 import {useState, useEffect} from 'react'
 import { Switch, Route, useHistory } from 'react-router-dom'
 import * as React from 'react'
-import {Container} from 'nes-react'
+// import {Container} from 'nes-react'
 
 //import react components
 import NavBar from './NavBar'
