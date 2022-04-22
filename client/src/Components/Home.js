@@ -3,6 +3,7 @@ import {useHistory} from 'react-router-dom'
 import * as React from 'react'
 import Ability from './Ability'
 import Stat from './Stat'
+import {Container} from 'nes-react'
 
 let Home = ({currentUser, pokemonData, hiddenPokemon, userTrainer, setUserTrainer, setOpponentTrainer, userTrainerPokemon, setUserTrainerPokemon, setCopyUserTrainerPokemon, homePokemon}) => {
     const history = useHistory()
