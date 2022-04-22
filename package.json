@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "Mock Pokemon Battle Application ",
   "engines": {
-    "node": "16.9.0" ,
+    "node": "10.0.0" ,
     "yarn": "1.22.15"
 
   },
