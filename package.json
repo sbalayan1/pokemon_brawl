@@ -1,18 +1,16 @@
 {
-  "name": "pokemon_brawl",
+  "name": "project-management",
   "version": "1.0.0",
-  "description": "Mock Pokemon Battle Application ",
+  "description": "Build scripts for Heroku",
   "engines": {
-    "node": "16.9.0" ,
-    "yarn": "1.22.15"
-
+    "node": "16.9.0"
   },
-  "main": "index.js",
-  "devDependencies": {},
+
   "scripts": {
-    "build": "yarn --cwd client install && yarn --cwd client build",
+    "build": "npm install --prefix client && npm run build --prefix client",
+    "clean": "rm -rf public",
     "deploy": "cp -a client/build/. public/",
-    "heroku-postbuild": "yarn build && yarn deploy"
+    "heroku-postbuild": "npm run clean && npm run build && npm run deploy"
   },
   "repository": {
     "type": "git",

@@ -1,3 +1,2 @@
-api: bundle exec rails s
-web: npm start --prefix client
+web: bundle exec rails s
 release: bin/rake db:migrate
