@@ -1,7 +1,6 @@
 import {useEffect, useState} from 'react'
 import {useHistory} from 'react-router-dom'
 import * as React from 'react'
-import {Container} from 'nes-react'
 import Ability from './Ability'
 import Stat from './Stat'
 
