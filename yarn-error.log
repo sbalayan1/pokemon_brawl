@@ -1,0 +1,60 @@
+Arguments: 
+  /home/sbalayan/.nvm/versions/node/v16.9.0/bin/node /home/sbalayan/.nvm/versions/node/v16.9.0/bin/yarn --u
+
+PATH: 
+  /usr/share/rvm/gems/ruby-2.7.4/bin:/usr/share/rvm/gems/ruby-2.7.4@global/bin:/usr/share/rvm/rubies/ruby-2.7.4/bin:/usr/share/rvm/bin:/home/sbalayan/.cargo/bin:/home/sbalayan/.rvm/bin:/home/sbalayan/.nvm/versions/node/v16.9.0/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/usr/lib/wsl/lib:/mnt/c/Program Files/WindowsApps/CanonicalGroupLimited.UbuntuonWindows_2004.2022.1.0_x64__79rhkp1fndgsc:/mnt/c/WINDOWS/system32:/mnt/c/WINDOWS:/mnt/c/WINDOWS/System32/Wbem:/mnt/c/WINDOWS/System32/WindowsPowerShell/v1.0:/mnt/c/WINDOWS/System32/OpenSSH:/mnt/c/Program Files/Intel/WiFi/bin:/mnt/c/Program Files/Common Files/Intel/WirelessCommon:/mnt/c/Program Files (x86)/Intel/Intel(R) Management Engine Components/DAL:/mnt/c/Program Files/Intel/Intel(R) Management Engine Components/DAL:/mnt/c/Users/balay/AppData/Local/Microsoft/WindowsApps:/mnt/c/Users/balay/AppData/Local/Programs/Microsoft VS Code/bin:/snap/bin
+
+Yarn version: 
+  1.22.15
+
+Node version: 
+  16.9.0
+
+Platform: 
+  linux x64
+
+Trace: 
+  SyntaxError: /home/sbalayan/Desktop/Development/code/Mod5/pokemon_brawl/package.json: Unexpected token } in JSON at position 149
+      at JSON.parse (<anonymous>)
+      at /home/sbalayan/.nvm/versions/node/v16.9.0/lib/node_modules/yarn/lib/cli.js:1625:59
+      at Generator.next (<anonymous>)
+      at step (/home/sbalayan/.nvm/versions/node/v16.9.0/lib/node_modules/yarn/lib/cli.js:310:30)
+      at /home/sbalayan/.nvm/versions/node/v16.9.0/lib/node_modules/yarn/lib/cli.js:321:13
+
+npm manifest: 
+  {
+    "name": "pokemon_brawl",
+    "version": "1.0.0",
+    "description": "Mock Pokemon Battle Application ",
+    "engines": {
+      "node": "10.0.0", 
+      
+    },
+    "main": "index.js",
+    "devDependencies": {},
+    "scripts": {
+      "heroku-postbuild": "cd client && npm install && npm run build"
+    },
+    "repository": {
+      "type": "git",
+      "url": "git+https://github.com/sbalayan1/pokemon_brawl.git"
+    },
+    "keywords": [
+      "react",
+      "rails",
+      "javascript",
+      "heroku"
+    ],
+    "author": "Sean Balayan",
+    "license": "ISC",
+    "bugs": {
+      "url": "https://github.com/sbalayan1/pokemon_brawl/issues"
+    },
+    "homepage": "https://github.com/sbalayan1/pokemon_brawl#readme"
+  }
+
+yarn manifest: 
+  No manifest
+
+Lockfile: 
+  No lockfile

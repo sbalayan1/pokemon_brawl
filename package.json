@@ -3,12 +3,16 @@
   "version": "1.0.0",
   "description": "Mock Pokemon Battle Application ",
   "engines": {
-    "node": "10.0.0"
+    "node": "16.9.0" ,
+    "yarn": "1.22.15"
+
   },
   "main": "index.js",
   "devDependencies": {},
   "scripts": {
-    "heroku-postbuild": "cd client && npm install && npm run build"
+    "build": "yarn --cwd client install && yarn --cwd client build",
+    "deploy": "cp -a client/build/. public/",
+    "heroku-postbuild": "yarn build && yarn deploy"
   },
   "repository": {
     "type": "git",
