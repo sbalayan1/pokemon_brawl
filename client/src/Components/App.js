@@ -2,8 +2,6 @@ import {useState, useEffect} from 'react'
 import { Switch, Route, useHistory } from 'react-router-dom'
 import * as React from 'react'
 import {Container} from 'nes-react'
-
-//import react components
 import NavBar from './NavBar'
 import SignUp from './SignUp';
 import Login from './Login';
@@ -29,7 +27,7 @@ let App = () => {
   const [randPokemon, setRandPokemon] = useState(null)
   const [pokeBall, setPokeBall] = useState(null)
   const [homePokemon, setHomePokemon] = useState(null)
-  let random = Math.floor(Math.random()*151)
+  let random = Math.floor(Math.random()*150) + 1
   let fetchData = async () => {
     try {
       let trainers = fetch('/api/trainers')
@@ -37,7 +35,7 @@ let App = () => {
       let randomPokemon = fetch(`/api/pokemon/${random}`)
       let pokeBall = fetch('https://pokeapi.co/api/v2/item/poke-ball')
 
-      random = Math.floor(Math.random()*151)
+      random = Math.floor(Math.random()*150) + 1
       let hiddenPokemon = fetch(`/api/pokemon/${random}`)
 
       let data = await Promise.all([trainers, pokemonData, randomPokemon, hiddenPokemon, pokeBall])

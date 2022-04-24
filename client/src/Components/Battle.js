@@ -4,10 +4,7 @@ import PokeBallBattle from './PokeBallBattle'
 
 let Battle = ({userTrainer, opponentTrainer, pokemonData}) => {
     let opponentTrainers = ['https://archives.bulbagarden.net/media/upload/3/30/RB_Old_man_Back.png','https://archives.bulbagarden.net/media/upload/f/f2/Spr_RG_Burglar.png','https://archives.bulbagarden.net/media/upload/0/09/Spr_RG_Engineer.png','https://archives.bulbagarden.net/media/upload/e/ee/Spr_RG_Erika.png','https://archives.bulbagarden.net/media/upload/d/d7/Spr_RG_Fisherman.png','https://archives.bulbagarden.net/media/upload/a/a1/Spr_RG_Rocket.png','https://archives.bulbagarden.net/media/upload/9/96/Spr_RG_Youngster.png','https://archives.bulbagarden.net/media/upload/1/1e/Spr_RG_Oak.png']
-
     const history = useHistory()
-
-
     const [initialBattleLoad, setInitialBattleLoad] = useState(true)
     const [initialMove, setInitialMove] = useState(null)
     const [battleMovePrompt, setBattleMovePrompt] = useState(null)
@@ -40,41 +37,84 @@ let Battle = ({userTrainer, opponentTrainer, pokemonData}) => {
     const [opponentPokemonMove3, setOpponentPokemonMove3] = useState(null)
     const [opponentPokemonMove4, setOpponentPokemonMove4] = useState(null)
     const [opponentPokemonHP, setOpponentPokemonHP] = useState(null)
+    
 
     const pokeTeam = userTrainer.pokemon_teams.filter(pokemon => pokemon.team_member === true)
-    const oppPokeTeam= opponentTrainer.pokemon_teams.filter(pokemon => pokemon.team_member === true)
+    const oppPokeTeam = opponentTrainer.pokemon_teams.filter(pokemon => pokemon.team_member === true)
     const flyingPokemon1 = pokemonData.find(pokemon => pokemon.name === 'pidgey').front_image
     const flyingPokemon2 = pokemonData.find(pokemon => pokemon.name === 'pidgeotto').front_image
     const flyingPokemon3 = pokemonData.find(pokemon => pokemon.name === 'pidgeot').front_image
 
     let randomStatements = ['Welcome to the Battle!!', "This looks like it's going to be a hot one!", 'The new guy is really strong.', 'WATCH OUT!!!']
 
+    let fetchPokemonTeams = async () => {
+        try {
+            let userPromise = await Promise.all(pokeTeam.map(pokemon => fetch(`/api/pokemon/${pokemon.pokemon_id}`)))
+
+            let oppPromise = await Promise.all(oppPokeTeam.map(pokemon => fetch(`/api/pokemon/${pokemon.pokemon_id}`)))
+                         
+            let userData = userPromise.map(res => res.json())
+            let oppData = oppPromise.map(res => res.json())
+
+            // groups the promises concurrently and returns an array of responses
+            let results = [await Promise.all(userData), await Promise.all(oppData)]
+            return results
+        } catch (error){
+            console.error(error)
+        }
+    }
+
     useEffect(() => {
-        fetch('https://pokeapi.co/api/v2/item/poke-ball')
-        .then(res => res.json())
-        .then(data => setPokeBall(data.sprites.default))
+        console.time()
+        fetchPokemonTeams().then(data => {
+            console.log(data[1])
+            console.log(data[1][0])
+            console.log(oppTeamCount)
+            setUserPokemon(data[0][userTeamCount])
+            setUserPokemonMove1(data[0][userTeamCount].moves[0])
+            setUserPokemonMove2(data[0][userTeamCount].moves[1])
+            setUserPokemonMove3(data[0][userTeamCount].moves[2])
+            setUserPokemonMove4(data[0][userTeamCount].moves[3])
+            setUserPokemonMove1PP(10)
+            setUserPokemonMove2PP(10)
+            setUserPokemonMove3PP(10)
+            setUserPokemonMove4PP(10)
+
+            setOpponentPokemon(data[1][oppTeamCount])
+            setOpponentPokemonMove1(data[1][oppTeamCount].moves[1])
+            setOpponentPokemonMove2(data[1][oppTeamCount].moves[1])
+            setOpponentPokemonMove3(data[1][oppTeamCount].moves[2])
+            setOpponentPokemonMove4(data[1][oppTeamCount].moves[3])
+        })
+
+        console.timeEnd()
+        // fetch('https://pokeapi.co/api/v2/item/poke-ball')
+        // .then(res => res.json())
+        // .then(data => setPokeBall(data.sprites.default))
     },[])
+
+    console.log(userPokemon, opponentPokemon, opponentTrainer)
 
     let startBattle = () => {
         setInitialBattleLoad(false)
-        setUserPokemon(pokemonData.find(pokemon => pokemon.id === pokeTeam[userTeamCount].pokemon_id))
-        setUserPokemonHP(pokemonData.find(pokemon => pokemon.id === pokeTeam[userTeamCount].pokemon_id).stats[0].hp)
-        setUserPokemonMove1(pokemonData.find(pokemon => pokemon.id === pokeTeam[userTeamCount].pokemon_id).moves[0])
-        setUserPokemonMove2(pokemonData.find(pokemon => pokemon.id === pokeTeam[userTeamCount].pokemon_id).moves[1])
-        setUserPokemonMove3(pokemonData.find(pokemon => pokemon.id === pokeTeam[userTeamCount].pokemon_id).moves[2])
-        setUserPokemonMove4(pokemonData.find(pokemon => pokemon.id === pokeTeam[userTeamCount].pokemon_id).moves[3])
-        setUserPokemonMove1PP(pokemonData.find(pokemon => pokemon.id === pokeTeam[userTeamCount].pokemon_id).moves[0].power_points)
-        setUserPokemonMove2PP(pokemonData.find(pokemon => pokemon.id === pokeTeam[userTeamCount].pokemon_id).moves[1].power_points)
-        setUserPokemonMove3PP(pokemonData.find(pokemon => pokemon.id === pokeTeam[userTeamCount].pokemon_id).moves[2].power_points)
-        setUserPokemonMove4PP(pokemonData.find(pokemon => pokemon.id === pokeTeam[userTeamCount].pokemon_id).moves[3].power_points)
+        
+        // setUserPokemon(pokemonData.find(pokemon => pokemon.id === pokeTeam[userTeamCount].pokemon_id))
+        // setUserPokemonHP(pokemonData.find(pokemon => pokemon.id === pokeTeam[userTeamCount].pokemon_id).stats[0].hp)
+        // setUserPokemonMove1(pokemonData.find(pokemon => pokemon.id === pokeTeam[userTeamCount].pokemon_id).moves[0])
+        // setUserPokemonMove2(pokemonData.find(pokemon => pokemon.id === pokeTeam[userTeamCount].pokemon_id).moves[1])
+        // setUserPokemonMove3(pokemonData.find(pokemon => pokemon.id === pokeTeam[userTeamCount].pokemon_id).moves[2])
+        // setUserPokemonMove4(pokemonData.find(pokemon => pokemon.id === pokeTeam[userTeamCount].pokemon_id).moves[3])
+        // setUserPokemonMove1PP(pokemonData.find(pokemon => pokemon.id === pokeTeam[userTeamCount].pokemon_id).moves[0].power_points)
+        // setUserPokemonMove2PP(pokemonData.find(pokemon => pokemon.id === pokeTeam[userTeamCount].pokemon_id).moves[1].power_points)
+        // setUserPokemonMove3PP(pokemonData.find(pokemon => pokemon.id === pokeTeam[userTeamCount].pokemon_id).moves[2].power_points)
+        // setUserPokemonMove4PP(pokemonData.find(pokemon => pokemon.id === pokeTeam[userTeamCount].pokemon_id).moves[3].power_points)
 
-
-        setOpponentPokemon(pokemonData.find(pokemon => pokemon.id === oppPokeTeam[oppTeamCount].pokemon_id))
-        setOpponentPokemonMove1(pokemonData.find(pokemon => pokemon.id === oppPokeTeam[oppTeamCount].pokemon_id).moves[0])
-        setOpponentPokemonMove2(pokemonData.find(pokemon => pokemon.id === oppPokeTeam[oppTeamCount].pokemon_id).moves[1])
-        setOpponentPokemonMove3(pokemonData.find(pokemon => pokemon.id === oppPokeTeam[oppTeamCount].pokemon_id).moves[2])
-        setOpponentPokemonMove4(pokemonData.find(pokemon => pokemon.id === oppPokeTeam[oppTeamCount].pokemon_id).moves[3])
-        setOpponentPokemonHP(pokemonData.find(pokemon => pokemon.id === oppPokeTeam[oppTeamCount].pokemon_id).stats[0].hp)
+        // setOpponentPokemon(pokemonData.find(pokemon => pokemon.id === oppPokeTeam[oppTeamCount].pokemon_id))
+        // setOpponentPokemonMove1(pokemonData.find(pokemon => pokemon.id === oppPokeTeam[oppTeamCount].pokemon_id).moves[0])
+        // setOpponentPokemonMove2(pokemonData.find(pokemon => pokemon.id === oppPokeTeam[oppTeamCount].pokemon_id).moves[1])
+        // setOpponentPokemonMove3(pokemonData.find(pokemon => pokemon.id === oppPokeTeam[oppTeamCount].pokemon_id).moves[2])
+        // setOpponentPokemonMove4(pokemonData.find(pokemon => pokemon.id === oppPokeTeam[oppTeamCount].pokemon_id).moves[3])
+        // setOpponentPokemonHP(pokemonData.find(pokemon => pokemon.id === oppPokeTeam[oppTeamCount].pokemon_id).stats[0].hp)
     }
 
     let handleSelectInitialMove = (e) => {
@@ -89,7 +129,6 @@ let Battle = ({userTrainer, opponentTrainer, pokemonData}) => {
     }
 
     let handleSelectBattleMovePrompt = (e) => {
-
         if (displayTeam === false) {
             let userPokemonMoves = [userPokemonMove1, userPokemonMove2, userPokemonMove3, userPokemonMove4]
             setBattleMovePrompt(userPokemonMoves.find(move => move.name === e.target.value))
@@ -113,7 +152,7 @@ let Battle = ({userTrainer, opponentTrainer, pokemonData}) => {
     }
 
     let handleSelectBattleMove = (e) => {
-        setUserDamage(Math.round(((((2*userPokemon.level)/5)*(userPokemon.stats[0].attack/opponentPokemon.stats[0].defense)*battleMovePrompt.power)/50)+2))
+        // setUserDamage(Math.round(((((2*userPokemon.level)/5)*(userPokemon.stats[0].attack/opponentPokemon.stats[0].defense)*battleMovePrompt.power)/50)+2))
         setBattleMovePrompt(null)
         setInitialMove(null)
         setUserBattleMove(battleMovePrompt.name)
@@ -128,12 +167,12 @@ let Battle = ({userTrainer, opponentTrainer, pokemonData}) => {
             setUserPokemonMove4PP(userPokemonMove4PP - 1)
         }
 
-        if (opponentPokemonHP - ((((2*userPokemon.level)/5)*(userPokemon.stats[0].attack/opponentPokemon.stats[0].defense)*battleMovePrompt.power)/50)+2 <= 0) {
-            setSuperEffective(true)
-            setOpponentPokemonHP(0)
-        } else {
-            setOpponentPokemonHP(opponentPokemonHP - Math.round(((((2*userPokemon.level)/5)*(userPokemon.stats[0].attack/opponentPokemon.stats[0].defense)*battleMovePrompt.power)/50)+2))
-        }
+        // if (opponentPokemonHP - ((((2*userPokemon.level)/5)*(userPokemon.stats[0].attack/opponentPokemon.stats[0].defense)*battleMovePrompt.power)/50)+2 <= 0) {
+        //     setSuperEffective(true)
+        //     setOpponentPokemonHP(0)
+        // } else {
+        //     setOpponentPokemonHP(opponentPokemonHP - Math.round(((((2*userPokemon.level)/5)*(userPokemon.stats[0].attack/opponentPokemon.stats[0].defense)*battleMovePrompt.power)/50)+2))
+        // }
     }
 
     let initiateOpponentMove = () => {
@@ -142,8 +181,7 @@ let Battle = ({userTrainer, opponentTrainer, pokemonData}) => {
      }
 
     let calculateDamage = () => {
-        setOpponentDamage(Math.round(((((2*opponentPokemon.level)/5)*(opponentPokemon.stats[0].attack/userPokemon.stats[0].defense)*opponentBattleMove.power)/50)+2))
-
+        // setOpponentDamage(Math.round(((((2*opponentPokemon.level)/5)*(opponentPokemon.stats[0].attack/userPokemon.stats[0].defense)*opponentBattleMove.power)/50)+2))
         setOpponentBattleMove(null)
     }
 
@@ -154,7 +192,6 @@ let Battle = ({userTrainer, opponentTrainer, pokemonData}) => {
         } else {
             setUserPokemonHP(userPokemonHP - opponentDamage)
         }
-
         setOpponentDamage(null)
     }
 
@@ -172,7 +209,7 @@ let Battle = ({userTrainer, opponentTrainer, pokemonData}) => {
                 setOpponentPokemonMove2(pokemonData.find(pokemon => pokemon.id === oppPokeTeam[oppTeamCount+1].pokemon_id).moves[1])
                 setOpponentPokemonMove3(pokemonData.find(pokemon => pokemon.id === oppPokeTeam[oppTeamCount+1].pokemon_id).moves[2])
                 setOpponentPokemonMove4(pokemonData.find(pokemon => pokemon.id === oppPokeTeam[oppTeamCount+1].pokemon_id).moves[3])
-                setOpponentPokemonHP(pokemonData.find(pokemon => pokemon.id === oppPokeTeam[oppTeamCount+1].pokemon_id).stats[0].hp)
+                // setOpponentPokemonHP(pokemonData.find(pokemon => pokemon.id === oppPokeTeam[oppTeamCount+1].pokemon_id).stats[0].hp)
                 initiateOpponentMove()
 
             } else if (oppTeamCount === oppPokeTeam.length-1) {
@@ -208,7 +245,7 @@ let Battle = ({userTrainer, opponentTrainer, pokemonData}) => {
 
                 setUserTeamCount(userTeamCount+1)
                 setUserPokemon(pokemonData.find(pokemon => pokemon.id === pokeTeam[userTeamCount+1].pokemon_id))
-                setUserPokemonHP(pokemonData.find(pokemon => pokemon.id === pokeTeam[userTeamCount+1].pokemon_id).stats[0].hp)
+                // setUserPokemonHP(pokemonData.find(pokemon => pokemon.id === pokeTeam[userTeamCount+1].pokemon_id).stats[0].hp)
                 setUserPokemonMove1(pokemonData.find(pokemon => pokemon.id === pokeTeam[userTeamCount+1].pokemon_id).moves[0])
                 setUserPokemonMove2(pokemonData.find(pokemon => pokemon.id === pokeTeam[userTeamCount+1].pokemon_id).moves[1])
                 setUserPokemonMove3(pokemonData.find(pokemon => pokemon.id === pokeTeam[userTeamCount+1].pokemon_id).moves[2])
@@ -238,7 +275,7 @@ let Battle = ({userTrainer, opponentTrainer, pokemonData}) => {
     let sendOutPokemon = (e) => {
         if (userPokemon !== pokemonData.find(pokemon => pokemon.front_image === e.target.src)) {
             setUserPokemon(pokemonData.find(pokemon => pokemon.front_image === e.target.src))
-            setUserPokemonHP(pokemonData.find(pokemon => pokemon.front_image === e.target.src).stats[0].hp)
+            // setUserPokemonHP(pokemonData.find(pokemon => pokemon.front_image === e.target.src).stats[0].hp)
             setUserPokemonMove1(pokemonData.find(pokemon => pokemon.front_image === e.target.src).moves[0])
             setUserPokemonMove2(pokemonData.find(pokemon => pokemon.front_image === e.target.src).moves[1])
             setUserPokemonMove3(pokemonData.find(pokemon => pokemon.front_image === e.target.src).moves[2])
@@ -257,17 +294,23 @@ let Battle = ({userTrainer, opponentTrainer, pokemonData}) => {
 
     }
 
+    let battleLoadingContainer = () => {
+        return (                
+            <div className="battle-sfzone-container-load">
+                <div className="zone-container" style={{backgroundImage:'url(https://www.models-resource.com/resources/big_icons/22/21700.png)', backgroundSize:'cover', height: '50%'}}>
+                    <img className="zone-image-card" src={opponentTrainers[Math.floor(Math.random() * opponentTrainers.length)]} alt="opponent-trainer"/>
+                </div>
+                <p className="battle-p-tag-load">Trainer {opponentTrainer.name} wants to battle!</p>
+                <button onClick={startBattle}>Start</button>
+            </div>
+        )
+    }
+
     return (
         <div className="battle-sfzone-container">
-            {/* initial battle load  */}
+            {/* initial battle load */}
             {initialBattleLoad === true && userPokemon === null && opponentPokemon === null ?  
-                <div className="battle-sfzone-container-load">
-                    <div className="zone-container" style={{backgroundImage:'url(https://www.models-resource.com/resources/big_icons/22/21700.png)', backgroundSize:'cover', height: '50%'}}>
-                        <img className="zone-image-card" src={opponentTrainers[Math.floor(Math.random() * opponentTrainers.length)]} alt="opponent-trainer"/>
-                    </div>
-                    <p className="battle-p-tag-load">Trainer {opponentTrainer.name} wants to battle!</p>
-                    <button onClick={startBattle}>Start</button>
-                </div>
+                battleLoadingContainer()
             :
             // move select 
                 <div className="battle-sfzone-container">
@@ -289,14 +332,14 @@ let Battle = ({userTrainer, opponentTrainer, pokemonData}) => {
                             <div className="stats-card">
                                 <div className="hp-card">
                                     <p style={userDamage > 0 ? {backgroundColor:'red', marginLeft:'5px'}: {marginLeft:'5px'}} >HP: {opponentPokemonHP}</p>
-                                    <p>LVL: {opponentPokemon.level}</p>
+                                    {/* <p>LVL: {opponentPokemon.level}</p> */}
                                 </div>
                                 <div className="attack-card">
-                                    <p style={{marginLeft:'5px'}}><small>ATK: {opponentPokemon.stats[0].attack}</small></p>
+                                    {/* <p style={{marginLeft:'5px'}}><small>ATK: {opponentPokemon.stats[0].attack}</small></p>
                                     <p><small>DEF: {opponentPokemon.stats[0].defense}</small></p>
                                     <p><small>SP ATK: {opponentPokemon.stats[0].sp_attack}</small></p>
                                     <p><small>SP DEF: {opponentPokemon.stats[0].sp_defense}</small></p>
-                                    <p><small>SPD: {opponentPokemon.stats[0].speed}</small></p>
+                                    <p><small>SPD: {opponentPokemon.stats[0].speed}</small></p> */}
                                 </div>
                             </div>
                             <img className="zone-image-card" src={opponentPokemon.front_image} alt="opponent-pokemon-image"/>
@@ -318,10 +361,10 @@ let Battle = ({userTrainer, opponentTrainer, pokemonData}) => {
                                 </div>
                                 <div className="attack-card">
                                     <p style={{marginLeft:'5px'}}><small>ATK: {userPokemon.stats[0].attack}</small></p>
-                                    <p><small>DEF: {userPokemon.stats[0].defense}</small></p>
+                                    {/* <p><small>DEF: {userPokemon.stats[0].defense}</small></p>
                                     <p><small>SP ATK: {userPokemon.stats[0].sp_attack}</small></p>
                                     <p><small>SP DEF: {userPokemon.stats[0].sp_defense}</small></p>
-                                    <p><small>SPD: {userPokemon.stats[0].speed}</small></p>
+                                    <p><small>SPD: {userPokemon.stats[0].speed}</small></p> */}
                                 </div>
                             </div>
                         
