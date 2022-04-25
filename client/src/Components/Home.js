@@ -5,7 +5,7 @@ import Ability from './Ability'
 import Stat from './Stat'
 import {Container} from 'nes-react'
 
-let Home = ({currentUser, pokemonData, hiddenPokemon, userTrainer, setUserTrainer, setOpponentTrainer, userTrainerPokemon, setUserTrainerPokemon, setCopyUserTrainerPokemon, homePokemon}) => {
+let Home = ({currentUser, pokemonData, hiddenPokemon, userTrainer, setUserTrainer, opponentTrainer, setOpponentTrainer, userTrainerPokemon, setUserTrainerPokemon, setCopyUserTrainerPokemon, homePokemon}) => {
     const history = useHistory()
     const [foundPokemon, setFoundPokemon] = useState(null)
     const [catchPokemon, setCatchPokemon] = useState(null)
@@ -124,6 +124,8 @@ let Home = ({currentUser, pokemonData, hiddenPokemon, userTrainer, setUserTraine
             }
         })
     },[])
+
+    console.log(opponentTrainer)
 
     return (
         <div className="home-container">

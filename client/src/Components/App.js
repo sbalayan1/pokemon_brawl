@@ -76,7 +76,7 @@ let App = () => {
       fetchHomePokemon().then(data => {setHomePokemon(data)})
   },[])
 
-  if (currentUser === null) {
+  if (!currentUser) {
     history.push('/login')
     return (
       <div>

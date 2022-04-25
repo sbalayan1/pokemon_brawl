@@ -59,7 +59,7 @@ let NavBar = ({pokeBall, currentUser}) => {
         )
     }
 
-    return currentUser === null ? notLoggedIn() : loggedIn()
+    return !currentUser ? notLoggedIn() : loggedIn()
 }
 
 export default NavBar

@@ -38,7 +38,6 @@ let Battle = ({userTrainer, opponentTrainer, pokemonData}) => {
     const [opponentPokemonMove4, setOpponentPokemonMove4] = useState(null)
     const [opponentPokemonHP, setOpponentPokemonHP] = useState(null)
     
-
     const pokeTeam = userTrainer.pokemon_teams.filter(pokemon => pokemon.team_member === true)
     const oppPokeTeam = opponentTrainer.pokemon_teams.filter(pokemon => pokemon.team_member === true)
     const flyingPokemon1 = pokemonData.find(pokemon => pokemon.name === 'pidgey').front_image
@@ -67,33 +66,34 @@ let Battle = ({userTrainer, opponentTrainer, pokemonData}) => {
     useEffect(() => {
         console.time()
         fetchPokemonTeams().then(data => {
-            console.log(data[1])
-            console.log(data[1][0])
-            console.log(oppTeamCount)
-            setUserPokemon(data[0][userTeamCount])
-            setUserPokemonMove1(data[0][userTeamCount].moves[0])
-            setUserPokemonMove2(data[0][userTeamCount].moves[1])
-            setUserPokemonMove3(data[0][userTeamCount].moves[2])
-            setUserPokemonMove4(data[0][userTeamCount].moves[3])
+            console.log(data)
+            let userData = data[0], oppData = data[1]
+            console.log(data)
+            setUserPokemon(userData[userTeamCount])
+            console.log(data)
+            setUserPokemonMove1(userData[userTeamCount].moves[0])
+            console.log(data)
+            setUserPokemonMove2(userData[userTeamCount].moves[1])
+            setUserPokemonMove3(userData[userTeamCount].moves[2])
+            setUserPokemonMove4(userData[userTeamCount].moves[3])
             setUserPokemonMove1PP(10)
             setUserPokemonMove2PP(10)
             setUserPokemonMove3PP(10)
-            setUserPokemonMove4PP(10)
-
-            setOpponentPokemon(data[1][oppTeamCount])
-            setOpponentPokemonMove1(data[1][oppTeamCount].moves[1])
-            setOpponentPokemonMove2(data[1][oppTeamCount].moves[1])
-            setOpponentPokemonMove3(data[1][oppTeamCount].moves[2])
-            setOpponentPokemonMove4(data[1][oppTeamCount].moves[3])
+            setUserPokemonMove4PP(10)   
+    
+            setOpponentPokemon(oppData[0])
+            setOpponentPokemonMove1(oppData[oppTeamCount].moves[0])
+            setOpponentPokemonMove2(oppData[oppTeamCount].moves[1])
+            setOpponentPokemonMove3(oppData[oppTeamCount].moves[2])
+            setOpponentPokemonMove4(oppData[oppTeamCount].moves[3])
+            console.log(data)
         })
 
-        console.timeEnd()
         // fetch('https://pokeapi.co/api/v2/item/poke-ball')
         // .then(res => res.json())
-        // .then(data => setPokeBall(data.sprites.default))
+        // .then(data => setPokeBall(data.sprites.default))        
+        console.timeEnd()
     },[])
-
-    console.log(userPokemon, opponentPokemon, opponentTrainer)
 
     let startBattle = () => {
         setInitialBattleLoad(false)
