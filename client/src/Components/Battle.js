@@ -3,6 +3,7 @@ import {useHistory} from 'react-router-dom'
 import PokeBallBattle from './PokeBallBattle'
 
 let Battle = ({userTrainer, opponentTrainer, pokemonData}) => {
+    console.log('component begin loading')
     let opponentTrainers = ['https://archives.bulbagarden.net/media/upload/3/30/RB_Old_man_Back.png','https://archives.bulbagarden.net/media/upload/f/f2/Spr_RG_Burglar.png','https://archives.bulbagarden.net/media/upload/0/09/Spr_RG_Engineer.png','https://archives.bulbagarden.net/media/upload/e/ee/Spr_RG_Erika.png','https://archives.bulbagarden.net/media/upload/d/d7/Spr_RG_Fisherman.png','https://archives.bulbagarden.net/media/upload/a/a1/Spr_RG_Rocket.png','https://archives.bulbagarden.net/media/upload/9/96/Spr_RG_Youngster.png','https://archives.bulbagarden.net/media/upload/1/1e/Spr_RG_Oak.png']
     const history = useHistory()
     const [initialBattleLoad, setInitialBattleLoad] = useState(true)
@@ -52,27 +53,45 @@ let Battle = ({userTrainer, opponentTrainer, pokemonData}) => {
 
             let oppPromise = await Promise.all(oppPokeTeam.map(pokemon => fetch(`/api/pokemon/${pokemon.pokemon_id}`)))
                          
-            let userData = userPromise.map(res => res.json())
-            let oppData = oppPromise.map(res => res.json())
+            let userData = await Promise.all(userPromise.map(res => res.json()))
+            let oppData = await Promise.all(oppPromise.map(res => res.json()))
 
             // groups the promises concurrently and returns an array of responses
-            let results = [await Promise.all(userData), await Promise.all(oppData)]
+            let results = [userData, oppData]
             return results
         } catch (error){
             console.error(error)
         }
     }
+    // console.time()
+    // fetchPokemonTeams().then(data => {
+    //     let userData = data[0], oppData = data[1]
+    //     setUserPokemon(userData[userTeamCount])
+    //     setUserPokemonMove1(userData[userTeamCount].moves[0])
+    //     setUserPokemonMove2(userData[userTeamCount].moves[1])
+    //     setUserPokemonMove3(userData[userTeamCount].moves[2])
+    //     setUserPokemonMove4(userData[userTeamCount].moves[3])
+    //     setUserPokemonMove1PP(10)
+    //     setUserPokemonMove2PP(10)
+    //     setUserPokemonMove3PP(10)
+    //     setUserPokemonMove4PP(10)   
+
+    //     setOpponentPokemon(oppData[0])
+    //     setOpponentPokemonMove1(oppData[oppTeamCount].moves[0])
+    //     setOpponentPokemonMove2(oppData[oppTeamCount].moves[1])
+    //     setOpponentPokemonMove3(oppData[oppTeamCount].moves[2])
+    //     setOpponentPokemonMove4(oppData[oppTeamCount].moves[3])
+    // })
+    // console.timeEnd()
 
     useEffect(() => {
-        console.time()
+        console.log('start useEffect')
         fetchPokemonTeams().then(data => {
-            console.log(data)
+            console.log('start fetch')
+            console.time()
             let userData = data[0], oppData = data[1]
-            console.log(data)
             setUserPokemon(userData[userTeamCount])
-            console.log(data)
             setUserPokemonMove1(userData[userTeamCount].moves[0])
-            console.log(data)
             setUserPokemonMove2(userData[userTeamCount].moves[1])
             setUserPokemonMove3(userData[userTeamCount].moves[2])
             setUserPokemonMove4(userData[userTeamCount].moves[3])
@@ -86,14 +105,15 @@ let Battle = ({userTrainer, opponentTrainer, pokemonData}) => {
             setOpponentPokemonMove2(oppData[oppTeamCount].moves[1])
             setOpponentPokemonMove3(oppData[oppTeamCount].moves[2])
             setOpponentPokemonMove4(oppData[oppTeamCount].moves[3])
-            console.log(data)
+            console.timeEnd()
+            console.log('end fetch')
         })
-
+        console.log('finish useEffect')
         // fetch('https://pokeapi.co/api/v2/item/poke-ball')
         // .then(res => res.json())
         // .then(data => setPokeBall(data.sprites.default))        
-        console.timeEnd()
-    },[])
+    },[userPokemon, opponentPokemon])
+
 
     let startBattle = () => {
         setInitialBattleLoad(false)
@@ -308,6 +328,7 @@ let Battle = ({userTrainer, opponentTrainer, pokemonData}) => {
 
     return (
         <div className="battle-sfzone-container">
+                 {console.log('render jsx')}
             {/* initial battle load */}
             {initialBattleLoad === true && userPokemon === null && opponentPokemon === null ?  
                 battleLoadingContainer()
