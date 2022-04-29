@@ -19,7 +19,6 @@ let Home = ({currentUser, pokemonData, hiddenPokemon, userTrainer, setUserTraine
     const [zapdos, setZapdos] = useState(homePokemon[1])
     const [moltres, setMoltres] = useState(homePokemon[2])
 
-
     let handleBattle = () => {
         history.push('/battle')
     }

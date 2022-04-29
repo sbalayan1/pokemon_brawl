@@ -5,14 +5,13 @@ let Logout = ({setCurrentUser}) => {
     let history = useHistory()
     useEffect(() => {
         setTimeout(() => {
-            console.log('running')
             setCurrentUser(null)
             history.push('/login')
         }, 3000)
     },[])
 
     return (
-        <div>
+        <div className='login-container'>
             Goodbye!
         </div>
     )

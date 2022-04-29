@@ -13,6 +13,7 @@ import Battle from './Battle'
 import PC from './PC'
 import Loading from './Loading'
 import Leaderboards from './Leaderboards'
+import Error from './Error'
 
 let App = () => {
   const history = useHistory()
@@ -77,7 +78,7 @@ let App = () => {
   },[])
 
   if (!currentUser) {
-    history.push('/login')
+    // history.push('/login')
     return (
       <div>
         <NavBar 
@@ -101,6 +102,9 @@ let App = () => {
               <Logout 
                 setCurrentUser={setCurrentUser}
               />
+            </Route>
+            <Route>
+              <Error/>
             </Route>
           </Switch>
         </div>
@@ -184,6 +188,9 @@ let App = () => {
                 setCopyUserTrainerPokemon={setCopyUserTrainerPokemon}
                 homePokemon = {homePokemon}
               />
+            </Route>
+            <Route>
+              <Error/>
             </Route>
           </Switch>
         </div>

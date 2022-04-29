@@ -6,7 +6,6 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  width: 100%;
   border: 1px solid orange
 }
 
@@ -78,7 +77,7 @@
   width: 100%;
   flex-direction: column;
   border: 1px solid red;
-
+  
 }
 
 .home-battle-container {
