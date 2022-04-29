@@ -8,7 +8,7 @@ let Logout = ({setCurrentUser}) => {
             console.log('running')
             setCurrentUser(null)
             history.push('/login')
-        }, 5000)
+        }, 3000)
     },[])
 
     return (

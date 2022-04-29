@@ -98,7 +98,7 @@ let Battle = ({userTrainer, opponentTrainer, pokemonData}) => {
         // fetch('https://pokeapi.co/api/v2/item/poke-ball')
         // .then(res => res.json())
         // .then(data => setPokeBall(data.sprites.default))        
-    }, [userPokemon, opponentPokemon])
+    }, [])
 
 
     let startBattle = () => {
