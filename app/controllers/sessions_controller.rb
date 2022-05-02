@@ -1,7 +1,6 @@
 class SessionsController < ApplicationController
     def create
         user = User.find_by(username: params[:username])
-
         if user && user.authenticate(params[:password])
             session[:init] = true
             session[:user_id] = user.id
@@ -11,12 +10,14 @@ class SessionsController < ApplicationController
         end 
     end 
 
-    def verify
-        render json: current_user
-    end 
+    # def index
+    #     session[:session_hello] ||= "World"
+    #     cookies[:cookies_hello] ||= "World"
+    #     render json: { session: session, cookies: cookies.to_hash }
+    # end 
 
     def destroy 
         session.delete :user_id
-        head :no_content
+        @current_user = nil
     end 
 end

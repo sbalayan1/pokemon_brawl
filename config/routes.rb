@@ -6,7 +6,6 @@ Rails.application.routes.draw do
     get '/user/:id', to: 'users#find_user'
     post '/signup', to: 'users#create'
     post '/login', to: 'sessions#create'
-    get '/user/:id/session', to: 'sessions#verify'
     delete '/logout', to: 'sessions#destroy'
     delete '/pokemon/:id', to: 'pokemon#destroy'
     patch '/pokemon_team/:id', to: 'pokemon_teams#update'
@@ -16,6 +15,7 @@ Rails.application.routes.draw do
     get '/pokemon/:id/abilities', to: 'pokemon#ability'
     get '/pokemon/:id/moves', to: 'pokemon#moves'
     
+    resources :sessions, only: [:index]
     resources :users, only: [:index, :show, :create]
     resources :trainers, only: [:index, :show, :create]
     resources :battles, only: [:index, :show, :create]
