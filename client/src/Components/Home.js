@@ -3,9 +3,10 @@ import {useHistory} from 'react-router-dom'
 import * as React from 'react'
 import Ability from './Ability'
 import Stat from './Stat'
+import LoadScreen from './LoadScreen'
 import {Container} from 'nes-react'
 
-let Home = ({currentUser, pokemonData, hiddenPokemon, userTrainer, setUserTrainer, opponentTrainer, setOpponentTrainer, userTrainerPokemon, setUserTrainerPokemon, setCopyUserTrainerPokemon, homePokemon}) => {
+let Home = ({currentUser, pokemonData, hiddenPokemon, userTrainer, setUserTrainer, opponentTrainer, setOpponentTrainer, userTrainerPokemon, setUserTrainerPokemon, setCopyUserTrainerPokemon, homePokemon, isLoaded}) => {
     const history = useHistory()
     const [foundPokemon, setFoundPokemon] = useState(null)
     const [catchPokemon, setCatchPokemon] = useState(null)
@@ -15,9 +16,9 @@ let Home = ({currentUser, pokemonData, hiddenPokemon, userTrainer, setUserTraine
     const [displayZapdos, setDisplayZapdos] = useState(false)
     const [displayMoltres, setDisplayMoltres] = useState(false)
     const [displayArticuno, setDisplayArticuno] = useState(false)
-    const [articuno, setArticuno] = useState(homePokemon[0])
-    const [zapdos, setZapdos] = useState(homePokemon[1])
-    const [moltres, setMoltres] = useState(homePokemon[2])
+    const [articuno, setArticuno] = useState(null)
+    const [zapdos, setZapdos] = useState(null)
+    const [moltres, setMoltres] = useState(null)
 
     let handleBattle = () => {
         history.push('/battle')
@@ -107,24 +108,31 @@ let Home = ({currentUser, pokemonData, hiddenPokemon, userTrainer, setUserTraine
     ]
 
     useEffect(() => {
-        fetch('/api/trainers')
-        .then(res => res.json())
-        .then(data => {
-            if (currentUser !== null) {
-                if (data.find(trainer=> trainer.user_id === currentUser.id)===undefined) {
-                    history.push('/create_a_trainer')
-                } else {
-                    setUserTrainer(data.find(trainer=> trainer.user_id === currentUser.id))
-                    let opponentTrainers = data.filter(trainer => trainer.user_id !== currentUser.id)
-                    setOpponentTrainer(opponentTrainers[Math.floor(Math.random() * opponentTrainers.length)])
-                    setUserTrainerPokemon(data.find(trainer=> trainer.user_id === currentUser.id).pokemon)
-                    setCopyUserTrainerPokemon(data.find(trainer=> trainer.user_id === currentUser.id).pokemon)
+        if (isLoaded) {
+            fetch('/api/trainers')
+            .then(res => res.json())
+            .then(data => {
+                if (currentUser !== null) {
+                    if (data.find(trainer=> trainer.user_id === currentUser.id)===undefined) {
+                        history.push('/create_a_trainer')
+                    } else {
+                        setUserTrainer(data.find(trainer=> trainer.user_id === currentUser.id))
+                        let opponentTrainers = data.filter(trainer => trainer.user_id !== currentUser.id)
+                        setOpponentTrainer(opponentTrainers[Math.floor(Math.random() * opponentTrainers.length)])
+                        setUserTrainerPokemon(data.find(trainer=> trainer.user_id === currentUser.id).pokemon)
+                        setCopyUserTrainerPokemon(data.find(trainer=> trainer.user_id === currentUser.id).pokemon)
+                        setArticuno(homePokemon[0])
+                        setZapdos(homePokemon[1])
+                        setMoltres(homePokemon[2])
+                    }
                 }
-            }
-        })
-    },[])
+            })
+        }
+    }, [isLoaded])
 
-    return (
+    return !isLoaded ? 
+        <LoadScreen />
+    :
         <div className="home-container">
             <div className="home-battle-container">
                 <div className="home-battle-description-card">
@@ -275,7 +283,6 @@ let Home = ({currentUser, pokemonData, hiddenPokemon, userTrainer, setUserTraine
             </div>
             <div className="footer">Copyright 2021 - SeanB</div>
         </div>
-    )
 }
 
 export default Home

@@ -1,13 +1,17 @@
 class SessionsController < ApplicationController
     def create
         user = User.find_by(username: params[:username])
-        if user && user.authenticate(params[:password])
-            session[:init] = true
-            session[:user_id] = user.id
-            render json: user, status: :created
-        else 
-            render json: {errors: "Invalid username or password"}, status: :unauthorized
-        end 
+        session[:user_id] = user.id
+        render json: user
+    
+        # user = User.find_by(username: params[:username])
+        # if user && user.authenticate(params[:password])
+        #     session[:init] = true
+        #     session[:user_id] = user.id
+        #     render json: user, status: :created
+        # else 
+        #     render json: {errors: "Invalid username or password"}, status: :unauthorized
+        # end 
     end 
 
     # def index
@@ -18,6 +22,6 @@ class SessionsController < ApplicationController
 
     def destroy 
         session.delete :user_id
-        @current_user = nil
+        head :no_content
     end 
 end

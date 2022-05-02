@@ -1,7 +1,8 @@
 import {useState} from 'react'
 import { useHistory } from 'react-router-dom'
+import LoadScreen from './LoadScreen'
 
-let Login = ({setCurrentUser}) => {
+let Login = ({currentUser, setCurrentUser, isLoaded, setIsLoaded}) => {
     const history = useHistory()
     const [username, setUsername] = useState("")
     const [password, setPassword] = useState("")
@@ -29,30 +30,35 @@ let Login = ({setCurrentUser}) => {
         if (userData.id) {
             alert(`Welcome ${username}`)
             setCurrentUser(userData)
-            history.push('/loading')
         } else {
             setErrors(userData.errors)
         }
     }
 
-    return (
-        <div className="login-container">
-            <div>
-                <form className="login-form" onSubmit={handleSubmit}>
-                    <h1>Login</h1>
-                    <label htmlFor="username">Username</label>
-                    <input className="login-input" type="text" value={username} onChange={(e)=> setUsername(e.target.value)}/>
-                    <label htmlFor="password">Password</label>
-                    <input className="login-input" type="password" value={password} onChange={(e)=> setPassword(e.target.value)}/>
-                    <button className="submit" type="submit">Submit</button>
-                </form>
-                <div className="login-form-sign-up">
-                    <button className="submit" type="reset" onClick={handleSignup}>Sign Up</button>
-                    {errors ? <div>{errors}</div>: null}
+
+    let renderLoginScreen = () => {
+        return (
+            <div className="login-container">
+                <div>
+                    <form className="login-form" onSubmit={handleSubmit}>
+                        <h1>Login</h1>
+                        <label htmlFor="username">Username</label>
+                        <input className="login-input" type="text" value={username} onChange={(e)=> setUsername(e.target.value)}/>
+                        <label htmlFor="password">Password</label>
+                        <input className="login-input" type="password" value={password} onChange={(e)=> setPassword(e.target.value)}/>
+                        <button className="submit" type="submit">Submit</button>
+                    </form>
+                    <div className="login-form-sign-up">
+                        <button className="submit" type="reset" onClick={handleSignup}>Sign Up</button>
+                        {errors ? <div>{errors}</div>: null}
+                    </div>
                 </div>
             </div>
-        </div>
-    )
+        ) 
+    }
+
+    if (isLoaded && !currentUser.error) history.push('/loading')
+    return renderLoginScreen()
 }
 
 export default Login

@@ -11,7 +11,7 @@ import SafariZone from './SafariZone'
 import Trainer from './Trainer'
 import Battle from './Battle'
 import PC from './PC'
-import Loading from './Loading'
+import LoadScreen from './LoadScreen'
 import Leaderboards from './Leaderboards'
 import Error from './Error'
 
@@ -28,18 +28,25 @@ let App = () => {
   const [randPokemon, setRandPokemon] = useState(null)
   const [pokeBall, setPokeBall] = useState(null)
   const [homePokemon, setHomePokemon] = useState(null)
+  const [isLoaded, setIsLoaded] = useState(false)
+
   let random = Math.floor(Math.random()*150) + 1
+  
   let fetchData = async () => {
     try {
       let trainers = fetch('/api/trainers')
       let pokemonData = fetch('/api/pokemon')
       let randomPokemon = fetch(`/api/pokemon/${random}`)
       let pokeBall = fetch('https://pokeapi.co/api/v2/item/poke-ball')
+      let user = fetch('/api/user')
+      let articuno = fetch('/api/pokemon/144')
+      let zapdos = fetch('/api/pokemon/145')
+      let moltres = fetch('/api/pokemon/146')
 
       random = Math.floor(Math.random()*150) + 1
       let hiddenPokemon = fetch(`/api/pokemon/${random}`)
 
-      let data = await Promise.all([trainers, pokemonData, randomPokemon, hiddenPokemon, pokeBall])
+      let data = await Promise.all([trainers, pokemonData, randomPokemon, hiddenPokemon, pokeBall, user, articuno, zapdos, moltres])
       let dataPromises = data.map(res => res.json())
       let results = await Promise.all(dataPromises)
       return results
@@ -49,36 +56,48 @@ let App = () => {
     }
   }
 
-  let fetchHomePokemon = async () => {
-    try {
-      let articuno = fetch('/api/pokemon/144')
-      let zapdos = fetch('/api/pokemon/145')
-      let moltres = fetch('/api/pokemon/146')
+  // let fetchHomePokemon = async () => {
+  //   try {
+  //     let articuno = fetch('/api/pokemon/144')
+  //     let zapdos = fetch('/api/pokemon/145')
+  //     let moltres = fetch('/api/pokemon/146')
 
-      let data = await Promise.all([articuno, zapdos, moltres])
-      let dataPromises = data.map(res => res.json())
-      let results = await Promise.all(dataPromises)
-      return results
+  //     let data = await Promise.all([articuno, zapdos, moltres])
+  //     let dataPromises = data.map(res => res.json())
+  //     let results = await Promise.all(dataPromises)
+  //     return results
 
-    } catch (error) {
-      console.error(error)
-    }
-}
+  //   } catch (error) {
+  //     console.error(error)
+  //   }
+  // }
 
   useEffect(() => {
       fetchData().then(data => {
-        setTrainers(data[0])
-        setPokemonData(data[1])
-        setRandPokemon(data[2].front_image)
-        setHiddenPokemon(data[3])
-        setPokeBall(data[4].sprites.default)
+        console.log('useEffect rerender firing')
+        if (data[5]) {
+          let legendaryBirds = [data[6], data[7], data[8]]
+          setCurrentUser(data[5])
+          setTrainers(data[0])
+          setPokemonData(data[1])
+          setRandPokemon(data[2].front_image)
+          setHiddenPokemon(data[3])
+          setPokeBall(data[4].sprites.default)
+          setHomePokemon(legendaryBirds)
+          setIsLoaded(true)
+          console.log('Completed setting state')
+        } else {
+          history.push('/login')
+        }       
       })
 
-      fetchHomePokemon().then(data => {setHomePokemon(data)})
+      // fetchHomePokemon().then(data => {
+      //   setHomePokemon(data)
+      //   isLoaded(true)
+      // })
   },[])
 
   if (!currentUser) {
-    // history.push('/login')
     return (
       <div>
         <NavBar 
@@ -89,7 +108,10 @@ let App = () => {
           <Switch>
             <Route exact path ='/login'>
               <Login 
+                currentUser={currentUser}
                 setCurrentUser={setCurrentUser}
+                isLoaded={isLoaded}
+                setIsLoaded={setIsLoaded}
               />
             </Route>
             <Route exact path='/signup'>
@@ -101,6 +123,7 @@ let App = () => {
             <Route exact path ='/logout'>
               <Logout 
                 setCurrentUser={setCurrentUser}
+                setIsLoaded={setIsLoaded}
               />
             </Route>
             <Route>
@@ -113,6 +136,7 @@ let App = () => {
   } else {
     return (
       <div>
+        {console.log({currentUser})}
         <NavBar 
           pokeBall={pokeBall}
           currentUser={currentUser}
@@ -121,20 +145,25 @@ let App = () => {
           <Switch>
             <Route exact path ='/login'>
               <Login 
+                currentUser={currentUser}
                 setCurrentUser={setCurrentUser}
+                isLoaded={isLoaded}
+                setIsLoaded={setIsLoaded}
               />
             </Route>
             <Route exact path ='/logout'>
               <Logout 
                 setCurrentUser={setCurrentUser}
+                setIsLoaded={setIsLoaded}
               />
             </Route>
             <Route exact path ='/loading'>
-              <Loading 
+              <LoadScreen
                 hiddenPokemon={hiddenPokemon}
                 setHiddenPokemon={setHiddenPokemon}
                 randPokemon={randPokemon}
                 pokeBall={pokeBall}
+                isLoaded={isLoaded}
               />
             </Route>
             <Route exact path='/safari_zone'>
@@ -186,7 +215,8 @@ let App = () => {
                 userTrainerPokemon={userTrainerPokemon}
                 setUserTrainerPokemon={setUserTrainerPokemon}
                 setCopyUserTrainerPokemon={setCopyUserTrainerPokemon}
-                homePokemon = {homePokemon}
+                homePokemon={homePokemon}
+                isLoaded={isLoaded}
               />
             </Route>
             <Route>
