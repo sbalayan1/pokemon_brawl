@@ -50,53 +50,41 @@ let Battle = ({userTrainer, opponentTrainer, pokemonData}) => {
     let fetchPokemonTeams = async () => {
         try {
             let userPromise = await Promise.all(pokeTeam.map(pokemon => fetch(`/api/pokemon/${pokemon.pokemon_id}`)))
-            console.log('fetch running')
-
             let oppPromise = await Promise.all(oppPokeTeam.map(pokemon => fetch(`/api/pokemon/${pokemon.pokemon_id}`)))
                          
-            let userData = await Promise.all(userPromise.map(res => res.json()))
+            let userData = await Promise.all(userPromise.map((res) => res.json()))
             let oppData = await Promise.all(oppPromise.map(res => res.json()))
-
-            // groups the promises concurrently and returns an array of responses
             let results = [userData, oppData]
-            console.log('fetch returning')
             return results
+
         } catch (error){
             console.error(error)
         }
     }
 
     useEffect(() => {
-        console.log('start useEffect')
-        console.log('at fetch')
         fetchPokemonTeams().then(data => {
-            console.log('parse response')
-            console.log(data)
             let userData = data[0], oppData = data[1]
-            console.log('set state user', userData[userTeamCount])
-            // setUserPokemon(userData[userTeamCount])
-            // setUserPokemonMove1(userData[userTeamCount].moves[0])
-            // setUserPokemonMove2(userData[userTeamCount].moves[1])
-            // setUserPokemonMove3(userData[userTeamCount].moves[2])
-            // setUserPokemonMove4(userData[userTeamCount].moves[3])
-            // setUserPokemonMove1PP(10)
-            // setUserPokemonMove2PP(10)
-            // setUserPokemonMove3PP(10)
-            // setUserPokemonMove4PP(10)   
-            console.log('set state opponent', oppData[0])
-            // setOpponentPokemon(oppData[0])
+            setUserPokemon(userData[3])
+            // setUserPokemonMove1(userData[3].moves[0])
+            // setUserPokemonMove2(userData[3].moves[1])
+            // setUserPokemonMove3(userData[3].moves[2])
+            // setUserPokemonMove4(userData[3].moves[3])
+            setUserPokemonMove1PP(10)
+            setUserPokemonMove2PP(10)
+            setUserPokemonMove3PP(10)
+            setUserPokemonMove4PP(10)  
 
-            // setOpponentPokemonMove1(oppData[oppTeamCount].moves[0])
-            // setOpponentPokemonMove2(oppData[oppTeamCount].moves[1])
-            // setOpponentPokemonMove3(oppData[oppTeamCount].moves[2])
-            // setOpponentPokemonMove4(oppData[oppTeamCount].moves[3])
-            console.log('end fetch')
+            setOpponentPokemon(oppData[0])
+            // setOpponentPokemonMove1(oppData[3].moves[0])
+            // setOpponentPokemonMove2(oppData[3].moves[1])
+            // setOpponentPokemonMove3(oppData[3].moves[2])
+            // setOpponentPokemonMove4(oppData[3].moves[3])
         })
   
-        console.log('finish useEffect')
-        // fetch('https://pokeapi.co/api/v2/item/poke-ball')
-        // .then(res => res.json())
-        // .then(data => setPokeBall(data.sprites.default))        
+        fetch('https://pokeapi.co/api/v2/item/poke-ball')
+        .then(res => res.json())
+        .then(data => setPokeBall(data.sprites.default))        
     }, [])
 
 
@@ -313,13 +301,13 @@ let Battle = ({userTrainer, opponentTrainer, pokemonData}) => {
 
     return (
         <div className="battle-sfzone-container">
-                 {console.log('render jsx')}
             {/* initial battle load */}
-            {initialBattleLoad === true && userPokemon === null && opponentPokemon === null ?  
+            {initialBattleLoad ?  
                 battleLoadingContainer()
             :
-            // move select 
+            // move select
                 <div className="battle-sfzone-container">
+                    {console.log(userPokemon, opponentPokemon)}
                     <div style={{width:'100%'}}>
                         <div className="flying-pidgeot-container" style={{display:'flex'}}>
                                 <p>{randomStatements[Math.floor(Math.random()*randomStatements.length)]}</p>
@@ -337,7 +325,7 @@ let Battle = ({userTrainer, opponentTrainer, pokemonData}) => {
                             </div>
                             <div className="stats-card">
                                 <div className="hp-card">
-                                    <p style={userDamage > 0 ? {backgroundColor:'red', marginLeft:'5px'}: {marginLeft:'5px'}} >HP: {opponentPokemonHP}</p>
+                                    <p style={userDamage > 0 ? {backgroundColor:'red', marginLeft:'5px'}: {marginLeft:'5px'}} >HP: { opponentPokemonHP}</p>
                                     {/* <p>LVL: {opponentPokemon.level}</p> */}
                                 </div>
                                 <div className="attack-card">
@@ -348,10 +336,13 @@ let Battle = ({userTrainer, opponentTrainer, pokemonData}) => {
                                     <p><small>SPD: {opponentPokemon.stats[0].speed}</small></p> */}
                                 </div>
                             </div>
-                            <img className="zone-image-card" src={opponentPokemon.front_image} alt="opponent-pokemon-image"/>
+                            {opponentPokemon ? 
+                                <img className="zone-image-card" src={opponentPokemon.front_image} alt="opponent-pokemon-image"/> 
+                            :
+                                null
+                            }
                         </div>
                     </div>
-
 
                     {opponentBattleMove === null && opponentDamage === null? null : <img className="pokemon-attack" src="http://31.media.tumblr.com/9c77fb5630504da806464f80097aeb7f/tumblr_mie1te7yfk1r5fhkdo1_500.gif" alt="dragonite-hyperbeam"/>}
                     {userBattleMove === null ? null : <img className="pokemon-attack" src="https://c.tenor.com/98nZAGp5ooQAAAAC/pokemon-tyranitar.gif" alt="tyranitar-hyperbeam"/>}
@@ -366,7 +357,7 @@ let Battle = ({userTrainer, opponentTrainer, pokemonData}) => {
                                     <p>LVL: {userPokemon.level}</p>
                                 </div>
                                 <div className="attack-card">
-                                    <p style={{marginLeft:'5px'}}><small>ATK: {userPokemon.stats[0].attack}</small></p>
+                                    {/* <p style={{marginLeft:'5px'}}><small>ATK: {userPokemon.stats[0].attack}</small></p> */}
                                     {/* <p><small>DEF: {userPokemon.stats[0].defense}</small></p>
                                     <p><small>SP ATK: {userPokemon.stats[0].sp_attack}</small></p>
                                     <p><small>SP DEF: {userPokemon.stats[0].sp_defense}</small></p>

@@ -124,8 +124,6 @@ let Home = ({currentUser, pokemonData, hiddenPokemon, userTrainer, setUserTraine
         })
     },[])
 
-    console.log(opponentTrainer)
-
     return (
         <div className="home-container">
             <div className="home-battle-container">

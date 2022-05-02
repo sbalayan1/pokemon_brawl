@@ -6,6 +6,7 @@ Rails.application.routes.draw do
     get '/user/:id', to: 'users#find_user'
     post '/signup', to: 'users#create'
     post '/login', to: 'sessions#create'
+    get '/user/:id/session', to: 'sessions#verify'
     delete '/logout', to: 'sessions#destroy'
     delete '/pokemon/:id', to: 'pokemon#destroy'
     patch '/pokemon_team/:id', to: 'pokemon_teams#update'
