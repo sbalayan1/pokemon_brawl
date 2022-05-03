@@ -6,7 +6,7 @@ import NavBar from './NavBar'
 import SignUp from './SignUp';
 import Login from './Login';
 import Logout from './Logout'
-import Home from './Home'
+import Home from './Home/Home'
 import SafariZone from './SafariZone'
 import Trainer from './Trainer'
 import Battle from './Battle'
@@ -27,9 +27,9 @@ let App = () => {
   const [trainers, setTrainers] = useState(null)
   const [randPokemon, setRandPokemon] = useState(null)
   const [pokeBall, setPokeBall] = useState(null)
-  const [homePokemon, setHomePokemon] = useState(null)
+  const [legendBirds, setLegendBirds] = useState(null)
   const [isLoaded, setIsLoaded] = useState(false)
-
+  const [previousRoute, setPreviousRoute] = useState('/')
   let random = Math.floor(Math.random()*150) + 1
   
   let fetchData = async () => {
@@ -56,45 +56,19 @@ let App = () => {
     }
   }
 
-  // let fetchHomePokemon = async () => {
-  //   try {
-  //     let articuno = fetch('/api/pokemon/144')
-  //     let zapdos = fetch('/api/pokemon/145')
-  //     let moltres = fetch('/api/pokemon/146')
-
-  //     let data = await Promise.all([articuno, zapdos, moltres])
-  //     let dataPromises = data.map(res => res.json())
-  //     let results = await Promise.all(dataPromises)
-  //     return results
-
-  //   } catch (error) {
-  //     console.error(error)
-  //   }
-  // }
-
   useEffect(() => {
       fetchData().then(data => {
-        console.log('useEffect rerender firing')
-        if (data[5]) {
-          let legendaryBirds = [data[6], data[7], data[8]]
-          setCurrentUser(data[5])
-          setTrainers(data[0])
-          setPokemonData(data[1])
-          setRandPokemon(data[2].front_image)
-          setHiddenPokemon(data[3])
-          setPokeBall(data[4].sprites.default)
-          setHomePokemon(legendaryBirds)
-          setIsLoaded(true)
-          console.log('Completed setting state')
-        } else {
-          history.push('/login')
-        }       
+        console.log('useEffect rerender firing. setting necessary data')
+        let legendaryBirds = [data[6], data[7], data[8]]
+        setTrainers(data[0])
+        setPokemonData(data[1])
+        setRandPokemon(data[2].front_image)
+        setHiddenPokemon(data[3])
+        setPokeBall(data[4].sprites.default)
+        setLegendBirds(legendaryBirds)
+        setCurrentUser(data[5])
+        setIsLoaded(true)
       })
-
-      // fetchHomePokemon().then(data => {
-      //   setHomePokemon(data)
-      //   isLoaded(true)
-      // })
   },[])
 
   if (!currentUser) {
@@ -126,9 +100,13 @@ let App = () => {
                 setIsLoaded={setIsLoaded}
               />
             </Route>
-            <Route>
-              <Error/>
-            </Route>
+            {isLoaded ?
+              <Route>
+                <Error/>
+              </Route>
+            :
+              null
+            }
           </Switch>
         </div>
       </div>
@@ -164,6 +142,8 @@ let App = () => {
                 randPokemon={randPokemon}
                 pokeBall={pokeBall}
                 isLoaded={isLoaded}
+                setIsLoaded={setIsLoaded}
+                previousRoute={previousRoute}
               />
             </Route>
             <Route exact path='/safari_zone'>
@@ -215,13 +195,19 @@ let App = () => {
                 userTrainerPokemon={userTrainerPokemon}
                 setUserTrainerPokemon={setUserTrainerPokemon}
                 setCopyUserTrainerPokemon={setCopyUserTrainerPokemon}
-                homePokemon={homePokemon}
+                legendBirds={legendBirds}
                 isLoaded={isLoaded}
+                previousRoute={previousRoute}
+                setPreviousRoute={setPreviousRoute}
               />
             </Route>
-            <Route>
-              <Error/>
-            </Route>
+            {isLoaded ?
+              <Route>
+                <Error/>
+              </Route>
+            :
+              null
+            }
           </Switch>
         </div>
       </div>

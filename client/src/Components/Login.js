@@ -1,4 +1,4 @@
-import {useState} from 'react'
+import {useEffect, useState} from 'react'
 import { useHistory } from 'react-router-dom'
 import LoadScreen from './LoadScreen'
 
@@ -28,6 +28,7 @@ let Login = ({currentUser, setCurrentUser, isLoaded, setIsLoaded}) => {
         const userData = await res.json()
 
         if (userData.id) {
+            history.push('/loading')
             alert(`Welcome ${username}`)
             setCurrentUser(userData)
         } else {
@@ -35,6 +36,16 @@ let Login = ({currentUser, setCurrentUser, isLoaded, setIsLoaded}) => {
         }
     }
 
+    useEffect(() => {
+        console.log(isLoaded, currentUser)
+        if (isLoaded && !currentUser.error) {
+            history.push('/loading')
+            console.log('user verified')
+        } else {
+            console.log('user unverified')
+        }
+
+    })
 
     let renderLoginScreen = () => {
         return (
@@ -57,7 +68,7 @@ let Login = ({currentUser, setCurrentUser, isLoaded, setIsLoaded}) => {
         ) 
     }
 
-    if (isLoaded && !currentUser.error) history.push('/loading')
+
     return renderLoginScreen()
 }
 

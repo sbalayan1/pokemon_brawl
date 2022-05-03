@@ -1,13 +1,20 @@
 import {useState, useEffect} from 'react'
 import {useHistory} from 'react-router-dom'
 
-let LoadScreen = ({randPokemon, pokeBall, isLoaded}) => {
+let LoadScreen = ({randPokemon, pokeBall, isLoaded, setIsLoaded, previousRoute}) => {
     const history = useHistory()
     const [displayPoke, setDisplayPoke] = useState(false)
 
     let displayPokemon = () => {
         setDisplayPoke(!displayPoke)
     }
+
+    useEffect(() => {
+        if (isLoaded) {
+            history.push(`${previousRoute}`)
+            console.log(`pushing to ${previousRoute}`)
+        }
+    }, [isLoaded])
     
     let renderLoadScreen = () => {
         return (
@@ -25,10 +32,6 @@ let LoadScreen = ({randPokemon, pokeBall, isLoaded}) => {
         )
     }
 
-    if (isLoaded) {
-        console.log('pushing to home component')
-        history.push('/')
-    }
     return renderLoadScreen()
 }
 
