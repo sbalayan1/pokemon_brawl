@@ -45,7 +45,7 @@ let WhoThatPokemon = ({
             <div className="who-that-pokemon-card">
                 <div className="format-card">
                     {foundPokemon !== hiddenPokemon.name ? null : <p style={{marginLeft: '160px'}}>It's {hiddenPokemon.name.charAt(0).toUpperCase() + hiddenPokemon.name.slice(1)}!!!</p>}
-                    {foundPokemon !== hiddenPokemon.name ? <img className="who-that-pokemon-image" style={{opacity:'0.05'}} src={hiddenPokemon.front_image} alt='pokemon-image'/> : <img className="who-that-pokemon-image" src={hiddenPokemon.front_image} alt='pokemon-image'/>}
+                    {foundPokemon !== hiddenPokemon.name ? <img className="who-that-pokemon-image" style={{opacity:'0.05'}} src={hiddenPokemon.front_image} alt='pokemon'/> : <img className="who-that-pokemon-image" src={hiddenPokemon.front_image} alt='pokemon'/>}
                 </div>
             </div>
 
@@ -58,7 +58,7 @@ let WhoThatPokemon = ({
             :
                 <div className="home-battle-description-card">
                     <h2>You caught {foundPokemon}!!</h2>
-                    <img className="who-that-pokemon-image-2" src={hiddenPokemon.front_image} alt='pokemon-image'/>
+                    <img className="who-that-pokemon-image-2" src={hiddenPokemon.front_image} alt='pokemon'/>
                     <p>Check your PC to see your new Pokemon!</p>
                 </div>
             }

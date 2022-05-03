@@ -66,8 +66,28 @@ let App = () => {
         setHiddenPokemon(data[3])
         setPokeBall(data[4].sprites.default)
         setLegendBirds(legendaryBirds)
-        setCurrentUser(data[5])
-        setIsLoaded(true)
+  
+        if (!data[5].error) {
+          // alert(`Welcome ${data[5].username}`)
+          setCurrentUser(data[5])
+          setIsLoaded(true)
+
+          if (!data[0].find(trainer=> trainer.user_id === data[5].id)) {
+            history.push('/create_a_trainer')
+            console.log('new user verified. pushing to create a trainer')
+          } else {
+            let opponentTrainers = data[0].filter(trainer => trainer.user_id !== data[5].id)
+            setUserTrainer(data[0].find(trainer=> trainer.user_id === data[5].id))
+            setOpponentTrainer(opponentTrainers[Math.floor(Math.random() * opponentTrainers.length)])
+            setUserTrainerPokemon(data[0].find(trainer=> trainer.user_id === data[5].id).pokemon)
+            setCopyUserTrainerPokemon(data[0].find(trainer=> trainer.user_id === data[5].id).pokemon)
+            history.push('/')
+            console.log('user verified and all state set. pushing to homepage')
+          }
+        } else {
+          console.log('user unverified. pushing to login')
+          history.push('/login')
+        }
       })
   },[])
 

@@ -2,7 +2,7 @@ import {useEffect} from 'react'
 import {useHistory} from 'react-router-dom'
 
 let Logout = ({setCurrentUser, setIsLoaded}) => {
-    let history = useHistory()
+    const history = useHistory()
     useEffect(() => {
         fetch('/api/logout', {
             method: 'DELETE'

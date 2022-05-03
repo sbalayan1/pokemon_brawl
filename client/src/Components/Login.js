@@ -28,24 +28,13 @@ let Login = ({currentUser, setCurrentUser, isLoaded, setIsLoaded}) => {
         const userData = await res.json()
 
         if (userData.id) {
-            history.push('/loading')
+            history.push('/')
             alert(`Welcome ${username}`)
             setCurrentUser(userData)
         } else {
             setErrors(userData.errors)
         }
     }
-
-    useEffect(() => {
-        console.log(isLoaded, currentUser)
-        if (isLoaded && !currentUser.error) {
-            history.push('/loading')
-            console.log('user verified')
-        } else {
-            console.log('user unverified')
-        }
-
-    })
 
     let renderLoginScreen = () => {
         return (
