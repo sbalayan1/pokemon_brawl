@@ -1,35 +1,76 @@
+import {useState, useEffect} from 'react'
 import PokeBallBattle from './PokeBallBattle'
 
-let OpponentCard = ({}) => {
-    return (
-        <div className="zone-container" >
-            <div className="opponent-decision-making-container">
-                <div className="trainer-battle-pokeball-container">
-                    {oppPokeTeam.map(() => {
-                        return (<PokeBallBattle pokeBall={pokeBall}/>)
-                    })}
-                </div>
-                <div className="stats-card">
-                    <div className="hp-card">
-                        <p style={userDamage > 0 ? {backgroundColor:'red', marginLeft:'5px'}: {marginLeft:'5px'}} >HP: { opponentPokemonHP}</p>
-                        {/* <p>LVL: {opponentPokemon.level}</p> */}
+let OpponentCard = ({pokeBall, opponentTrainer, userDamage}) => {
+    const [isLoaded, setIsLoaded] = useState(false)
+    const [opponentTeam, setOpponentTeam] = useState(null)
+    const [selectedPokemon, setSelectedPokemon] = useState(null)
+    const [hp, setHP] = useState(null)
+    const [move1, setMove1] = useState(null)
+    const [move2, setMove2] = useState(null)
+    const [move3, setMove3] = useState(null)
+    const [move4, setMove4] = useState(null)
+
+    let fetchOpponentTeam = async () => {
+        try {
+            let team = opponentTrainer.pokemon_teams.filter(p => p.team_member === true)
+            let oppPromise = await Promise.all(team.map(p => fetch(`/api/pokemon/${p.pokemon_id}`)))
+            let oppData = oppPromise.map(res => res.json())
+            let results = await Promise.all(oppData)
+            return results
+        } catch (error) {
+            console.error(error)
+        }
+    }
+
+    let renderPokeBalls = () => {
+        opponentTeam.map(() => <PokeBallBattle pokeBall={pokeBall}/>)
+    }
+
+    useEffect(() => {
+        fetchOpponentTeam().then(data => {
+            setIsLoaded(true)
+            setSelectedPokemon(data[0])
+            setOpponentTeam(data)
+            // setOpponentPokemonMove1(oppData[3].moves[0])
+            // setOpponentPokemonMove2(oppData[3].moves[1])
+            // setOpponentPokemonMove3(oppData[3].moves[2])
+            // setOpponentPokemonMove4(oppData[3].moves[3])
+            console.log('rendering opponent card')
+        })
+    }, [opponentTrainer])
+
+    let renderOpponent = () => {
+        return (
+            <div className="zone-container" >
+                <div className="opponent-decision-making-container">
+                    <div className="trainer-battle-pokeball-container">
+                        {opponentTeam ? renderPokeBalls() : null}
                     </div>
-                    <div className="attack-card">
-                        {/* <p style={{marginLeft:'5px'}}><small>ATK: {opponentPokemon.stats[0].attack}</small></p>
-                        <p><small>DEF: {opponentPokemon.stats[0].defense}</small></p>
-                        <p><small>SP ATK: {opponentPokemon.stats[0].sp_attack}</small></p>
-                        <p><small>SP DEF: {opponentPokemon.stats[0].sp_defense}</small></p>
-                        <p><small>SPD: {opponentPokemon.stats[0].speed}</small></p> */}
+                    <div className="stats-card">
+                        <div className="hp-card">
+                            <p style={userDamage > 0 ? {backgroundColor:'red', marginLeft:'5px'}: {marginLeft:'5px'}} >HP: {hp}</p>
+                            {/* <p>LVL: {selectedPokemon.level}</p> */}
+                        </div>
+                        <div className="attack-card">
+                            {/* <p style={{marginLeft:'5px'}}><small>ATK: {selectedPokemon.stats[0].attack}</small></p>
+                            <p><small>DEF: {selectedPokemon.stats[0].defense}</small></p>
+                            <p><small>SP ATK: {selectedPokemon.stats[0].sp_attack}</small></p>
+                            <p><small>SP DEF: {selectedPokemon.stats[0].sp_defense}</small></p>
+                            <p><small>SPD: {selectedPokemon.stats[0].speed}</small></p> */}
+                        </div>
                     </div>
+                    {selectedPokemon ? 
+                        <img className="zone-image-card" src={selectedPokemon.front_image} alt="opponent-pokemon-image"/> 
+                    :
+                        null
+                    }
                 </div>
-                {opponentPokemon ? 
-                    <img className="zone-image-card" src={opponentPokemon.front_image} alt="opponent-pokemon-image"/> 
-                :
-                    null
-                }
             </div>
-        </div>
-    )
+        )
+    }
+
+    return isLoaded === true ? renderOpponent() : null
 }
 
 export default OpponentCard

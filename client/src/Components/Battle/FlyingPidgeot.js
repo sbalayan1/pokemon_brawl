@@ -19,7 +19,7 @@ let FlyingPidgeot = () => {
     }   
 
     useEffect(() => {
-        fetchPidgeot.then(data => {
+        fetchPidgeot().then(data => {
             setFlyingPokemon1(data[0].front_image)
             setFlyingPokemon2(data[1].front_image)
             setFlyingPokemon3(data[2].front_image)

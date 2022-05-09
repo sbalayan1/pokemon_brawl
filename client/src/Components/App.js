@@ -194,6 +194,7 @@ let App = () => {
                 pokemonData={pokemonData}
                 userTrainer={userTrainer}
                 opponentTrainer={opponentTrainer}
+                pokeBall={pokeBall}
               />
             </Route>
             <Route exact path='/my_pc'>
