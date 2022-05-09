@@ -2,7 +2,7 @@ import {useEffect, useState} from 'react'
 import { useHistory } from 'react-router-dom'
 import LoadScreen from './LoadScreen'
 
-let Login = ({currentUser, setCurrentUser, isLoaded, setIsLoaded}) => {
+let Login = ({currentUser, setCurrentUser, isLoaded, setIsLoaded, trainers, setTrainerHelper}) => {
     const history = useHistory()
     const [username, setUsername] = useState("")
     const [password, setPassword] = useState("")
@@ -28,9 +28,10 @@ let Login = ({currentUser, setCurrentUser, isLoaded, setIsLoaded}) => {
         const userData = await res.json()
 
         if (userData.id) {
-            history.push('/')
             alert(`Welcome ${username}`)
             setCurrentUser(userData)
+            setTrainerHelper(trainers, userData)
+            history.push('/')
         } else {
             setErrors(userData.errors)
         }

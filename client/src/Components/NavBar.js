@@ -6,7 +6,7 @@ let NavBar = ({pokeBall, currentUser}) => {
         return (
             <div className='NavBar'>
                 <div className='logo'>
-                    <img src={pokeBall} alt='pokeball'/>
+                    {pokeBall ? <img src={pokeBall} alt='pokeball'/> : null}
                     <NavLink to="/login" exact style={{color:'crimson'}}>
                         PokemonBrawl
                     </NavLink>
@@ -30,7 +30,7 @@ let NavBar = ({pokeBall, currentUser}) => {
         return (
             <div className='NavBar'>
                 <div className='logo'>
-                    <img src={pokeBall} alt='pokeball'/>
+                    {pokeBall ? <img src={pokeBall} alt='pokeball'/> : null}
                     <NavLink to="/" style={{color:'crimson'}}> 
                         PokemonBrawl
                     </NavLink>

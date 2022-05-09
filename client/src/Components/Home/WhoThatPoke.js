@@ -9,10 +9,9 @@ let WhoThatPokemon = ({
         setUserTrainerPokemon, 
         setCopyUserTrainerPokemon 
     }) => {
-
+    
     const [foundPokemon, setFoundPokemon] = useState(null)
     const [catchPokemon, setCatchPokemon] = useState(null)
-
     let handleChange = (e) => {
         setFoundPokemon(e.target.value)
     }

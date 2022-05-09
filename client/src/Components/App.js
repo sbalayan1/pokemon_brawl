@@ -9,7 +9,7 @@ import Logout from './Logout'
 import Home from './Home/Home'
 import SafariZone from './SafariZone'
 import Trainer from './Trainer'
-import Battle from './Battle'
+import BattleHome from './Battle/BattleHome'
 import PC from './PC'
 import LoadScreen from './LoadScreen'
 import Leaderboards from './Leaderboards'
@@ -56,10 +56,25 @@ let App = () => {
     }
   }
 
+  let setTrainerHelper = (trainers, user) => {
+    if (!trainers.find(trainer=> trainer.user_id === user.id)) {
+      history.push('/create_a_trainer')
+      console.log('new user verified. pushing to create a trainer')
+    } else {
+      let opponentTrainers = trainers.filter(trainer => trainer.user_id !== user.id)
+      setUserTrainer(trainers.find(trainer=> trainer.user_id === user.id))
+      setOpponentTrainer(opponentTrainers[Math.floor(Math.random() * opponentTrainers.length)])
+      setUserTrainerPokemon(trainers.find(trainer=> trainer.user_id === user.id).pokemon)
+      setCopyUserTrainerPokemon(trainers.find(trainer=> trainer.user_id === user.id).pokemon)
+      console.log('user verified and all state set.')
+    }
+  }
+
   useEffect(() => {
       fetchData().then(data => {
         console.log('useEffect rerender firing. setting necessary data')
         let legendaryBirds = [data[6], data[7], data[8]]
+        setPokeBall(data[4].sprites.default)
         setTrainers(data[0])
         setPokemonData(data[1])
         setRandPokemon(data[2].front_image)
@@ -71,19 +86,8 @@ let App = () => {
           // alert(`Welcome ${data[5].username}`)
           setCurrentUser(data[5])
           setIsLoaded(true)
+          setTrainerHelper(data[0], data[5])
 
-          if (!data[0].find(trainer=> trainer.user_id === data[5].id)) {
-            history.push('/create_a_trainer')
-            console.log('new user verified. pushing to create a trainer')
-          } else {
-            let opponentTrainers = data[0].filter(trainer => trainer.user_id !== data[5].id)
-            setUserTrainer(data[0].find(trainer=> trainer.user_id === data[5].id))
-            setOpponentTrainer(opponentTrainers[Math.floor(Math.random() * opponentTrainers.length)])
-            setUserTrainerPokemon(data[0].find(trainer=> trainer.user_id === data[5].id).pokemon)
-            setCopyUserTrainerPokemon(data[0].find(trainer=> trainer.user_id === data[5].id).pokemon)
-            history.push('/')
-            console.log('user verified and all state set. pushing to homepage')
-          }
         } else {
           console.log('user unverified. pushing to login')
           history.push('/login')
@@ -106,6 +110,8 @@ let App = () => {
                 setCurrentUser={setCurrentUser}
                 isLoaded={isLoaded}
                 setIsLoaded={setIsLoaded}
+                trainers={trainers}
+                setTrainerHelper={setTrainerHelper}
               />
             </Route>
             <Route exact path='/signup'>
@@ -134,7 +140,6 @@ let App = () => {
   } else {
     return (
       <div>
-        {console.log({currentUser})}
         <NavBar 
           pokeBall={pokeBall}
           currentUser={currentUser}
@@ -147,6 +152,8 @@ let App = () => {
                 setCurrentUser={setCurrentUser}
                 isLoaded={isLoaded}
                 setIsLoaded={setIsLoaded}
+                trainers={trainers}
+                setTrainerHelper={setTrainerHelper}
               />
             </Route>
             <Route exact path ='/logout'>
@@ -183,7 +190,7 @@ let App = () => {
               />
             </Route>
             <Route exact path='/battle'>
-              <Battle 
+              <BattleHome 
                 pokemonData={pokemonData}
                 userTrainer={userTrainer}
                 opponentTrainer={opponentTrainer}

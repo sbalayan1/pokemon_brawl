@@ -10,7 +10,7 @@ import WhoThatPokemon from './WhoThatPoke'
 import LegendaryBirds from './LegendaryBirds'
 
 let Home = ({currentUser, pokemonData, hiddenPokemon, userTrainer, setUserTrainer, opponentTrainer, setOpponentTrainer, userTrainerPokemon, setUserTrainerPokemon, setCopyUserTrainerPokemon, legendBirds, isLoaded, previousRoute, setPreviousRoute
-}) => {    
+}) => {
     return (
         <div className="home-container">
             {<Charizard />}
