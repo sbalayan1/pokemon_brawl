@@ -29,13 +29,14 @@ let OpponentCard = ({pokeBall, opponentTrainer, userDamage}) => {
 
     useEffect(() => {
         fetchOpponentTeam().then(data => {
-            setIsLoaded(true)
             setSelectedPokemon(data[0])
             setOpponentTeam(data)
+            setHP(data[0].stats.hp)
             // setOpponentPokemonMove1(oppData[3].moves[0])
             // setOpponentPokemonMove2(oppData[3].moves[1])
             // setOpponentPokemonMove3(oppData[3].moves[2])
             // setOpponentPokemonMove4(oppData[3].moves[3])
+            setIsLoaded(true)
             console.log('rendering opponent card')
         })
     }, [opponentTrainer])
@@ -53,11 +54,11 @@ let OpponentCard = ({pokeBall, opponentTrainer, userDamage}) => {
                             {/* <p>LVL: {selectedPokemon.level}</p> */}
                         </div>
                         <div className="attack-card">
-                            {/* <p style={{marginLeft:'5px'}}><small>ATK: {selectedPokemon.stats[0].attack}</small></p>
-                            <p><small>DEF: {selectedPokemon.stats[0].defense}</small></p>
-                            <p><small>SP ATK: {selectedPokemon.stats[0].sp_attack}</small></p>
-                            <p><small>SP DEF: {selectedPokemon.stats[0].sp_defense}</small></p>
-                            <p><small>SPD: {selectedPokemon.stats[0].speed}</small></p> */}
+                            <p style={{marginLeft:'5px'}}><small>ATK: {selectedPokemon.stats.attack}</small></p>
+                            <p><small>DEF: {selectedPokemon.stats.defense}</small></p>
+                            <p><small>SP ATK: {selectedPokemon.stats['special-attack']}</small></p>
+                            <p><small>SP DEF: {selectedPokemon.stats['special-defense']}</small></p>
+                            <p><small>SPD: {selectedPokemon.stats.speed}</small></p>
                         </div>
                     </div>
                     {selectedPokemon ? 

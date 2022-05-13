@@ -32,6 +32,11 @@ class PokemonController < ApplicationController
         render json: moves
     end 
 
+    def move
+        move = Pokemon.new().get_pokemon_move(params[:name])
+        render json: move
+    end 
+
     def create
         pokemon = Pokemon.create!(pokemon_params)
         render json: pokemon

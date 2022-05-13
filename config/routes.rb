@@ -14,6 +14,7 @@ Rails.application.routes.draw do
     get '/pokemon/:id/back_sprite', to: 'pokemon#back_sprite'
     get '/pokemon/:id/abilities', to: 'pokemon#ability'
     get '/pokemon/:id/moves', to: 'pokemon#moves'
+    get '/pokemon/move/:name', to: 'pokemon#move'
     
     resources :sessions, only: [:index]
     resources :users, only: [:index, :show, :create]

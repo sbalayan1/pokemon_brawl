@@ -1,7 +1,8 @@
 import {useState, useEffect} from 'react'
 import {useHistory} from 'react-router-dom'
-import UserPokeBall from './UserPokeBall'
+import UserPokemon from './UserPokemon'
 import InitialMove from './InitialMove'
+import BattleMoveCard from './BattleMoveCard'
 
 
 let UserCard = ({pokeBall, userTrainer, opponentDamage}) => {
@@ -10,7 +11,7 @@ let UserCard = ({pokeBall, userTrainer, opponentDamage}) => {
 
     // user selection states
     const [displayTeam, setDisplayTeam] = useState(false)
-    const [selectedInitialMove, setSelectedInitialMove] = useState(null)
+    const [selectedMove, setSelectedMove] = useState(null)
 
     // userTeam states
     const [userTeam, setUserTeam] = useState(null)
@@ -37,9 +38,9 @@ let UserCard = ({pokeBall, userTrainer, opponentDamage}) => {
         }
     }
 
-    let selectInitialMove = (e) => {
+    let selectMove = (e) => {
         if(e.target.value === 'Fight' || e.target.value === 'Bag') {
-            setSelectedInitialMove(e.target.value)
+            setSelectedMove(e.target.value)
         } else if (e.target.value === 'Pokemon') {
             setDisplayTeam(!displayTeam)        
         } else if (e.target.value === 'Run') {
@@ -48,25 +49,51 @@ let UserCard = ({pokeBall, userTrainer, opponentDamage}) => {
         }
     }
 
-
     let renderInitialMove = () => {
-        return !selectedInitialMove ?   
+        return !selectedMove ?   
             <InitialMove 
                 displayTeam={displayTeam}
-                selectInitialMove={selectInitialMove}
+                selectMove={selectMove}
             />
         :
             null
     }
 
+    let renderBattleMove = () => {
+        return selectedMove === 'Fight' ? 
+            <BattleMoveCard 
+                displayTeam={displayTeam}
+                selectedPokemonMoves={[move1, move2, move3, move4]}
+            />
+        :   
+            null
+    }
+
+    let sendOutPokemon = (e) => {
+        if (selectedPokemon.name !== e.target.name) {
+            let pokemon = userTeam.find(p => p.name === e.target.name)
+            setSelectedPokemon(pokemon)
+            setHP(pokemon.stats.hp)
+            setMove1(pokemon.moves[0])
+            setMove2(pokemon.moves[1])
+            setMove3(pokemon.moves[2])
+            setMove4(pokemon.moves[3])          
+            alert(`${userTrainer.name} sent out ${pokemon.name}`)
+            // initiateOpponentMove()
+        } else {
+            alert('That Pokemon is already out! Choose a different Pokemon!!')
+        }   
+    }
+
     useEffect(() => {
         fetchUserTeam().then(data => {
-            setUserTeam(data)
             setSelectedPokemon(data[0])
-            setPP1(10)
-            setPP2(10)
-            setPP3(10)
-            setPP4(10)
+            setUserTeam(data)
+            setHP(data[0].stats.hp)
+            setMove1(data[0].moves[0])
+            setMove2(data[0].moves[1])
+            setMove3(data[0].moves[2])
+            setMove4(data[0].moves[3])
             setIsLoaded(true)
             console.log('rendering user card')
         })
@@ -84,11 +111,11 @@ let UserCard = ({pokeBall, userTrainer, opponentDamage}) => {
                             <p>LVL: {selectedPokemon.level}</p>
                         </div>
                         <div className="attack-card">
-                            {/* <p style={{marginLeft:'5px'}}><small>ATK: {userPokemon.stats[0].attack}</small></p> */}
-                            {/* <p><small>DEF: {userPokemon.stats[0].defense}</small></p>
-                            <p><small>SP ATK: {userPokemon.stats[0].sp_attack}</small></p>
-                            <p><small>SP DEF: {userPokemon.stats[0].sp_defense}</small></p>
-                            <p><small>SPD: {userPokemon.stats[0].speed}</small></p> */}
+                            <p style={{marginLeft:'5px'}}><small>ATK: {selectedPokemon.stats.attack}</small></p>
+                            <p><small>DEF: {selectedPokemon.stats.defense}</small></p>
+                            <p><small>SP ATK: {selectedPokemon.stats['special-attack']}</small></p>
+                            <p><small>SP DEF: {selectedPokemon.stats['special-defense']}</small></p>
+                            <p><small>SPD: {selectedPokemon.stats.speed}</small></p>
                         </div>
                     </div>
                     
@@ -105,6 +132,8 @@ let UserCard = ({pokeBall, userTrainer, opponentDamage}) => {
                 :
                     null
                 } */}
+
+                    {renderBattleMove()}
 {/* 
                 {initialMove === 'Fight' && battleMovePrompt === null ? 
                     <div className="move-card">
@@ -133,10 +162,11 @@ let UserCard = ({pokeBall, userTrainer, opponentDamage}) => {
                         <button className="action-button" onClick={returnToBattleMoves}>Back</button>
                     </div>
                 } */}
-                    <UserPokeBall 
+                    <UserPokemon
                         displayTeam={displayTeam}
                         userTeam={userTeam}
                         pokeBall={pokeBall}
+                        sendOutPokemon={sendOutPokemon}
                     />
                 </div>
 

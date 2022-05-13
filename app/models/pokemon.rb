@@ -54,7 +54,15 @@ class Pokemon < ApplicationRecord
             'back_image': poke['sprites']['back_shiny'],
             'abilities': poke['abilities'],
             'types': poke['types'].map {|t| t['type']['name']},
-            'moves': poke['moves'].map {|t| t['move']}
+            'moves': poke['moves'].map {|t| t['move']},
+            'stats': {
+                poke['stats'][0]['stat']['name'] => poke['stats'][0]['base_stat'],
+                poke['stats'][1]['stat']['name'] => poke['stats'][1]['base_stat'],
+                poke['stats'][2]['stat']['name'] => poke['stats'][2]['base_stat'],
+                poke['stats'][3]['stat']['name'] => poke['stats'][3]['base_stat'],
+                poke['stats'][4]['stat']['name'] => poke['stats'][4]['base_stat'],
+                poke['stats'][5]['stat']['name'] => poke['stats'][5]['base_stat']
+            }
         }
     end
 
@@ -89,5 +97,19 @@ class Pokemon < ApplicationRecord
     def get_pokemon_moves id
         pokemon = get_pokemon id
         pokemon[:moves]
+    end 
+
+    def get_pokemon_move name
+        url = "https://pokeapi.co/api/v2/move/#{name}"
+        uri = URI.parse(url)
+        response = Net::HTTP.get_response(uri)
+        move = JSON.parse(response.body)
+  
+        move_object = {
+            'name': move['name'], 
+            'power': move['power'],
+            'pp': move['pp'],
+            'description': move['effect_entries'][0]['short_effect']
+        }
     end 
 end

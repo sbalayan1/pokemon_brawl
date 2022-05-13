@@ -3,7 +3,7 @@ import {useHistory} from 'react-router-dom'
 import PokeBallBattle from './PokeBallBattle'
 
 import InitialLoad from './InitialLoad'
-import FlyingPidgeot from './FlyingPidgeot'
+// import FlyingPidgeot from './FlyingPidgeot'
 import UserCard from './UserCard'
 import OpponentCard from './OpponentCard'
 
@@ -23,234 +23,171 @@ let BattleHome = ({userTrainer, opponentTrainer, pokemonData, pokeBall}) => {
     const [displayTeam, setDisplayTeam] = useState(false)
     const [userTeamCount, setUserTeamCount] = useState(0)
     const [oppTeamCount, setOppTeamCount] = useState(0)
-
-    const [userPokemon, setUserPokemon] = useState(null)
-    const [userPokemonMove1, setUserPokemonMove1] = useState(null)
-    const [userPokemonMove2, setUserPokemonMove2] = useState(null)
-    const [userPokemonMove3, setUserPokemonMove3] = useState(null)
-    const [userPokemonMove4, setUserPokemonMove4] = useState(null)
-    const [userPokemonMove1PP, setUserPokemonMove1PP] = useState(null)
-    const [userPokemonMove2PP, setUserPokemonMove2PP] = useState(null)
-    const [userPokemonMove3PP, setUserPokemonMove3PP] = useState(null)
-    const [userPokemonMove4PP, setUserPokemonMove4PP] = useState(null)
-    const [userPokemonHP, setUserPokemonHP] = useState(null)
-
-    const [opponentPokemon, setOpponentPokemon] = useState(null)
-    const [opponentPokemonMove1, setOpponentPokemonMove1] = useState(null)
-    const [opponentPokemonMove2, setOpponentPokemonMove2] = useState(null)
-    const [opponentPokemonMove3, setOpponentPokemonMove3] = useState(null)
-    const [opponentPokemonMove4, setOpponentPokemonMove4] = useState(null)
-    const [opponentPokemonHP, setOpponentPokemonHP] = useState(null)
-
-    const pokeTeam = userTrainer ? userTrainer.pokemon_teams.filter(pokemon => pokemon.team_member === true) : null
-    const oppPokeTeam = opponentTrainer ? opponentTrainer.pokemon_teams.filter(pokemon => pokemon.team_member === true) : null
-
-    let fetchPokemonTeams = async () => {
-        try {
-            let userPromise = await Promise.all(pokeTeam.map(pokemon => fetch(`/api/pokemon/${pokemon.pokemon_id}`)))
-            let oppPromise = await Promise.all(oppPokeTeam.map(pokemon => fetch(`/api/pokemon/${pokemon.pokemon_id}`)))
-                         
-            let userData = await Promise.all(userPromise.map((res) => res.json()))
-            let oppData = await Promise.all(oppPromise.map(res => res.json()))
-            let results = [userData, oppData]
-            return results
-
-        } catch (error){
-            console.error(error)
-        }
-    }
-
-    // useEffect(() => {
-        // fetchPokemonTeams().then(data => {
-        //     let userData = data[0], oppData = data[1]
-            // setUserPokemon(userData[3])
-            // // setUserPokemonMove1(userData[3].moves[0])
-            // // setUserPokemonMove2(userData[3].moves[1])
-            // // setUserPokemonMove3(userData[3].moves[2])
-            // // setUserPokemonMove4(userData[3].moves[3])
-            // setUserPokemonMove1PP(10)
-            // setUserPokemonMove2PP(10)
-            // setUserPokemonMove3PP(10)
-            // setUserPokemonMove4PP(10)  
-
-        //     setOpponentPokemon(oppData[0])
-        //     // setOpponentPokemonMove1(oppData[3].moves[0])
-        //     // setOpponentPokemonMove2(oppData[3].moves[1])
-        //     // setOpponentPokemonMove3(oppData[3].moves[2])
-        //     // setOpponentPokemonMove4(oppData[3].moves[3])
-        // })
-  
-        // fetch('https://pokeapi.co/api/v2/item/poke-ball')
-        // .then(res => res.json())
-        // .then(data => setPokeBall(data.sprites.default))        
-    // }, [])
-
-
-    let handleSelectBattleMovePrompt = (e) => {
-        if (displayTeam === false) {
-            let userPokemonMoves = [userPokemonMove1, userPokemonMove2, userPokemonMove3, userPokemonMove4]
-            setBattleMovePrompt(userPokemonMoves.find(move => move.name === e.target.value))
+ 
+    // let handleSelectBattleMovePrompt = (e) => {
+    //     if (displayTeam === false) {
+    //         let userPokemonMoves = [userPokemonMove1, userPokemonMove2, userPokemonMove3, userPokemonMove4]
+    //         setBattleMovePrompt(userPokemonMoves.find(move => move.name === e.target.value))
     
-            if (e.target.value === userPokemonMove1.name) {
-                setBattleMovePP(userPokemonMove1PP)
-            } else if (e.target.value === userPokemonMove2.name ) {
-                setBattleMovePP(userPokemonMove2PP)
-            } else if (e.target.value === userPokemonMove3.name) {
-                setBattleMovePP(userPokemonMove3PP)
-            } else if (e.target.value === userPokemonMove4.name) {
-                setBattleMovePP(userPokemonMove4PP)
-            }
-        } else {
-            alert('You cannot choose an attack while viewing your Pokemon!!')
-        }
-    }
+    //         if (e.target.value === userPokemonMove1.name) {
+    //             setBattleMovePP(userPokemonMove1PP)
+    //         } else if (e.target.value === userPokemonMove2.name ) {
+    //             setBattleMovePP(userPokemonMove2PP)
+    //         } else if (e.target.value === userPokemonMove3.name) {
+    //             setBattleMovePP(userPokemonMove3PP)
+    //         } else if (e.target.value === userPokemonMove4.name) {
+    //             setBattleMovePP(userPokemonMove4PP)
+    //         }
+    //     } else {
+    //         alert('You cannot choose an attack while viewing your Pokemon!!')
+    //     }
+    // }
 
-    let returnToBattleMoves = () => {
-        setBattleMovePrompt(null)
-    }
+    // let returnToBattleMoves = () => {
+    //     setBattleMovePrompt(null)
+    // }
 
-    let handleSelectBattleMove = (e) => {
-        // setUserDamage(Math.round(((((2*userPokemon.level)/5)*(userPokemon.stats[0].attack/opponentPokemon.stats[0].defense)*battleMovePrompt.power)/50)+2))
-        setBattleMovePrompt(null)
-        setInitialMove(null)
-        setUserBattleMove(battleMovePrompt.name)
+    // let handleSelectBattleMove = (e) => {
+    //     // setUserDamage(Math.round(((((2*userPokemon.level)/5)*(userPokemon.stats[0].attack/opponentPokemon.stats[0].defense)*battleMovePrompt.power)/50)+2))
+    //     setBattleMovePrompt(null)
+    //     setInitialMove(null)
+    //     setUserBattleMove(battleMovePrompt.name)
 
-        if (battleMovePrompt.name === userPokemonMove1.name) {
-            setUserPokemonMove1PP(userPokemonMove1PP - 1)
-        } else if (battleMovePrompt.name === userPokemonMove2.name ) {
-            setUserPokemonMove2PP(userPokemonMove2PP - 1)
-        } else if (battleMovePrompt.name === userPokemonMove3.name) {
-            setUserPokemonMove3PP(userPokemonMove3PP - 1)
-        } else if (battleMovePrompt.name === userPokemonMove4.name) {
-            setUserPokemonMove4PP(userPokemonMove4PP - 1)
-        }
+    //     if (battleMovePrompt.name === userPokemonMove1.name) {
+    //         setUserPokemonMove1PP(userPokemonMove1PP - 1)
+    //     } else if (battleMovePrompt.name === userPokemonMove2.name ) {
+    //         setUserPokemonMove2PP(userPokemonMove2PP - 1)
+    //     } else if (battleMovePrompt.name === userPokemonMove3.name) {
+    //         setUserPokemonMove3PP(userPokemonMove3PP - 1)
+    //     } else if (battleMovePrompt.name === userPokemonMove4.name) {
+    //         setUserPokemonMove4PP(userPokemonMove4PP - 1)
+    //     }
 
-        // if (opponentPokemonHP - ((((2*userPokemon.level)/5)*(userPokemon.stats[0].attack/opponentPokemon.stats[0].defense)*battleMovePrompt.power)/50)+2 <= 0) {
-        //     setSuperEffective(true)
-        //     setOpponentPokemonHP(0)
-        // } else {
-        //     setOpponentPokemonHP(opponentPokemonHP - Math.round(((((2*userPokemon.level)/5)*(userPokemon.stats[0].attack/opponentPokemon.stats[0].defense)*battleMovePrompt.power)/50)+2))
-        // }
-    }
+    //     // if (opponentPokemonHP - ((((2*userPokemon.level)/5)*(userPokemon.stats[0].attack/opponentPokemon.stats[0].defense)*battleMovePrompt.power)/50)+2 <= 0) {
+    //     //     setSuperEffective(true)
+    //     //     setOpponentPokemonHP(0)
+    //     // } else {
+    //     //     setOpponentPokemonHP(opponentPokemonHP - Math.round(((((2*userPokemon.level)/5)*(userPokemon.stats[0].attack/opponentPokemon.stats[0].defense)*battleMovePrompt.power)/50)+2))
+    //     // }
+    // }
 
-    let initiateOpponentMove = () => {
-        let opponentMoves = [opponentPokemonMove1, opponentPokemonMove2, opponentPokemonMove3, opponentPokemonMove4]
-        setOpponentBattleMove(opponentMoves[Math.floor(Math.random()*opponentMoves.length)])
-     }
+    // let initiateOpponentMove = () => {
+    //     let opponentMoves = [opponentPokemonMove1, opponentPokemonMove2, opponentPokemonMove3, opponentPokemonMove4]
+    //     setOpponentBattleMove(opponentMoves[Math.floor(Math.random()*opponentMoves.length)])
+    //  }
 
-    let calculateDamage = () => {
-        // setOpponentDamage(Math.round(((((2*opponentPokemon.level)/5)*(opponentPokemon.stats[0].attack/userPokemon.stats[0].defense)*opponentBattleMove.power)/50)+2))
-        setOpponentBattleMove(null)
-    }
+    // let calculateDamage = () => {
+    //     // setOpponentDamage(Math.round(((((2*opponentPokemon.level)/5)*(opponentPokemon.stats[0].attack/userPokemon.stats[0].defense)*opponentBattleMove.power)/50)+2))
+    //     setOpponentBattleMove(null)
+    // }
 
-    let displayDamage = () => {   
-        if (userPokemonHP - opponentDamage <= 0) {
-            setOpponentSuperEffective(true)
-            setUserPokemonHP(0)
-        } else {
-            setUserPokemonHP(userPokemonHP - opponentDamage)
-        }
-        setOpponentDamage(null)
-    }
+    // let displayDamage = () => {   
+    //     if (userPokemonHP - opponentDamage <= 0) {
+    //         setOpponentSuperEffective(true)
+    //         setUserPokemonHP(0)
+    //     } else {
+    //         setUserPokemonHP(userPokemonHP - opponentDamage)
+    //     }
+    //     setOpponentDamage(null)
+    // }
 
-    let endTurn = () => {
-        setUserDamage(null)
-        setUserBattleMove(null)
-        setSuperEffective(null)
+    // let endTurn = () => {
+    //     setUserDamage(null)
+    //     setUserBattleMove(null)
+    //     setSuperEffective(null)
 
-        if(opponentPokemonHP <= 0) {
-            if (oppTeamCount < oppPokeTeam.length-1 ) {
-                alert(`${opponentTrainer.name} sent out ${pokemonData.find(pokemon => pokemon.id === oppPokeTeam[oppTeamCount+1].pokemon_id).name}`)
-                setOppTeamCount(oppTeamCount+1)
-                setOpponentPokemon(pokemonData.find(pokemon => pokemon.id === oppPokeTeam[oppTeamCount+1].pokemon_id))
-                setOpponentPokemonMove1(pokemonData.find(pokemon => pokemon.id === oppPokeTeam[oppTeamCount+1].pokemon_id).moves[0])
-                setOpponentPokemonMove2(pokemonData.find(pokemon => pokemon.id === oppPokeTeam[oppTeamCount+1].pokemon_id).moves[1])
-                setOpponentPokemonMove3(pokemonData.find(pokemon => pokemon.id === oppPokeTeam[oppTeamCount+1].pokemon_id).moves[2])
-                setOpponentPokemonMove4(pokemonData.find(pokemon => pokemon.id === oppPokeTeam[oppTeamCount+1].pokemon_id).moves[3])
-                // setOpponentPokemonHP(pokemonData.find(pokemon => pokemon.id === oppPokeTeam[oppTeamCount+1].pokemon_id).stats[0].hp)
-                initiateOpponentMove()
+    //     if(opponentPokemonHP <= 0) {
+    //         if (oppTeamCount < oppPokeTeam.length-1 ) {
+    //             alert(`${opponentTrainer.name} sent out ${pokemonData.find(pokemon => pokemon.id === oppPokeTeam[oppTeamCount+1].pokemon_id).name}`)
+    //             setOppTeamCount(oppTeamCount+1)
+    //             setOpponentPokemon(pokemonData.find(pokemon => pokemon.id === oppPokeTeam[oppTeamCount+1].pokemon_id))
+    //             setOpponentPokemonMove1(pokemonData.find(pokemon => pokemon.id === oppPokeTeam[oppTeamCount+1].pokemon_id).moves[0])
+    //             setOpponentPokemonMove2(pokemonData.find(pokemon => pokemon.id === oppPokeTeam[oppTeamCount+1].pokemon_id).moves[1])
+    //             setOpponentPokemonMove3(pokemonData.find(pokemon => pokemon.id === oppPokeTeam[oppTeamCount+1].pokemon_id).moves[2])
+    //             setOpponentPokemonMove4(pokemonData.find(pokemon => pokemon.id === oppPokeTeam[oppTeamCount+1].pokemon_id).moves[3])
+    //             // setOpponentPokemonHP(pokemonData.find(pokemon => pokemon.id === oppPokeTeam[oppTeamCount+1].pokemon_id).stats[0].hp)
+    //             initiateOpponentMove()
 
-            } else if (oppTeamCount === oppPokeTeam.length-1) {
-                alert('You won the battle')
+    //         } else if (oppTeamCount === oppPokeTeam.length-1) {
+    //             alert('You won the battle')
 
-                fetch('http://localhost:3000/battles', {
-                    method: 'POST', 
-                    headers: {'Content-Type':'Application/json'},
-                    body: JSON.stringify({
-                        trainer_id: userTrainer.id,
-                        opponent_id: opponentTrainer.id,
-                        win_loss: true
-                    })
-                })
+    //             fetch('http://localhost:3000/battles', {
+    //                 method: 'POST', 
+    //                 headers: {'Content-Type':'Application/json'},
+    //                 body: JSON.stringify({
+    //                     trainer_id: userTrainer.id,
+    //                     opponent_id: opponentTrainer.id,
+    //                     win_loss: true
+    //                 })
+    //             })
 
-                history.push('/')
-            }
-        } else {
-            initiateOpponentMove()
-        }
+    //             history.push('/')
+    //         }
+    //     } else {
+    //         initiateOpponentMove()
+    //     }
 
-    }
+    // }
 
-    let endOpponentTurn = () => {
-        setOpponentBattleMove(null)
-        setOpponentDamage(null)
-        setOpponentSuperEffective(null)
-        setSuperEffective(null)
+    // let endOpponentTurn = () => {
+    //     setOpponentBattleMove(null)
+    //     setOpponentDamage(null)
+    //     setOpponentSuperEffective(null)
+    //     setSuperEffective(null)
 
-        if(userPokemonHP <= 0) {
-            if (userTeamCount < pokeTeam.length-1) {
-                alert(`You sent out ${pokemonData.find(pokemon => pokemon.id === pokeTeam[userTeamCount+1].pokemon_id).name}`)
+    //     if(userPokemonHP <= 0) {
+    //         if (userTeamCount < pokeTeam.length-1) {
+    //             alert(`You sent out ${pokemonData.find(pokemon => pokemon.id === pokeTeam[userTeamCount+1].pokemon_id).name}`)
 
-                setUserTeamCount(userTeamCount+1)
-                setUserPokemon(pokemonData.find(pokemon => pokemon.id === pokeTeam[userTeamCount+1].pokemon_id))
-                // setUserPokemonHP(pokemonData.find(pokemon => pokemon.id === pokeTeam[userTeamCount+1].pokemon_id).stats[0].hp)
-                setUserPokemonMove1(pokemonData.find(pokemon => pokemon.id === pokeTeam[userTeamCount+1].pokemon_id).moves[0])
-                setUserPokemonMove2(pokemonData.find(pokemon => pokemon.id === pokeTeam[userTeamCount+1].pokemon_id).moves[1])
-                setUserPokemonMove3(pokemonData.find(pokemon => pokemon.id === pokeTeam[userTeamCount+1].pokemon_id).moves[2])
-                setUserPokemonMove4(pokemonData.find(pokemon => pokemon.id === pokeTeam[userTeamCount+1].pokemon_id).moves[3])
-                setUserPokemonMove1PP(pokemonData.find(pokemon => pokemon.id === pokeTeam[userTeamCount+1].pokemon_id).moves[0].power_points)
-                setUserPokemonMove2PP(pokemonData.find(pokemon => pokemon.id === pokeTeam[userTeamCount+1].pokemon_id).moves[1].power_points)
-                setUserPokemonMove3PP(pokemonData.find(pokemon => pokemon.id === pokeTeam[userTeamCount+1].pokemon_id).moves[2].power_points)
-                setUserPokemonMove4PP(pokemonData.find(pokemon => pokemon.id === pokeTeam[userTeamCount+1].pokemon_id).moves[3].power_points)
+    //             setUserTeamCount(userTeamCount+1)
+    //             setUserPokemon(pokemonData.find(pokemon => pokemon.id === pokeTeam[userTeamCount+1].pokemon_id))
+    //             // setUserPokemonHP(pokemonData.find(pokemon => pokemon.id === pokeTeam[userTeamCount+1].pokemon_id).stats[0].hp)
+    //             setUserPokemonMove1(pokemonData.find(pokemon => pokemon.id === pokeTeam[userTeamCount+1].pokemon_id).moves[0])
+    //             setUserPokemonMove2(pokemonData.find(pokemon => pokemon.id === pokeTeam[userTeamCount+1].pokemon_id).moves[1])
+    //             setUserPokemonMove3(pokemonData.find(pokemon => pokemon.id === pokeTeam[userTeamCount+1].pokemon_id).moves[2])
+    //             setUserPokemonMove4(pokemonData.find(pokemon => pokemon.id === pokeTeam[userTeamCount+1].pokemon_id).moves[3])
+    //             setUserPokemonMove1PP(pokemonData.find(pokemon => pokemon.id === pokeTeam[userTeamCount+1].pokemon_id).moves[0].power_points)
+    //             setUserPokemonMove2PP(pokemonData.find(pokemon => pokemon.id === pokeTeam[userTeamCount+1].pokemon_id).moves[1].power_points)
+    //             setUserPokemonMove3PP(pokemonData.find(pokemon => pokemon.id === pokeTeam[userTeamCount+1].pokemon_id).moves[2].power_points)
+    //             setUserPokemonMove4PP(pokemonData.find(pokemon => pokemon.id === pokeTeam[userTeamCount+1].pokemon_id).moves[3].power_points)
 
-            } else if (userTeamCount === pokeTeam.length-1) {
+    //         } else if (userTeamCount === pokeTeam.length-1) {
                 
-                alert('You lost the battle')
-                fetch('http://localhost:3000/battles', {
-                    method: 'POST', 
-                    headers: {'Content-Type':'Application/json'},
-                    body: JSON.stringify({
-                        trainer_id: userTrainer.id,
-                        opponent_id: opponentTrainer.id,
-                        win_loss: false
-                    })
-                })
-                history.push('/')
-            }
-        }
-    }
+    //             alert('You lost the battle')
+    //             fetch('http://localhost:3000/battles', {
+    //                 method: 'POST', 
+    //                 headers: {'Content-Type':'Application/json'},
+    //                 body: JSON.stringify({
+    //                     trainer_id: userTrainer.id,
+    //                     opponent_id: opponentTrainer.id,
+    //                     win_loss: false
+    //                 })
+    //             })
+    //             history.push('/')
+    //         }
+    //     }
+    // }
 
-    let sendOutPokemon = (e) => {
-        if (userPokemon !== pokemonData.find(pokemon => pokemon.front_image === e.target.src)) {
-            setUserPokemon(pokemonData.find(pokemon => pokemon.front_image === e.target.src))
-            // setUserPokemonHP(pokemonData.find(pokemon => pokemon.front_image === e.target.src).stats[0].hp)
-            setUserPokemonMove1(pokemonData.find(pokemon => pokemon.front_image === e.target.src).moves[0])
-            setUserPokemonMove2(pokemonData.find(pokemon => pokemon.front_image === e.target.src).moves[1])
-            setUserPokemonMove3(pokemonData.find(pokemon => pokemon.front_image === e.target.src).moves[2])
-            setUserPokemonMove4(pokemonData.find(pokemon => pokemon.front_image === e.target.src).moves[3])
-            setUserPokemonMove1PP(pokemonData.find(pokemon => pokemon.front_image === e.target.src).moves[0].power_points)
-            setUserPokemonMove2PP(pokemonData.find(pokemon => pokemon.front_image === e.target.src).moves[1].power_points)
-            setUserPokemonMove3PP(pokemonData.find(pokemon => pokemon.front_image === e.target.src).moves[2].power_points)
-            setUserPokemonMove4PP(pokemonData.find(pokemon => pokemon.front_image === e.target.src).moves[3].power_points)
+    // let sendOutPokemon = (e) => {
+    //     if (userPokemon !== pokemonData.find(pokemon => pokemon.front_image === e.target.src)) {
+    //         setUserPokemon(pokemonData.find(pokemon => pokemon.front_image === e.target.src))
+    //         // setUserPokemonHP(pokemonData.find(pokemon => pokemon.front_image === e.target.src).stats[0].hp)
+    //         setUserPokemonMove1(pokemonData.find(pokemon => pokemon.front_image === e.target.src).moves[0])
+    //         setUserPokemonMove2(pokemonData.find(pokemon => pokemon.front_image === e.target.src).moves[1])
+    //         setUserPokemonMove3(pokemonData.find(pokemon => pokemon.front_image === e.target.src).moves[2])
+    //         setUserPokemonMove4(pokemonData.find(pokemon => pokemon.front_image === e.target.src).moves[3])
+    //         setUserPokemonMove1PP(pokemonData.find(pokemon => pokemon.front_image === e.target.src).moves[0].power_points)
+    //         setUserPokemonMove2PP(pokemonData.find(pokemon => pokemon.front_image === e.target.src).moves[1].power_points)
+    //         setUserPokemonMove3PP(pokemonData.find(pokemon => pokemon.front_image === e.target.src).moves[2].power_points)
+    //         setUserPokemonMove4PP(pokemonData.find(pokemon => pokemon.front_image === e.target.src).moves[3].power_points)
     
-            alert(`${userTrainer.name} sent out ${pokemonData.find(pokemon => pokemon.front_image === e.target.src).name}`)
+    //         alert(`${userTrainer.name} sent out ${pokemonData.find(pokemon => pokemon.front_image === e.target.src).name}`)
     
-            initiateOpponentMove()
-        } else {
-            alert('That Pokemon is already out! Choose a different Pokemon!!')
-        }
-
-    }
+    //         initiateOpponentMove()
+    //     } else {
+    //         alert('That Pokemon is already out! Choose a different Pokemon!!')
+    //     }
+    // }
 
     return (
         <div className="battle-sfzone-container">
@@ -263,7 +200,7 @@ let BattleHome = ({userTrainer, opponentTrainer, pokemonData, pokeBall}) => {
             :
             // move select
                 <div className="battle-sfzone-container">
-                    <FlyingPidgeot />
+                    {/* <FlyingPidgeot /> */}
                     <OpponentCard 
                         pokeBall={pokeBall}
                         opponentTrainer={opponentTrainer}
@@ -285,7 +222,7 @@ let BattleHome = ({userTrainer, opponentTrainer, pokemonData, pokeBall}) => {
                         opponentDamage={opponentDamage}
                     />
                           
-                    {userBattleMove === null ? null :
+                    {/* {userBattleMove === null ? null :
                         <div>
                             <p>{userPokemon.name} used {userBattleMove}!!! 
                                                         
@@ -296,8 +233,8 @@ let BattleHome = ({userTrainer, opponentTrainer, pokemonData, pokeBall}) => {
                             </p>
                             <button className="action-button" onClick={endTurn}>End turn</button>
                         </div>
-                    }
-
+                    } */}
+{/* 
                     {opponentBattleMove === null ? null :
                         <div>
                             <p>{opponentPokemon.name} used {opponentBattleMove.name}</p>
@@ -318,7 +255,7 @@ let BattleHome = ({userTrainer, opponentTrainer, pokemonData, pokeBall}) => {
                             <p>It's super effective. {opponentPokemon.name} knocked out {userPokemon.name}</p>
                             <button className="action-button" onClick={endOpponentTurn}>End Turn</button>
                         </div>
-                    }
+                    } */}
                 </div>
             }
         </div>
@@ -326,5 +263,3 @@ let BattleHome = ({userTrainer, opponentTrainer, pokemonData, pokeBall}) => {
 }
 
 export default BattleHome
-
-

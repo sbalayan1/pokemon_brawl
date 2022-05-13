@@ -1,9 +1,7 @@
-let InitialMoveButton = ({move, selectInitialMove}) => {
-    return (
-        <button className="action-button" onClick={selectInitialMove} value={move}>
-            {move}
-        </button>
-    )
-}
+let InitialMoveButton = ({move, selectMove}) => (
+    <button className="action-button" onClick={selectMove} value={move}>
+        {move}
+    </button>
+)
 
 export default InitialMoveButton
