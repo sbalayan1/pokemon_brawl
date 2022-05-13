@@ -32,10 +32,10 @@ let OpponentCard = ({pokeBall, opponentTrainer, userDamage}) => {
             setSelectedPokemon(data[0])
             setOpponentTeam(data)
             setHP(data[0].stats.hp)
-            // setOpponentPokemonMove1(oppData[3].moves[0])
-            // setOpponentPokemonMove2(oppData[3].moves[1])
-            // setOpponentPokemonMove3(oppData[3].moves[2])
-            // setOpponentPokemonMove4(oppData[3].moves[3])
+            setMove1(data[0].moves[0])
+            setMove2(data[0].moves[1])
+            setMove3(data[0].moves[2])
+            setMove4(data[0].moves[3])
             setIsLoaded(true)
             console.log('rendering opponent card')
         })
@@ -61,11 +61,7 @@ let OpponentCard = ({pokeBall, opponentTrainer, userDamage}) => {
                             <p><small>SPD: {selectedPokemon.stats.speed}</small></p>
                         </div>
                     </div>
-                    {selectedPokemon ? 
-                        <img className="zone-image-card" src={selectedPokemon.front_image} alt="opponent-pokemon-image"/> 
-                    :
-                        null
-                    }
+                    <img className="zone-image-card" src={selectedPokemon.front_image} alt="opponent-pokemon-image"/> 
                 </div>
             </div>
         )

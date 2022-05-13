@@ -1,9 +1,7 @@
 import {useState, useEffect} from 'react'
 import {useHistory} from 'react-router-dom'
-import PokeBallBattle from './PokeBallBattle'
-
 import InitialLoad from './InitialLoad'
-// import FlyingPidgeot from './FlyingPidgeot'
+import FlyingPidgeot from './FlyingPidgeot'
 import UserCard from './UserCard'
 import OpponentCard from './OpponentCard'
 
@@ -24,52 +22,6 @@ let BattleHome = ({userTrainer, opponentTrainer, pokemonData, pokeBall}) => {
     const [userTeamCount, setUserTeamCount] = useState(0)
     const [oppTeamCount, setOppTeamCount] = useState(0)
  
-    // let handleSelectBattleMovePrompt = (e) => {
-    //     if (displayTeam === false) {
-    //         let userPokemonMoves = [userPokemonMove1, userPokemonMove2, userPokemonMove3, userPokemonMove4]
-    //         setBattleMovePrompt(userPokemonMoves.find(move => move.name === e.target.value))
-    
-    //         if (e.target.value === userPokemonMove1.name) {
-    //             setBattleMovePP(userPokemonMove1PP)
-    //         } else if (e.target.value === userPokemonMove2.name ) {
-    //             setBattleMovePP(userPokemonMove2PP)
-    //         } else if (e.target.value === userPokemonMove3.name) {
-    //             setBattleMovePP(userPokemonMove3PP)
-    //         } else if (e.target.value === userPokemonMove4.name) {
-    //             setBattleMovePP(userPokemonMove4PP)
-    //         }
-    //     } else {
-    //         alert('You cannot choose an attack while viewing your Pokemon!!')
-    //     }
-    // }
-
-    // let returnToBattleMoves = () => {
-    //     setBattleMovePrompt(null)
-    // }
-
-    // let handleSelectBattleMove = (e) => {
-    //     // setUserDamage(Math.round(((((2*userPokemon.level)/5)*(userPokemon.stats[0].attack/opponentPokemon.stats[0].defense)*battleMovePrompt.power)/50)+2))
-    //     setBattleMovePrompt(null)
-    //     setInitialMove(null)
-    //     setUserBattleMove(battleMovePrompt.name)
-
-    //     if (battleMovePrompt.name === userPokemonMove1.name) {
-    //         setUserPokemonMove1PP(userPokemonMove1PP - 1)
-    //     } else if (battleMovePrompt.name === userPokemonMove2.name ) {
-    //         setUserPokemonMove2PP(userPokemonMove2PP - 1)
-    //     } else if (battleMovePrompt.name === userPokemonMove3.name) {
-    //         setUserPokemonMove3PP(userPokemonMove3PP - 1)
-    //     } else if (battleMovePrompt.name === userPokemonMove4.name) {
-    //         setUserPokemonMove4PP(userPokemonMove4PP - 1)
-    //     }
-
-    //     // if (opponentPokemonHP - ((((2*userPokemon.level)/5)*(userPokemon.stats[0].attack/opponentPokemon.stats[0].defense)*battleMovePrompt.power)/50)+2 <= 0) {
-    //     //     setSuperEffective(true)
-    //     //     setOpponentPokemonHP(0)
-    //     // } else {
-    //     //     setOpponentPokemonHP(opponentPokemonHP - Math.round(((((2*userPokemon.level)/5)*(userPokemon.stats[0].attack/opponentPokemon.stats[0].defense)*battleMovePrompt.power)/50)+2))
-    //     // }
-    // }
 
     // let initiateOpponentMove = () => {
     //     let opponentMoves = [opponentPokemonMove1, opponentPokemonMove2, opponentPokemonMove3, opponentPokemonMove4]
@@ -168,26 +120,6 @@ let BattleHome = ({userTrainer, opponentTrainer, pokemonData, pokeBall}) => {
     //     }
     // }
 
-    // let sendOutPokemon = (e) => {
-    //     if (userPokemon !== pokemonData.find(pokemon => pokemon.front_image === e.target.src)) {
-    //         setUserPokemon(pokemonData.find(pokemon => pokemon.front_image === e.target.src))
-    //         // setUserPokemonHP(pokemonData.find(pokemon => pokemon.front_image === e.target.src).stats[0].hp)
-    //         setUserPokemonMove1(pokemonData.find(pokemon => pokemon.front_image === e.target.src).moves[0])
-    //         setUserPokemonMove2(pokemonData.find(pokemon => pokemon.front_image === e.target.src).moves[1])
-    //         setUserPokemonMove3(pokemonData.find(pokemon => pokemon.front_image === e.target.src).moves[2])
-    //         setUserPokemonMove4(pokemonData.find(pokemon => pokemon.front_image === e.target.src).moves[3])
-    //         setUserPokemonMove1PP(pokemonData.find(pokemon => pokemon.front_image === e.target.src).moves[0].power_points)
-    //         setUserPokemonMove2PP(pokemonData.find(pokemon => pokemon.front_image === e.target.src).moves[1].power_points)
-    //         setUserPokemonMove3PP(pokemonData.find(pokemon => pokemon.front_image === e.target.src).moves[2].power_points)
-    //         setUserPokemonMove4PP(pokemonData.find(pokemon => pokemon.front_image === e.target.src).moves[3].power_points)
-    
-    //         alert(`${userTrainer.name} sent out ${pokemonData.find(pokemon => pokemon.front_image === e.target.src).name}`)
-    
-    //         initiateOpponentMove()
-    //     } else {
-    //         alert('That Pokemon is already out! Choose a different Pokemon!!')
-    //     }
-    // }
 
     return (
         <div className="battle-sfzone-container">
@@ -200,7 +132,7 @@ let BattleHome = ({userTrainer, opponentTrainer, pokemonData, pokeBall}) => {
             :
             // move select
                 <div className="battle-sfzone-container">
-                    {/* <FlyingPidgeot /> */}
+                    <FlyingPidgeot />
                     <OpponentCard 
                         pokeBall={pokeBall}
                         opponentTrainer={opponentTrainer}
@@ -214,7 +146,6 @@ let BattleHome = ({userTrainer, opponentTrainer, pokemonData, pokeBall}) => {
                     }
 
                     {userBattleMove === null ? null : <img className="pokemon-attack" src="https://c.tenor.com/98nZAGp5ooQAAAAC/pokemon-tyranitar.gif" alt="tyranitar-hyperbeam"/>}
-
 
                     <UserCard 
                         pokeBall={pokeBall}

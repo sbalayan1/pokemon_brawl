@@ -10,11 +10,7 @@ let UserPokemon = ({displayTeam, pokeBall, userTeam, sendOutPokemon}) => {
         userTeam.map((p) => <img key={p.name} name={p.name} style={{height: '56px', width: '60px'}} alt='pokemon' className="poke-ball-battle-pokemon" src={p.front_image} onClick={sendOutPokemon}/>)
     )
 
-    return (
-        <div className="trainer-battle-pokeball-container">
-            {displayTeam === false ? renderPokeBalls() : renderTeam()}
-        </div> 
-    )
+    return displayTeam === false ? renderPokeBalls() : renderTeam()
 }
 
 export default UserPokemon

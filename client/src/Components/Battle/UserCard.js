@@ -21,10 +21,6 @@ let UserCard = ({pokeBall, userTrainer, opponentDamage}) => {
     const [move2, setMove2] = useState(null)
     const [move3, setMove3] = useState(null)
     const [move4, setMove4] = useState(null)
-    const [pp1, setPP1] = useState(null)
-    const [pp2, setPP2] = useState(null)
-    const [pp3, setPP3] = useState(null)
-    const [pp4, setPP4] = useState(null)
 
     let fetchUserTeam = async () => {
         try {
@@ -64,6 +60,7 @@ let UserCard = ({pokeBall, userTrainer, opponentDamage}) => {
             <BattleMoveCard 
                 displayTeam={displayTeam}
                 selectedPokemonMoves={[move1, move2, move3, move4]}
+                setFightMove={setSelectedMove}
             />
         :   
             null
@@ -77,7 +74,8 @@ let UserCard = ({pokeBall, userTrainer, opponentDamage}) => {
             setMove1(pokemon.moves[0])
             setMove2(pokemon.moves[1])
             setMove3(pokemon.moves[2])
-            setMove4(pokemon.moves[3])          
+            setMove4(pokemon.moves[3])
+            setDisplayTeam(!displayTeam)          
             alert(`${userTrainer.name} sent out ${pokemon.name}`)
             // initiateOpponentMove()
         } else {
@@ -120,48 +118,9 @@ let UserCard = ({pokeBall, userTrainer, opponentDamage}) => {
                     </div>
                     
                     {renderInitialMove()}
-
-                {/* {initialMove === null && opponentBattleMove === null && opponentDamage === null && userBattleMove === null ? 
-                    <div className="move-card">
-                        {displayTeam === false ? <button className="action-button" onClick={handleSelectInitialMove} value="Fight">Fight</button> : <button style={{backgroundColor:'black'} }className="action-button" value="Fight">Fight</button> }
-                        <button className="action-button" onClick={handleSelectInitialMove} value="Bag">Bag</button>
-                        <button className="action-button" onClick={handleSelectInitialMove} value="Pokemon">Pokemon</button>
-                        <button className="action-button" onClick={handleSelectInitialMove} value="Run">Run</button>
-                    </div>
-
-                :
-                    null
-                } */}
-
                     {renderBattleMove()}
-{/* 
-                {initialMove === 'Fight' && battleMovePrompt === null ? 
-                    <div className="move-card">
-                        <button style={{fontSize:'9px'}} className="action-button" onClick={handleSelectBattleMovePrompt} value={userPokemonMove1.name}>{userPokemonMove1.name}</button>
-                        <button style={{fontSize:'9px'}} className="action-button" onClick={handleSelectBattleMovePrompt} value={userPokemonMove2.name}>{userPokemonMove2.name}</button>
-                        <button style={{fontSize:'9px'}} className="action-button" onClick={handleSelectBattleMovePrompt} value={userPokemonMove3.name}>{userPokemonMove3.name}</button>
-                        <button style={{fontSize:'9px'}} className="action-button" onClick={handleSelectBattleMovePrompt} value={userPokemonMove4.name}>{userPokemonMove4.name}</button>
-                    </div>
-                
-                :
-                    null
-                } */}
-
-                {/* {battleMovePrompt === null ? null 
-                :
-                    <div style={{justifyContent:'space-evenly', marginTop:'10px'}} className="trainer-move-card">
-                        <div>
-                            <h5 style={{fontSize:'10px', marginLeft:'8px'}}>{battleMovePrompt.name}</h5>
-                            <p style={{fontSize:'10px'}}>{battleMovePrompt.description}</p>
-                        </div>
-                        <div style={{display:'flex', justifyContent:'space-between'}}>
-                            <p style={{fontSize:'10px'}}>Power:{battleMovePrompt.power}</p>
-                            <p style={{fontSize:'10px'}}>PP:{battleMovePP}</p>
-                        </div>
-                        <button style={{fontSize:'9px'}} className="action-button" onClick={handleSelectBattleMove}>Use {battleMovePrompt.name}</button>
-                        <button className="action-button" onClick={returnToBattleMoves}>Back</button>
-                    </div>
-                } */}
+                </div>
+                <div className="trainer-battle-pokeball-container">
                     <UserPokemon
                         displayTeam={displayTeam}
                         userTeam={userTeam}
@@ -169,7 +128,6 @@ let UserCard = ({pokeBall, userTrainer, opponentDamage}) => {
                         sendOutPokemon={sendOutPokemon}
                     />
                 </div>
-
             </div>
         )    
     }
