@@ -25,16 +25,16 @@ let BattleMoveCard = ({selectedPokemon, selectedPokemonMoves, displayTeam, setFi
                     setSelectedMove(data)
 
                     if (movePP === null || !movePP[selectedPokemon.name]) {
-                        setMovePP({...movePP, [selectedPokemon.name]: {[data.name]: data.pp}})
+                        setMovePP({...movePP, [selectedPokemon.name]: {
+                            [data.name]: {...data}
+                        }})
                     } else if (!movePP[selectedPokemon.name][data.name]){
                         setMovePP({...movePP, [selectedPokemon.name]: {...movePP[selectedPokemon.name], 
-                            [data.name]: data.pp
+                            [data.name]: {...data}
                         }})
                     }
                 })
             } else {
-                console.log('else hit')
-                console.log(movePP[selectedPokemon.name])
                 setSelectedMove(movePP[selectedPokemon.name][move.name])
             }
 
