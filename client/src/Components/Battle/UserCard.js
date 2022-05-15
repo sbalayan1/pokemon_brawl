@@ -60,6 +60,7 @@ let UserCard = ({pokeBall, userTrainer, opponentDamage}) => {
         return selectedMove === 'Fight' ? 
             <BattleMoveCard 
                 displayTeam={displayTeam}
+                selectedPokemon={selectedPokemon}
                 selectedPokemonMoves={[move1, move2, move3, move4]}
                 setFightMove={setSelectedMove}
                 movePP={movePP}
@@ -78,8 +79,7 @@ let UserCard = ({pokeBall, userTrainer, opponentDamage}) => {
             setMove2(pokemon.moves[1])
             setMove3(pokemon.moves[2])
             setMove4(pokemon.moves[3])
-            setDisplayTeam(!displayTeam)
-            setMovePP(null)          
+            setDisplayTeam(!displayTeam)      
             alert(`${userTrainer.name} sent out ${pokemon.name}`)
             // initiateOpponentMove()
         } else {
