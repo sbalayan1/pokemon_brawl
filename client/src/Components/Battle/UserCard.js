@@ -21,6 +21,7 @@ let UserCard = ({pokeBall, userTrainer, opponentDamage}) => {
     const [move2, setMove2] = useState(null)
     const [move3, setMove3] = useState(null)
     const [move4, setMove4] = useState(null)
+    const [movePP, setMovePP] = useState(null)
 
     let fetchUserTeam = async () => {
         try {
@@ -61,6 +62,8 @@ let UserCard = ({pokeBall, userTrainer, opponentDamage}) => {
                 displayTeam={displayTeam}
                 selectedPokemonMoves={[move1, move2, move3, move4]}
                 setFightMove={setSelectedMove}
+                movePP={movePP}
+                setMovePP={setMovePP}
             />
         :   
             null
@@ -75,7 +78,8 @@ let UserCard = ({pokeBall, userTrainer, opponentDamage}) => {
             setMove2(pokemon.moves[1])
             setMove3(pokemon.moves[2])
             setMove4(pokemon.moves[3])
-            setDisplayTeam(!displayTeam)          
+            setDisplayTeam(!displayTeam)
+            setMovePP(null)          
             alert(`${userTrainer.name} sent out ${pokemon.name}`)
             // initiateOpponentMove()
         } else {

@@ -1,9 +1,8 @@
 import {useState} from 'react'
 import BattleMoveButton from './BattleMoveButton'
 
-let BattleMoveCard = ({selectedPokemonMoves, displayTeam, setFightMove}) => {
+let BattleMoveCard = ({selectedPokemonMoves, displayTeam, setFightMove, movePP, setMovePP}) => {
     const [selectedMove, setSelectedMove] = useState(null)
-    const [movePP, setMovePP] = useState({})
     
     let fetchMove = async (url) => {
         try {
@@ -21,8 +20,7 @@ let BattleMoveCard = ({selectedPokemonMoves, displayTeam, setFightMove}) => {
             let move = selectedPokemonMoves.find(m => m.name === e.target.value)
             fetchMove(`/api/pokemon/move/${move.name}`).then(data => {
                 setSelectedMove(data)
-                movePP[data.name] = data.pp
-                setMovePP({...movePP, [data.name]:data.pp})
+                if (movePP === null || !movePP[data.name]) setMovePP({...movePP, [data.name]:data.pp})
             })
         } else {
             alert('You cannot choose an attack while viewing your Pokemon!!')
@@ -30,12 +28,12 @@ let BattleMoveCard = ({selectedPokemonMoves, displayTeam, setFightMove}) => {
     }
 
     let handleAttack = (e) => {
-        console.log(movePP)
         // let damage = Math.round(((((2*userPokemon.level)/5)*(userPokemon.stats[0].attack/opponentPokemon.stats[0].defense)*selectedPokemon.power)/50)+2)
         // setUserDamage(damage)
         // setPP({...pp, pp[selectedMove]: pp[selectedMove] - 1})
-        unselectMove()
+
         hideMoves()
+        unselectMove()
 
         // if (opponentPokemonHP - ((((2*userPokemon.level)/5)*(userPokemon.stats[0].attack/opponentPokemon.stats[0].defense)*battleMovePrompt.power)/50)+2 <= 0) {
         //     setSuperEffective(true)
