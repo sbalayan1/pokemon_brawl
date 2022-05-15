@@ -35,6 +35,17 @@ let UserCard = ({pokeBall, userTrainer, opponentDamage}) => {
         }
     }
 
+    let fetchMove = async (url) => {
+        try {
+            let move = await fetch (url)
+            let data = move.json()
+            let results = await data
+            return results
+        } catch (error){
+            console.error(error)
+        }
+    }
+
     let selectMove = (e) => {
         if(e.target.value === 'Fight' || e.target.value === 'Bag') {
             setSelectedMove(e.target.value)
@@ -61,7 +72,7 @@ let UserCard = ({pokeBall, userTrainer, opponentDamage}) => {
             <BattleMoveCard 
                 displayTeam={displayTeam}
                 selectedPokemon={selectedPokemon}
-                selectedPokemonMoves={[move1, move2, move3, move4]}
+                // selectedPokemonMoves={[move1, move2, move3, move4]}
                 setFightMove={setSelectedMove}
                 movePP={movePP}
                 setMovePP={setMovePP}
@@ -92,10 +103,22 @@ let UserCard = ({pokeBall, userTrainer, opponentDamage}) => {
             setSelectedPokemon(data[0])
             setUserTeam(data)
             setHP(data[0].stats.hp)
-            setMove1(data[0].moves[0])
-            setMove2(data[0].moves[1])
-            setMove3(data[0].moves[2])
-            setMove4(data[0].moves[3])
+            let name = data[0].name
+            let moves = [data[0].moves[0], data[0].moves[1], data[0].moves[2], data[0].moves[3]]
+
+
+            data.forEach(pokemon => {
+                setMovePP({...movePP, [pokemon.name]: {}})
+                console.log(movePP)
+            })
+            // moves.map(move => {
+            //     fetchMove(`/api/pokemon/move/${move.name}`)
+            //     .then(moveData => {
+            //         setMovePP({...movePP, 
+            //             [name]: {[moveData.name]: moveData}
+            //         })
+            //     })
+            // })
             setIsLoaded(true)
             console.log('rendering user card')
         })

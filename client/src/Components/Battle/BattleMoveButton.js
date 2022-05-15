@@ -1,7 +1,8 @@
 let BattleMoveButton = ({handleSelectMove, move}) => {
+    console.log(move)
     return (
-        <button style={{fontSize:'9px'}} className="action-button" onClick={handleSelectMove} value={move.name}>
-            {move.name}
+        <button style={{fontSize:'9px'}} className="action-button" onClick={handleSelectMove} value={move}>
+            {move}
         </button>)
 }
 
