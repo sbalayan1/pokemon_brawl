@@ -62,53 +62,58 @@ puts 'create trainer'
 # PokemonTeam.create(trainer_id: 18, pokemon_id: Pokemon.all[23].id, team_member: true)
 
 
-# puts 'done seeding'
+puts 'done seeding'
 
-# puts 'seeding PokemonTeam'
-# 6.times do
-#     number = rand(0..151)
-#     PokemonTeam.create(trainer_id: 2, pokemon_id: Pokemon.all[number].id, team_member: true)
-# end 
+puts 'seeding PokemonTeam'
+6.times do
+    number = rand(0..151)
+    PokemonTeam.create(trainer_id: 1, pokemon_id: Pokemon.all[number].id, team_member: true)
+end 
 
-# 6.times do
-#     number = rand(0..151)
-#     PokemonTeam.create(trainer_id: 3, pokemon_id: Pokemon.all[number].id, team_member: true)
-# end 
+6.times do
+    number = rand(0..151)
+    PokemonTeam.create(trainer_id: 2, pokemon_id: Pokemon.all[number].id, team_member: true)
+end 
+
+6.times do
+    number = rand(0..151)
+    PokemonTeam.create(trainer_id: 3, pokemon_id: Pokemon.all[number].id, team_member: true)
+end 
 
 
-# 6.times do
-#     number = rand(0..151)
-#     PokemonTeam.create(trainer_id: 4, pokemon_id: Pokemon.all[number].id, team_member: true)
-# end 
+6.times do
+    number = rand(0..151)
+    PokemonTeam.create(trainer_id: 4, pokemon_id: Pokemon.all[number].id, team_member: true)
+end 
 
-# 6.times do
-#     number = rand(0..151)
-#     PokemonTeam.create(trainer_id: 5, pokemon_id: Pokemon.all[number].id, team_member: true)
-# end 
+6.times do
+    number = rand(0..151)
+    PokemonTeam.create(trainer_id: 5, pokemon_id: Pokemon.all[number].id, team_member: true)
+end 
 
-# 6.times do
-#     number = rand(0..151)
-#     PokemonTeam.create(trainer_id: 6, pokemon_id: Pokemon.all[number].id, team_member: true)
-# end 
+6.times do
+    number = rand(0..151)
+    PokemonTeam.create(trainer_id: 6, pokemon_id: Pokemon.all[number].id, team_member: true)
+end 
 
-# 6.times do
-#     number = rand(0..151)
-#     PokemonTeam.create(trainer_id: 7, pokemon_id: Pokemon.all[number].id, team_member: true)
-# end 
+6.times do
+    number = rand(0..151)
+    PokemonTeam.create(trainer_id: 7, pokemon_id: Pokemon.all[number].id, team_member: true)
+end 
 
-# 6.times do
-#     number = rand(0..151)
-#     PokemonTeam.create(trainer_id: 8, pokemon_id: Pokemon.all[number].id, team_member: true)
-# end 
+6.times do
+    number = rand(0..151)
+    PokemonTeam.create(trainer_id: 8, pokemon_id: Pokemon.all[number].id, team_member: true)
+end 
 
-# 6.times do
-#     number = rand(0..151)
-#     PokemonTeam.create(trainer_id: 9, pokemon_id: Pokemon.all[number].id, team_member: true)
-# end 
+6.times do
+    number = rand(0..151)
+    PokemonTeam.create(trainer_id: 9, pokemon_id: Pokemon.all[number].id, team_member: true)
+end 
 
-# 5.times do
-#     number = rand(0..151)
-#     PokemonTeam.create(trainer_id: 18, pokemon_id: Pokemon.all[number].id, team_member: true)
-# end 
+5.times do
+    number = rand(0..151)
+    PokemonTeam.create(trainer_id: 18, pokemon_id: Pokemon.all[number].id, team_member: true)
+end 
 
 puts 'done seeding'
