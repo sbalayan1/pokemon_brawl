@@ -5,7 +5,7 @@ import InitialMove from './InitialMove'
 import BattleMoveCard from './BattleMoveCard'
 
 
-let UserCard = ({pokeBall, userTrainer, opponentDamage, movePP, setMovePP}) => {
+let UserCard = ({pokeBall, userTrainer, opponentDamage, healthMovePP, setHealthMovePP}) => {
     const history = useHistory()
     const [isLoaded, setIsLoaded] = useState(false)
 
@@ -16,12 +16,6 @@ let UserCard = ({pokeBall, userTrainer, opponentDamage, movePP, setMovePP}) => {
     // userTeam states
     const [userTeam, setUserTeam] = useState(null)
     const [selectedPokemon, setSelectedPokemon] = useState(null)
-    const [hp, setHP] = useState(null)
-    const [move1, setMove1] = useState(null)
-    const [move2, setMove2] = useState(null)
-    const [move3, setMove3] = useState(null)
-    const [move4, setMove4] = useState(null)
-    // const [movePP, setMovePP] = useState({})
 
     let fetchUserTeam = async () => {
         try {
@@ -57,6 +51,20 @@ let UserCard = ({pokeBall, userTrainer, opponentDamage, movePP, setMovePP}) => {
         }
     }
 
+    let seedHealthMovePP = (movesArray, pokemon) => {
+        let moves = movesArray.slice(0,4) 
+        fetchMoves(moves).then(moveData => {
+            let tempObject = {}
+            let movesObject = {}
+            tempObject['hp'] = pokemon.stats.hp 
+            moveData.forEach(move => {movesObject[move.name] = move})
+            tempObject['hp'] = pokemon.stats.hp 
+            tempObject['moves'] = movesObject
+            healthMovePP[pokemon.name] = tempObject
+            setHealthMovePP(healthMovePP)
+        })
+    }
+
     let renderInitialMove = () => {
         return !selectedMove ?   
             <InitialMove 
@@ -72,10 +80,9 @@ let UserCard = ({pokeBall, userTrainer, opponentDamage, movePP, setMovePP}) => {
             <BattleMoveCard 
                 displayTeam={displayTeam}
                 selectedPokemon={selectedPokemon}
-                // selectedPokemonMoves={[move1, move2, move3, move4]}
                 setFightMove={setSelectedMove}
-                movePP={movePP}
-                setMovePP={setMovePP}
+                healthMovePP={healthMovePP}
+                setHealthMovePP={setHealthMovePP}
             />
         :   
             null
@@ -84,24 +91,8 @@ let UserCard = ({pokeBall, userTrainer, opponentDamage, movePP, setMovePP}) => {
     let sendOutPokemon = (e) => {
         if (selectedPokemon.name !== e.target.name) {
             let pokemon = userTeam.find(p => p.name === e.target.name)
-            let moves = []
-            for(let i = 0; i<4; i++) {
-                moves.push(pokemon.moves[i])
-            }
             setSelectedPokemon(pokemon)
-            setHP(pokemon.stats.hp)
-            
-            if (!movePP[pokemon.name]) {
-                fetchMoves(moves).then(data => {
-                    let tempObject = {}
-                    data.map(move => {
-                        tempObject[move.name] = move
-                    })
-                    
-                    setMovePP({...movePP, [pokemon.name]: tempObject})
-                })
-            } 
-            
+            if (!healthMovePP[pokemon.name]) seedHealthMovePP(pokemon.moves, pokemon)
             setDisplayTeam(!displayTeam)      
             alert(`${userTrainer.name} sent out ${pokemon.name}`)
             // initiateOpponentMove()
@@ -111,21 +102,10 @@ let UserCard = ({pokeBall, userTrainer, opponentDamage, movePP, setMovePP}) => {
     }
 
     useEffect(() => {
-        fetchUserTeam().then(data => {
-            setSelectedPokemon(data[0])
-            setUserTeam(data)
-            setHP(data[0].stats.hp)
-            let name = data[0].name
-            let moves = [data[0].moves[0], data[0].moves[1], data[0].moves[2], data[0].moves[3]]
-
-            fetchMoves(moves).then(data => {
-                let tempObject = {}
-                data.forEach(move => {
-                    tempObject[move.name] = move
-                })
-
-                setMovePP({...movePP, [name]: tempObject})
-            })
+        fetchUserTeam().then(teamData => {
+            setSelectedPokemon(teamData[0])
+            setUserTeam(teamData)
+            seedHealthMovePP(teamData[0].moves, teamData[0])
             setIsLoaded(true)
             console.log('rendering user card')
         })
@@ -139,7 +119,9 @@ let UserCard = ({pokeBall, userTrainer, opponentDamage, movePP, setMovePP}) => {
                 <div className="trainer-decision-making-container">
                     <div className="trainer-stats-card">
                         <div className="hp-card">
-                            <p style={opponentDamage >0 ? {backgroundColor:'red', marginLeft:'5px'} : {marginLeft:'5px'}}>HP: {hp}</p>
+                            <p style={opponentDamage >0 ? {backgroundColor:'red', marginLeft:'5px'} : {marginLeft:'5px'}}>
+                                HP: {healthMovePP[selectedPokemon.name] ? healthMovePP[selectedPokemon.name]['hp']  : null}
+                            </p>
                             <p>LVL: {selectedPokemon.level}</p>
                         </div>
                         <div className="attack-card">
