@@ -5,15 +5,15 @@ let OpponentCard = ({fetchTeam, renderPokeBalls, opponentTrainer, userDamage, op
     const [opponentTeam, setOpponentTeam] = useState(null)
 
     useEffect(() => {
-        fetchTeam(opponentTrainer).then(data => {
-            console.log(data[0])
-            setOpponentPokemon(data[0])
-            setOpponentTeam(data)
-            seedHealthMovePP(data[0].moves, data[0], 'opponent')
+        fetchTeam(opponentTrainer).then(teamData => {
+            console.log(teamData)
+            setOpponentPokemon(teamData[0])
+            setOpponentTeam(teamData)
+            seedHealthMovePP(teamData[0].moves, teamData[0], 'opponent')
             setIsLoaded(true)
             console.log('rendering opponent card')
         })
-    }, [opponentTrainer])
+    }, [])
 
     let renderOpponent = () => {
         return (
