@@ -38,7 +38,6 @@ let UserCard = ({selectedPokemon, setSelectedPokemon, fetchTeam, renderPokeBalls
 
     useEffect(() => {
         fetchTeam(userTrainer).then(teamData => {
-            console.log(teamData)
             setSelectedPokemon(teamData[0])
             setUserTeam(teamData)
             seedHealthMovePP(teamData[0].moves, teamData[0], 'user')

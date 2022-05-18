@@ -6,7 +6,6 @@ let OpponentCard = ({fetchTeam, renderPokeBalls, opponentTrainer, userDamage, op
 
     useEffect(() => {
         fetchTeam(opponentTrainer).then(teamData => {
-            console.log(teamData)
             setOpponentPokemon(teamData[0])
             setOpponentTeam(teamData)
             seedHealthMovePP(teamData[0].moves, teamData[0], 'opponent')

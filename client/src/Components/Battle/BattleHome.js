@@ -33,6 +33,7 @@ let BattleHome = ({userTrainer, opponentTrainer, pokemonData, pokeBall}) => {
         try {
             let team = trainer.pokemon_teams.filter(p => p.team_member === true)
             let teamPromise = await Promise.all(team.map(p => fetch(`/api/pokemon/${p.pokemon_id}`)))
+            console.log(teamPromise)
             let data = teamPromise.map(res => res.json())
             let results = await Promise.all(data)
             return results
@@ -66,7 +67,6 @@ let BattleHome = ({userTrainer, opponentTrainer, pokemonData, pokeBall}) => {
             :
                 healthMovePP['opponent'] = {[pokemon.name]: tempObject}
 
-            console.log(healthMovePP)
             setHealthMovePP(healthMovePP)
         })
     }
