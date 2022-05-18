@@ -31,12 +31,13 @@ let BattleHome = ({userTrainer, opponentTrainer, pokemonData, pokeBall}) => {
 
     let fetchTeam = async (trainer) => {
         try {
+            console.log(`firing ${trainer}`)
             let team = trainer.pokemon_teams.filter(p => p.team_member === true)
             let teamPromise = await Promise.all(team.map(p => fetch(`/api/pokemon/${p.pokemon_id}`)))
             let data = teamPromise.map(res => res.json())
             let results = await Promise.all(data)
+            console.log(results)
             return results
-            
         } catch (error) {
             console.error(error)
         }
