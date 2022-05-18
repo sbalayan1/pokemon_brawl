@@ -5,40 +5,12 @@ import InitialMove from './InitialMove'
 import BattleMoveCard from './BattleMoveCard'
 
 
-let UserCard = ({pokeBall, userTrainer, opponentDamage, healthMovePP, setHealthMovePP}) => {
+let UserCard = ({selectedPokemon, setSelectedPokemon, fetchTeam, renderPokeBalls, userTrainer, opponentDamage, setUserAttack, healthMovePP, setHealthMovePP, seedHealthMovePP}) => {
     const history = useHistory()
     const [isLoaded, setIsLoaded] = useState(false)
-
-    // user selection states
     const [displayTeam, setDisplayTeam] = useState(false)
     const [selectedMove, setSelectedMove] = useState(null)
-
-    // userTeam states
     const [userTeam, setUserTeam] = useState(null)
-    const [selectedPokemon, setSelectedPokemon] = useState(null)
-
-    let fetchUserTeam = async () => {
-        try {
-            let team = userTrainer.pokemon_teams.filter(p => p.team_member === true)
-            let userPromise = await Promise.all(team.map(p => fetch(`/api/pokemon/${p.pokemon_id}`)))
-            let userData = userPromise.map(res => res.json())
-            let results = await Promise.all(userData)
-            return results
-        } catch (error) {
-            console.error(error)
-        }
-    }
-
-    let fetchMoves = async (moves) => {
-        try {
-            let movePromise = await Promise.all(moves.map(move => fetch(`/api/pokemon/move/${move.name}`)))
-            let moveData = movePromise.map(res => res.json())
-            let results = await Promise.all(moveData)
-            return results
-        } catch (error){
-            console.error(error)
-        }
-    }
 
     let selectMove = (e) => {
         if(e.target.value === 'Fight' || e.target.value === 'Bag') {
@@ -51,19 +23,29 @@ let UserCard = ({pokeBall, userTrainer, opponentDamage, healthMovePP, setHealthM
         }
     }
 
-    let seedHealthMovePP = (movesArray, pokemon) => {
-        let moves = movesArray.slice(0,4) 
-        fetchMoves(moves).then(moveData => {
-            let tempObject = {}
-            let movesObject = {}
-            tempObject['hp'] = pokemon.stats.hp 
-            moveData.forEach(move => {movesObject[move.name] = move})
-            tempObject['hp'] = pokemon.stats.hp 
-            tempObject['moves'] = movesObject
-            healthMovePP[pokemon.name] = tempObject
-            setHealthMovePP(healthMovePP)
-        })
+    let sendOutPokemon = (e) => {
+        if (selectedPokemon.name !== e.target.name) {
+            let pokemon = userTeam.find(p => p.name === e.target.name)
+            setSelectedPokemon(pokemon)
+            if (!healthMovePP['user'][pokemon.name]) seedHealthMovePP(pokemon.moves, pokemon, 'user')
+            setDisplayTeam(!displayTeam)      
+            alert(`${userTrainer.name} sent out ${pokemon.name}`)
+            // initiateOpponentMove()
+        } else {
+            alert('That Pokemon is already out! Choose a different Pokemon!!')
+        }   
     }
+
+    useEffect(() => {
+        fetchTeam(userTrainer).then(teamData => {
+            setSelectedPokemon(teamData[0])
+            setUserTeam(teamData)
+            seedHealthMovePP(teamData[0].moves, teamData[0], 'user')
+            setIsLoaded(true)
+            console.log('rendering user card')
+        })
+
+    }, [userTrainer])
 
     let renderInitialMove = () => {
         return !selectedMove ?   
@@ -83,34 +65,11 @@ let UserCard = ({pokeBall, userTrainer, opponentDamage, healthMovePP, setHealthM
                 setFightMove={setSelectedMove}
                 healthMovePP={healthMovePP}
                 setHealthMovePP={setHealthMovePP}
+                setUserAttack={setUserAttack}
             />
         :   
             null
     }
-
-    let sendOutPokemon = (e) => {
-        if (selectedPokemon.name !== e.target.name) {
-            let pokemon = userTeam.find(p => p.name === e.target.name)
-            setSelectedPokemon(pokemon)
-            if (!healthMovePP[pokemon.name]) seedHealthMovePP(pokemon.moves, pokemon)
-            setDisplayTeam(!displayTeam)      
-            alert(`${userTrainer.name} sent out ${pokemon.name}`)
-            // initiateOpponentMove()
-        } else {
-            alert('That Pokemon is already out! Choose a different Pokemon!!')
-        }   
-    }
-
-    useEffect(() => {
-        fetchUserTeam().then(teamData => {
-            setSelectedPokemon(teamData[0])
-            setUserTeam(teamData)
-            seedHealthMovePP(teamData[0].moves, teamData[0])
-            setIsLoaded(true)
-            console.log('rendering user card')
-        })
-
-    }, [userTrainer])
 
     let renderUser = () => {
         return (
@@ -120,7 +79,8 @@ let UserCard = ({pokeBall, userTrainer, opponentDamage, healthMovePP, setHealthM
                     <div className="trainer-stats-card">
                         <div className="hp-card">
                             <p style={opponentDamage >0 ? {backgroundColor:'red', marginLeft:'5px'} : {marginLeft:'5px'}}>
-                                HP: {healthMovePP[selectedPokemon.name] ? healthMovePP[selectedPokemon.name]['hp']  : null}
+                                {/* can run into issues here with updated hp not  */}
+                                HP: {healthMovePP['user'] ? healthMovePP['user'][selectedPokemon.name]['hp']  : selectedPokemon.stats.hp}
                             </p>
                             <p>LVL: {selectedPokemon.level}</p>
                         </div>
@@ -140,7 +100,7 @@ let UserCard = ({pokeBall, userTrainer, opponentDamage, healthMovePP, setHealthM
                     <UserPokemon
                         displayTeam={displayTeam}
                         userTeam={userTeam}
-                        pokeBall={pokeBall}
+                        renderPokeBalls={renderPokeBalls}
                         sendOutPokemon={sendOutPokemon}
                     />
                 </div>

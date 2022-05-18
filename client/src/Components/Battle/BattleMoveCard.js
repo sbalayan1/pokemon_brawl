@@ -1,13 +1,13 @@
 import {useState, useEffect} from 'react'
 import BattleMoveButton from './BattleMoveButton'
 
-let BattleMoveCard = ({selectedPokemon, displayTeam, setFightMove, healthMovePP, setHealthMovePP}) => {
+let BattleMoveCard = ({selectedPokemon, displayTeam, setFightMove, healthMovePP, setHealthMovePP, setUserAttack}) => {
     console.log(healthMovePP)
     const [selectedMove, setSelectedMove] = useState(null)
 
     let handleSelectMove = (e) => {
         if (displayTeam === false) {
-            let move = healthMovePP[selectedPokemon.name]['moves'][e.target.value]
+            let move = healthMovePP['user'][selectedPokemon.name]['moves'][e.target.value]
             setSelectedMove(move)
 
         } else {
@@ -15,13 +15,21 @@ let BattleMoveCard = ({selectedPokemon, displayTeam, setFightMove, healthMovePP,
         }
     }
 
+    let unselectMove = () => {setSelectedMove(null)}
+    let hideMoves = () => {setFightMove(null)}
+
     let handleAttack = (e) => {
-        // let damage = Math.round(((((2*userPokemon.level)/5)*(userPokemon.stats[0].attack/opponentPokemon.stats[0].defense)*selectedPokemon.power)/50)+2)
-        // setUserDamage(damage)
+        let damage = Math.round(((((2*selectedPokemon.level)/5)*(selectedPokemon.stats.attack/selectedPokemon.stats.defense)*selectedMove.power)/50)+2)
         let name = selectedPokemon.name
         let move = selectedMove.name
-        healthMovePP[name]['moves'][move]['pp'] -= 1
+        healthMovePP['user'][name]['moves'][move]['pp'] -= 1
+
+        let tempObject = {}
+        tempObject['pokemon'] = name
+        tempObject['name'] = move
+        tempObject['damage'] = damage
         setHealthMovePP(healthMovePP)
+        setUserAttack(tempObject)
         hideMoves()
         unselectMove()
         // if (opponentPokemonHP - ((((2*userPokemon.level)/5)*(userPokemon.stats[0].attack/opponentPokemon.stats[0].defense)*battleMovePrompt.power)/50)+2 <= 0) {
@@ -32,24 +40,11 @@ let BattleMoveCard = ({selectedPokemon, displayTeam, setFightMove, healthMovePP,
         // }
     }
 
-    let unselectMove = () => {setSelectedMove(null)}
-    let hideMoves = () => {setFightMove(null)}
-
-    // useEffect(() => {
-    //     selectedPokemonMoves.map
-    // }, [])
-
-    let renderButtons = Object.values(healthMovePP[selectedPokemon.name]['moves']).map(move => (
-        <BattleMoveButton
-            key={move.name} 
-            move={move.name} 
-            handleSelectMove={handleSelectMove}
-        />
-    ))
-
     let renderMovesCard = () => (
         <div className='move-card'>
-            {renderButtons}
+            {Object.values(healthMovePP['user'][selectedPokemon.name]['moves']).map(move => (
+                <BattleMoveButton key={move.name} move={move.name} handleSelectMove={handleSelectMove}/>))
+            }
             <button onClick={hideMoves}>Back</button>
         </div>
     )

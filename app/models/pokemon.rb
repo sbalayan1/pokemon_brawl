@@ -50,6 +50,7 @@ class Pokemon < ApplicationRecord
             'id': id.to_i,
             'level': 10,
             'name': poke['name'],
+            'level': 10,
             'front_image': poke['sprites']['front_shiny'],
             'back_image': poke['sprites']['back_shiny'],
             'abilities': poke['abilities'],

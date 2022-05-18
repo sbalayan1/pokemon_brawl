@@ -4,6 +4,7 @@ import InitialLoad from './InitialLoad'
 import FlyingPidgeot from './FlyingPidgeot'
 import UserCard from './UserCard'
 import OpponentCard from './OpponentCard'
+import PokeBallBattle from './PokeBallBattle'
 
 let BattleHome = ({userTrainer, opponentTrainer, pokemonData, pokeBall}) => {
     const history = useHistory()
@@ -21,8 +22,57 @@ let BattleHome = ({userTrainer, opponentTrainer, pokemonData, pokeBall}) => {
     const [displayTeam, setDisplayTeam] = useState(false)
     const [userTeamCount, setUserTeamCount] = useState(0)
     const [oppTeamCount, setOppTeamCount] = useState(0)
+
     const [healthMovePP, setHealthMovePP] = useState({})
-    // const [movePP, setMovePP] = useState(null)
+    const [userPokemon, setUserPokemon] = useState(null)
+    const [opponentPokemon, setOpponentPokemon] = useState(null)
+    const [userAttack, setUserAttack] = useState(null)
+    const [opponentAttack, setOpponentAttack] = useState(null)
+
+    let fetchTeam = async (trainer) => {
+        try {
+            let team = trainer.pokemon_teams.filter(p => p.team_member === true)
+            let teamPromise = await Promise.all(team.map(p => fetch(`/api/pokemon/${p.pokemon_id}`)))
+            let data = teamPromise.map(res => res.json())
+            let results = await Promise.all(data)
+            return results
+            
+        } catch (error) {
+            console.error(error)
+        }
+    }
+
+    let fetchMoves = async (moves) => {
+        try {
+            let movePromise = await Promise.all(moves.map(move => fetch(`/api/pokemon/move/${move.name}`)))
+            let moveData = movePromise.map(res => res.json())
+            let results = await Promise.all(moveData)
+            return results
+        } catch (error){
+            console.error(error)
+        }
+    }
+
+    let seedHealthMovePP = (movesArray, pokemon, user) => {
+        let moves = movesArray.slice(0,4) 
+        fetchMoves(moves).then(moveData => {
+            let tempObject = {}
+            let movesObject = {}
+            moveData.forEach(move => {movesObject[move.name] = move})
+            tempObject['hp'] = pokemon.stats.hp
+            tempObject['moves'] = movesObject
+
+            user === 'user' ? 
+                healthMovePP['user'] = {[pokemon.name]: tempObject}
+            :
+                healthMovePP['opponent'] = {[pokemon.name]: tempObject}
+            setHealthMovePP(healthMovePP)
+        })
+    }
+
+    let renderPokeBalls = (team) => (
+        team.map((p) => <PokeBallBattle key={p.name} pokeBall={pokeBall}/>)
+    )
 
     // let initiateOpponentMove = () => {
     //     let opponentMoves = [opponentPokemonMove1, opponentPokemonMove2, opponentPokemonMove3, opponentPokemonMove4]
@@ -43,6 +93,15 @@ let BattleHome = ({userTrainer, opponentTrainer, pokemonData, pokeBall}) => {
     //     }
     //     setOpponentDamage(null)
     // }
+
+    let endTurn = () => {
+        if (userAttack) {
+            setUserAttack(null)
+            // if (healthMovePP['opponent'][userPokemon.name]['hp'] <= 0) {
+
+            // }
+        }
+    }
 
     // let endTurn = () => {
     //     setUserDamage(null)
@@ -80,7 +139,7 @@ let BattleHome = ({userTrainer, opponentTrainer, pokemonData, pokeBall}) => {
     //         initiateOpponentMove()
     //     }
 
-    // }
+    //}
 
     // let endOpponentTurn = () => {
     //     setOpponentBattleMove(null)
@@ -121,6 +180,53 @@ let BattleHome = ({userTrainer, opponentTrainer, pokemonData, pokeBall}) => {
     //     }
     // }
 
+    let renderAttack = () => {
+        return (
+            <>
+            {userAttack || opponentAttack ?
+                userAttack ? 
+                    <div>
+                        <>{userAttack.pokemon} used {userAttack.name}!!! 
+                     
+                            {superEffective === null ? 
+                                <p>{userAttack.name} did {userAttack.damage} damage! </p>
+                            :
+                                <p>It's super effective. {userAttack.pokemon} knocked out {opponentPokemon.name}!!!</p> 
+                            }
+                        </>
+                        <button className="action-button" onClick={endTurn}>
+                            End turn
+                        </button>
+                    </div>
+                :
+                    <div>
+                        <p>{opponentPokemon.name} used {opponentAttack.name}</p>
+                        <button className="action-button" onClick={endTurn}>Continue</button>
+                    </div>
+            :
+                null
+            }
+            </>
+        )
+    }
+
+    let renderAttackImage = () => {
+        let attackImages = ["http://31.media.tumblr.com/9c77fb5630504da806464f80097aeb7f/tumblr_mie1te7yfk1r5fhkdo1_500.gif", "https://c.tenor.com/98nZAGp5ooQAAAAC/pokemon-tyranitar.gif"]
+        
+        return (
+            <>    
+                {userAttack || opponentAttack ? 
+                    <img 
+                        className="pokemon-attack" 
+                        src={userAttack ? attackImages[1] : attackImages[0]} alt="hyperbeam"
+                    />
+                :
+                    null
+                }
+            </>
+        )
+    }
+
 
     return (
         <div className="battle-sfzone-container">
@@ -130,43 +236,34 @@ let BattleHome = ({userTrainer, opponentTrainer, pokemonData, pokeBall}) => {
                     opponentTrainer={opponentTrainer}
                 />
             :
-            // move select
                 <div className="battle-sfzone-container">
                     <FlyingPidgeot />
                     <OpponentCard 
-                        pokeBall={pokeBall}
+                        fetchTeam={fetchTeam}
+                        renderPokeBalls={renderPokeBalls}
                         opponentTrainer={opponentTrainer}
                         userDamage={userDamage}
-                    />
-
-                    {opponentBattleMove && opponentDamage ? 
-                        <img className="pokemon-attack" src="http://31.media.tumblr.com/9c77fb5630504da806464f80097aeb7f/tumblr_mie1te7yfk1r5fhkdo1_500.gif" alt="dragonite-hyperbeam"/>
-                    :
-                        null                    
-                    }
-
-                    {userBattleMove === null ? null : <img className="pokemon-attack" src="https://c.tenor.com/98nZAGp5ooQAAAAC/pokemon-tyranitar.gif" alt="tyranitar-hyperbeam"/>}
-
-                    <UserCard 
-                        pokeBall={pokeBall}
-                        userTrainer={userTrainer}
-                        opponentDamage={opponentDamage}
+                        opponentPokemon={opponentPokemon}
+                        setOpponentPokemon={setOpponentPokemon}
                         healthMovePP={healthMovePP}
                         setHealthMovePP={setHealthMovePP}
+                        seedHealthMovePP={seedHealthMovePP}
                     />
-                          
-                    {/* {userBattleMove === null ? null :
-                        <div>
-                            <p>{userPokemon.name} used {userBattleMove}!!! 
-                                                        
-                            {superEffective === null ? <p>{userBattleMove} did {userDamage} damage! </p>
-                            :
-                                <p>It's super effective. {userPokemon.name} knocked out {opponentPokemon.name}!!!</p> 
-                            }
-                            </p>
-                            <button className="action-button" onClick={endTurn}>End turn</button>
-                        </div>
-                    } */}
+
+                    {renderAttackImage()}
+                    <UserCard 
+                        selectedPokemon={userPokemon}
+                        setSelectedPokemon={setUserPokemon}
+                        fetchTeam={fetchTeam}
+                        renderPokeBalls={renderPokeBalls}
+                        userTrainer={userTrainer}
+                        opponentDamage={opponentDamage}
+                        setUserAttack={setUserAttack}
+                        healthMovePP={healthMovePP}
+                        setHealthMovePP={setHealthMovePP}
+                        seedHealthMovePP={seedHealthMovePP}
+                    />
+                    {renderAttack()}
 {/* 
                     {opponentBattleMove === null ? null :
                         <div>
