@@ -1,6 +1,6 @@
 import {useState, useEffect} from 'react'
 
-let OpponentCard = ({fetchTeam, renderPokeBalls, opponentTrainer, userDamage, opponentPokemon, setOpponentPokemon, healthMovePP, setHealthMovePP, seedHealthMovePP}) => {
+let OpponentCard = ({fetchTeam, renderPokeBalls, opponentTrainer, userDamage, opponentPokemon, setOpponentPokemon, seedHealthMovePP}) => {
     const [isLoaded, setIsLoaded] = useState(false)
     const [opponentTeam, setOpponentTeam] = useState(null)
 

@@ -245,8 +245,6 @@ let BattleHome = ({userTrainer, opponentTrainer, pokemonData, pokeBall}) => {
                         userDamage={userDamage}
                         opponentPokemon={opponentPokemon}
                         setOpponentPokemon={setOpponentPokemon}
-                        healthMovePP={healthMovePP}
-                        setHealthMovePP={setHealthMovePP}
                         seedHealthMovePP={seedHealthMovePP}
                     />
 
