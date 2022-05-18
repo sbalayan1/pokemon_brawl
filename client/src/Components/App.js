@@ -84,6 +84,7 @@ let App = () => {
   
         if (!data[5].error) {
           // alert(`Welcome ${data[5].username}`)
+          console.log(data[5])
           setCurrentUser(data[5])
           setIsLoaded(true)
           setTrainerHelper(data[0], data[5])

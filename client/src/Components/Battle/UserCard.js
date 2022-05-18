@@ -106,19 +106,28 @@ let UserCard = ({pokeBall, userTrainer, opponentDamage}) => {
             let name = data[0].name
             let moves = [data[0].moves[0], data[0].moves[1], data[0].moves[2], data[0].moves[3]]
 
-
-            data.forEach(pokemon => {
-                setMovePP({...movePP, [pokemon.name]: {}})
-                console.log(movePP)
+            setMovePP({
+                [data[0].name]: {},
+                [data[1].name]: {},
+                [data[2].name]: {},
+                [data[3].name]: {},
             })
-            // moves.map(move => {
-            //     fetchMove(`/api/pokemon/move/${move.name}`)
-            //     .then(moveData => {
-            //         setMovePP({...movePP, 
-            //             [name]: {[moveData.name]: moveData}
-            //         })
-            //     })
-            // })
+
+            moves.map(move => {
+                fetchMove(`/api/pokemon/move/${move.name}`)
+                .then(moveData => {
+                    console.log(movePP)
+                    if (!movePP[name]) {
+                        setMovePP({...movePP, 
+                            [name]: {[moveData.name]: moveData}
+                        })
+                    } else {
+                        setMovePP({...movePP, 
+                            [name]: {...movePP[name], [moveData.name]: moveData}
+                        })
+                    }
+                })
+            })
             setIsLoaded(true)
             console.log('rendering user card')
         })

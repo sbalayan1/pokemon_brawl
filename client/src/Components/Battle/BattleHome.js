@@ -21,7 +21,8 @@ let BattleHome = ({userTrainer, opponentTrainer, pokemonData, pokeBall}) => {
     const [displayTeam, setDisplayTeam] = useState(false)
     const [userTeamCount, setUserTeamCount] = useState(0)
     const [oppTeamCount, setOppTeamCount] = useState(0)
- 
+
+    // const [movePP, setMovePP] = useState(null)
 
     // let initiateOpponentMove = () => {
     //     let opponentMoves = [opponentPokemonMove1, opponentPokemonMove2, opponentPokemonMove3, opponentPokemonMove4]
