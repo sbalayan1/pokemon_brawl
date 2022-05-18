@@ -65,6 +65,8 @@ let BattleHome = ({userTrainer, opponentTrainer, pokemonData, pokeBall}) => {
                 healthMovePP['user'] = {[pokemon.name]: tempObject}
             :
                 healthMovePP['opponent'] = {[pokemon.name]: tempObject}
+
+            console.log(healthMovePP)
             setHealthMovePP(healthMovePP)
         })
     }
