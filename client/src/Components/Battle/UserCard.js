@@ -5,7 +5,7 @@ import InitialMove from './InitialMove'
 import BattleMoveCard from './BattleMoveCard'
 
 
-let UserCard = ({pokeBall, userTrainer, opponentDamage}) => {
+let UserCard = ({pokeBall, userTrainer, opponentDamage, movePP, setMovePP}) => {
     const history = useHistory()
     const [isLoaded, setIsLoaded] = useState(false)
 
@@ -21,7 +21,7 @@ let UserCard = ({pokeBall, userTrainer, opponentDamage}) => {
     const [move2, setMove2] = useState(null)
     const [move3, setMove3] = useState(null)
     const [move4, setMove4] = useState(null)
-    const [movePP, setMovePP] = useState(null)
+    // const [movePP, setMovePP] = useState({})
 
     let fetchUserTeam = async () => {
         try {
@@ -35,11 +35,11 @@ let UserCard = ({pokeBall, userTrainer, opponentDamage}) => {
         }
     }
 
-    let fetchMove = async (url) => {
+    let fetchMoves = async (moves) => {
         try {
-            let move = await fetch (url)
-            let data = move.json()
-            let results = await data
+            let movePromise = await Promise.all(moves.map(move => fetch(`/api/pokemon/move/${move.name}`)))
+            let moveData = movePromise.map(res => res.json())
+            let results = await Promise.all(moveData)
             return results
         } catch (error){
             console.error(error)
@@ -84,12 +84,24 @@ let UserCard = ({pokeBall, userTrainer, opponentDamage}) => {
     let sendOutPokemon = (e) => {
         if (selectedPokemon.name !== e.target.name) {
             let pokemon = userTeam.find(p => p.name === e.target.name)
+            let moves = []
+            for(let i = 0; i<4; i++) {
+                moves.push(pokemon.moves[i])
+            }
             setSelectedPokemon(pokemon)
             setHP(pokemon.stats.hp)
-            setMove1(pokemon.moves[0])
-            setMove2(pokemon.moves[1])
-            setMove3(pokemon.moves[2])
-            setMove4(pokemon.moves[3])
+            
+            if (!movePP[pokemon.name]) {
+                fetchMoves(moves).then(data => {
+                    let tempObject = {}
+                    data.map(move => {
+                        tempObject[move.name] = move
+                    })
+                    
+                    setMovePP({...movePP, [pokemon.name]: tempObject})
+                })
+            } 
+            
             setDisplayTeam(!displayTeam)      
             alert(`${userTrainer.name} sent out ${pokemon.name}`)
             // initiateOpponentMove()
@@ -106,27 +118,13 @@ let UserCard = ({pokeBall, userTrainer, opponentDamage}) => {
             let name = data[0].name
             let moves = [data[0].moves[0], data[0].moves[1], data[0].moves[2], data[0].moves[3]]
 
-            setMovePP({
-                [data[0].name]: {},
-                [data[1].name]: {},
-                [data[2].name]: {},
-                [data[3].name]: {},
-            })
-
-            moves.map(move => {
-                fetchMove(`/api/pokemon/move/${move.name}`)
-                .then(moveData => {
-                    console.log(movePP)
-                    if (!movePP[name]) {
-                        setMovePP({...movePP, 
-                            [name]: {[moveData.name]: moveData}
-                        })
-                    } else {
-                        setMovePP({...movePP, 
-                            [name]: {...movePP[name], [moveData.name]: moveData}
-                        })
-                    }
+            fetchMoves(moves).then(data => {
+                let tempObject = {}
+                data.forEach(move => {
+                    tempObject[move.name] = move
                 })
+
+                setMovePP({...movePP, [name]: tempObject})
             })
             setIsLoaded(true)
             console.log('rendering user card')

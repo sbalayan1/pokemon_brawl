@@ -57,8 +57,8 @@ let BattleMoveCard = ({selectedPokemon, displayTeam, setFightMove, movePP, setMo
 
     let renderButtons = Object.values(movePP[selectedPokemon.name]).map(move => (
         <BattleMoveButton
-            key={move} 
-            move={move} 
+            key={move.name} 
+            move={move.name} 
             handleSelectMove={handleSelectMove}
         />
     ))

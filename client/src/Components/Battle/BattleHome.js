@@ -21,7 +21,7 @@ let BattleHome = ({userTrainer, opponentTrainer, pokemonData, pokeBall}) => {
     const [displayTeam, setDisplayTeam] = useState(false)
     const [userTeamCount, setUserTeamCount] = useState(0)
     const [oppTeamCount, setOppTeamCount] = useState(0)
-
+    const [movePP, setMovePP] = useState({})
     // const [movePP, setMovePP] = useState(null)
 
     // let initiateOpponentMove = () => {
@@ -152,6 +152,8 @@ let BattleHome = ({userTrainer, opponentTrainer, pokemonData, pokeBall}) => {
                         pokeBall={pokeBall}
                         userTrainer={userTrainer}
                         opponentDamage={opponentDamage}
+                        movePP={movePP}
+                        setMovePP={setMovePP}
                     />
                           
                     {/* {userBattleMove === null ? null :

@@ -112,4 +112,5 @@ class Pokemon < ApplicationRecord
             'description': move['effect_entries'][0]['short_effect']
         }
     end 
+ 
 end
