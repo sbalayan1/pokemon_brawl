@@ -237,7 +237,7 @@ let BattleHome = ({userTrainer, opponentTrainer, pokemonData, pokeBall}) => {
             :
                 <div className="battle-sfzone-container">
                     <FlyingPidgeot />
-                    {/* <OpponentCard 
+                    <OpponentCard 
                         fetchTeam={fetchTeam}
                         renderPokeBalls={renderPokeBalls}
                         opponentTrainer={opponentTrainer}
@@ -245,7 +245,7 @@ let BattleHome = ({userTrainer, opponentTrainer, pokemonData, pokeBall}) => {
                         opponentPokemon={opponentPokemon}
                         setOpponentPokemon={setOpponentPokemon}
                         seedHealthMovePP={seedHealthMovePP}
-                    /> */}
+                    />
 
                     {renderAttackImage()}
                     <UserCard 
