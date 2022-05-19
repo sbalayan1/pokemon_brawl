@@ -10,17 +10,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_08_15_005833) do
+ActiveRecord::Schema.define(version: 2022_05_19_112024) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
-
-  create_table "abilities", force: :cascade do |t|
-    t.string "name"
-    t.string "description"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-  end
 
   create_table "battles", force: :cascade do |t|
     t.integer "trainer_id"
@@ -30,47 +23,10 @@ ActiveRecord::Schema.define(version: 2021_08_15_005833) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
-  create_table "moves", force: :cascade do |t|
-    t.string "name"
-    t.integer "power_points"
-    t.string "description"
-    t.integer "power"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-  end
-
-  create_table "pokemon_abilities", force: :cascade do |t|
-    t.integer "pokemon_id"
-    t.integer "ability_id"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-  end
-
-  create_table "pokemon_moves", force: :cascade do |t|
-    t.integer "pokemon_id"
-    t.integer "move_id"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-  end
-
-  create_table "pokemon_stats", force: :cascade do |t|
-    t.integer "pokemon_id"
-    t.integer "stat_id"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-  end
-
   create_table "pokemon_teams", force: :cascade do |t|
     t.integer "trainer_id"
     t.integer "pokemon_id"
     t.boolean "team_member"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-  end
-
-  create_table "pokemon_types", force: :cascade do |t|
-    t.integer "pokemon_id"
-    t.integer "type_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
@@ -85,17 +41,6 @@ ActiveRecord::Schema.define(version: 2021_08_15_005833) do
     t.string "back_image"
   end
 
-  create_table "stats", force: :cascade do |t|
-    t.integer "hp"
-    t.integer "attack"
-    t.integer "defense"
-    t.integer "speed"
-    t.integer "sp_attack"
-    t.integer "sp_defense"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-  end
-
   create_table "trainers", force: :cascade do |t|
     t.string "name"
     t.string "img_url"
@@ -103,12 +48,6 @@ ActiveRecord::Schema.define(version: 2021_08_15_005833) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.boolean "gender"
-  end
-
-  create_table "types", force: :cascade do |t|
-    t.string "name"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "users", force: :cascade do |t|

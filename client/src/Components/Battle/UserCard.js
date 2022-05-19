@@ -26,8 +26,10 @@ let UserCard = ({selectedPokemon, setSelectedPokemon, fetchTeam, renderPokeBalls
     let sendOutPokemon = (e) => {
         if (selectedPokemon.name !== e.target.name) {
             let pokemon = userTeam.find(p => p.name === e.target.name)
+            if (!healthMovePP['user'][pokemon.name]) {
+                seedHealthMovePP(pokemon.moves, pokemon, 'user')
+            }
             setSelectedPokemon(pokemon)
-            if (!healthMovePP['user'][pokemon.name]) seedHealthMovePP(pokemon.moves, pokemon, 'user')
             setDisplayTeam(!displayTeam)      
             alert(`${userTrainer.name} sent out ${pokemon.name}`)
             // initiateOpponentMove()
@@ -46,6 +48,16 @@ let UserCard = ({selectedPokemon, setSelectedPokemon, fetchTeam, renderPokeBalls
         })
 
     }, [])
+
+    let renderHP = () => {
+        let dataHP = selectedPokemon.stats.hp
+        if (healthMovePP['user']) {
+            let pokemon = healthMovePP['user'][selectedPokemon.name]
+            return pokemon ? pokemon['hp'] : dataHP
+        } else {
+            return dataHP
+        }
+    }
 
     let renderInitialMove = () => {
         return !selectedMove ?   
@@ -79,8 +91,7 @@ let UserCard = ({selectedPokemon, setSelectedPokemon, fetchTeam, renderPokeBalls
                     <div className="trainer-stats-card">
                         <div className="hp-card">
                             <p style={opponentDamage >0 ? {backgroundColor:'red', marginLeft:'5px'} : {marginLeft:'5px'}}>
-                                {/* can run into issues here with updated hp not  */}
-                                HP: {healthMovePP['user'] ? healthMovePP['user'][selectedPokemon.name]['hp']  : selectedPokemon.stats.hp}
+                                HP: {renderHP()}
                             </p>
                             <p>LVL: {selectedPokemon.level}</p>
                         </div>

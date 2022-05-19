@@ -22,13 +22,5 @@ Rails.application.routes.draw do
     resources :battles, only: [:index, :show, :create]
     resources :pokemon_teams, only: [:index, :show, :create]
     resources :pokemon, only: [:index, :show, :create, :destroy]
-    resources :moves, only: [:index, :show, :create]
-    resources :pokemon_moves, only: [:index, :show, :create]
-    resources :stats, only: [:index, :show, :create]
-    resources :pokemon_stats, only: [:index, :show, :create]
-    resources :abilities, only: [:index, :show, :create]
-    resources :pokemon_abilities, only: [:index, :show, :create]
-    resources :types, only: [:index, :show, :create]
-    resources :pokemon_types, only: [:index, :show, :create]
   end 
 end

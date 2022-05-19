@@ -1,6 +1,8 @@
 puts 'clear old data'
     Pokemon.delete_all
     ActiveRecord::Base.connection.reset_pk_sequence!('pokemons')
+    PokemonTeam.delete_all
+    ActiveRecord::Base.connection.reset_pk_sequence!('pokemon_teams')
     User.delete_all
     ActiveRecord::Base.connection.reset_pk_sequence!('users')
     Trainer.delete_all
@@ -9,14 +11,14 @@ puts 'clear old data'
     ActiveRecord::Base.connection.reset_pk_sequence!('battles')
 
 puts 'seed pokemon'
-    count = 0
-    url = 'https://pokeapi.co/api/v2/pokemon?limit=151'
-    uri = URI.parse(url)
-    response = Net::HTTP.get_response(uri)
-    pokemon_list = JSON.parse(response.body)
-    pokemon_urls = pokemon_list['results'].map do |pokemon|
-        count += 1
-        Pokemon.create(name: pokemon['name'], level: 10, front_image: '', back_image: '', wins: 0)
+    id = 1
+    while (id <= 151) do
+        url = "https://pokeapi.co/api/v2/pokemon/#{id}"
+        uri = URI.parse(url)
+        response = Net::HTTP.get_response(uri)
+        pokemon = JSON.parse(response.body)
+        Pokemon.create(name: pokemon['name'], level: 10, front_image: pokemon['sprites']['front_shiny'], back_image: pokemon['sprites']['back_shiny'], wins: 0)
+        id += 1
     end
 
 puts 'create user'
@@ -52,26 +54,12 @@ puts 'create trainer'
 
     Trainer.create(name: 'Oak', gender: true, img_url: 'https://archives.bulbagarden.net/media/upload/1/1e/Spr_RG_Oak.png', user_id: User.all[8].id)
 
-# puts 'battles'
+puts 'create battles'
+    Battle.create(trainer_id: User.first.id, opponent_id: User.second.id, win_loss: true)
+    Battle.create(trainer_id: User.first.id, opponent_id: User.third.id, win_loss: true)
+    Battle.create(trainer_id: User.first.id, opponent_id: User.fourth.id, win_loss: true)
+    Battle.create(trainer_id: User.first.id, opponent_id: 5, win_loss: true)
 
-#     Battle.create(trainer_id: User.first.id, opponent_id: User.second.id, win_loss: true)
-#     Battle.create(trainer_id: User.first.id, opponent_id: User.third.id, win_loss: true)
-#     Battle.create(trainer_id: User.first.id, opponent_id: User.fourth.id, win_loss: true)
-#     Battle.create(trainer_id: User.first.id, opponent_id: 5, win_loss: true)
-
-# puts 'seed pokemonteam'
-# PokemonTeam.create(trainer_id: 2, pokemon_id: Pokemon.all[0].id, team_member: true)
-# PokemonTeam.create(trainer_id: 3, pokemon_id: Pokemon.all[5].id, team_member: true)
-# PokemonTeam.create(trainer_id: 4, pokemon_id: Pokemon.all[23].id, team_member: true)
-# PokemonTeam.create(trainer_id: 5, pokemon_id: Pokemon.all[0].id, team_member: true)
-# PokemonTeam.create(trainer_id: 6, pokemon_id: Pokemon.all[5].id, team_member: true)
-# PokemonTeam.create(trainer_id: 7, pokemon_id: Pokemon.all[23].id, team_member: true)
-# PokemonTeam.create(trainer_id: 8, pokemon_id: Pokemon.all[0].id, team_member: true)
-# PokemonTeam.create(trainer_id: 9, pokemon_id: Pokemon.all[5].id, team_member: true)
-# PokemonTeam.create(trainer_id: 18, pokemon_id: Pokemon.all[23].id, team_member: true)
-
-
-puts 'done seeding'
 
 puts 'seeding PokemonTeam'
 Trainer.all.map do |t|
@@ -80,55 +68,5 @@ Trainer.all.map do |t|
         PokemonTeam.create(trainer_id: t.id, pokemon_id: number, team_member: true)
     end  
 end
-# 6.times do
-#     number = rand(0..151)
-#     PokemonTeam.create(trainer_id: 1, pokemon_id: number, team_member: true)
-# end 
-
-# 6.times do
-#     number = rand(0..151)
-#     PokemonTeam.create(trainer_id: 2, pokemon_id: number, team_member: true)
-# end 
-
-# 6.times do
-#     number = rand(0..151)
-#     PokemonTeam.create(trainer_id: 3, pokemon_id: number, team_member: true)
-# end 
-
-
-# 6.times do
-#     number = rand(0..151)
-#     PokemonTeam.create(trainer_id: 4, pokemon_id: number, team_member: true)
-# end 
-
-# 6.times do
-#     number = rand(0..151)
-#     PokemonTeam.create(trainer_id: 5, pokemon_id: number, team_member: true)
-# end 
-
-# 6.times do
-#     number = rand(0..151)
-#     PokemonTeam.create(trainer_id: 6, pokemon_id: number, team_member: true)
-# end 
-
-# 6.times do
-#     number = rand(0..151)
-#     PokemonTeam.create(trainer_id: 7, pokemon_id: number, team_member: true)
-# end 
-
-# 6.times do
-#     number = rand(0..151)
-#     PokemonTeam.create(trainer_id: 8, pokemon_id: number, team_member: true)
-# end 
-
-# 6.times do
-#     number = rand(0..151)
-#     PokemonTeam.create(trainer_id: 9, pokemon_id: number, team_member: true)
-# end 
-
-# 5.times do
-#     number = rand(0..151)
-#     PokemonTeam.create(trainer_id: 18, pokemon_id: number, team_member: true)
-# end 
 
 puts 'done seeding'

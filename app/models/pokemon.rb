@@ -6,18 +6,6 @@ class Pokemon < ApplicationRecord
     has_many :pokemon_teams 
     has_many :trainers, through: :pokemon_teams
 
-    has_many :pokemon_moves, dependent: :destroy
-    has_many :moves, through: :pokemon_moves
-
-    has_many :pokemon_stats, dependent: :destroy
-    has_many :stats, through: :pokemon_stats
-
-    has_many :pokemon_abilities
-    has_many :abilities, through: :pokemon_abilities
-
-    has_many :pokemon_types
-    has_many :types, through: :pokemon_types
-
     validates :name, presence: true
     validates :level, presence: true
     validates :wins, presence: true
@@ -25,13 +13,11 @@ class Pokemon < ApplicationRecord
     validates :back_image, presence: true
 
     def self.get_all_pokemon_urls
-        count = 0
         url = 'https://pokeapi.co/api/v2/pokemon?limit=151'
         uri = URI.parse(url)
         response = Net::HTTP.get_response(uri)
         pokemon_list = JSON.parse(response.body)
         pokemon_urls = pokemon_list['results'].map do |pokemon|
-            count += 1
             pokemon_object = {
                 'id': count,
                 'name': pokemon['name'],
