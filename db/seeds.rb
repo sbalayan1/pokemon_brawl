@@ -1,10 +1,23 @@
 puts 'clear old data'
+    Pokemons.delete_all
+    ActiveRecord::Base.connection.reset_pk_sequence!('pokemons')
     User.delete_all
     ActiveRecord::Base.connection.reset_pk_sequence!('users')
     Trainer.delete_all
     ActiveRecord::Base.connection.reset_pk_sequence!('trainers')
     Battle.delete_all
     ActiveRecord::Base.connection.reset_pk_sequence!('battles')
+
+puts 'seed pokemon'
+    count = 0
+    url = 'https://pokeapi.co/api/v2/pokemon?limit=151'
+    uri = URI.parse(url)
+    response = Net::HTTP.get_response(uri)
+    pokemon_list = JSON.parse(response.body)
+    pokemon_urls = pokemon_list['results'].map do |pokemon|
+        count += 1
+        Pokemons.create(name: pokemon['name'], level: 10, front_image: '', back_image: '', wins: 0)
+    end
 
 puts 'create user'
     User.create(username: 'sean', first_name: 'sean', last_name: 'balayan', email_address: 'balayan123@email.com', age: 50, password: '123456', password_confirmation: '123456')
@@ -38,8 +51,6 @@ puts 'create trainer'
     Trainer.create(name: 'Lance', gender: true, img_url: 'https://archives.bulbagarden.net/media/upload/e/eb/Spr_RG_Lance.png', user_id: User.all[7].id)
 
     Trainer.create(name: 'Oak', gender: true, img_url: 'https://archives.bulbagarden.net/media/upload/1/1e/Spr_RG_Oak.png', user_id: User.all[8].id)
-
-    Trainer.create(name: 'Giovanni', gender: true, img_url: 'https://archives.bulbagarden.net/media/upload/2/23/Spr_RG_Giovanni.png', user_id: User.all[9].id)
 
 # puts 'battles'
 
