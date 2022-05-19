@@ -1,5 +1,5 @@
 puts 'clear old data'
-    Pokemons.delete_all
+    Pokemon.delete_all
     ActiveRecord::Base.connection.reset_pk_sequence!('pokemons')
     User.delete_all
     ActiveRecord::Base.connection.reset_pk_sequence!('users')
@@ -16,7 +16,7 @@ puts 'seed pokemon'
     pokemon_list = JSON.parse(response.body)
     pokemon_urls = pokemon_list['results'].map do |pokemon|
         count += 1
-        Pokemons.create(name: pokemon['name'], level: 10, front_image: '', back_image: '', wins: 0)
+        Pokemon.create(name: pokemon['name'], level: 10, front_image: '', back_image: '', wins: 0)
     end
 
 puts 'create user'
