@@ -1,12 +1,12 @@
-import {useState, useEffect} from 'react'
-import {useHistory} from 'react-router-dom'
+import { useState, useEffect } from 'react'
+import { useHistory } from 'react-router-dom'
 import InitialLoad from './InitialLoad'
 import FlyingPidgeot from './FlyingPidgeot'
 import UserCard from './UserCard'
 import OpponentCard from './OpponentCard'
 import PokeBallBattle from './PokeBallBattle'
 
-let BattleHome = ({userTrainer, opponentTrainer, pokemonData, pokeBall}) => {
+let BattleHome = ({ userTrainer, opponentTrainer, pokemonData, pokeBall }) => {
     const history = useHistory()
     const [initialBattleLoad, setInitialBattleLoad] = useState(true)
 
@@ -26,6 +26,8 @@ let BattleHome = ({userTrainer, opponentTrainer, pokemonData, pokeBall}) => {
     const [healthMovePP, setHealthMovePP] = useState({})
     const [userPokemon, setUserPokemon] = useState(null)
     const [opponentPokemon, setOpponentPokemon] = useState(null)
+    const [userTeam, setUserTeam] = useState(null)
+    const [opponentTeam, setOpponentTeam] = useState(null)
     const [userAttack, setUserAttack] = useState(null)
     const [opponentAttack, setOpponentAttack] = useState(null)
 
@@ -47,31 +49,32 @@ let BattleHome = ({userTrainer, opponentTrainer, pokemonData, pokeBall}) => {
             let moveData = movePromise.map(res => res.json())
             let results = await Promise.all(moveData)
             return results
-        } catch (error){
+        } catch (error) {
             console.error(error)
         }
     }
 
     let seedHealthMovePP = (movesArray, pokemon, user) => {
-        let moves = movesArray.slice(0,4) 
+        let moves = movesArray.slice(0, 4)
         fetchMoves(moves).then(moveData => {
             let tempObject = {}
             let movesObject = {}
-            moveData.forEach(move => {movesObject[move.name] = move})
+            moveData.forEach(move => { movesObject[move.name] = move })
             tempObject['hp'] = pokemon.stats.hp
             tempObject['moves'] = movesObject
+            tempObject['attack'] = null
 
-            user === 'user' ? 
-                healthMovePP['user'] = {...healthMovePP['user'], [pokemon.name]: tempObject}
-            :
-                healthMovePP['opponent'] = {...healthMovePP['opponent'], [pokemon.name]: tempObject}
+            user === 'user' ?
+                healthMovePP['user'] = { ...healthMovePP['user'], [pokemon.name]: tempObject }
+                :
+                healthMovePP['opponent'] = { ...healthMovePP['opponent'], [pokemon.name]: tempObject }
 
             setHealthMovePP(healthMovePP)
         })
     }
 
     let renderPokeBalls = (team) => (
-        team.map((p) => <PokeBallBattle key={p.name} pokeBall={pokeBall}/>)
+        team.map((p) => <PokeBallBattle key={p.name} pokeBall={pokeBall} />)
     )
 
     // let initiateOpponentMove = () => {
@@ -97,9 +100,16 @@ let BattleHome = ({userTrainer, opponentTrainer, pokemonData, pokeBall}) => {
     let endTurn = () => {
         if (userAttack) {
             setUserAttack(null)
-            // if (healthMovePP['opponent'][userPokemon.name]['hp'] <= 0) {
-
-            // }
+            let opponentHP = healthMovePP['opponent'][opponentPokemon.name]['hp']
+            if (opponentHP <= 0) { 
+                delete healthMovePP['opponent'][opponentPokemon.name]
+                let team = opponentTeam.filter(pokemon => pokemon.name !== opponentPokemon.name)
+                setOpponentTeam(team)
+                setOpponentPokemon(team[0])
+                seedHealthMovePP(team[0].moves, team[0], 'opponent')
+            } else {
+                
+            }
         }
     }
 
@@ -164,7 +174,7 @@ let BattleHome = ({userTrainer, opponentTrainer, pokemonData, pokeBall}) => {
     //             setUserPokemonMove4PP(pokemonData.find(pokemon => pokemon.id === pokeTeam[userTeamCount+1].pokemon_id).moves[3].power_points)
 
     //         } else if (userTeamCount === pokeTeam.length-1) {
-                
+
     //             alert('You lost the battle')
     //             fetch('http://localhost:3000/battles', {
     //                 method: 'POST', 
@@ -180,47 +190,57 @@ let BattleHome = ({userTrainer, opponentTrainer, pokemonData, pokeBall}) => {
     //     }
     // }
 
+    let renderHP = (user, selectedPokemon) => {
+        let dataHP = selectedPokemon.stats.hp
+        if (healthMovePP[user]) {
+            let pokemon = healthMovePP[user][selectedPokemon.name]
+            return pokemon ? pokemon['hp'] : dataHP
+        } else {
+            return dataHP
+        }
+    }
+
     let renderAttack = () => {
         return (
             <>
-            {userAttack || opponentAttack ?
-                userAttack ? 
-                    <div>
-                        <>{userAttack.pokemon} used {userAttack.name}!!! 
-                     
-                            {superEffective === null ? 
-                                <p>{userAttack.name} did {userAttack.damage} damage! </p>
-                            :
-                                <p>It's super effective. {userAttack.pokemon} knocked out {opponentPokemon.name}!!!</p> 
-                            }
-                        </>
-                        <button className="action-button" onClick={endTurn}>
-                            End turn
-                        </button>
-                    </div>
-                :
-                    <div>
-                        <p>{opponentPokemon.name} used {opponentAttack.name}</p>
-                        <button className="action-button" onClick={endTurn}>Continue</button>
-                    </div>
-            :
-                null
-            }
+                {userAttack || opponentAttack ?
+                    userAttack ?
+                        <div>
+                            <>{userAttack.pokemon} used {userAttack.name}!!!
+
+                                {superEffective === null ?
+                                    <p>{userAttack.name} did {userAttack.damage} damage! </p>
+                                    :
+                                    <p>It's super effective. {userAttack.pokemon} knocked out {opponentPokemon.name}!!!</p>
+                                }
+                            </>
+                            <button className="action-button" onClick={endTurn}>
+                                End turn
+                            </button>
+                        </div>
+                        :
+                        <div>
+                            <p>{opponentPokemon.name} used {opponentAttack.name}</p>
+                            <button className="action-button" onClick={endTurn}>Continue</button>
+                        </div>
+                    :
+                    null
+                }
             </>
         )
     }
 
     let renderAttackImage = () => {
         let attackImages = ["http://31.media.tumblr.com/9c77fb5630504da806464f80097aeb7f/tumblr_mie1te7yfk1r5fhkdo1_500.gif", "https://c.tenor.com/98nZAGp5ooQAAAAC/pokemon-tyranitar.gif"]
-        
+
         return (
-            <>    
-                {userAttack || opponentAttack ? 
-                    <img 
-                        className="pokemon-attack" 
+            <>
+                {userAttack || opponentAttack ?
+                    <img
+                        className="pokemon-attack"
                         src={userAttack ? attackImages[1] : attackImages[0]} alt="hyperbeam"
                     />
-                :
+                    :
                     null
                 }
             </>
@@ -230,39 +250,46 @@ let BattleHome = ({userTrainer, opponentTrainer, pokemonData, pokeBall}) => {
 
     return (
         <div className="battle-sfzone-container">
-            {initialBattleLoad ?  
-                <InitialLoad 
+            {initialBattleLoad ?
+                <InitialLoad
                     setInitialBattleLoad={setInitialBattleLoad}
                     opponentTrainer={opponentTrainer}
                 />
-            :
+                :
                 <div className="battle-sfzone-container">
                     <FlyingPidgeot />
-                    <OpponentCard 
+                    <OpponentCard
+                        opponentTeam={opponentTeam}
+                        setOpponentTeam={setOpponentTeam}
                         fetchTeam={fetchTeam}
+                        renderHP={renderHP}
                         renderPokeBalls={renderPokeBalls}
                         opponentTrainer={opponentTrainer}
-                        userDamage={userDamage}
+                        userAttack={userAttack}
                         opponentPokemon={opponentPokemon}
                         setOpponentPokemon={setOpponentPokemon}
                         seedHealthMovePP={seedHealthMovePP}
                     />
 
                     {renderAttackImage()}
-                    <UserCard 
+                    <UserCard
+                        userTeam={userTeam}
+                        setUserTeam={setUserTeam}
                         selectedPokemon={userPokemon}
                         setSelectedPokemon={setUserPokemon}
                         fetchTeam={fetchTeam}
+                        renderHP={renderHP}
                         renderPokeBalls={renderPokeBalls}
                         userTrainer={userTrainer}
-                        opponentDamage={opponentDamage}
+                        opponentAttack={opponentAttack}
                         setUserAttack={setUserAttack}
                         healthMovePP={healthMovePP}
                         setHealthMovePP={setHealthMovePP}
                         seedHealthMovePP={seedHealthMovePP}
+                        opponentPokemon={opponentPokemon}
                     />
                     {renderAttack()}
-{/* 
+                    {/* 
                     {opponentBattleMove === null ? null :
                         <div>
                             <p>{opponentPokemon.name} used {opponentBattleMove.name}</p>

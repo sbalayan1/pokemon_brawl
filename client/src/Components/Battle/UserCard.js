@@ -5,12 +5,11 @@ import InitialMove from './InitialMove'
 import BattleMoveCard from './BattleMoveCard'
 
 
-let UserCard = ({selectedPokemon, setSelectedPokemon, fetchTeam, renderPokeBalls, userTrainer, opponentDamage, setUserAttack, healthMovePP, setHealthMovePP, seedHealthMovePP}) => {
+let UserCard = ({userTeam, setUserTeam, selectedPokemon, setSelectedPokemon, fetchTeam, renderHP, renderPokeBalls, userTrainer, healthMovePP, setHealthMovePP, seedHealthMovePP, opponentPokemon, opponentAttack, setUserAttack}) => {
     const history = useHistory()
     const [isLoaded, setIsLoaded] = useState(false)
     const [displayTeam, setDisplayTeam] = useState(false)
     const [selectedMove, setSelectedMove] = useState(null)
-    const [userTeam, setUserTeam] = useState(null)
 
     let selectMove = (e) => {
         if(e.target.value === 'Fight' || e.target.value === 'Bag') {
@@ -49,16 +48,6 @@ let UserCard = ({selectedPokemon, setSelectedPokemon, fetchTeam, renderPokeBalls
 
     }, [])
 
-    let renderHP = () => {
-        let dataHP = selectedPokemon.stats.hp
-        if (healthMovePP['user']) {
-            let pokemon = healthMovePP['user'][selectedPokemon.name]
-            return pokemon ? pokemon['hp'] : dataHP
-        } else {
-            return dataHP
-        }
-    }
-
     let renderInitialMove = () => {
         return !selectedMove ?   
             <InitialMove 
@@ -77,6 +66,7 @@ let UserCard = ({selectedPokemon, setSelectedPokemon, fetchTeam, renderPokeBalls
                 setFightMove={setSelectedMove}
                 healthMovePP={healthMovePP}
                 setHealthMovePP={setHealthMovePP}
+                opponentPokemon={opponentPokemon}
                 setUserAttack={setUserAttack}
             />
         :   
@@ -90,8 +80,8 @@ let UserCard = ({selectedPokemon, setSelectedPokemon, fetchTeam, renderPokeBalls
                 <div className="trainer-decision-making-container">
                     <div className="trainer-stats-card">
                         <div className="hp-card">
-                            <p style={opponentDamage >0 ? {backgroundColor:'red', marginLeft:'5px'} : {marginLeft:'5px'}}>
-                                HP: {renderHP()}
+                            <p style={opponentAttack ? {backgroundColor:'red', marginLeft:'5px'} : {marginLeft:'5px'}}>
+                                HP: {renderHP('user', selectedPokemon)}
                             </p>
                             <p>LVL: {selectedPokemon.level}</p>
                         </div>

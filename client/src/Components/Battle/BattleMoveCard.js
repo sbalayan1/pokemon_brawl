@@ -1,7 +1,7 @@
-import {useState, useEffect} from 'react'
+import {useState} from 'react'
 import BattleMoveButton from './BattleMoveButton'
 
-let BattleMoveCard = ({selectedPokemon, displayTeam, setFightMove, healthMovePP, setHealthMovePP, setUserAttack}) => {
+let BattleMoveCard = ({selectedPokemon, displayTeam, setFightMove, healthMovePP, setHealthMovePP, setUserAttack, opponentPokemon}) => {
     console.log(healthMovePP)
     const [selectedMove, setSelectedMove] = useState(null)
 
@@ -22,22 +22,23 @@ let BattleMoveCard = ({selectedPokemon, displayTeam, setFightMove, healthMovePP,
         let damage = Math.round(((((2*selectedPokemon.level)/5)*(selectedPokemon.stats.attack/selectedPokemon.stats.defense)*selectedMove.power)/50)+2)
         let name = selectedPokemon.name
         let move = selectedMove.name
-        healthMovePP['user'][name]['moves'][move]['pp'] -= 1
-
         let tempObject = {}
         tempObject['pokemon'] = name
         tempObject['name'] = move
         tempObject['damage'] = damage
-        setHealthMovePP(healthMovePP)
-        setUserAttack(tempObject)
+
+        let opponentHP = healthMovePP['opponent'][opponentPokemon.name]['hp']
+        let updatedHP = opponentHP - damage
+        updatedHP <=0 ? 
+            healthMovePP['opponent'][opponentPokemon.name]['hp'] = 0
+        :
+            healthMovePP['opponent'][opponentPokemon.name]['hp'] -= damage
+
+        healthMovePP['user'][name]['moves'][move]['pp'] -= 1
         hideMoves()
         unselectMove()
-        // if (opponentPokemonHP - ((((2*userPokemon.level)/5)*(userPokemon.stats[0].attack/opponentPokemon.stats[0].defense)*battleMovePrompt.power)/50)+2 <= 0) {
-        //     setSuperEffective(true)
-        //     setOpponentPokemonHP(0)
-        // } else {
-        //     setOpponentPokemonHP(opponentPokemonHP - Math.round(((((2*userPokemon.level)/5)*(userPokemon.stats[0].attack/opponentPokemon.stats[0].defense)*battleMovePrompt.power)/50)+2))
-        // }
+        setUserAttack(tempObject)
+        setHealthMovePP(healthMovePP)
     }
 
     let renderMovesCard = () => (

@@ -1,8 +1,7 @@
 import {useState, useEffect} from 'react'
 
-let OpponentCard = ({fetchTeam, renderPokeBalls, opponentTrainer, userDamage, opponentPokemon, setOpponentPokemon, seedHealthMovePP}) => {
+let OpponentCard = ({opponentTeam, setOpponentTeam, fetchTeam, renderHP, renderPokeBalls, opponentTrainer, opponentPokemon, setOpponentPokemon, seedHealthMovePP, userAttack}) => {
     const [isLoaded, setIsLoaded] = useState(false)
-    const [opponentTeam, setOpponentTeam] = useState(null)
 
     useEffect(() => {
         fetchTeam(opponentTrainer).then(teamData => {
@@ -23,7 +22,7 @@ let OpponentCard = ({fetchTeam, renderPokeBalls, opponentTrainer, userDamage, op
                     </div>
                     <div className="stats-card">
                         <div className="hp-card">
-                            <p style={userDamage > 0 ? {backgroundColor:'red', marginLeft:'5px'}: {marginLeft:'5px'}} >HP: {opponentPokemon.stats.hp}</p>
+                            <p style={userAttack ? {backgroundColor:'red', marginLeft:'5px'}: {marginLeft:'5px'}}>HP: {renderHP('opponent', opponentPokemon)}</p>
                             <p>LVL: {opponentPokemon.level}</p>
                         </div>
                         <div className="attack-card">
