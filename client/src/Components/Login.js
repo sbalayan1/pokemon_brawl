@@ -1,5 +1,6 @@
 import {useEffect, useState} from 'react'
 import { useHistory } from 'react-router-dom'
+import Paper from '@mui/material/Paper'
 import LoadScreen from './LoadScreen'
 
 let Login = ({currentUser, setCurrentUser, isLoaded, setIsLoaded, trainers, setTrainerHelper}) => {
@@ -40,7 +41,7 @@ let Login = ({currentUser, setCurrentUser, isLoaded, setIsLoaded, trainers, setT
     let renderLoginScreen = () => {
         return (
             <div className="login-container">
-                <div>
+                <Paper elevation={24}>
                     <form className="login-form" onSubmit={handleSubmit}>
                         <h1>Login</h1>
                         <label htmlFor="username">Username</label>
@@ -53,7 +54,7 @@ let Login = ({currentUser, setCurrentUser, isLoaded, setIsLoaded, trainers, setT
                         <button className="submit" type="reset" onClick={handleSignup}>Sign Up</button>
                         {errors ? <div>{errors}</div>: null}
                     </div>
-                </div>
+                </Paper>
             </div>
         ) 
     }

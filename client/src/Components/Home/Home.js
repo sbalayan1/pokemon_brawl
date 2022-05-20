@@ -2,8 +2,6 @@ import * as React from 'react'
 import Ability from '../Ability'
 import Stat from '../Stat'
 import LoadScreen from '../LoadScreen'
-import {Container} from 'nes-react'
-
 import Charizard from './Charizard'
 import BuildBattle from './BuildBattle'
 import WhoThatPokemon from './WhoThatPoke'

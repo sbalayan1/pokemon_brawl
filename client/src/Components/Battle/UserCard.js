@@ -25,9 +25,7 @@ let UserCard = ({userTeam, setUserTeam, selectedPokemon, setSelectedPokemon, fet
     let sendOutPokemon = (e) => {
         if (selectedPokemon.name !== e.target.name) {
             let pokemon = userTeam.find(p => p.name === e.target.name)
-            if (!healthMovePP['user'][pokemon.name]) {
-                seedHealthMovePP(pokemon.moves, pokemon, 'user')
-            }
+            if (!healthMovePP['user'][pokemon.name]) {seedHealthMovePP(pokemon.moves, pokemon, 'user')}
             setSelectedPokemon(pokemon)
             setDisplayTeam(!displayTeam)      
             alert(`${userTrainer.name} sent out ${pokemon.name}`)
@@ -45,7 +43,6 @@ let UserCard = ({userTeam, setUserTeam, selectedPokemon, setSelectedPokemon, fet
             setIsLoaded(true)
             console.log('rendering user card')
         })
-
     }, [])
 
     let renderInitialMove = () => {

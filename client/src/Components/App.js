@@ -1,7 +1,7 @@
 import {useState, useEffect} from 'react'
 import { Switch, Route, useHistory } from 'react-router-dom'
+import Paper from '@mui/material/Paper'
 import * as React from 'react'
-import {Container} from 'nes-react'
 import NavBar from './NavBar'
 import SignUp from './SignUp';
 import Login from './Login';
@@ -97,7 +97,7 @@ let App = () => {
 
   if (!currentUser) {
     return (
-      <div>
+      <div className='app'>
         <NavBar 
           pokeBall={pokeBall}
           currentUser={currentUser}
@@ -139,7 +139,7 @@ let App = () => {
     )
   } else {
     return (
-      <div>
+      <div className='app'>
         <NavBar 
           pokeBall={pokeBall}
           currentUser={currentUser}
@@ -147,14 +147,14 @@ let App = () => {
         <div className="app-container">
           <Switch>
             <Route exact path ='/login'>
-              <Login 
-                currentUser={currentUser}
-                setCurrentUser={setCurrentUser}
-                isLoaded={isLoaded}
-                setIsLoaded={setIsLoaded}
-                trainers={trainers}
-                setTrainerHelper={setTrainerHelper}
-              />
+                <Login 
+                  currentUser={currentUser}
+                  setCurrentUser={setCurrentUser}
+                  isLoaded={isLoaded}
+                  setIsLoaded={setIsLoaded}
+                  trainers={trainers}
+                  setTrainerHelper={setTrainerHelper}
+                />
             </Route>
             <Route exact path ='/logout'>
               <Logout 

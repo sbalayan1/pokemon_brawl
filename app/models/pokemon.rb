@@ -17,12 +17,16 @@ class Pokemon < ApplicationRecord
         uri = URI.parse(url)
         response = Net::HTTP.get_response(uri)
         pokemon_list = JSON.parse(response.body)
+        count = 1
         pokemon_urls = pokemon_list['results'].map do |pokemon|
             pokemon_object = {
                 'id': count,
                 'name': pokemon['name'],
                 'url': pokemon['url']
             }
+
+            count += 1
+            pokemon_object
         end
     end
 
