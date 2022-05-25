@@ -1,7 +1,10 @@
 import {useEffect, useState} from 'react'
 import { useHistory } from 'react-router-dom'
 import Paper from '@mui/material/Paper'
+import Button from '@mui/material/Button'
+import TextField from '@mui/material/TextField'
 import LoadScreen from './LoadScreen'
+import { padding } from '@mui/system'
 
 let Login = ({currentUser, setCurrentUser, isLoaded, setIsLoaded, trainers, setTrainerHelper}) => {
     const history = useHistory()
@@ -41,19 +44,15 @@ let Login = ({currentUser, setCurrentUser, isLoaded, setIsLoaded, trainers, setT
     let renderLoginScreen = () => {
         return (
             <div className="login-container">
-                <Paper elevation={24}>
+                <Paper elevation={24} className='login-paper'>
                     <form className="login-form" onSubmit={handleSubmit}>
                         <h1>Login</h1>
-                        <label htmlFor="username">Username</label>
-                        <input className="login-input" type="text" value={username} onChange={(e)=> setUsername(e.target.value)}/>
-                        <label htmlFor="password">Password</label>
-                        <input className="login-input" type="password" value={password} onChange={(e)=> setPassword(e.target.value)}/>
-                        <button className="submit" type="submit">Submit</button>
-                    </form>
-                    <div className="login-form-sign-up">
-                        <button className="submit" type="reset" onClick={handleSignup}>Sign Up</button>
+                        <TextField style={{margin:'5px'}} label="Username" variant="outlined" type="text" value={username} onChange={(e)=> setUsername(e.target.value)}/>
+                        <TextField style={{margin:'5px'}} label="Password" variant="outlined" type="password" value={password} onChange={(e)=> setPassword(e.target.value)}/>
+                        <Button style={{margin:'5px'}} className='submit' variant='contained' type="submit">Submit</Button>
+                        <Button style={{margin:'5px'}} className='submit' variant='contained' type="reset" onClick={handleSignup}>Sign Up</Button>
                         {errors ? <div>{errors}</div>: null}
-                    </div>
+                    </form>
                 </Paper>
             </div>
         ) 
