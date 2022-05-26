@@ -5,28 +5,45 @@
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif
 }
 
+@media only screen and (max-device-width: 400px) {
+  html {
+    height: 100%;
+    width: 300px;
+  }
+  body { 
+    width: 100%;
+    height: 100%;
+  }
+
+}
+
 html {
   height: 100%;
+  width: 100%
 }
 
 body {
   height: 100%;
+  width: 100%;
 }
 
 /* CSS for the app */
 
 #root {
   height: 100%;
+  width: 100%
 }
 
 .app {
-  height: 100%
+  height: 100%;
+  width: 100%;
 }
 
 .app-container {
   background-image: url('https://www.pixelstalk.net/wp-content/uploads/2016/07/Download-Free-Pokemon-Lucario-Background.png');
   background-size: cover;
   height: 100%;
+  width: 100%;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -81,6 +98,7 @@ body {
 .home-container {
   display: flex;
   justify-content: space-between;
+  height: 100%;
   width: 100%;
   flex-direction: column;
 }
@@ -260,8 +278,9 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  height: 1000px;
-  width: 100%;
+  justify-content: center;
+  height: 60%;
+  width: 50%;
   animation: blinkingBackground 5s infinite;
 }
 
@@ -295,21 +314,21 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  height: 1000px;
-  width: 100%;
+  justify-content: space-evenly;
+  height: 100%;
+  width: 80%;
 }
 
 .zone-container {
-  margin-top: 10px;
+  margin: 5px;
   display: flex;
   justify-content: space-evenly;
   align-items: center;
-  height: 30%;
-  width: 50%;
+  height: 50%;
+  width: 70%;
   border: 3px solid orange;
   background-image: url('https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/2fb2821a-1406-4a1d-9b04-6668f278e944/d841b5t-d14186ca-887a-4f10-b4ca-b16d5aaff49a.jpg?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7InBhdGgiOiJcL2ZcLzJmYjI4MjFhLTE0MDYtNGExZC05YjA0LTY2NjhmMjc4ZTk0NFwvZDg0MWI1dC1kMTQxODZjYS04ODdhLTRmMTAtYjRjYS1iMTZkNWFhZmY0OWEuanBnIn1dXSwiYXVkIjpbInVybjpzZXJ2aWNlOmZpbGUuZG93bmxvYWQiXX0.5Pv6KPt53igISARqXxlqkRR4qtwKEB3LhHLyc1OQ9Wo');
   background-size: cover;
-
 }
 
 .trainer-battle-pokeball-container {
@@ -324,7 +343,6 @@ body {
   justify-content: space-evenly;
   align-items: center;
   height: 80%;
-  width: 50%;
   animation-duration: 3s;
   animation-name: slideinleft
 }
@@ -345,12 +363,15 @@ body {
 }
 
 .opponent-decision-making-container {
+  margin: 5px;
   display: flex;
-  flex-direction: row;
   justify-content: space-evenly;
   align-items: center;
-  height: 100%;
-  width: 100%;
+  height: 50%;
+  width: 70%;
+  border: 3px solid orange;
+  background-image: url('https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/2fb2821a-1406-4a1d-9b04-6668f278e944/d841b5t-d14186ca-887a-4f10-b4ca-b16d5aaff49a.jpg?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7InBhdGgiOiJcL2ZcLzJmYjI4MjFhLTE0MDYtNGExZC05YjA0LTY2NjhmMjc4ZTk0NFwvZDg0MWI1dC1kMTQxODZjYS04ODdhLTRmMTAtYjRjYS1iMTZkNWFhZmY0OWEuanBnIn1dXSwiYXVkIjpbInVybjpzZXJ2aWNlOmZpbGUuZG93bmxvYWQiXX0.5Pv6KPt53igISARqXxlqkRR4qtwKEB3LhHLyc1OQ9Wo');
+  background-size: cover;
   animation-duration: 3s;
   animation-name: slideinright
 }
@@ -425,24 +446,18 @@ body {
 }
 
 .move-card {
-  background-color: grey;
+  margin-top: 10px;
+  width: 65%;
   display: grid;
-  grid-template-columns: repeat(2, 100px);
+  grid-template-columns: repeat(2, 50%);
   align-items: center;
-  border-radius: 16px;
-  border: 1px solid black;
+  justify-items: center;
 }
 
-.trainer-move-card {
-  border-radius: 16px;
-  border: 1px solid black;
-  background-color: grey;
-}
 
 .action-button {
-  border-radius: 16px;
-  height: 50px;
-  font-size: 10px;
+  height: 70%;
+  width: 80%;
 }
 
 .pokemon-attack {

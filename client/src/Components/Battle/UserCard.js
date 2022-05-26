@@ -3,6 +3,7 @@ import {useHistory} from 'react-router-dom'
 import UserPokemon from './UserPokemon'
 import InitialMove from './InitialMove'
 import BattleMoveCard from './BattleMoveCard'
+import Paper from '@mui/material/Paper'
 
 
 let UserCard = ({userTeam, setUserTeam, selectedPokemon, setSelectedPokemon, fetchTeam, renderHP, renderPokeBalls, userTrainer, healthMovePP, setHealthMovePP, seedHealthMovePP, opponentPokemon, opponentAttack, setUserAttack}) => {
@@ -72,10 +73,10 @@ let UserCard = ({userTeam, setUserTeam, selectedPokemon, setSelectedPokemon, fet
 
     let renderUser = () => {
         return (
-            <div className="zone-container" style={{height:'350px'}}>
+            <Paper className="zone-container" style={{height:'350px'}}>
                 <img className="zone-image-card" src={selectedPokemon.back_image} alt="user-pokemon-image"/>
                 <div className="trainer-decision-making-container">
-                    <div className="trainer-stats-card">
+                    <Paper className="trainer-stats-card">
                         <div className="hp-card">
                             <p style={opponentAttack ? {backgroundColor:'red', marginLeft:'5px'} : {marginLeft:'5px'}}>
                                 HP: {renderHP('user', selectedPokemon)}
@@ -89,7 +90,7 @@ let UserCard = ({userTeam, setUserTeam, selectedPokemon, setSelectedPokemon, fet
                             <p><small>SP DEF: {selectedPokemon.stats['special-defense']}</small></p>
                             <p><small>SPD: {selectedPokemon.stats.speed}</small></p>
                         </div>
-                    </div>
+                    </Paper>
                     
                     {renderInitialMove()}
                     {renderBattleMove()}
@@ -102,7 +103,7 @@ let UserCard = ({userTeam, setUserTeam, selectedPokemon, setSelectedPokemon, fet
                         sendOutPokemon={sendOutPokemon}
                     />
                 </div>
-            </div>
+            </Paper>
         )    
     }
 

@@ -256,7 +256,7 @@ let BattleHome = ({ userTrainer, opponentTrainer, pokemonData, pokeBall }) => {
                     opponentTrainer={opponentTrainer}
                 />
                 :
-                <div className="battle-sfzone-container">
+                <>
                     <FlyingPidgeot />
                     <OpponentCard
                         opponentTeam={opponentTeam}
@@ -311,7 +311,7 @@ let BattleHome = ({ userTrainer, opponentTrainer, pokemonData, pokeBall }) => {
                             <button className="action-button" onClick={endOpponentTurn}>End Turn</button>
                         </div>
                     } */}
-                </div>
+                </>
             }
         </div>
     )

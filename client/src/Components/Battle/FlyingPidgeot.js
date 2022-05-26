@@ -27,7 +27,7 @@ let FlyingPidgeot = () => {
     }, [])
 
     return (
-        <div style={{width:'100%'}}>
+        <div style={{width:'100%', height: '20%'}}>
             <div className="flying-pidgeot-container" style={{display:'flex'}}>
                     <p>{randomStatements[Math.floor(Math.random()*randomStatements.length)]}</p>
                     <img className="flying-pidgeot" src={flyingPokemon3} alt="flying-pidgeot"/>

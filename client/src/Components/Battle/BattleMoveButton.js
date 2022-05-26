@@ -1,8 +1,9 @@
+import Button from '@mui/material/Button'
 let BattleMoveButton = ({handleSelectMove, move}) => {
     return (
-        <button style={{fontSize:'9px'}} className="action-button" onClick={handleSelectMove} value={move}>
+        <Button variant='contained' className="action-button" onClick={handleSelectMove} value={move}>
             {move}
-        </button>)
+        </Button>)
 }
 
 export default BattleMoveButton

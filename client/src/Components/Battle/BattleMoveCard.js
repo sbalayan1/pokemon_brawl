@@ -1,5 +1,7 @@
 import {useState} from 'react'
 import BattleMoveButton from './BattleMoveButton'
+import Button from '@mui/material/Button'
+import Paper from '@mui/material/Paper'
 
 let BattleMoveCard = ({selectedPokemon, displayTeam, setFightMove, healthMovePP, setHealthMovePP, setUserAttack, opponentPokemon}) => {
     console.log(healthMovePP)
@@ -15,8 +17,10 @@ let BattleMoveCard = ({selectedPokemon, displayTeam, setFightMove, healthMovePP,
         }
     }
 
-    let unselectMove = () => {setSelectedMove(null)}
-    let hideMoves = () => {setFightMove(null)}
+    let hideMoves = () => {
+        setSelectedMove(null)
+        setFightMove(null)
+    }
 
     let handleAttack = (e) => {
         let damage = Math.round(((((2*selectedPokemon.level)/5)*(selectedPokemon.stats.attack/selectedPokemon.stats.defense)*selectedMove.power)/50)+2)
@@ -36,31 +40,30 @@ let BattleMoveCard = ({selectedPokemon, displayTeam, setFightMove, healthMovePP,
 
         healthMovePP['user'][name]['moves'][move]['pp'] -= 1
         hideMoves()
-        unselectMove()
         setUserAttack(tempObject)
         setHealthMovePP(healthMovePP)
     }
 
     let renderMovesCard = () => (
-        <div className='move-card'>
+        <Paper className='move-card'>
             {Object.values(healthMovePP['user'][selectedPokemon.name]['moves']).map(move => (
                 <BattleMoveButton key={move.name} move={move.name} handleSelectMove={handleSelectMove}/>))
             }
-            <button onClick={hideMoves}>Back</button>
-        </div>
+            {/* <Button variant='outlined' onClick={hideMoves}>Back</Button> */}
+        </Paper>
     )
 
     let renderSelectedMove = () => (
-        <div style={{justifyContent:'space-evenly', marginTop:'10px'}} className="trainer-move-card">
+        <Paper className="move-card">
             <div>
                 <h5 style={{fontSize:'10px', marginLeft:'8px'}}>
                     {selectedMove.name}
                 </h5>
-                <p style={{fontSize:'10px'}}>
+                <p style={{fontSize:'10px', marginLeft:'8px'}}>
                     {selectedMove.description}
                 </p>
             </div>
-            <div style={{display:'flex', justifyContent:'space-between'}}>
+            <div>
                 <p style={{fontSize:'10px'}}>
                     Power: {selectedMove.power}
                 </p>
@@ -68,11 +71,11 @@ let BattleMoveCard = ({selectedPokemon, displayTeam, setFightMove, healthMovePP,
                     PP: {selectedMove.pp}
                 </p>
             </div>
-            <button style={{fontSize:'9px'}} className="action-button" onClick={handleAttack}>
+            <Button variant='contained' style={{fontSize:'9px'}} className="action-button" onClick={handleAttack}>
                 Use {selectedMove.name}
-            </button>
-            <button className="action-button" onClick={unselectMove}>Back</button>
-        </div>
+            </Button>
+            <Button variant='contained' className="action-button" onClick={hideMoves}>Back</Button>
+        </Paper>
     )
     
     return selectedMove ? renderSelectedMove() : renderMovesCard()

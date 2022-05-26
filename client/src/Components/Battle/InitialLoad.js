@@ -1,3 +1,6 @@
+import Paper from '@mui/material/Paper'
+import Button from '@mui/material/Button'
+
 let InitialLoad = ({setInitialBattleLoad, opponentTrainer}) => {
     let opponentTrainers = ['https://archives.bulbagarden.net/media/upload/3/30/RB_Old_man_Back.png','https://archives.bulbagarden.net/media/upload/f/f2/Spr_RG_Burglar.png','https://archives.bulbagarden.net/media/upload/0/09/Spr_RG_Engineer.png','https://archives.bulbagarden.net/media/upload/e/ee/Spr_RG_Erika.png','https://archives.bulbagarden.net/media/upload/d/d7/Spr_RG_Fisherman.png','https://archives.bulbagarden.net/media/upload/a/a1/Spr_RG_Rocket.png','https://archives.bulbagarden.net/media/upload/9/96/Spr_RG_Youngster.png','https://archives.bulbagarden.net/media/upload/1/1e/Spr_RG_Oak.png']
 
@@ -29,13 +32,13 @@ let InitialLoad = ({setInitialBattleLoad, opponentTrainer}) => {
     // }
 
     return (                
-        <div className="battle-sfzone-container-load">
-            <div className="zone-container" style={{backgroundImage:'url(https://www.models-resource.com/resources/big_icons/22/21700.png)', backgroundSize:'cover', height: '50%'}}>
+        <Paper elevation={24} className="battle-sfzone-container-load">
+            <Paper className="zone-container" elevation={24} style={{backgroundImage:'url(https://www.models-resource.com/resources/big_icons/22/21700.png)', backgroundSize:'cover', height: '50%'}}>
                 <img className="zone-image-card" src={opponentTrainers[randomNumber]} alt="opponent-trainer"/>
-            </div>
+            </Paper>
             <p className="battle-p-tag-load">Trainer {opponentTrainer ? opponentTrainer.name : 'Opponent'} wants to battle!</p>
-            <button onClick={startBattle}>Start</button>
-        </div>
+            <Button style={{margin:'5px'}} variant='contained' onClick={startBattle}>Start</Button>
+        </Paper>
     )
 }
 

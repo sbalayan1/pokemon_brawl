@@ -1,7 +1,9 @@
+import Button from '@mui/material/Button'
+
 let InitialMoveButton = ({move, selectMove}) => (
-    <button className="action-button" onClick={selectMove} value={move}>
+    <Button variant='contained' className="action-button" onClick={selectMove} value={move}>
         {move}
-    </button>
+    </Button>
 )
 
 export default InitialMoveButton
