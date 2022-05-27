@@ -1,4 +1,9 @@
 import * as React from 'react'
+import { Container } from '@mui/material/Container'
+import './style.css'
+
+
+// components
 import Ability from '../Ability'
 import Stat from '../Stat'
 import LoadScreen from '../LoadScreen'
@@ -10,7 +15,7 @@ import LegendaryBirds from './LegendaryBirds'
 let Home = ({currentUser, pokemonData, hiddenPokemon, userTrainer, setUserTrainer, opponentTrainer, setOpponentTrainer, userTrainerPokemon, setUserTrainerPokemon, setCopyUserTrainerPokemon, legendBirds, isLoaded, previousRoute, setPreviousRoute
 }) => {
     return (
-        <div className="home-container">
+        <Container className="homePageContainer">
             {<Charizard />}
             {<BuildBattle userTrainer={userTrainer}/>}
             {<WhoThatPokemon 
@@ -26,7 +31,7 @@ let Home = ({currentUser, pokemonData, hiddenPokemon, userTrainer, setUserTraine
             {<LegendaryBirds legendBirds={legendBirds}/>}
             
             <div className="footer">Copyright 2021 - SeanB</div>
-        </div>
+        </Container>
     )
 }
 
