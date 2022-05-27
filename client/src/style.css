@@ -20,6 +20,7 @@ html, body {
 }
 
 .content-wrap {
+  margin-top: 5px;
   padding-bottom: 10rem;
   background-color: #ffffff;
   background-image: url('https://www.pixelstalk.net/wp-content/uploads/2016/07/Download-Free-Pokemon-Lucario-Background.png');
@@ -72,8 +73,11 @@ html, body {
 }
 
 /* CSS for the login/signup components */
-.login-form {
+.login-paper {
   margin-top: 80px;
+}
+
+.login-form {
   height: 60%;
   display: flex;
   flex-direction: column;

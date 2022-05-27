@@ -43,18 +43,16 @@ let Login = ({currentUser, setCurrentUser, isLoaded, setIsLoaded, trainers, setT
 
     let renderLoginScreen = () => {
         return (
-            <div className="login-container">
-                <Paper elevation={24} className='login-paper'>
-                    <form className="login-form" onSubmit={handleSubmit}>
-                        <h1>Login</h1>
-                        <TextField style={{margin:'5px'}} label="Username" variant="outlined" type="text" value={username} onChange={(e)=> setUsername(e.target.value)}/>
-                        <TextField style={{margin:'5px'}} label="Password" variant="outlined" type="password" value={password} onChange={(e)=> setPassword(e.target.value)}/>
-                        <Button style={{margin:'5px'}} className='submit' variant='contained' type="submit">Submit</Button>
-                        <Button style={{margin:'5px'}} className='submit' variant='contained' type="reset" onClick={handleSignup}>Sign Up</Button>
-                        {errors ? <div>{errors}</div>: null}
-                    </form>
-                </Paper>
-            </div>
+            <Paper elevation={24} className='login-paper'>
+                <form className="login-form" onSubmit={handleSubmit}>
+                    <h1>Login</h1>
+                    <TextField style={{margin:'5px'}} label="Username" variant="outlined" type="text" value={username} onChange={(e)=> setUsername(e.target.value)}/>
+                    <TextField style={{margin:'5px'}} label="Password" variant="outlined" type="password" value={password} onChange={(e)=> setPassword(e.target.value)}/>
+                    <Button style={{margin:'5px'}} className='submit' variant='contained' type="submit">Submit</Button>
+                    <Button style={{margin:'5px'}} className='submit' variant='contained' type="reset" onClick={handleSignup}>Sign Up</Button>
+                    {errors ? <div>{errors}</div>: null}
+                </form>
+            </Paper>
         ) 
     }
 

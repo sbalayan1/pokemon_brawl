@@ -142,12 +142,12 @@ let App = () => {
     )
   } else {
     return (
-      <div className='app'>
+      <div className='page-container'>
         <NavBar 
           pokeBall={pokeBall}
           currentUser={currentUser}
         />
-        <div className="app-container">
+        <div className="content-wrap">
           <Switch>
             <Route exact path ='/login'>
                 <Login 
