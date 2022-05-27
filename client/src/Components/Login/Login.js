@@ -3,8 +3,9 @@ import { useHistory } from 'react-router-dom'
 import Paper from '@mui/material/Paper'
 import Button from '@mui/material/Button'
 import TextField from '@mui/material/TextField'
-import LoadScreen from './LoadScreen'
+import LoadScreen from '../LoadScreen'
 import { padding } from '@mui/system'
+import './style.css'
 
 let Login = ({currentUser, setCurrentUser, isLoaded, setIsLoaded, trainers, setTrainerHelper}) => {
     const history = useHistory()

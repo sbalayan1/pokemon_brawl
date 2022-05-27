@@ -31,16 +31,6 @@ html, body {
   align-items: center;
 }
 
-/* .app-container {
-  background-image: url('https://www.pixelstalk.net/wp-content/uploads/2016/07/Download-Free-Pokemon-Lucario-Background.png');
-  background-size: cover;
-  height: 100%;
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-} */
 
 /* CSS for NavBar */
 .NavBar {
@@ -72,23 +62,6 @@ html, body {
   height: 70%
 }
 
-/* CSS for the login/signup components */
-.login-paper {
-  margin-top: 80px;
-}
-
-.login-form {
-  height: 60%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 10px;
-}
-
-.submit {
-  width: 50%;
-  background-color: lightskyblue;
-}
 
 /* CSS for home component */
 

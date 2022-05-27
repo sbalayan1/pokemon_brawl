@@ -1,5 +1,6 @@
 import {useEffect} from 'react'
 import {useHistory} from 'react-router-dom'
+import './style.css'
 
 let Logout = ({setCurrentUser, setIsLoaded}) => {
     const history = useHistory()

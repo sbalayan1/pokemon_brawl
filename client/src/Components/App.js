@@ -4,9 +4,9 @@ import { useMediaQuery } from "react-responsive";
 
 // import components
 import NavBar from './NavBar'
-import SignUp from './SignUp';
-import Login from './Login';
-import Logout from './Logout'
+import SignUp from './Login/SignUp';
+import Login from './Login/Login';
+import Logout from './Login/Logout'
 import Home from './Home/Home'
 import SafariZone from './SafariZone'
 import Trainer from './Trainer'

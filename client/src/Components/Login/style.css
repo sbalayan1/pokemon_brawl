@@ -1,0 +1,16 @@
+.login-paper {
+    margin-top: 80px;
+}
+
+.login-form {
+    height: 60%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 10px;
+}
+  
+.submit {
+    width: 50%;
+    background-color: lightskyblue;
+}
