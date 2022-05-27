@@ -1,7 +1,8 @@
-import {useState, useEffect} from 'react'
-import { Switch, Route, useHistory } from 'react-router-dom'
-import Paper from '@mui/material/Paper'
-import * as React from 'react'
+import React, {useState, useEffect} from 'react'
+import { Switch, Route, useHistory, Redirect, NavLink, Link } from 'react-router-dom'
+import { useMediaQuery } from "react-responsive";
+
+// import components
 import NavBar from './NavBar'
 import SignUp from './SignUp';
 import Login from './Login';
@@ -31,7 +32,9 @@ let App = () => {
   const [isLoaded, setIsLoaded] = useState(false)
   const [previousRoute, setPreviousRoute] = useState('/')
   let random = Math.floor(Math.random()*150) + 1
-  
+  let isMobile = useMediaQuery({query: "(max-width: 980px) "})
+
+
   let fetchData = async () => {
     try {
       let trainers = fetch('/api/trainers')
@@ -97,12 +100,12 @@ let App = () => {
 
   if (!currentUser) {
     return (
-      <div className='app'>
+      <div className='page-container'>
         <NavBar 
           pokeBall={pokeBall}
           currentUser={currentUser}
         />
-        <div className="app-container">
+        <div className="content-wrap">
           <Switch>
             <Route exact path ='/login'>
               <Login 
