@@ -15,7 +15,7 @@ import LegendaryBirds from './LegendaryBirds'
 let Home = ({currentUser, pokemonData, hiddenPokemon, userTrainer, setUserTrainer, opponentTrainer, setOpponentTrainer, userTrainerPokemon, setUserTrainerPokemon, setCopyUserTrainerPokemon, legendBirds, isLoaded, previousRoute, setPreviousRoute
 }) => {
     return (
-        <Container className="homePageContainer">
+        <Container className="homepage-container">
             {<Charizard />}
             {<BuildBattle userTrainer={userTrainer}/>}
             {<WhoThatPokemon 

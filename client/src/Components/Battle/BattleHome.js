@@ -1,5 +1,9 @@
 import { useState, useEffect } from 'react'
 import { useHistory } from 'react-router-dom'
+import Container from '@mui/material/Container'
+import './style.css'
+
+//components
 import InitialLoad from './InitialLoad'
 import FlyingPidgeot from './FlyingPidgeot'
 import UserCard from './UserCard'
@@ -249,7 +253,8 @@ let BattleHome = ({ userTrainer, opponentTrainer, pokemonData, pokeBall }) => {
 
 
     return (
-        <div className="battle-sfzone-container">
+        <Container maxWidth="md">
+            <div className="battle-container">
             {initialBattleLoad ?
                 <InitialLoad
                     setInitialBattleLoad={setInitialBattleLoad}
@@ -313,7 +318,8 @@ let BattleHome = ({ userTrainer, opponentTrainer, pokemonData, pokeBall }) => {
                     } */}
                 </>
             }
-        </div>
+            </div>
+        </Container>
     )
 }
 
