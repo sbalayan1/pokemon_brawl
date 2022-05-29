@@ -409,7 +409,8 @@ html, body {
 
 .move-card {
   margin-top: 10px;
-  width: 65%;
+  border: 1px solid black;
+  width: 100%;
   display: grid;
   grid-template-columns: repeat(2, 50%);
   align-items: center;
@@ -418,8 +419,8 @@ html, body {
 
 
 .action-button {
-  height: 70%;
-  width: 80%;
+  height: 75%;
+  width: 40%;
 }
 
 .pokemon-attack {

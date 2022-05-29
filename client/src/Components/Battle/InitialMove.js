@@ -1,7 +1,6 @@
 import InitialMoveButton from "./InitialMoveButton"
 import Paper from '@mui/material/Paper'
 import Button from '@mui/material/Button'
-import Box from '@mui/material/Box'
 
 let InitialMove = ({displayTeam, selectMove}) => {
     let moveList = ['Bag', 'Poke', 'Run']
@@ -11,20 +10,20 @@ let InitialMove = ({displayTeam, selectMove}) => {
 
     let renderMoveCard = () => {
         return (
-            <Box className="move-card" maxWidth="sm" style={{border: '1px solid black'}}>
+            <Paper className="move-card">
                 {displayTeam === false ? 
-                        <Button variant='contained' className="action-button" onClick={selectMove} value="Fight">
+                        <Button size='small' variant='contained' className="action-button" onClick={selectMove} value="Fight">
                             Fight
                         </Button> 
                     
                     : 
-                        <Button variant='contained' className="action-button" value="Fight" disabled>
+                        <Button size='small' variant='contained' className="action-button" value="Fight" disabled>
                             Fight
                         </Button> 
                 }
 
                 {renderButtons}
-            </Box>
+            </Paper>
         )
     }
     

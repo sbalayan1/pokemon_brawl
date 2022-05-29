@@ -37,7 +37,7 @@ let InitialLoad = ({setInitialBattleLoad, opponentTrainer}) => {
                 <img className="zone-image-card" src={opponentTrainers[randomNumber]} alt="opponent-trainer"/>
             </Paper>
             <p className="battle-p-tag-load">Trainer {opponentTrainer ? opponentTrainer.name : 'Opponent'} wants to battle!</p>
-            <Button style={{margin:'5px'}} variant='contained' onClick={startBattle}>Start</Button>
+            <Button style={{margin:'5px'}} size='small' variant='contained' onClick={startBattle}>Start</Button>
         </Paper>
     )
 }
