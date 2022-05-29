@@ -2,6 +2,8 @@ import {useState} from 'react'
 import BattleMoveButton from './BattleMoveButton'
 import Button from '@mui/material/Button'
 import Paper from '@mui/material/Paper'
+import Box from '@mui/material/Box'
+
 
 let BattleMoveCard = ({selectedPokemon, displayTeam, setFightMove, healthMovePP, setHealthMovePP, setUserAttack, opponentPokemon}) => {
     console.log(healthMovePP)
@@ -45,16 +47,16 @@ let BattleMoveCard = ({selectedPokemon, displayTeam, setFightMove, healthMovePP,
     }
 
     let renderMovesCard = () => (
-        <Paper className='move-card'>
+        <Box className='move-card'>
             {Object.values(healthMovePP['user'][selectedPokemon.name]['moves']).map(move => (
                 <BattleMoveButton key={move.name} move={move.name} handleSelectMove={handleSelectMove}/>))
             }
             {/* <Button variant='outlined' onClick={hideMoves}>Back</Button> */}
-        </Paper>
+        </Box>
     )
 
     let renderSelectedMove = () => (
-        <Paper className="move-card">
+        <Box className="move-card">
             <div>
                 <h5 style={{fontSize:'10px', marginLeft:'8px'}}>
                     {selectedMove.name}
@@ -75,7 +77,7 @@ let BattleMoveCard = ({selectedPokemon, displayTeam, setFightMove, healthMovePP,
                 Use {selectedMove.name}
             </Button>
             <Button variant='contained' className="action-button" onClick={hideMoves}>Back</Button>
-        </Paper>
+        </Box>
     )
     
     return selectedMove ? renderSelectedMove() : renderMovesCard()
