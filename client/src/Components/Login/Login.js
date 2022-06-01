@@ -14,7 +14,7 @@ let Login = ({currentUser, setCurrentUser, isLoaded, setIsLoaded, trainers, setT
     const [errors, setErrors] = useState(null)
 
     let handleSignup = () => {
-        history.push('/signup')
+        history.push('/sign_up')
     }
     
     let handleSubmit = async (e) => {
