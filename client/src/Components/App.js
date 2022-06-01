@@ -109,10 +109,7 @@ let App = () => {
           <Switch>
             <Route exact path ='/login'>
               <Login 
-                currentUser={currentUser}
                 setCurrentUser={setCurrentUser}
-                isLoaded={isLoaded}
-                setIsLoaded={setIsLoaded}
                 trainers={trainers}
                 setTrainerHelper={setTrainerHelper}
               />
@@ -151,10 +148,7 @@ let App = () => {
           <Switch>
             <Route exact path ='/login'>
                 <Login 
-                  currentUser={currentUser}
                   setCurrentUser={setCurrentUser}
-                  isLoaded={isLoaded}
-                  setIsLoaded={setIsLoaded}
                   trainers={trainers}
                   setTrainerHelper={setTrainerHelper}
                 />

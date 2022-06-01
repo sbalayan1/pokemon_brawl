@@ -11,7 +11,7 @@ import ArrowForwardIos from '@mui/icons-material/ArrowForwardIos'
 
 import './style.css'
 
-let Login = ({currentUser, setCurrentUser, isLoaded, setIsLoaded, trainers, setTrainerHelper}) => {
+let Login = ({setCurrentUser, trainers, setTrainerHelper}) => {
     const history = useHistory()
     const [username, setUsername] = useState("")
     const [password, setPassword] = useState("")
@@ -61,7 +61,6 @@ let Login = ({currentUser, setCurrentUser, isLoaded, setIsLoaded, trainers, setT
                     <TextField style={{margin:'5px'}} label="Password" variant="outlined" type="password" value={password} onChange={(e)=> setPassword(e.target.value)}/>
                     <Button style={{margin:'5px'}} className='submit' variant='contained' type="submit">Submit</Button>
                     <Button style={{margin:'5px'}} className='submit' variant='contained' type="reset" onClick={handleSignup}>Sign Up</Button>
-                    {/* {errors ? <div>{errors}</div>: null} */}
                 </form>
                 <Snackbar open={snackBar} autoHideDuration={6000} onClose={handleClose}>
                     {errors ? 
