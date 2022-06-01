@@ -3,7 +3,7 @@ import { Switch, Route, useHistory, Redirect, NavLink, Link } from 'react-router
 import { useMediaQuery } from "react-responsive";
 
 // import components
-import NavBar from './NavBar'
+import NavBar from './Nav/NavBar'
 import SignUp from './Login/SignUp';
 import Login from './Login/Login';
 import Logout from './Login/Logout'
