@@ -11,7 +11,7 @@ let Link = ({path}) => {
     }
 
     return (
-        <NavLink to={exactPath()} style={{textDecoration:'none'}}>
+        <NavLink to={exactPath()} style={{textDecoration:'none', marginLeft:'10px'}}>
             {path}
         </NavLink>
     )

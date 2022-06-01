@@ -32,22 +32,13 @@ html, body {
 
 
 /* CSS for NavBar */
-.NavBar {
-  background-color: lightcyan;
-  font-size: 15px;
+.navbar-container {
   height: 10vh;
-  width: 100%;
-  border: 1px solid black;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
 }
 
+
 .logo {
-  margin-left: 5px;
-  border-radius: 16px;
-  height: 70%;
-  width: 15%;
+  text-decoration: none;
   display: flex;
   justify-content: center;
   align-items: center;
