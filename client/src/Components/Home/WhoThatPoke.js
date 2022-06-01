@@ -1,4 +1,7 @@
 import {useState} from 'react'
+import Card from '@mui/material/Card'
+import TextField  from '@mui/material/TextField'
+import Button from '@mui/material/Button'
 
 let WhoThatPokemon = ({
         currentUser, 
@@ -41,25 +44,25 @@ let WhoThatPokemon = ({
 
     return (
         <div className="who-that-pokemon-container-home">
-            <div className="who-that-pokemon-card">
+            <Card className="who-that-pokemon-card">
                 <div className="format-card">
                     {foundPokemon !== hiddenPokemon.name ? null : <p style={{marginLeft: '160px'}}>It's {hiddenPokemon.name.charAt(0).toUpperCase() + hiddenPokemon.name.slice(1)}!!!</p>}
                     {foundPokemon !== hiddenPokemon.name ? <img className="who-that-pokemon-image" style={{opacity:'0.05'}} src={hiddenPokemon.front_image} alt='pokemon'/> : <img className="who-that-pokemon-image" src={hiddenPokemon.front_image} alt='pokemon'/>}
                 </div>
-            </div>
+            </Card>
 
             {catchPokemon === null? 
-                <div className="home-battle-description-card">
+                <Card className="home-battle-description-card">
                     <h1>Who's that Pokemon?</h1>
-                    <input onChange={handleChange} placeholder="Guess that Pokemon!!"/>
-                    {foundPokemon !== hiddenPokemon.name? null : <button onClick={handleSubmit}>Catch that Pokemon!!!</button> }
-                </div>
+                    <TextField onChange={handleChange} placeholder="Guess that Pokemon!!"/>
+                    {foundPokemon !== hiddenPokemon.name? null : <Button variant="contained" onClick={handleSubmit}>Catch that Pokemon!!!</Button> }
+                </Card>
             :
-                <div className="home-battle-description-card">
+                <Card className="home-battle-description-card">
                     <h2>You caught {foundPokemon}!!</h2>
                     <img className="who-that-pokemon-image-2" src={hiddenPokemon.front_image} alt='pokemon'/>
                     <p>Check your PC to see your new Pokemon!</p>
-                </div>
+                </Card>
             }
         </div>
     )
