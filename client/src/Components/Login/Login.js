@@ -36,20 +36,20 @@ let Login = ({currentUser, setCurrentUser, isLoaded, setIsLoaded, trainers, setT
         })
         
         const userData = await res.json()
-
+        
         if (userData.id) {
-            setSnackBar(true)
             setCurrentUser(userData)
             setTrainerHelper(trainers, userData)
-            // history.push('/')
         } else {
             setErrors(userData.errors)
         }
+
+        setSnackBar(true)
     }
 
     let handleClose = () => {
         setSnackBar(false)
-        history.push('/')
+        if (!errors) history.push('/')
     }
 
     let renderLoginScreen = () => {
@@ -61,15 +61,21 @@ let Login = ({currentUser, setCurrentUser, isLoaded, setIsLoaded, trainers, setT
                     <TextField style={{margin:'5px'}} label="Password" variant="outlined" type="password" value={password} onChange={(e)=> setPassword(e.target.value)}/>
                     <Button style={{margin:'5px'}} className='submit' variant='contained' type="submit">Submit</Button>
                     <Button style={{margin:'5px'}} className='submit' variant='contained' type="reset" onClick={handleSignup}>Sign Up</Button>
-                    {errors ? <div>{errors}</div>: null}
+                    {/* {errors ? <div>{errors}</div>: null} */}
                 </form>
                 <Snackbar open={snackBar} autoHideDuration={6000} onClose={handleClose}>
-                    <Alert severity="success" sx={{ width: '100%' }}>
-                           {username ? `Welcome ${username[0].toUpperCase() + username.slice(1)}` : null} 
-                        <IconButton onClick={handleClose}>
-                            <ArrowForwardIos fontSize="small"/>
-                        </IconButton>
-                    </Alert>
+                    {errors ? 
+                        <Alert severity="warning" sx={{width: '100%'}} onClose={handleClose}>
+                            {errors}
+                        </Alert>
+                    :
+                        <Alert severity="success" sx={{ width: '100%' }}>
+                            {username ? `Welcome ${username[0].toUpperCase() + username.slice(1)}` : null} 
+                            <IconButton onClick={handleClose}>
+                                <ArrowForwardIos fontSize="small"/>
+                            </IconButton>
+                        </Alert>
+                    }
                 </Snackbar>
             </Paper>
         ) 
