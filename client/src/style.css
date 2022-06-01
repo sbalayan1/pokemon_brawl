@@ -234,6 +234,10 @@ html, body {
 
 
 /* CSS for safari zone/battle components */
+.battle-container {
+  height: 100vh
+}
+
 .battle-sfzone-container-load {
   display: flex;
   flex-direction: column;
@@ -401,7 +405,7 @@ html, body {
   margin-top: 10px;
   border: 1px solid black;
   width: 100%;
-  height: 80%;
+  height: 70vh;
   display: grid;
   grid-template-columns: repeat(2, 50%);
   align-items: center;
@@ -410,8 +414,8 @@ html, body {
 
 
 .action-button {
-  height: 50%;
-  width: 50%;
+  height: 60%;
+  width: 45%
 }
 
 .pokemon-attack {
