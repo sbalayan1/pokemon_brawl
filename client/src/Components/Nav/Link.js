@@ -4,10 +4,9 @@ let Link = ({path}) => {
     let exactPath = () => {
         if (path === 'Home') {
             return '/'
-        } else if (path === 'Sign Up') {
-            return 'signup'
         } else {
-            return path.toLowerCase()
+            let replaceSpaces = path.replace(/\s/g, '_');
+            return replaceSpaces.toLowerCase()
         }
     }
 

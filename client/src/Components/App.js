@@ -117,7 +117,7 @@ let App = () => {
                 setTrainerHelper={setTrainerHelper}
               />
             </Route>
-            <Route exact path='/signup'>
+            <Route exact path='/sign_up'>
               <SignUp 
                 currentUser={currentUser} 
                 setCurrentUser={setCurrentUser}

@@ -30,7 +30,7 @@ let NavBar = ({pokeBall, currentUser}) => {
             <div className='NavBar'>
                 <div className='logo'>
                     {pokeBall ? <img src={pokeBall} alt='pokeball'/> : null}
-                    <NavLink to="/" style={{color:'crimson'}}> 
+                    <NavLink to="/" style={{textDecoration: 'none'}}> 
                         PokemonBrawl
                     </NavLink>
                 </div>
