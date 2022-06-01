@@ -1,47 +1,30 @@
 import Link from './Link'
 import {NavLink} from 'react-router-dom'
+import AppBar from '@mui/material/AppBar';
 
 let NavBar = ({pokeBall, currentUser}) => {
     let notLoggedInPaths = ['Login', 'Sign Up', 'Logout']
     let loggedInPaths = ['Home', 'Safari Zone', 'Battle', 'My PC', 'Leaderboards', 'Logout']
-
-    let renderNotLogged = notLoggedInPaths.map(path => <Link key={path} path={path}/>)
-
-    let renderLoggedIn = loggedInPaths.map(path => <Link key={path} path={path}/>)
+    let loggedIn = notLoggedInPaths.map(path => <Link key={path} path={path}/>)
+    let notLoggedIn = loggedInPaths.map(path => <Link key={path} path={path}/>)
     
-    let notLoggedIn = () => {
+    let renderNavBar = () => {
         return (
-            <div className='NavBar'>
+            <AppBar className='NavBar' position="fixed">
                 <div className='logo'>
                     {pokeBall ? <img src={pokeBall} alt='pokeball'/> : null}
-                    <NavLink to="/login" exact style={{textDecoration: 'none'}}>
+                    <NavLink to="/" exact style={{textDecoration: 'none'}}> 
                         PokemonBrawl
                     </NavLink>
                 </div>
                 <div className='other-links'>
-                    {renderNotLogged}
+                    {!currentUser.error ? loggedIn : notLoggedIn}
                 </div>
-            </div>
+            </AppBar>
         )
     }
 
-    let loggedIn = () => {
-        return (
-            <div className='NavBar'>
-                <div className='logo'>
-                    {pokeBall ? <img src={pokeBall} alt='pokeball'/> : null}
-                    <NavLink to="/" style={{textDecoration: 'none'}}> 
-                        PokemonBrawl
-                    </NavLink>
-                </div>
-                <div className='other-links'>
-                    {renderLoggedIn}
-                </div>
-            </div>
-        )
-    }
-
-    return !currentUser ? notLoggedIn() : loggedIn()
+    return renderNavBar()
 }
 
 export default NavBar
