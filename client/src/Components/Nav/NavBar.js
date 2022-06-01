@@ -18,7 +18,7 @@ let NavBar = ({pokeBall, currentUser}) => {
                     </NavLink>
                 </div>
                 <div className='other-links'>
-                    {!currentUser.error ? loggedIn : notLoggedIn}
+                    {currentUser === null ? loggedIn : notLoggedIn}
                 </div>
             </AppBar>
         )
