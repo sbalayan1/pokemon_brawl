@@ -65,6 +65,7 @@ html, body {
 
 .home-battle-container {
   display: flex;
+  margin: 10px;
 }
 
 .home-battle-description-card {
@@ -73,7 +74,7 @@ html, body {
   align-items: center;
   justify-content: center;
   width: 50%;
-  border: 1px solid black;
+  margin: 10px;
 }
 
 .home-image-thumbnail {
@@ -184,7 +185,6 @@ html, body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  border: 1px solid black;
   overflow-y: scroll;
   transition: transform .2s
 }
@@ -199,7 +199,6 @@ html, body {
 
 .home-poke-ability-card {
   background-color: beige;
-  border: 1px solid black;
   margin: 10px;
   width: 90%
 }
@@ -403,7 +402,6 @@ html, body {
 
 .move-card {
   margin-top: 10px;
-  border: 1px solid black;
   width: 100%;
   height: 80%;
   display: grid;
@@ -547,7 +545,6 @@ html, body {
 
 .footer {
   background-color: green;
-  border: 1px solid black
 }
 
 
@@ -573,7 +570,6 @@ html, body {
 .team-container {
   margin: 10px;
   width: 80%;
-  border: 1px solid black;
   border-radius: 16px;
   display: flex;
   justify-content: flex-start;
@@ -610,7 +606,6 @@ html, body {
   background-color: darkorange;
   height:50px;
   width: 775px;
-  border: 1px solid black;
   display:flex;
   justify-content: center; 
   align-items: center;
@@ -634,7 +629,6 @@ html, body {
 }
 
 .pc-pokemon-card-single {
-  border: 1px solid black;
   height: 125px;
   width: 125px;
   background-color: lightyellow;
@@ -719,7 +713,6 @@ html, body {
 .pc-select-stat {
   display: grid;
   grid-template-columns: repeat(3, 90px);
-  border: 1px solid black;
   background-color: goldenrod;
   justify-content: center;
   width: 90%;
@@ -728,7 +721,6 @@ html, body {
 .pc-select-stat-2 {
   display: grid;
   grid-template-columns: repeat(3, 90px);
-  border: 1px solid black;
   background-color: goldenrod;
   width: 300px;
   justify-content: center;
@@ -736,7 +728,6 @@ html, body {
 }
 
 .pc-select-ability {
-  border: 1px solid black;
   width: 85%;
   height: 40%;
   overflow-y: scroll;
@@ -745,7 +736,6 @@ html, body {
 }
 
 .pc-select-move {
-  border: 1px solid black;
   height: 80%;
   width: 85%;
   overflow-y: scroll;
