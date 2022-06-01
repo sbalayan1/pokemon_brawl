@@ -22,7 +22,6 @@ let SignUp = () => {
 
     let handleSubmit = async (e) => {
         e.preventDefault(e)
-
         const res = await fetch('api/signup', {
             method: 'POST', 
             headers: {'Content-Type' : 'application/json'}, 
@@ -46,26 +45,6 @@ let SignUp = () => {
             <form className="login-form" onSubmit={handleSubmit}>
                 <h1>Sign Up</h1>
                 {renderTextFields}
-                {/* <label htmlFor="username">Username</label>
-                <TextField className="login-input" type="text" value={username} onChange={(e)=> setUsername(e.target.value)}/>
-
-                <label htmlFor="first-name">First Name</label>
-                <TextField className="login-input" type="text" value={firstName} onChange={(e)=> setFirstName(e.target.value)}/>
-
-                <label htmlFor="last-name">Last Name</label>
-                <TextField className="login-input" type="text" value={lastName} onChange={(e)=> setLastName(e.target.value)}/>
-
-                <label htmlFor="age">Age</label>
-                <TextField className="login-input" type="text" value={age} onChange={(e)=> setAge(e.target.value)}/>
-
-                <label htmlFor="email-address">Email Address</label>
-                <TextField className="login-input" type="text" value={email} onChange={(e)=> setEmail(e.target.value)}/>
-
-                <label htmlFor="password">Password</label>
-                <TextField className="login-input" type="password" value={password} onChange={(e)=> setPassword(e.target.value)}/>
-
-                <label htmlFor="password">Password Confirmation</label>
-                <TextField className="login-input" type="password" value={passwordConfirmation} onChange={(e)=> setPasswordConfirmation(e.target.value)}/> */}
                 <br></br>
                 <Button variant="contained" className="submit" type="submit">Sign Up</Button>
                 {errors ? errors.map(error => <div>{error}</div>) : null}
