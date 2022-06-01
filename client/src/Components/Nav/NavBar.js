@@ -20,13 +20,13 @@ let NavBar = ({pokeBall, currentUser}) => {
                 <AppBar>  
                     <Toolbar>
                         <Typography 
-                            variant="h6"
+                            variant="h5"
                             noWrap
                             component="a"
                             href="/"
                             sx={{
                             mr: 2,
-                            display: { xs: 'none', md: 'flex' },
+                            display: { xs: 'flex', md: 'flex' },
                             fontFamily: 'monospace',
                             fontWeight: 700,
                             letterSpacing: '.3rem',
@@ -38,10 +38,6 @@ let NavBar = ({pokeBall, currentUser}) => {
                                     PokemonBrawl
                                 </NavLink>
                         </Typography>
-                        {/* <NavLink to="/" exact style={{textDecoration: 'none'}} className="logo"> 
-                            {pokeBall ? <img src={pokeBall} alt='pokeball'/> : null}
-                            PokemonBrawl
-                        </NavLink> */}
                         {currentUser ? loggedIn : notLoggedIn}
                     </Toolbar>  
                 </AppBar>
