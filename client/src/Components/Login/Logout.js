@@ -1,24 +1,25 @@
 import {useEffect} from 'react'
 import {useHistory} from 'react-router-dom'
+import Alert from '@mui/material/Alert'
+import ArrowForwardIos from '@mui/icons-material/ArrowForwardIos'
 import './style.css'
+import IconButton  from '@mui/material/IconButton'
 
 let Logout = ({setCurrentUser, setIsLoaded}) => {
     const history = useHistory()
-    useEffect(() => {
-        fetch('/api/logout', {
-            method: 'DELETE'
-        }).then(() => {
-            setTimeout(() => {
-                setCurrentUser(null)
-                setIsLoaded(false)
-                history.push('/login')
-            }, 3000)
-        })
-    },[])
+    let handleLogout = () => {
+        setCurrentUser(null)
+        setIsLoaded(false)
+        history.push('/login')
+    }
 
     return (
-        <div className='login-container'>
-            Goodbye!
+        <div className="logout-container">
+            <Alert className="login-paper" severity="success" action={
+                <IconButton onClick={handleLogout}>
+                    <ArrowForwardIos/>
+                </IconButton>
+            }>Goodbye!</Alert>
         </div>
     )
 }
