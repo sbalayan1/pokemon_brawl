@@ -55,27 +55,6 @@ html, body {
 
 /* CSS for home component */
 
-.home-container {
-  display: flex;
-  justify-content: space-between;
-  height: 100%;
-  width: 100%;
-  flex-direction: column;
-}
-
-.home-battle-container {
-  display: flex;
-  margin: 10px;
-}
-
-.home-battle-description-card {
-  display: flex; 
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  width: 50%;
-  margin: 10px;
-}
 
 .home-image-thumbnail {
   border-radius: 16px;
@@ -90,11 +69,6 @@ html, body {
   -ms-animation-iteration-count: 1;
   -webkit-animation-timing-function: ease-in-out;
   -ms-animation-timing-function: ease-in-out;
-}
-
-.home-image-card {
-  height: 100%;
-  width: 50%;
 }
 
 /* .home-image-card:hover {

@@ -53,13 +53,13 @@ let WhoThatPokemon = ({
             </Card>
 
             {catchPokemon === null? 
-                <Card className="home-battle-description-card">
+                <Card className="game-description-card">
                     <h1>Who's that Pokemon?</h1>
                     <TextField onChange={handleChange} placeholder="Guess that Pokemon!!"/>
                     {foundPokemon !== hiddenPokemon.name? null : <Button variant="contained" onClick={handleSubmit}>Catch that Pokemon!!!</Button> }
                 </Card>
             :
-                <Card className="home-battle-description-card">
+                <Card className="game-description-card">
                     <h2>You caught {foundPokemon}!!</h2>
                     <img className="who-that-pokemon-image-2" src={hiddenPokemon.front_image} alt='pokemon'/>
                     <p>Check your PC to see your new Pokemon!</p>

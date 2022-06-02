@@ -3,10 +3,14 @@ import { useHistory } from 'react-router-dom'
 import Card from '@mui/material/Card'
 import Button from '@mui/material/Button'
 import { Paper } from '@mui/material'
+import './style.css'
+import { useMediaQuery } from 'react-responsive'
 
 let Charizard = ({ pokeBall }) => {
     const history = useHistory()
     const [viewCharizard, setViewCharizard] = useState(true)
+    let isMobile = useMediaQuery({ query: "(max-width: 980px) " })
+    console.log(isMobile)
 
     let handleBattle = () => {
         history.push('/battle')
@@ -14,6 +18,19 @@ let Charizard = ({ pokeBall }) => {
 
     let handleViewCharizard = () => {
         setViewCharizard(!viewCharizard)
+    }
+
+    let renderDescriptionCard = () => {
+        return (
+            <Card className="game-description-card" style={isMobile ? {width:'80vw'}: {width: '50vw'}}>
+                <div style={{ height: '80%', display: 'flex', flexDirection: 'column', justifyContent: 'flex-end' }}>
+                    <h2 style={{ marginLeft: '5px' }}>Pokemon Brawl is a Pokemon Battle simulator.</h2>
+                    <p style={{ marginLeft: '10px', marginTop: '10px', fontSize: '15px' }}><small>Play Pokémon battles online! Play with randomly generated teams, or build your own!</small></p>
+                    <Button variant="contained" className="home-battle-button" onClick={handleBattle}>Battle</Button>
+                </div>
+                <div style={{ backgroundColor: 'darkgrey', width: '100%', height: '20%' }}></div>
+            </Card>
+        )
     }
 
     let renderCharizard = () => {
@@ -50,23 +67,16 @@ let Charizard = ({ pokeBall }) => {
         <img style={{ height: '300px', backgroundColor: 'black' }} className="home-image-card" src="https://pa1.narvii.com/5739/0cfc841303d738f67cdb9e5f286606c0ae1ab749_hq.gif" alt="Nidoran vs Gengar" onClick={handleViewCharizard} />
     }
 
-
-    return (
-        <div className="home-battle-container">
-            <Card className="home-battle-description-card">
-                <div style={{ height: '80%', display: 'flex', flexDirection: 'column', justifyContent: 'flex-end' }}>
-                    <h2 style={{ marginLeft: '5px' }}>Pokemon Brawl is a Pokemon Battle simulator.</h2>
-                    <p style={{ marginLeft: '10px', marginTop: '10px', fontSize: '15px' }}><small>Play Pokémon battles online! Play with randomly generated teams, or build your own!</small></p>
-                    <Button variant="contained" className="home-battle-button" onClick={handleBattle}>Battle</Button>
-                </div>
-                <div style={{ backgroundColor: 'darkgrey', width: '100%', height: '20%' }}></div>
-            </Card>
-            <Card className="home-image-card" style={viewCharizard == true ? { backgroundColor: 'orange' } : { backgroundColor: 'black' }}>
-                {viewCharizard == true ? renderCharizard() : renderGengar()}
-            </Card>
+    return isMobile ? 
+        <div className='mobile-home-container'>
+            {renderDescriptionCard()}
+            {viewCharizard == true ? renderCharizard() : renderGengar()}
         </div>
-    )
-
+    :
+        <div className="home-container">
+            {renderDescriptionCard()}
+            {viewCharizard == true ? renderCharizard() : renderGengar()}
+        </div>
 }
 
 export default Charizard
