@@ -12,11 +12,11 @@ import BuildBattle from './BuildBattle'
 import WhoThatPokemon from './WhoThatPoke'
 import LegendaryBirds from './LegendaryBirds'
 
-let Home = ({currentUser, pokemonData, hiddenPokemon, userTrainer, setUserTrainer, opponentTrainer, setOpponentTrainer, userTrainerPokemon, setUserTrainerPokemon, setCopyUserTrainerPokemon, legendBirds, isLoaded, previousRoute, setPreviousRoute
+let Home = ({pokeBall, currentUser, pokemonData, hiddenPokemon, userTrainer, setUserTrainer, opponentTrainer, setOpponentTrainer, userTrainerPokemon, setUserTrainerPokemon, setCopyUserTrainerPokemon, legendBirds, isLoaded, previousRoute, setPreviousRoute
 }) => {
     return (
         <Container className="homepage-container">
-            {<Charizard />}
+            {<Charizard pokeBall={pokeBall} />}
             {<BuildBattle userTrainer={userTrainer}/>}
             {<WhoThatPokemon 
                 currentUser={currentUser} 

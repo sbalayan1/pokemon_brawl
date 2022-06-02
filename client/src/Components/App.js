@@ -208,6 +208,7 @@ let App = () => {
             </Route>
             <Route exact path='/'>
               <Home 
+                pokeBall={pokeBall}
                 currentUser={currentUser} 
                 setCurrentUser={setCurrentUser}
                 pokemonData={pokemonData}
