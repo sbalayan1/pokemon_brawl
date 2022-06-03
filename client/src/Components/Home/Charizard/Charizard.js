@@ -25,7 +25,7 @@ let Charizard = ({ pokeBall }) => {
             <Card className="game-description-card" style={isMobile ? {width:'80vw'}: {width: '50vw'}}>
                 <div style={{ height: '80%', display: 'flex', flexDirection: 'column', justifyContent: 'flex-end' }}>
                     <h2 style={{ marginLeft: '5px' }}>Pokemon Brawl is a Pokemon Battle simulator.</h2>
-                    <p style={{ marginLeft: '10px', marginTop: '10px', fontSize: '15px' }}><small>Play Pokémon battles online! Play with randomly generated teams, or build your own!</small></p>
+                    <p style={{ marginLeft: '10px', marginTop: '10px'}}><small>Play Pokémon battles online! Play with randomly generated teams, or build your own!</small></p>
                     <Button variant="contained" className="home-battle-button" onClick={handleBattle}>Battle</Button>
                 </div>
                 <div style={{ backgroundColor: 'darkgrey', width: '100%', height: '20%' }}></div>

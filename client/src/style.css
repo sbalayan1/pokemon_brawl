@@ -192,13 +192,6 @@ html, body {
   background-color: yellow
 }
 
-.home-battle-button {
-  background-color:lightblue;
-  width: 15%; 
-  margin-left:5px;
-  margin-bottom:5px; 
-  font-size:14px
-}
 
 .home-battle-button:hover {
   background-color: cyan;

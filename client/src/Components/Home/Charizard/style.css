@@ -3,6 +3,11 @@
     margin: 10px;
 }
 
+.home-battle-button {
+    margin: 5px;
+    width: 15%;
+}
+
 
 .charizard-container {
     display: flex;
