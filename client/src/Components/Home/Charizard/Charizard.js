@@ -20,7 +20,6 @@ let Charizard = ({ pokeBall }) => {
         setViewCharizard(!viewCharizard)
     }
 
-    // style={isMobile ? {width:'80vw'}: {width: '50vw'}}
 
     let renderDescriptionCard = () => {
         return (

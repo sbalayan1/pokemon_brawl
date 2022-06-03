@@ -1,0 +1,5 @@
+.build-battle-container {
+    display: flex;
+    height: 25vh;
+    width: 100%;
+}

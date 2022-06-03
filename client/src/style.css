@@ -82,11 +82,6 @@ html, body {
   -ms-animation-timing-function: ease-in-out;
 } */
 
-.home-build-team-create-trainer-container {
-  display: flex;
-  height: 25vh;
-  width: 100%;
-}
 
 .who-that-pokemon-container-home {
   display: flex;

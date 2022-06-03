@@ -2,6 +2,7 @@ import {useState} from 'react'
 import {useHistory} from 'react-router-dom'
 import Card from '@mui/material/Card'
 import Button from '@mui/material/Button'
+import './style.css'
 
 let BuildBattle = ({userTrainer}) => {
     const history = useHistory()
@@ -29,7 +30,7 @@ let BuildBattle = ({userTrainer}) => {
     }
 
     return (
-        <div className="home-build-team-create-trainer-container">
+        <div className="build-battle-container">
             <Card className="game-description-card" style={{backgroundColor:'lightyellow', display: 'flex', justifyContent:'space-evenly'}}>
                 <div style={{backgroundColor:'crimson', height:'10%', width:'100%', borderRadius:'16px'}}></div>
                 <div>

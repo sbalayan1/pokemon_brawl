@@ -8,7 +8,7 @@ import Ability from '../Ability'
 import Stat from '../Stat'
 import LoadScreen from '../LoadScreen'
 import Charizard from './Charizard/Charizard'
-import BuildBattle from './BuildBattle'
+import BuildBattle from './BuildBattle/BuildBattle'
 import WhoThatPokemon from './WhoThatPoke'
 import LegendaryBirds from './LegendaryBirds'
 

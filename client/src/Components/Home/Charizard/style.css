@@ -4,6 +4,10 @@
         width: 80vw;
     }
 
+    .charizard-details-card {
+        width: 50%;
+    }
+
     .charizard-image {
         width: 100%;
     }
@@ -15,6 +19,10 @@
     .charizard-container {
         width: 50vw;
 
+    }
+
+    .charizard-details-card {
+        width: 30%;
     }
 
     .charizard-image {
@@ -67,7 +75,6 @@
     margin: 8px;
     display: flex;
     flex-direction: column;
-    width: 50%;
 }
 
 .details {
