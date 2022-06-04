@@ -9,13 +9,21 @@
     }
 
     .charizard-image {
-        width: 100%;
+        width: 80%;
+    }
+
+    .gengar-image {
+        width: 40%;
     }
 }
 
 
 /* CSS for laptops/tablets */
 @media screen and (min-width: 981px) {
+    .home-container{
+        display: flex;
+    }
+
     .charizard-container {
         width: 50vw;
 
@@ -28,10 +36,13 @@
     .charizard-image {
         width: 15vw;
     }
+
+    .gengar-image {
+        width: 15vw;
+    }
 }
 
 .home-container {
-    display: flex;
     margin: 10px;
 }
 

@@ -35,10 +35,17 @@ let Charizard = ({ pokeBall }) => {
     }
 
     let renderCharizard = () => {
+        return viewCharizard === true ? 
+            <img className="charizard-image" src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/6.png" alt="charizard" onClick={handleViewCharizard} />
+        :
+            <img className="gengar-image" src="https://pa1.narvii.com/5739/0cfc841303d738f67cdb9e5f286606c0ae1ab749_hq.gif" alt="Nidoran vs Gengar" onClick={handleViewCharizard} />
+    }
+
+    let renderCharizardCard = () => {
         return (
             <Card className="charizard-container">
                 <div className="charizard-card">
-                    <img className="charizard-image" src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/6.png" alt="charizard" onClick={handleViewCharizard} />
+                    {renderCharizard()}
                     <Paper className="charizard-details-card">
                         <div className='charizard-header'>
                             <img className="pokeball" src={pokeBall} alt="pokeball" />
@@ -64,20 +71,13 @@ let Charizard = ({ pokeBall }) => {
         )
     }
 
-    let renderGengar = () => {
-        <img style={{ height: '300px', backgroundColor: 'black' }} className="home-image-card" src="https://pa1.narvii.com/5739/0cfc841303d738f67cdb9e5f286606c0ae1ab749_hq.gif" alt="Nidoran vs Gengar" onClick={handleViewCharizard} />
-    }
 
-    return isMobile ? 
-        <div className='mobile-home-container'>
-            {renderDescriptionCard()}
-            {viewCharizard == true ? renderCharizard() : renderGengar()}
-        </div>
-    :
+    return (
         <div className="home-container">
             {renderDescriptionCard()}
-            {viewCharizard == true ? renderCharizard() : renderGengar()}
+            {renderCharizardCard()}
         </div>
+    )
 }
 
 export default Charizard
