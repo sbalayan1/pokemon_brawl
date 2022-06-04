@@ -55,27 +55,6 @@ html, body {
 
 /* CSS for home component */
 
-
-.who-that-pokemon-container-home {
-  display: flex;
-  height: 58vh;
-  width: 100%;
-
-}
-
-.who-that-pokemon-card {
-  background-image: url("https://external-preview.redd.it/e5zoQw-hgw-LCjdhC_4G8IAcHxex5pzda_BD_FPTcBY.png?auto=webp&s=c0b96b5ec20010a15864b8a0c9b202c119e52fe8");
-  background-size: cover;
-  display: flex; 
-  align-items: center;
-  width: 50%
-}
-
-.who-that-pokemon-image {
-  height: 60%;
-  margin-left: 100px;
-}
-
 .who-that-pokemon-image-2 {
   height: 60%
 }
@@ -100,15 +79,6 @@ html, body {
   -ms-animation-iteration-count: 1;
   -webkit-animation-timing-function: ease-in-out;
   -ms-animation-timing-function: ease-in-out;
-}
-
-.format-card {
-  width: 50%;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: flex-start;
 }
 
 .home-pokemon-description-container {

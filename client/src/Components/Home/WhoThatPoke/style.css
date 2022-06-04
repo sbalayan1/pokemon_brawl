@@ -1,0 +1,49 @@
+/* CSS for smartphones */
+
+@media screen and (max-width: 980px) {
+    .whos-that-pokemon-card{
+        width: 80vw;
+    }
+
+    .pokemon-img-container {
+        margin-left: 50px;
+    }
+
+    .pokemon {
+        height: 100%;
+        width: 30%;
+    }
+}
+
+
+/* CSS for laptops */
+@media screen and (min-width: 981px) {
+    .whos-that-pokemon-card{
+        width: 50vw;
+    }
+
+    .pokemon-img-container {
+        margin-left: 100px;
+    }
+
+}
+
+.whos-that-pokemon-card {
+    background-image: url("https://external-preview.redd.it/e5zoQw-hgw-LCjdhC_4G8IAcHxex5pzda_BD_FPTcBY.png?auto=webp&s=c0b96b5ec20010a15864b8a0c9b202c119e52fe8");
+    background-size: 100% 100%;
+    display: flex; 
+    flex-direction: column;
+}
+
+.pokemon-img-container {
+    width: 30%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 55vh;
+}
+
+.pokemon {
+    width: 100%
+}

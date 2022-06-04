@@ -9,8 +9,7 @@ import { useMediaQuery } from 'react-responsive'
 let Charizard = ({ pokeBall }) => {
     const history = useHistory()
     const [viewCharizard, setViewCharizard] = useState(true)
-    let isMobile = useMediaQuery({ query: "(max-width: 980px) " })
-    console.log(isMobile)
+    // let isMobile = useMediaQuery({ query: "(max-width: 980px) " })
 
     let handleBattle = () => {
         history.push('/battle')

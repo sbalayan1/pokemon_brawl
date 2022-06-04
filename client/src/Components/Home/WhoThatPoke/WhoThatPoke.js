@@ -17,6 +17,7 @@ let WhoThatPokemon = ({
     
     const [foundPokemon, setFoundPokemon] = useState(null)
     const [catchPokemon, setCatchPokemon] = useState(null)
+
     let handleChange = (e) => {
         setFoundPokemon(e.target.value)
     }
@@ -29,43 +30,67 @@ let WhoThatPokemon = ({
             team_member: false
         }
 
-        if(foundPokemon === hiddenPokemon.name && userTrainer.pokemon.find(pokemon => pokemon.name === foundPokemon) === undefined) {
-            setCatchPokemon(true)
-            fetch('api/pokemon_teams', {
-                method: 'POST', 
-                headers: {'Content-type':'application/json'},
-                body: JSON.stringify(pokemonTeam)
-            })
+        let newPokemon = userTrainer.pokemon.find(p => p.name === foundPokemon)
+        console.log(userTrainer.pokemon)
+        console.log(newPokemon)
 
-            setUserTrainerPokemon(userTrainer.pokemon)
-            setCopyUserTrainerPokemon([...userTrainerPokemon, pokemonData.find(pokemon => pokemon.name === foundPokemon).id])
+        if(foundPokemon === hiddenPokemon.name && newPokemon === undefined) {
+            // setCatchPokemon(true)
+            // fetch('api/pokemon_teams', {
+            //     method: 'POST', 
+            //     headers: {'Content-type':'application/json'},
+            //     body: JSON.stringify(pokemonTeam)
+            // })
+
+            // setUserTrainerPokemon(userTrainer.pokemon)
+            // setCopyUserTrainerPokemon([...userTrainerPokemon, pokemonData.find(pokemon => pokemon.name === foundPokemon).id])
         } else {
             alert('You already caught that pokemon!!!')
         }
     }
 
+    let renderFoundPokemonMessage = () => {
+        return (foundPokemon === hiddenPokemon.name ? 
+            <p>It's {hiddenPokemon.name.charAt(0).toUpperCase() + hiddenPokemon.name.slice(1)}!!!</p>
+        :
+            null
+        )
+    }
+
+    let hiddenPokemonImage = () => {
+        let setOpacity = foundPokemon !== hiddenPokemon.name ? 0.05 : 1
+        return (<img style={{opacity: `${setOpacity}`}} className="pokemon" alt="pokemon" src={hiddenPokemon.front_image}/>)
+    }
+
+
     return (
-        <div className="who-that-pokemon-container-home">
-            <Card className="who-that-pokemon-card">
-                <div className="format-card">
-                    {foundPokemon !== hiddenPokemon.name ? null : <p style={{marginLeft: '160px'}}>It's {hiddenPokemon.name.charAt(0).toUpperCase() + hiddenPokemon.name.slice(1)}!!!</p>}
-                    {foundPokemon !== hiddenPokemon.name ? <img className="who-that-pokemon-image" style={{opacity:'0.05'}} src={hiddenPokemon.front_image} alt='pokemon'/> : <img className="who-that-pokemon-image" src={hiddenPokemon.front_image} alt='pokemon'/>}
+        <div className="home-container">
+            <Card className="whos-that-pokemon-card">
+                <div className='pokemon-img-container'>
+                    {renderFoundPokemonMessage()}
+                    {hiddenPokemonImage()}
                 </div>
             </Card>
 
-            {catchPokemon === null? 
-                <Card className="game-description-card">
-                    <h1>Who's that Pokemon?</h1>
-                    <TextField onChange={handleChange} placeholder="Guess that Pokemon!!"/>
-                    {foundPokemon !== hiddenPokemon.name? null : <Button variant="contained" onClick={handleSubmit}>Catch that Pokemon!!!</Button> }
-                </Card>
-            :
-                <Card className="game-description-card">
-                    <h2>You caught {foundPokemon}!!</h2>
-                    <img className="who-that-pokemon-image-2" src={hiddenPokemon.front_image} alt='pokemon'/>
-                    <p>Check your PC to see your new Pokemon!</p>
-                </Card>
-            }
+            <Card className="game-description-card">
+                <h1>{catchPokemon ? `You caught ${foundPokemon}` : "Who's that Pokemon?"}</h1>
+
+                {catchPokemon ? 
+                    <>
+                        <img className='pokemon' alt="pokemn" src={hiddenPokemon.front_image}/> 
+                        <p>Check your PC to see your new Pokemon!</p>
+                    </>
+                : 
+                    <TextField onChange={handleChange} placeholder="Guess that Pokemon!"/>
+                }
+
+                {foundPokemon === hiddenPokemon.name ? 
+                    <Button variant="contained" onClick={handleSubmit}>Catch that Pokemon!!!</Button>
+                :
+                    null
+                }
+
+            </Card>
         </div>
     )
 }

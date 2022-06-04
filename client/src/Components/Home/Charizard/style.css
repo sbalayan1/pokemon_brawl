@@ -20,13 +20,8 @@
 
 /* CSS for laptops/tablets */
 @media screen and (min-width: 981px) {
-    .home-container{
-        display: flex;
-    }
-
     .charizard-container {
         width: 50vw;
-
     }
 
     .charizard-details-card {
@@ -42,9 +37,6 @@
     }
 }
 
-.home-container {
-    margin: 10px;
-}
 
 .charizard-container {
     display: flex;
