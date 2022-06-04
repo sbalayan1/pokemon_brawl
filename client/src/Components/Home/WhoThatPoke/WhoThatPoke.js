@@ -78,7 +78,9 @@ let WhoThatPokemon = ({
             :
                 <>
                     {throwPoke ? 
-                        <img className="pokeball" alt='pokeball' src={pokeBall}/> 
+                        <>
+                            <img className="pokeBall" alt='pokeball' src={pokeBall}/> 
+                        </>
                     : 
                         null
                     }
