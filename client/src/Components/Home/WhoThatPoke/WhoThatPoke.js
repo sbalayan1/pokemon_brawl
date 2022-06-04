@@ -6,6 +6,7 @@ import Button from '@mui/material/Button'
 import './style.css'
 
 let WhoThatPokemon = ({
+        pokeBall,
         currentUser, 
         pokemonData, 
         hiddenPokemon, 
@@ -17,6 +18,7 @@ let WhoThatPokemon = ({
     
     const [foundPokemon, setFoundPokemon] = useState(null)
     const [catchPokemon, setCatchPokemon] = useState(false)
+    const [throwPoke, setThrowPoke] = useState(false)
 
     let handleChange = (e) => {
         setFoundPokemon(e.target.value)
@@ -34,15 +36,17 @@ let WhoThatPokemon = ({
         let newPokemon = userTrainer.pokemon.find(p => p.name === foundPokemon)
 
         if(foundPokemon === hiddenPokemon.name && newPokemon === undefined) {
+            setThrowPoke(true)
             setCatchPokemon(true)
-            fetch('api/pokemon_teams', {
-                method: 'POST', 
-                headers: {'Content-type':'application/json'},
-                body: JSON.stringify(pokemonTeam)
-            })
+            // fetch('api/pokemon_teams', {
+            //     method: 'POST', 
+            //     headers: {'Content-type':'application/json'},
+            //     body: JSON.stringify(pokemonTeam)
+            // })
 
-            setUserTrainerPokemon(userTrainer.pokemon)
-            setCopyUserTrainerPokemon([...userTrainerPokemon, pokemonData.find(pokemon => pokemon.name === foundPokemon).id])
+            // setUserTrainerPokemon(userTrainer.pokemon)
+            // setCopyUserTrainerPokemon([...userTrainerPokemon, pokemonData.find(pokemon => pokemon.name === foundPokemon).id])
+            
         } else {
             alert('You already caught that pokemon!!!')
         }
@@ -61,6 +65,10 @@ let WhoThatPokemon = ({
         return (<img style={{opacity: `${setOpacity}`}} className="pokemon" alt="pokemon" src={hiddenPokemon.front_image}/>)
     }
 
+    let handleReset = () => {
+        setThrowPoke(false)
+    }
+
     let renderGuessingCard = () => {
         return foundPokemon !== hiddenPokemon.name ? 
                 <>
@@ -69,19 +77,26 @@ let WhoThatPokemon = ({
                 </> 
             :
                 <>
+                    {throwPoke ? 
+                        <img className="pokeball" alt='pokeball' src={pokeBall}/> 
+                    : 
+                        null
+                    }
                     <img alt="pokemn" src={hiddenPokemon.front_image}/> 
                     <Button variant="contained" onClick={handleSubmit}>Catch that Pokemon!!!</Button>
+                    {throwPoke ? <Button onClick={handleReset}>Reset</Button> : null}
                 </>
                 
     }
 
     let renderCaughtCard = () => {
         return catchPokemon === true ? 
-            <>
-                <h1>{`You caught ${foundPokemon}`}</h1>
-                <img alt="pokemn" src={hiddenPokemon.front_image}/> 
-                <p>Check your PC to see your new Pokemon!</p>
-            </>
+            renderGuessingCard()
+            // <>
+            //     <h1>{`You caught ${foundPokemon}`}</h1>
+            //     <img alt="pokemn" src={hiddenPokemon.front_image}/> 
+            //     <p>Check your PC to see your new Pokemon!</p>
+            // </>
         :
             renderGuessingCard()
     }

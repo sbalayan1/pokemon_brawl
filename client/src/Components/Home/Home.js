@@ -19,6 +19,7 @@ let Home = ({pokeBall, currentUser, pokemonData, hiddenPokemon, userTrainer, set
             {<Charizard pokeBall={pokeBall} />}
             {<BuildBattle userTrainer={userTrainer}/>}
             {<WhoThatPokemon 
+                pokeBall={pokeBall}
                 currentUser={currentUser} 
                 pokemonData={pokemonData} 
                 hiddenPokemon={hiddenPokemon} 

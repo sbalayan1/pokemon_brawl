@@ -26,6 +26,9 @@
         margin-left: 100px;
     }
 
+    .pokeball {
+    }
+
 }
 
 .whos-that-pokemon-card {
@@ -46,4 +49,34 @@
 
 .pokemon {
     width: 100%
+}
+
+.pokeball {
+    animation-duration: 2s;
+    animation-name: throw;
+}
+
+@keyframes throw {
+    from {
+        margin-left: 100%;
+        transform: 
+            rotate(30deg) translateY(-100%);
+        opacity: 0
+    }
+
+    /* 75% {
+        margin-left: 25%;
+        opacity: 0.75
+    } */
+
+    to {
+        margin-left: 0%;
+        transform: 
+            rotate(0deg) translateY(0%);
+        opacity: 1
+    }
+}
+
+@keyframes bounce {
+
 }
