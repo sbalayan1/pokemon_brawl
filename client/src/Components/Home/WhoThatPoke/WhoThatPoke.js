@@ -91,6 +91,7 @@ let WhoThatPokemon = ({
                 
     }
 
+
     let renderCaughtCard = () => {
         return catchPokemon === true ? 
             renderGuessingCard()
