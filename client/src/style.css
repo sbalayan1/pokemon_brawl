@@ -56,33 +56,6 @@ html, body {
 /* CSS for home component */
 
 
-.home-image-thumbnail {
-  border-radius: 16px;
-}
-
-.home-image-thumbnail:hover {
-  -webkit-animation-name: wiggle;
-  -ms-animation-name: wiggle;
-  -ms-animation-duration: 1000ms;
-  -webkit-animation-duration: 1000ms;
-  -webkit-animation-iteration-count: 1;
-  -ms-animation-iteration-count: 1;
-  -webkit-animation-timing-function: ease-in-out;
-  -ms-animation-timing-function: ease-in-out;
-}
-
-/* .home-image-card:hover {
-  -webkit-animation-name: wiggle;
-  -ms-animation-name: wiggle;
-  -ms-animation-duration: 1000ms;
-  -webkit-animation-duration: 1000ms;
-  -webkit-animation-iteration-count: 1;
-  -ms-animation-iteration-count: 1;
-  -webkit-animation-timing-function: ease-in-out;
-  -ms-animation-timing-function: ease-in-out;
-} */
-
-
 .who-that-pokemon-container-home {
   display: flex;
   height: 58vh;
@@ -169,27 +142,6 @@ html, body {
   background-color: beige;
   margin: 10px;
   width: 90%
-}
-
-.dragonite-button {
-  background-color: lightgoldenrodyellow;
-}
-
-.dragonite-button:hover {
-  background-color: yellowgreen;
-}
-
-.mewtwo-button {
-  background-color: lightgray
-}
-
-.mewtwo-button:hover {
-  background-color: yellow
-}
-
-
-.home-battle-button:hover {
-  background-color: cyan;
 }
 
 

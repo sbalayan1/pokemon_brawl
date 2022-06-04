@@ -1,5 +1,17 @@
+@media screen and (max-width:980px) {
+    .build-battle-button {
+    }
+}
+
+@media screen and (min-width:981px) {
+    .build-battle-button {
+    }
+}
+
 .build-battle-container {
     display: flex;
     height: 25vh;
     width: 100%;
 }
+
+

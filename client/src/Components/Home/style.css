@@ -24,3 +24,29 @@
     justify-content: center;
     margin: 10px;
 }
+
+.home-button {
+    width: 15%;
+    margin: 5px;
+}
+
+.home-image-thumbnail {
+    height: 60%;
+    margin: 5px;
+}
+
+.gif-image-thumbnail {
+    height: 50%;
+    border-radius: 16px;
+}
+  
+.home-image-thumbnail:hover {
+    -webkit-animation-name: wiggle;
+    -ms-animation-name: wiggle;
+    -ms-animation-duration: 1000ms;
+    -webkit-animation-duration: 1000ms;
+    -webkit-animation-iteration-count: 1;
+    -ms-animation-iteration-count: 1;
+    -webkit-animation-timing-function: ease-in-out;
+    -ms-animation-timing-function: ease-in-out;
+}

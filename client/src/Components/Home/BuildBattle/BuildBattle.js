@@ -6,8 +6,8 @@ import './style.css'
 
 let BuildBattle = ({userTrainer}) => {
     const history = useHistory()
-    const [displayDragonite, setDisplayDragonite] = useState(false)
-    const [displayMewTwo, setDisplayMewTwo] = useState(false)
+    const [displayDragonite, setDisplayDragonite] = useState(true)
+    const [displayMewTwo, setDisplayMewTwo] = useState(true)
 
     let handleCatchPokemon = () => {
         history.push('/safari_zone')
@@ -29,26 +29,27 @@ let BuildBattle = ({userTrainer}) => {
         setDisplayMewTwo(!displayMewTwo)
     }
 
+    let dragoniteImages = ["https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/149.png", "https://giffiles.alphacoders.com/480/48081.gif"]
+
+    let mewtwoImages = ["https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/150.png", "http://24.media.tumblr.com/096c8fb8e51532f442c31277293125a5/tumblr_mpzo1sXWK11sa13zpo1_500.gif"]
+
+    let renderDragoniteGif = () => displayDragonite === true ? 'home-image-thumbnail' : 'gif-image-thumbnail'
+
+    let renderMewTwoGif = () => displayMewTwo === true ? 'home-image-thumbnail' : 'gif-image-thumbnail'
+
+    let renderDragonite = () => displayDragonite === true ? dragoniteImages[0] : dragoniteImages[1]
+
+    let renderMewTwo = () => displayMewTwo === true ? mewtwoImages[0] : mewtwoImages[1]
+
     return (
         <div className="build-battle-container">
-            <Card className="game-description-card" style={{backgroundColor:'lightyellow', display: 'flex', justifyContent:'space-evenly'}}>
-                <div style={{backgroundColor:'crimson', height:'10%', width:'100%', borderRadius:'16px'}}></div>
-                <div>
-                    {displayDragonite === false ? <img className="home-image-thumbnail" src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/149.png"  alt="pokemon-image" onClick={viewDragonite}/>
-                    :
-                        <img style={{height:'110px'}} src="https://giffiles.alphacoders.com/480/48081.gif" alt="pokemon" onClick={viewDragonite}/>
-                    }
-                    <Button variant="contained" className="dragonite-button" onClick={handleTeam}>Build my team</Button>
-                </div>
-                <div style={{backgroundColor:'crimson', height:'10%', width:'100%', borderRadius:'16px'}}></div>
+            <Card className="game-description-card" style={{backgroundColor:'lightyellow'}}>
+                <img className={renderDragoniteGif()} alt="pokemon" src={renderDragonite()} onClick={viewDragonite}/>
+                <Button variant="contained" className="build-battle-button" onClick={handleTeam}>Build Team</Button>
             </Card>
             <Card className="game-description-card" style={{backgroundColor:'violet'}}>
-                {displayMewTwo === false ? <img className="home-image-thumbnail"  src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/150.png" alt="pokemon" onClick={viewMewTwo}/>
-                :
-                    <img style={{height:'110px'}} className="home-image-thumbnail" src="http://24.media.tumblr.com/096c8fb8e51532f442c31277293125a5/tumblr_mpzo1sXWK11sa13zpo1_500.gif"  alt="pokemon" onClick={viewMewTwo}/>
-
-                }
-                {userTrainer === null ?  <Button variant="contained" onClick={handleTrainer}>Create a trainer</Button> : <Button variant="contained" className="mewtwo-button" onClick={handleCatchPokemon}>Catch Pokemon</Button>}
+                <img className={renderMewTwoGif()} alt="pokemon" src={renderMewTwo()} onClick={viewMewTwo}/>
+                <Button className="build-battle-button" variant="contained" onClick={userTrainer ? handleCatchPokemon : handleTrainer}>{userTrainer ? 'Catch Poke' : 'Create Trainer' }</Button>
             </Card>
         </div>
     )
