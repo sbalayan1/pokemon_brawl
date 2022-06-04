@@ -17,9 +17,12 @@ let WhoThatPokemon = ({
     }) => {
     
     const [foundPokemon, setFoundPokemon] = useState(null)
-    const [catchPokemon, setCatchPokemon] = useState(false)
-    const [throwPoke, setThrowPoke] = useState(false)
-    const [bounce, setBounce] = useState(false)
+    const [catchAnimation, setCatchAnimation] = useState({
+        throw: false, 
+        bounce: false, 
+        wiggle: false, 
+        catch: false
+    })
 
     let handleChange = (e) => {
         setFoundPokemon(e.target.value)
@@ -37,18 +40,20 @@ let WhoThatPokemon = ({
         let newPokemon = userTrainer.pokemon.find(p => p.name === foundPokemon)
 
         if(foundPokemon === hiddenPokemon.name && newPokemon === undefined) {
-            setThrowPoke(true)
-            
+            setCatchAnimation({...catchAnimation, ['throw']: true})
+    
             setTimeout(() => {
-                setThrowPoke(false) 
-                setBounce(true)
-            }, 500)
+                setCatchAnimation({...catchAnimation, ['throw']: false, ['bounce']: true})
+            }, 1000)
 
             setTimeout(() => {
-                setBounce(false)
-            }, 2000)
+                setCatchAnimation({...catchAnimation, ['bounce']: false, ['wiggle']: true})
+            }, 2500)
 
-            setCatchPokemon(true)
+            setTimeout(() => {
+                setCatchAnimation({...catchAnimation, ['wiggle']: false, ['catch']: true})
+            }, 8000)
+
             // fetch('api/pokemon_teams', {
             //     method: 'POST', 
             //     headers: {'Content-type':'application/json'},
@@ -76,10 +81,6 @@ let WhoThatPokemon = ({
         return (<img style={{opacity: `${setOpacity}`}} className="pokemon" alt="pokemon" src={hiddenPokemon.front_image}/>)
     }
 
-    let handleReset = () => {
-        setThrowPoke(false)
-    }
-
     let renderGuessingCard = () => {
         return foundPokemon !== hiddenPokemon.name ? 
                 <>
@@ -88,25 +89,22 @@ let WhoThatPokemon = ({
                 </> 
             :
                 <>
-                    {throwPoke ? <img className="thrown-pokeball" alt='pokeball' src={pokeBall} /> : null}
-                    {bounce ? <img className='bounce-pokeball' src={pokeBall}/> : null}
-                    
-                    <img alt="pokemn" src={hiddenPokemon.front_image}/> 
+                    {catchAnimation['throw'] ? <img className="thrown-pokeball" alt='pokeball' src={pokeBall} /> : null}
+                    {catchAnimation['bounce'] ? <img className='bounce-pokeball' src={pokeBall}/> : null}
+                    {catchAnimation['wiggle'] ? <img className="wiggle-pokeball" src={pokeBall}/> : <img alt="pokemn" src={hiddenPokemon.front_image} />}
                     <Button variant="contained" onClick={handleSubmit}>Catch that Pokemon!!!</Button>
-                    {throwPoke ? <Button onClick={handleReset}>Reset</Button> : null}
                 </>
                 
     }
 
 
     let renderCaughtCard = () => {
-        return catchPokemon === true ? 
-            renderGuessingCard()
-            // <>
-            //     <h1>{`You caught ${foundPokemon}`}</h1>
-            //     <img alt="pokemn" src={hiddenPokemon.front_image}/> 
-            //     <p>Check your PC to see your new Pokemon!</p>
-            // </>
+        return catchAnimation['catch'] ? 
+            <>
+                <h1>{`You caught ${foundPokemon}`}</h1>
+                <img alt="pokemn" src={hiddenPokemon.front_image}/> 
+                <p>Check your PC to see your new Pokemon!</p>
+            </>
         :
             renderGuessingCard()
     }

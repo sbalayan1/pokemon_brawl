@@ -10,8 +10,8 @@
     }
 
     .pokemon {
-        height: 100%;
-        width: 30%;
+        height: 50%;
+        width: 100%;
     }
 }
 
@@ -26,12 +26,21 @@
         margin-left: 100px;
     }
 
+    .pokemon {
+        width: 100%
+    }
+
     .thrown-pokeball {
         height: 14vh;
         width: 8vw;
     }
 
     .bounce-pokeball {
+        height: 14vh;
+        width: 8vw;
+    }
+
+    .wiggle-pokeball {
         height: 14vh;
         width: 8vw;
     }
@@ -54,12 +63,8 @@
     height: 55vh;
 }
 
-.pokemon {
-    width: 100%
-}
-
 .thrown-pokeball {
-    animation-duration: 0.5s;
+    animation-duration: 0.75s;
     animation-name: throw;
 }
 
@@ -67,7 +72,7 @@
     from {
         margin-left: 100%;
         transform: 
-            rotate(180deg) translateY(-100%);
+            rotate(270deg) translateY(-100%);
         opacity: 0
     }
 
@@ -81,10 +86,10 @@
 
 .bounce-pokeball {
     animation-name: bounce; 
-    animation-duration: 0.4s;
+    animation-duration: 0.5s;
     animation-direction: alternate;
     animation-timing-function: cubic-bezier(0.95, 0.05, 0.795, 0.035);
-    animation-iteration-count: 3;
+    animation-iteration-count: infinite;
 }
 
 @keyframes bounce {
@@ -94,4 +99,10 @@
     to   { 
       transform: translateY(var(--drop-height)) scale(1, 0.7);
     }
+}
+
+.wiggle-pokeball {
+    animation-name: wiggle;
+    animation-duration: 2s;
+    animation-iteration-count: infinite;
 }
