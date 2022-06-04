@@ -19,6 +19,7 @@ let WhoThatPokemon = ({
     const [foundPokemon, setFoundPokemon] = useState(null)
     const [catchPokemon, setCatchPokemon] = useState(false)
     const [throwPoke, setThrowPoke] = useState(false)
+    const [bounce, setBounce] = useState(false)
 
     let handleChange = (e) => {
         setFoundPokemon(e.target.value)
@@ -37,6 +38,16 @@ let WhoThatPokemon = ({
 
         if(foundPokemon === hiddenPokemon.name && newPokemon === undefined) {
             setThrowPoke(true)
+            
+            setTimeout(() => {
+                setThrowPoke(false) 
+                setBounce(true)
+            }, 500)
+
+            setTimeout(() => {
+                setBounce(false)
+            }, 2000)
+
             setCatchPokemon(true)
             // fetch('api/pokemon_teams', {
             //     method: 'POST', 
@@ -77,13 +88,9 @@ let WhoThatPokemon = ({
                 </> 
             :
                 <>
-                    {throwPoke ? 
-                        <>
-                            <img className="pokeBall" alt='pokeball' src={pokeBall}/> 
-                        </>
-                    : 
-                        null
-                    }
+                    {throwPoke ? <img className="thrown-pokeball" alt='pokeball' src={pokeBall} /> : null}
+                    {bounce ? <img className='bounce-pokeball' src={pokeBall}/> : null}
+                    
                     <img alt="pokemn" src={hiddenPokemon.front_image}/> 
                     <Button variant="contained" onClick={handleSubmit}>Catch that Pokemon!!!</Button>
                     {throwPoke ? <Button onClick={handleReset}>Reset</Button> : null}
