@@ -71,7 +71,7 @@ let BattleMoveCard = ({selectedPokemon, displayTeam, setFightMove, healthMovePP,
                 </p>
             </div>
             <Button variant='contained' className="action-button" onClick={handleAttack}>
-                Use {selectedMove.name}
+                {selectedMove.name}
             </Button>
             <Button variant='contained' size='small' className="action-button" onClick={hideMoves}>Back</Button>
         </Paper>

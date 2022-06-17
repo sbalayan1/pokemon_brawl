@@ -59,7 +59,12 @@
     }
 
     .move-card{
-        width: 80%;
+        width: 50vw;
+    }
+    
+    .action-button {
+        width: 22vw;
+        height: 7vh;
     }
 }
 
