@@ -49,7 +49,6 @@ let BattleMoveCard = ({selectedPokemon, displayTeam, setFightMove, healthMovePP,
             {Object.values(healthMovePP['user'][selectedPokemon.name]['moves']).map(move => (
                 <BattleMoveButton key={move.name} move={move.name} handleSelectMove={handleSelectMove}/>))
             }
-            {/* <Button variant='outlined' onClick={hideMoves}>Back</Button> */}
         </Paper>
     )
 

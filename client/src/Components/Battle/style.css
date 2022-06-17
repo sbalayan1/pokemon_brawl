@@ -64,8 +64,8 @@
 
     .action-button {
         border: 1px solid black;
-        height: 22%;
-        width: 40%;
+        height: 80%;
+        width: 50%
     }
 }
 
@@ -275,8 +275,6 @@ to {
     margin-top: 10px;
     display: grid;
     grid-template-columns: auto auto;
-    align-items: center;
-    justify-items: center;
 } 
 
 .flying-pidgeot-container {
