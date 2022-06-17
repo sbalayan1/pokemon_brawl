@@ -275,7 +275,7 @@ to {
     margin-top: 10px;
     display: grid;
     grid-template-columns: auto auto;
-     align-items: center;
+    align-items: center;
     justify-items: center;
 } 
 

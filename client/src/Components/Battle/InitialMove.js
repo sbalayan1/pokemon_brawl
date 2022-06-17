@@ -10,10 +10,10 @@ let InitialMove = ({displayTeam, selectMove}) => {
 
     let renderMoveCard = () => {
         return (
-            <Paper className="move-card">
+            <div className="move-card">
                 <Button variant="contained" className="action-button" onClick={displayTeam ? null : selectMove} value={displayTeam ? null : 'Fight'} disabled={displayTeam ? true : false}>Fight</Button>
                 {renderButtons}
-            </Paper>
+            </div>
         )
     }
     
