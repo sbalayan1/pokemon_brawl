@@ -64,6 +64,8 @@
 
     .action-button {
         border: 1px solid black;
+        height: 22%;
+        width: 40%;
     }
 }
 
@@ -271,7 +273,6 @@ to {
 
 .move-card {
     margin-top: 10px;
-    border: 1px solid black;
     display: grid;
     grid-template-columns: repeat(2, 50%);
     align-items: center;
