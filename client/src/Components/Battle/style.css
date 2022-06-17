@@ -272,13 +272,12 @@ to {
 }
 
 .move-card {
-    border: 1px solid black;
     margin-top: 10px;
     display: grid;
-    grid-template-columns: repeat(2, 50%);
-    align-items: center;
+    grid-template-columns: auto auto;
+     align-items: center;
     justify-items: center;
-}
+} 
 
 .flying-pidgeot-container {
     height: 100px;
