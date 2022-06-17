@@ -60,11 +60,13 @@
 
     .move-card{
         width: 50vw;
+        padding: 3px;
+        gap: 3px;
     }
     
     .action-button {
         width: 22vw;
-        height: 7vh;
+        height: 6vh;
     }
 }
 
@@ -134,7 +136,7 @@
 
     .action-button {
         height: 80%;
-        width: 50%;
+        width: 88%;
     }
 }
 
