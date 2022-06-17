@@ -155,21 +155,6 @@ html, body {
   -ms-animation-timing-function: ease-in-out;
 }
 
-.move-card {
-  margin-top: 10px;
-  width: 100%;
-  height: 80%;
-  display: grid;
-  grid-template-columns: repeat(2, 50%);
-  align-items: center;
-  justify-items: center;
-}
-
-
-.action-button {
-  height: 50%;
-  width: 50%;
-}
 
 .pokemon-attack {
   border:3px solid red;

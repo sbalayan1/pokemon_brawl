@@ -57,6 +57,15 @@
             transform: translateY(2vh) translateX(-10vw) scale(0.6);
         }
     }
+
+    .move-card{
+        width: 80%;
+    }
+
+    .action-button {
+        height: 80%;
+        width: 50%;
+    }
 }
 
 @media screen and (min-width: 981px) {
@@ -118,14 +127,21 @@
             transform: translateY(2vh) translateX(-10vw) scale(0.6);
         }
     }
+
+    .move-card{
+        width: 60%;
+    }
+
+    .action-button {
+        height: 80%;
+        width: 50%;
+    }
 }
 
 .battle-container {
-    border: 1px solid black;
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
 }
 
 .battle-sfzone-container-load {
@@ -253,7 +269,16 @@ to {
     display: flex;
     justify-content: space-between;
     border-bottom: 1px solid black;
-}  
+}
+
+.move-card {
+    margin-top: 10px;
+    height: 80%;
+    display: grid;
+    grid-template-columns: repeat(2, 50%);
+    align-items: center;
+    justify-items: center;
+}
 
 .flying-pidgeot-container {
     height: 100px;

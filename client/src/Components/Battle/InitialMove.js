@@ -11,17 +11,7 @@ let InitialMove = ({displayTeam, selectMove}) => {
     let renderMoveCard = () => {
         return (
             <Paper className="move-card">
-                {displayTeam === false ? 
-                        <Button size='small' variant='contained' className="action-button" onClick={selectMove} value="Fight">
-                            Fight
-                        </Button> 
-                    
-                    : 
-                        <Button size='small' variant='contained' className="action-button" value="Fight" disabled>
-                            Fight
-                        </Button> 
-                }
-
+                <Button variant="contained" className="action-button" onClick={displayTeam ? null : selectMove} value={displayTeam ? null : 'Fight'} disabled={displayTeam ? true : false}>Fight</Button>
                 {renderButtons}
             </Paper>
         )
