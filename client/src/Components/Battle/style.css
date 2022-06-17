@@ -62,10 +62,10 @@
         width: 80%;
     }
 
-    .action-button {
+    /* .action-button {
         height: 80%;
         width: 50%;
-    }
+    } */
 }
 
 @media screen and (min-width: 981px) {
@@ -239,7 +239,6 @@ to {
     flex-direction: column;
     justify-content: space-evenly;
     align-items: center;
-    border: 1px solid black;
     animation-duration: 3s;
     animation-name: slideinleft
 }
