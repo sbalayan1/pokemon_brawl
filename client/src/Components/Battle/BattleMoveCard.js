@@ -2,12 +2,10 @@ import {useState} from 'react'
 import BattleMoveButton from './BattleMoveButton'
 import Button from '@mui/material/Button'
 import Paper from '@mui/material/Paper'
-import {useMediaQuery} from 'react-responsive'
 
 let BattleMoveCard = ({selectedPokemon, displayTeam, setFightMove, healthMovePP, setHealthMovePP, setUserAttack, opponentPokemon}) => {
+    console.log(healthMovePP)
     const [selectedMove, setSelectedMove] = useState(null)
-    let isMobile = useMediaQuery({query: '(max-width: 980px)'})
-    let heightWidth = () => isMobile ? {width: '40%', height: '22%'}: null
 
     let handleSelectMove = (e) => {
         if (displayTeam === false) {
@@ -72,10 +70,10 @@ let BattleMoveCard = ({selectedPokemon, displayTeam, setFightMove, healthMovePP,
                     PP: {selectedMove.pp}
                 </p>
             </div>
-            <Button style={heightWidth()} variant='contained' className="action-button" onClick={handleAttack}>
+            <Button variant='contained' className="action-button" onClick={handleAttack}>
                 Use {selectedMove.name}
             </Button>
-            <Button style={heightWidth()} variant='contained' className="action-button" onClick={hideMoves}>Back</Button>
+            <Button variant='contained' size='small' className="action-button" onClick={hideMoves}>Back</Button>
         </Paper>
     )
     
