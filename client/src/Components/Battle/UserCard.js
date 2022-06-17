@@ -73,10 +73,10 @@ let UserCard = ({userTeam, setUserTeam, selectedPokemon, setSelectedPokemon, fet
 
     let renderUser = () => {
         return (
-            <Paper className="zone-container" style={{height:'350px'}}>
-                <img className="zone-image-card" src={selectedPokemon.back_image} alt="user-pokemon-image"/>
-                <div className="trainer-decision-making-container">
-                    <Paper className="trainer-stats-card">
+            <Paper className="user-battle-container">
+                <img className="pokemon-battle-image" src={selectedPokemon.back_image} alt="pokemon"/>
+                <div className="user-battleinfo-container">
+                    <Paper className="stats-card">
                         <div className="hp-card">
                             <p style={opponentAttack ? {backgroundColor:'red', marginLeft:'5px'} : {marginLeft:'5px'}}>
                                 HP: {renderHP('user', selectedPokemon)}

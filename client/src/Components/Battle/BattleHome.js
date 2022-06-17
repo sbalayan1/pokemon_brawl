@@ -253,7 +253,6 @@ let BattleHome = ({ userTrainer, opponentTrainer, pokemonData, pokeBall }) => {
 
 
     return (
-        <Container maxWidth="md">
             <div className="battle-container">
             {initialBattleLoad ?
                 <InitialLoad
@@ -319,7 +318,6 @@ let BattleHome = ({ userTrainer, opponentTrainer, pokemonData, pokeBall }) => {
                 </>
             }
             </div>
-        </Container>
     )
 }
 

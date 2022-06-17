@@ -33,11 +33,11 @@ let InitialLoad = ({setInitialBattleLoad, opponentTrainer}) => {
 
     return (                
         <Paper elevation={24} className="battle-sfzone-container-load">
-            <Paper className="zone-container" elevation={24} style={{backgroundImage:'url(https://www.models-resource.com/resources/big_icons/22/21700.png)', backgroundSize:'cover', height: '50%'}}>
-                <img className="zone-image-card" src={opponentTrainers[randomNumber]} alt="opponent-trainer"/>
+            <Paper className="zone-container" elevation={24} style={{backgroundImage:'url(https://www.models-resource.com/resources/big_icons/22/21700.png)', backgroundSize:'100% 100%', height: '50%'}}>
+                <img className="zone-image-card" src={opponentTrainers[randomNumber]} />
             </Paper>
-            <p className="battle-p-tag-load">Trainer {opponentTrainer ? opponentTrainer.name : 'Opponent'} wants to battle!</p>
-            <Button style={{margin:'5px'}} size='small' variant='contained' onClick={startBattle}>Start</Button>
+            <p className="battle-p-tag-load" style={{marginLeft: '20px'}}>Trainer {opponentTrainer ? opponentTrainer.name : 'Opponent'} wants to battle!</p>
+            <Button size='small' variant='contained' onClick={startBattle}>Start</Button>
         </Paper>
     )
 }

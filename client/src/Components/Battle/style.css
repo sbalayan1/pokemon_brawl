@@ -1,6 +1,285 @@
+@media screen and (max-width:980px) {
+    .battle-container {
+        height: 100vh;
+        width: 90vw;
+    }
+    
+    .opponent-battle-container {
+        width: 85vw;
+    }
+
+    .user-battle-container {
+        width: 85vw;
+    }
+
+    @keyframes fly-right-one {
+        0% {
+            transform: scale(0.6) translateX(-10vw);
+        }
+    
+        10% {
+            transform: translateY(2vh) translateX(-5vw) scale(0.8);
+        }
+    
+        20% {
+            transform: translateY(0vh) translateX(0vw) scale(0.9);
+        }
+    
+        30% {
+            transform: translateY(4vh) translateX(5vw) scale(1);
+        }
+    
+        40% {
+            transform: translateY(2vh) translateX(10vw) scale(1);
+        }
+    
+        50% {
+            transform: translateY(0vh) translateX(15vw) scale(1);
+        }
+    
+        60% {
+            transform: translateY(4vh) translateX(10vw) scale(1);
+        }
+    
+        70% {
+            transform: translateY(2vh) translateX(5vw) scale(1)
+        }
+    
+        80% {
+            transform: translateY(0vh) translateX(0vw) scale(0.9)
+        }
+    
+        90% {
+            transform: translateY(4vh) translateX(-5vw) scale(0.8)
+        }
+    
+        100% {
+            transform: translateY(2vh) translateX(-10vw) scale(0.6);
+        }
+    }
+}
+
+@media screen and (min-width: 981px) {
+    .battle-container {
+        width: 80vw;
+        height: 120vh;
+    }
+
+     .opponent-battle-container {
+        width: 50%;
+    }
+
+    .user-battle-container {
+        width: 50%
+    }
+
+    @keyframes fly-right-one {
+        0% {
+            transform: scale(0.6) translateX(-10vw);
+        }
+    
+        10% {
+            transform: translateY(2vh) translateX(5vw) scale(0.8);
+        }
+    
+        20% {
+            transform: translateY(0vh) translateX(15vw) scale(0.9);
+        }
+    
+        30% {
+            transform: translateY(4vh) translateX(30vw) scale(1);
+        }
+    
+        40% {
+            transform: translateY(2vh) translateX(45vw) scale(1);
+        }
+    
+        50% {
+            transform: translateY(0vh) translateX(60vw) scale(1);
+        }
+    
+        60% {
+            transform: translateY(4vh) translateX(45vw) scale(1);
+        }
+    
+        70% {
+            transform: translateY(2vh) translateX(30vw) scale(1)
+        }
+    
+        80% {
+            transform: translateY(0vh) translateX(15vw) scale(0.9)
+        }
+    
+        90% {
+            transform: translateY(4vh) translateX(5vw) scale(0.8)
+        }
+    
+        100% {
+            transform: translateY(2vh) translateX(-10vw) scale(0.6);
+        }
+    }
+}
+
 .battle-container {
+    border: 1px solid black;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
 }
+
+.battle-sfzone-container-load {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 60%;
+    width: 50%;
+    animation: blinkingBackground 5s infinite;
+}
+
+@keyframes blinkingBackground {
+    0%		{ background-color: red;}
+    25%		{ background-color: black;}
+    50%		{ background-color: red;}
+    75%		{ background-color: black;}
+    100%	{ background-color: red;}
+}
+  
+@keyframes blinkingPTag {
+    0%		{ color: black;}
+    25%		{ color: red;}
+    50%		{ color: black;}
+    75%		{ color: red;}
+    100%	{ color: black;}
+}
+
+.zone-container {
+    margin: 5px;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    height: 50%;
+    width: 70%;
+    border: 3px solid orange;
+    background-image: url('https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/2fb2821a-1406-4a1d-9b04-6668f278e944/d841b5t-d14186ca-887a-4f10-b4ca-b16d5aaff49a.jpg?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7InBhdGgiOiJcL2ZcLzJmYjI4MjFhLTE0MDYtNGExZC05YjA0LTY2NjhmMjc4ZTk0NFwvZDg0MWI1dC1kMTQxODZjYS04ODdhLTRmMTAtYjRjYS1iMTZkNWFhZmY0OWEuanBnIn1dXSwiYXVkIjpbInVybjpzZXJ2aWNlOmZpbGUuZG93bmxvYWQiXX0.5Pv6KPt53igISARqXxlqkRR4qtwKEB3LhHLyc1OQ9Wo');
+    background-size: 100% 100%;
+}
+
+.opponent-battle-container {
+    margin: 5px;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    border: 3px solid orange;
+    background-image: url('https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/2fb2821a-1406-4a1d-9b04-6668f278e944/d841b5t-d14186ca-887a-4f10-b4ca-b16d5aaff49a.jpg?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7InBhdGgiOiJcL2ZcLzJmYjI4MjFhLTE0MDYtNGExZC05YjA0LTY2NjhmMjc4ZTk0NFwvZDg0MWI1dC1kMTQxODZjYS04ODdhLTRmMTAtYjRjYS1iMTZkNWFhZmY0OWEuanBnIn1dXSwiYXVkIjpbInVybjpzZXJ2aWNlOmZpbGUuZG93bmxvYWQiXX0.5Pv6KPt53igISARqXxlqkRR4qtwKEB3LhHLyc1OQ9Wo');
+    background-size: 100% 100%;
+    animation-duration: 3s;
+    animation-name: slideinright
+}
+
+@keyframes slideinright {
+from {
+    margin-right: 100%;
+}
+
+75% {
+    margin-right: 25%;
+}
+
+to {
+    margin-right: 0%;
+}
+}
+
+.user-battle-container {
+    margin: 5px;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    border: 3px solid orange;
+    background-image: url('https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/2fb2821a-1406-4a1d-9b04-6668f278e944/d841b5t-d14186ca-887a-4f10-b4ca-b16d5aaff49a.jpg?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7InBhdGgiOiJcL2ZcLzJmYjI4MjFhLTE0MDYtNGExZC05YjA0LTY2NjhmMjc4ZTk0NFwvZDg0MWI1dC1kMTQxODZjYS04ODdhLTRmMTAtYjRjYS1iMTZkNWFhZmY0OWEuanBnIn1dXSwiYXVkIjpbInVybjpzZXJ2aWNlOmZpbGUuZG93bmxvYWQiXX0.5Pv6KPt53igISARqXxlqkRR4qtwKEB3LhHLyc1OQ9Wo');
+    background-size: 100% 100%;
+}
+
+.pokemon-battle-image {
+    width: 30%;
+    height: 60%;
+}
+
+.pokemon-battle-image:hover {
+    -webkit-animation-name: wiggle;
+    -ms-animation-name: wiggle;
+    -ms-animation-duration: 1000ms;
+    -webkit-animation-duration: 1000ms;
+    -webkit-animation-iteration-count: 1;
+    -ms-animation-iteration-count: 1;
+    -webkit-animation-timing-function: ease-in-out;
+    -ms-animation-timing-function: ease-in-out;
+}
+
+.user-battleinfo-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+    border: 1px solid black;
+    animation-duration: 3s;
+    animation-name: slideinleft
+}
+
+@keyframes slideinleft {
+    from {
+        margin-left: 100%;
+    }
+
+    75% {
+        margin-left: 25%;
+    }
+
+    to {
+        margin-left: 0%;
+    }
+}
+
+
+
+.stats-card {
+    background-color: honeydew;
+    border-radius: 16px;
+}
+
+.hp-card {
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 1px solid black;
+}  
+
+.flying-pidgeot-container {
+    height: 100px;
+    width: 50px;
+    transform: scale(0) translateX(-10vw);
+        will-change: transform;
+
+    animation-name: fly-right-one;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+    animation-duration: 14s;
+    animation-delay: 0;
+}
+
+.flying-pidgeot {
+    will-change: background-position;
+    animation-name: fly-cycle;
+    animation-timing-function: steps(10);
+    animation-iteration-count: infinite;
+    animation-duration: 1s;
+    animation-delay: 0s;		
+}
+
+@keyframes fly-cycle {
+    100% {
+        background-position: -900px 0;
+    }	
+}
+

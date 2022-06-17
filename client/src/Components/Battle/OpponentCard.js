@@ -16,7 +16,7 @@ let OpponentCard = ({opponentTeam, setOpponentTeam, fetchTeam, renderHP, renderP
 
     let renderOpponent = () => {
         return (
-            <Paper className="opponent-decision-making-container" >
+            <Paper className="opponent-battle-container" >
                 <div className="trainer-battle-pokeball-container">
                     {renderPokeBalls(opponentTeam)}
                 </div>
