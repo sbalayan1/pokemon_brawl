@@ -1,6 +1,7 @@
 import InitialMoveButton from "./InitialMoveButton"
 import Paper from '@mui/material/Paper'
 import Button from '@mui/material/Button'
+import {useMediaQuery} from 'react-responsive'
 
 let InitialMove = ({displayTeam, selectMove}) => {
     let moveList = ['Bag', 'Poke', 'Run']
@@ -8,12 +9,15 @@ let InitialMove = ({displayTeam, selectMove}) => {
         return (<InitialMoveButton key={move} move={move} selectMove={selectMove}/>)
     })
 
+    let isMobile = useMediaQuery({query: '(max-width: 980px)'})
+    console.log(isMobile)
+
+    let heightWidth = () => isMobile ? {width: '100vw'}: null
+
     let renderMoveCard = () => {
         return (
-            <Paper className="move-card">
-                <div style={{width:'100%', height:'100%', border:'1px solid black', display:'flex', justifyContent:'center', alignItems:'center'}}>
-                    <Button variant="contained" className="action-button" onClick={displayTeam ? null : selectMove} value={displayTeam ? null : 'Fight'} disabled={displayTeam ? true : false}>Fight</Button>
-                </div>
+            <Paper className="move-card">   
+                <Button style={heightWidth()}variant="contained" className="action-button" onClick={displayTeam ? null : selectMove} value={displayTeam ? null : 'Fight'} disabled={displayTeam ? true : false}>Fight</Button>
                 {renderButtons}
             </Paper>
         )

@@ -59,12 +59,11 @@
     }
 
     .move-card{
+        width: 80%;
     }
 
     .action-button {
         border: 1px solid black;
-        height: 80%;
-        width: 50%
     }
 }
 
@@ -129,6 +128,7 @@
     }
 
     .move-card{
+        width: 60%;
     }
 
     .action-button {
@@ -272,7 +272,9 @@ to {
 .move-card {
     margin-top: 10px;
     display: grid;
-    grid-template-columns: auto auto;
+    grid-template-columns: repeat(2, 50%);
+    justify-items: center;
+    align-items: center;
 } 
 
 .flying-pidgeot-container {
