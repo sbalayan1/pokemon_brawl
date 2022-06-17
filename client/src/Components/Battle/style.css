@@ -62,10 +62,9 @@
         width: 80%;
     }
 
-    /* .action-button {
-        height: 80%;
-        width: 50%;
-    } */
+    .action-button {
+        border: 1px solid black;
+    }
 }
 
 @media screen and (min-width: 981px) {
@@ -272,7 +271,7 @@ to {
 
 .move-card {
     margin-top: 10px;
-    height: 80%;
+    border: 1px solid black;
     display: grid;
     grid-template-columns: repeat(2, 50%);
     align-items: center;
