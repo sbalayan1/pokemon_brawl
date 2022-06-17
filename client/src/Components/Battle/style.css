@@ -61,10 +61,6 @@
     .move-card{
         width: 80%;
     }
-
-    .action-button {
-        border: 1px solid black;
-    }
 }
 
 @media screen and (min-width: 981px) {

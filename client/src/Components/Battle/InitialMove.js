@@ -10,14 +10,12 @@ let InitialMove = ({displayTeam, selectMove}) => {
     })
 
     let isMobile = useMediaQuery({query: '(max-width: 980px)'})
-    console.log(isMobile)
-
-    let heightWidth = () => isMobile ? {width: '100vw'}: null
+    let heightWidth = () => isMobile ? {width: '40%', height: '22%'}: null
 
     let renderMoveCard = () => {
         return (
             <Paper className="move-card">   
-                <Button style={heightWidth()}variant="contained" className="action-button" onClick={displayTeam ? null : selectMove} value={displayTeam ? null : 'Fight'} disabled={displayTeam ? true : false}>Fight</Button>
+                <Button style={heightWidth()} variant="contained" className="action-button" onClick={displayTeam ? null : selectMove} value={displayTeam ? null : 'Fight'} disabled={displayTeam ? true : false}>Fight</Button>
                 {renderButtons}
             </Paper>
         )
