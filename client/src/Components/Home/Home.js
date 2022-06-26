@@ -1,4 +1,4 @@
-import * as React from 'react'
+import { React, useContext } from 'react'
 import Container from '@mui/material/Container'
 import './style.css'
 
@@ -12,8 +12,13 @@ import BuildBattle from './BuildBattle/BuildBattle'
 import WhoThatPokemon from './WhoThatPoke/WhoThatPoke'
 import LegendaryBirds from './LegendaryBirds'
 
+//hooks
+import {GlobalStateContext} from '../../GlobalState'
+
 let Home = ({pokeBall, currentUser, pokemonData, hiddenPokemon, userTrainer, setUserTrainer, opponentTrainer, setOpponentTrainer, userTrainerPokemon, setUserTrainerPokemon, setCopyUserTrainerPokemon, legendBirds, isLoaded, previousRoute, setPreviousRoute
 }) => {
+    const [globalState, setGlobalState] = useContext(GlobalStateContext)
+
     return (
         <Container className="homepage-container">
             {<Charizard pokeBall={pokeBall} />}

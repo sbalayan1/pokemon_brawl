@@ -1,6 +1,5 @@
 import React, {useState, useEffect, useContext} from 'react'
 import { Switch, Route, useHistory, Redirect, NavLink, Link } from 'react-router-dom'
-import { useMediaQuery } from "react-responsive";
 
 // import components
 import NavBar from './Nav/NavBar'
@@ -15,6 +14,9 @@ import PC from './PC'
 import LoadScreen from './LoadScreen'
 import Leaderboards from './Leaderboards'
 import Error from './Error'
+
+//hooks
+import {GlobalStateContext} from '../GlobalState'
 
 let App = () => {
   const history = useHistory()
@@ -31,8 +33,10 @@ let App = () => {
   const [legendBirds, setLegendBirds] = useState(null)
   const [isLoaded, setIsLoaded] = useState(false)
   const [previousRoute, setPreviousRoute] = useState('/')
+  const [globalState, setGlobalState] = useContext(GlobalStateContext)
+
+  console.log(globalState)
   let random = Math.floor(Math.random()*150) + 1
-  let isMobile = useMediaQuery({query: "(max-width: 980px) "})
 
 
   let fetchData = async () => {
