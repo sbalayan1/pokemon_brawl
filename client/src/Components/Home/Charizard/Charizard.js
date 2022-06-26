@@ -4,12 +4,10 @@ import Card from '@mui/material/Card'
 import Button from '@mui/material/Button'
 import { Paper } from '@mui/material'
 import './style.css'
-import { useMediaQuery } from 'react-responsive'
 
 let Charizard = ({ pokeBall }) => {
     const history = useHistory()
     const [viewCharizard, setViewCharizard] = useState(true)
-    // let isMobile = useMediaQuery({ query: "(max-width: 980px) " })
 
     let handleBattle = () => {
         history.push('/battle')
@@ -18,7 +16,6 @@ let Charizard = ({ pokeBall }) => {
     let handleViewCharizard = () => {
         setViewCharizard(!viewCharizard)
     }
-
 
     let renderDescriptionCard = () => {
         return (

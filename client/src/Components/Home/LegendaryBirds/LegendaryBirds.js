@@ -1,4 +1,5 @@
 import LegendaryBird from './LegendaryBird'
+
 let LegendaryBirds = ({legendBirds}) => {
     return (
         <div className="home-pokemon-description-container">

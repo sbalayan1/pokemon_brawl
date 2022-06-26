@@ -1,4 +1,4 @@
-import {useEffect, useState} from 'react'
+import {useState} from 'react'
 import { useHistory } from 'react-router-dom'
 import Paper from '@mui/material/Paper'
 import Button from '@mui/material/Button'

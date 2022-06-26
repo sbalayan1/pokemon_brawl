@@ -1,5 +1,4 @@
 import Link from './Link'
-import {NavLink} from 'react-router-dom'
 import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar'
 import Typography from '@mui/material/Typography'
@@ -7,8 +6,6 @@ import {useMediaQuery} from 'react-responsive'
 
 let NavBar = ({pokeBall, currentUser}) => {
     let isMobile = useMediaQuery({ query: '(max-width: 980px)' })
-    console.log(isMobile)
-
     let notLoggedInPaths = isMobile ? ['Login', 'Logout'] : ['Login', 'Sign Up', 'Logout']
     let loggedInPaths = isMobile ? ['Battle', 'PC', 'Logout'] : ['Home', 'Safari Zone', 'Battle', 'My PC', 'Leaderboards', 'Logout']
 
@@ -40,10 +37,8 @@ let NavBar = ({pokeBall, currentUser}) => {
                                 color: 'inherit',
                                 textDecoration: 'none',
                             }}>
-                                <NavLink to="/" className="logo" >
-                                    {pokeBall ? <img src={pokeBall} alt='pokeball'/> : null}
-                                    {isMobile ? 'PokeBrawl' : 'PokemonBrawl'}
-                                </NavLink>
+                                {pokeBall ? <img src={pokeBall} alt='pokeball'/> : null}
+                                {isMobile ? 'PokeBrawl' : 'PokemonBrawl'}
                         </Typography>
                         {currentUser ? loggedIn : notLoggedIn}
                     </Toolbar>  

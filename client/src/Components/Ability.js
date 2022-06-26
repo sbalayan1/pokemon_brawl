@@ -1,14 +1,12 @@
-import {useEffect} from 'react'
-
 let Ability = ({pokemon}) => {
-    let findAbility = async () => {
-        let foundAbility = await fetch(`api/pokemon/${pokemon.id}`)
-        return foundAbility
-    }
+    // let findAbility = async () => {
+    //     let foundAbility = await fetch(`api/pokemon/${pokemon.id}`)
+    //     return foundAbility
+    // }
 
-    useEffect(() => {
-        findAbility().then(res => res.json()).then(data => console.log)
-    }, [])
+    // useEffect(() => {
+    //     findAbility().then(res => res.json()).then(data => console.log)
+    // }, [])
 
     return (
         <>

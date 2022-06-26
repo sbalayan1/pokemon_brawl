@@ -1,12 +1,20 @@
 import React, {useState, useEffect, useContext} from 'react'
 import { Switch, Route, useHistory, Redirect, NavLink, Link } from 'react-router-dom'
 
-// import components
+//navbar components
 import NavBar from './Nav/NavBar'
 import SignUp from './Login/SignUp';
 import Login from './Login/Login';
 import Logout from './Login/Logout'
+
+//home components
 import Home from './Home/Home'
+import Charizard from './Home/Charizard/Charizard'
+import BuildBattle from './Home/BuildBattle/BuildBattle'
+import WhoThatPokemon from './Home/WhoThatPoke/WhoThatPoke'
+import LegendaryBirds from './Home/LegendaryBirds/LegendaryBirds'
+
+
 import SafariZone from './SafariZone'
 import Trainer from './Trainer'
 import BattleHome from './Battle/BattleHome'
@@ -212,24 +220,38 @@ let App = () => {
             </Route>
             <Route exact path='/'>
               <Home 
-                pokeBall={pokeBall}
-                currentUser={currentUser} 
-                setCurrentUser={setCurrentUser}
-                pokemonData={pokemonData}
-                setPokemonData={setPokemonData}
-                hiddenPokemon={hiddenPokemon}
-                userTrainer={userTrainer}
-                setUserTrainer={setUserTrainer}
-                opponentTrainer={opponentTrainer}
-                setOpponentTrainer={setOpponentTrainer}
-                userTrainerPokemon={userTrainerPokemon}
-                setUserTrainerPokemon={setUserTrainerPokemon}
-                setCopyUserTrainerPokemon={setCopyUserTrainerPokemon}
-                legendBirds={legendBirds}
-                isLoaded={isLoaded}
-                previousRoute={previousRoute}
-                setPreviousRoute={setPreviousRoute}
-              />
+                // pokeBall={pokeBall}
+                // currentUser={currentUser} 
+                // setCurrentUser={setCurrentUser}
+                // pokemonData={pokemonData}
+                // setPokemonData={setPokemonData}
+                // hiddenPokemon={hiddenPokemon}
+                // userTrainer={userTrainer}
+                // setUserTrainer={setUserTrainer}
+                // opponentTrainer={opponentTrainer}
+                // setOpponentTrainer={setOpponentTrainer}
+                // userTrainerPokemon={userTrainerPokemon}
+                // setUserTrainerPokemon={setUserTrainerPokemon}
+                // setCopyUserTrainerPokemon={setCopyUserTrainerPokemon}
+                // legendBirds={legendBirds}
+                // isLoaded={isLoaded}
+                // previousRoute={previousRoute}
+                // setPreviousRoute={setPreviousRoute}
+              >
+                {<Charizard pokeBall={pokeBall}/>}
+                {<BuildBattle userTrainer={userTrainer}/>}
+                {<WhoThatPokemon 
+                    pokeBall={pokeBall}
+                    currentUser={currentUser} 
+                    pokemonData={pokemonData} 
+                    hiddenPokemon={hiddenPokemon} 
+                    userTrainer={userTrainer} 
+                    userTrainerPokemon={userTrainerPokemon} 
+                    setUserTrainerPokemon={setUserTrainerPokemon} 
+                    setCopyUserTrainerPokemon={setCopyUserTrainerPokemon}
+                />}
+                {<LegendaryBirds legendBirds={legendBirds}/>}
+              </Home>
             </Route>
             {isLoaded ?
               <Route>

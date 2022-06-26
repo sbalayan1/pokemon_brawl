@@ -132,8 +132,6 @@ html, body {
   flex-direction: column;
 }
 
-
-
 .attack-card {
   display: flex;
   justify-content: space-evenly;

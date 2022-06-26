@@ -1,5 +1,4 @@
 import {useState} from 'react'
-import Container from '@mui/material/Container'
 import Card from '@mui/material/Card'
 import TextField  from '@mui/material/TextField'
 import Button from '@mui/material/Button'
@@ -76,25 +75,24 @@ let WhoThatPokemon = ({
         )
     }
 
-    let hiddenPokemonImage = () => {
+    let renderHiddenPokemonImage = () => {
         let setOpacity = foundPokemon !== hiddenPokemon.name ? 0.05 : 1
         return (<img style={{opacity: `${setOpacity}`}} className="pokemon" alt="pokemon" src={hiddenPokemon.front_image}/>)
     }
 
     let renderGuessingCard = () => {
         return foundPokemon !== hiddenPokemon.name ? 
-                <>
-                    <h1>Who's that Pokemon?</h1>
-                    <TextField onChange={handleChange} placeholder="Guess that Pokemon!"/>
-                </> 
+            <>
+                <h1>Who's that Pokemon?</h1>
+                <TextField onChange={handleChange} placeholder="Guess that Pokemon!"/>
+            </> 
             :
-                <>
-                    {catchAnimation['throw'] ? <img className="thrown-pokeball" alt='pokeball' src={pokeBall} /> : null}
-                    {catchAnimation['bounce'] ? <img className='bounce-pokeball' src={pokeBall}/> : null}
-                    {catchAnimation['wiggle'] ? <img className="wiggle-pokeball" src={pokeBall}/> : <img alt="pokemn" src={hiddenPokemon.front_image} />}
-                    <Button variant="contained" onClick={handleSubmit}>Catch that Pokemon!!!</Button>
-                </>
-                
+            <>
+                {catchAnimation['throw'] ? <img className="thrown-pokeball" alt='pokeball' src={pokeBall} /> : null}
+                {catchAnimation['bounce'] ? <img className='bounce-pokeball' src={pokeBall}/> : null}
+                {catchAnimation['wiggle'] ? <img className="wiggle-pokeball" src={pokeBall}/> : <img alt="pokemn" src={hiddenPokemon.front_image} />}
+                <Button variant="contained" onClick={handleSubmit}>Catch that Pokemon!!!</Button>
+            </>           
     }
 
 
@@ -109,14 +107,12 @@ let WhoThatPokemon = ({
             renderGuessingCard()
     }
     
-
-
     return (
         <div className="home-container">
             <Card className="whos-that-pokemon-card">
                 <div className='pokemon-img-container'>
                     {renderFoundPokemonMessage()}
-                    {hiddenPokemonImage()}
+                    {renderHiddenPokemonImage()}
                 </div>
             </Card>
 
