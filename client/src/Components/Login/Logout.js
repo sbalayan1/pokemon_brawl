@@ -21,7 +21,8 @@ let Logout = ({setCurrentUser, setIsLoaded}) => {
                         <IconButton onClick={handleLogout}>
                             <ArrowForwardIos/>
                         </IconButton>
-                    }>Goodbye!</Alert>
+                    }>Goodbye!
+                </Alert>
             </Paper>
    
         </div>

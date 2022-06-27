@@ -77,7 +77,7 @@ let WhoThatPokemon = ({
     }
 
     let renderHiddenPokemonImage = () => {
-        let setOpacity = foundPokemon !== null && foundPokemon.toLowerCase() !== hiddenPokemon.name ? 0.05 : 1
+        let setOpacity = foundPokemon !== null && foundPokemon.toLowerCase() === hiddenPokemon.name ? 1 : 0.05
         return (<img style={{opacity: `${setOpacity}`}} className="pokemon" alt="pokemon" src={hiddenPokemon.front_image}/>)
     }
 
