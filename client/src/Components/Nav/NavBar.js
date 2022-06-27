@@ -37,7 +37,7 @@ let NavBar = ({pokeBall, currentUser}) => {
                                 color: 'inherit',
                                 textDecoration: 'none',
                             }}>
-                                {pokeBall ? <img src={pokeBall} alt='pokeball'/> : null}
+                                {pokeBall.current ? <img src={pokeBall.current} alt='pokeball'/> : null}
                                 {isMobile ? 'PokeBrawl' : 'PokemonBrawl'}
                         </Typography>
                         {currentUser ? loggedIn : notLoggedIn}

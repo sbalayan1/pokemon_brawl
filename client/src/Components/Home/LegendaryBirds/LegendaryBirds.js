@@ -3,7 +3,7 @@ import LegendaryBird from './LegendaryBird'
 let LegendaryBirds = ({legendBirds}) => {
     return (
         <div className="home-pokemon-description-container">
-            {legendBirds.map(bird => 
+            {legendBirds.current.map(bird => 
                 <LegendaryBird 
                     key={bird.name} 
                     name={bird.name}

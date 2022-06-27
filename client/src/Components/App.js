@@ -1,4 +1,4 @@
-import React, {useState, useEffect, useContext} from 'react'
+import React, {useState, useEffect, useContext, useRef} from 'react'
 import { Switch, Route, useHistory, Redirect, NavLink, Link } from 'react-router-dom'
 
 //navbar components
@@ -36,11 +36,13 @@ let App = () => {
   const [copyUserTrainerPokemon, setCopyUserTrainerPokemon] = useState(null)
   const [trainers, setTrainers] = useState(null)
   const [randPokemon, setRandPokemon] = useState(null)
-  const [pokeBall, setPokeBall] = useState(null)
-  const [legendBirds, setLegendBirds] = useState(null)
   const [isLoaded, setIsLoaded] = useState(false)
   const [previousRoute, setPreviousRoute] = useState('/')
   const [globalState, setGlobalState] = useContext(GlobalStateContext)
+
+
+  const pokeBall = useRef()
+  const legendBirds = useRef()
 
   // console.log(globalState)
   let random = Math.floor(Math.random()*150) + 1
@@ -87,14 +89,14 @@ let App = () => {
       fetchData().then(data => {
         console.log('useEffect rerender firing. setting necessary data')
         let legendaryBirds = [data[6], data[7], data[8]]
-        setPokeBall(data[4].sprites.default)
         setTrainers(data[0])
         setPokemonData(data[1])
         setRandPokemon(data[2].front_image)
         setHiddenPokemon(data[3])
-        setPokeBall(data[4].sprites.default)
-        setLegendBirds(legendaryBirds)
-  
+        
+        pokeBall.current = data[4].sprites.default
+        legendBirds.current = legendaryBirds
+
         if (!data[5].error) {
           // alert(`Welcome ${data[5].username}`)
           setCurrentUser(data[5])

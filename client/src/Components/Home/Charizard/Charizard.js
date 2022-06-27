@@ -44,7 +44,7 @@ let Charizard = ({ pokeBall }) => {
                     {renderCharizard()}
                     <Paper className="charizard-details-card">
                         <div className='charizard-header'>
-                            <img className="pokeball" src={pokeBall} alt="pokeball" />
+                            <img className="pokeball" src={pokeBall.current} alt="pokeball" />
                             <h5>006 Charizard</h5>
                         </div>
                         <p className='details'><small>Flame Pokemon</small></p>

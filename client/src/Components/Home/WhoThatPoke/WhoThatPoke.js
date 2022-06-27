@@ -89,9 +89,9 @@ let WhoThatPokemon = ({
             </> 
             :
             <>
-                {catchAnimation['throw'] ? <img className="thrown-pokeball" alt='pokeball' src={pokeBall} /> : null}
-                {catchAnimation['bounce'] ? <img className='bounce-pokeball' src={pokeBall}/> : null}
-                {catchAnimation['wiggle'] ? <img className="wiggle-pokeball" src={pokeBall}/> : <img alt="pokemn" src={hiddenPokemon.front_image} />}
+                {catchAnimation['throw'] ? <img className="thrown-pokeball" alt='pokeball' src={pokeBall.current} /> : null}
+                {catchAnimation['bounce'] ? <img className='bounce-pokeball' src={pokeBall.current}/> : null}
+                {catchAnimation['wiggle'] ? <img className="wiggle-pokeball" src={pokeBall.current}/> : <img alt="pokemn" src={hiddenPokemon.front_image} />}
                 <Button variant="contained" onClick={handleSubmit}>Catch that Pokemon!!!</Button>
             </>           
     }
