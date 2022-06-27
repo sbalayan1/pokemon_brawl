@@ -68,7 +68,8 @@ let WhoThatPokemon = ({
     }
 
     let renderFoundPokemonMessage = () => {
-        return (foundPokemon === hiddenPokemon.name ? 
+        return (
+            foundPokemon !== null && foundPokemon.toLowerCase() === hiddenPokemon.name ? 
             <p>It's {hiddenPokemon.name.charAt(0).toUpperCase() + hiddenPokemon.name.slice(1)}!!!</p>
         :
             null
@@ -76,7 +77,7 @@ let WhoThatPokemon = ({
     }
 
     let renderHiddenPokemonImage = () => {
-        let setOpacity = foundPokemon !== hiddenPokemon.name ? 0.05 : 1
+        let setOpacity = foundPokemon !== null && foundPokemon.toLowerCase() !== hiddenPokemon.name ? 0.05 : 1
         return (<img style={{opacity: `${setOpacity}`}} className="pokemon" alt="pokemon" src={hiddenPokemon.front_image}/>)
     }
 

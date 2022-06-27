@@ -1,12 +1,12 @@
 import { useState, useEffect } from 'react'
 import { useHistory } from 'react-router-dom'
-import Container from '@mui/material/Container'
+import Button from '@mui/material/Button'
 import './style.css'
 
 //components
-import InitialLoad from './InitialLoad'
+import InitialLoad from './InitialMove/InitialLoad'
 import FlyingPidgeot from './FlyingPidgeot'
-import UserCard from './UserCard'
+import UserCard from './UserCard/UserCard'
 import OpponentCard from './OpponentCard'
 import PokeBallBattle from './PokeBallBattle'
 
@@ -218,14 +218,14 @@ let BattleHome = ({ userTrainer, opponentTrainer, pokemonData, pokeBall }) => {
                                     <p>It's super effective. {userAttack.pokemon} knocked out {opponentPokemon.name}!!!</p>
                                 }
                             </>
-                            <button className="action-button" onClick={endTurn}>
+                            <Button variant="contained" className="action-button" onClick={endTurn}>
                                 End turn
-                            </button>
+                            </Button>
                         </div>
                         :
                         <div>
                             <p>{opponentPokemon.name} used {opponentAttack.name}</p>
-                            <button className="action-button" onClick={endTurn}>Continue</button>
+                            <Button variant="contained" className="action-button" onClick={endTurn}>Continue</Button>
                         </div>
                     :
                     null

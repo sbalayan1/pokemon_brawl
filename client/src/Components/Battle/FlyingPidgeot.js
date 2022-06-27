@@ -28,12 +28,16 @@ let FlyingPidgeot = () => {
 
     return (
         <div style={{width:'100%', height: '20%'}}>
-            <div className="flying-pidgeot-container" style={{display:'flex'}}>
-                    <p>{randomStatements[Math.floor(Math.random()*randomStatements.length)]}</p>
-                    {flyingPokemon1 ? <img className="flying-pidgeot" src={flyingPokemon3} alt="flying-pidgeot"/> : null}
-                    {flyingPokemon2 ? <img className="flying-pidgeot" src={flyingPokemon2} alt="flying-pidgeot"/> : null }
-                    {flyingPokemon3 ? <img className="flying-pidgeot" src={flyingPokemon1} alt="flying-pidgeot"/> : null }
-            </div>
+            {flyingPokemon1 ? 
+                <div className="flying-pidgeot-container" style={{display:'flex'}}>
+                        <p>{randomStatements[Math.floor(Math.random()*randomStatements.length)]}</p>
+                        <img className="flying-pidgeot" src={flyingPokemon3} alt="flying-pidgeot"/>
+                        <img className="flying-pidgeot" src={flyingPokemon2} alt="flying-pidgeot"/>
+                        <img className="flying-pidgeot" src={flyingPokemon1} alt="flying-pidgeot"/>
+                </div>
+            :
+                null
+            }
         </div>
     )
 }

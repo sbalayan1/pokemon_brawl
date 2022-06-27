@@ -14,7 +14,6 @@ import BuildBattle from './Home/BuildBattle/BuildBattle'
 import WhoThatPokemon from './Home/WhoThatPoke/WhoThatPoke'
 import LegendaryBirds from './Home/LegendaryBirds/LegendaryBirds'
 
-
 import SafariZone from './SafariZone'
 import Trainer from './Trainer'
 import BattleHome from './Battle/BattleHome'
@@ -43,9 +42,8 @@ let App = () => {
   const [previousRoute, setPreviousRoute] = useState('/')
   const [globalState, setGlobalState] = useContext(GlobalStateContext)
 
-  console.log(globalState)
+  // console.log(globalState)
   let random = Math.floor(Math.random()*150) + 1
-
 
   let fetchData = async () => {
     try {
@@ -219,25 +217,7 @@ let App = () => {
               />
             </Route>
             <Route exact path='/'>
-              <Home 
-                // pokeBall={pokeBall}
-                // currentUser={currentUser} 
-                // setCurrentUser={setCurrentUser}
-                // pokemonData={pokemonData}
-                // setPokemonData={setPokemonData}
-                // hiddenPokemon={hiddenPokemon}
-                // userTrainer={userTrainer}
-                // setUserTrainer={setUserTrainer}
-                // opponentTrainer={opponentTrainer}
-                // setOpponentTrainer={setOpponentTrainer}
-                // userTrainerPokemon={userTrainerPokemon}
-                // setUserTrainerPokemon={setUserTrainerPokemon}
-                // setCopyUserTrainerPokemon={setCopyUserTrainerPokemon}
-                // legendBirds={legendBirds}
-                // isLoaded={isLoaded}
-                // previousRoute={previousRoute}
-                // setPreviousRoute={setPreviousRoute}
-              >
+              <Home>
                 {<Charizard pokeBall={pokeBall}/>}
                 {<BuildBattle userTrainer={userTrainer}/>}
                 {<WhoThatPokemon 

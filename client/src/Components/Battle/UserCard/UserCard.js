@@ -1,8 +1,8 @@
 import {useState, useEffect} from 'react'
 import {useHistory} from 'react-router-dom'
 import UserPokemon from './UserPokemon'
-import InitialMove from './InitialMove'
-import BattleMoveCard from './BattleMoveCard'
+import InitialMove from '../InitialMove/InitialMove'
+import BattleMoveCard from '../BattleMove/BattleMoveCard'
 import Paper from '@mui/material/Paper'
 
 
