@@ -182,12 +182,12 @@ let App = () => {
                 previousRoute={previousRoute}
               />
             </Route>
-            <Route exact path='/safari_zone'>
+            {/* <Route exact path='/safari_zone'>
               <SafariZone
                 pokemonData={pokemonData}
                 userTrainer={userTrainer}
               />
-            </Route>
+            </Route> */}
             <Route exact path='/create_a_trainer'>
               <Trainer 
                 currentUser={currentUser}

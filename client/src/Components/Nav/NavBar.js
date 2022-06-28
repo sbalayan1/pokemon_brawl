@@ -7,7 +7,7 @@ import {useMediaQuery} from 'react-responsive'
 let NavBar = ({pokeBall, currentUser}) => {
     let isMobile = useMediaQuery({ query: '(max-width: 980px)' })
     let notLoggedInPaths = isMobile ? ['Login', 'Logout'] : ['Login', 'Sign Up', 'Logout']
-    let loggedInPaths = isMobile ? ['Battle', 'PC', 'Logout'] : ['Home', 'Safari Zone', 'Battle', 'My PC', 'Leaderboards', 'Logout']
+    let loggedInPaths = isMobile ? ['Battle', 'PC', 'Logout'] : ['Home', 'Battle', 'My PC', 'Leaderboards', 'Logout']
 
     let notLoggedIn = notLoggedInPaths.map(path => (
         <Link key={path} path={path}/>
