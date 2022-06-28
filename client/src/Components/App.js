@@ -28,23 +28,22 @@ import {GlobalStateContext} from '../GlobalState'
 let App = () => {
   const history = useHistory()
   const [currentUser, setCurrentUser] = useState(null)
-  const [pokemonData, setPokemonData] = useState(null)
   const [hiddenPokemon, setHiddenPokemon] = useState(null)
   const [userTrainer, setUserTrainer] = useState(null)
   const [opponentTrainer, setOpponentTrainer]=useState(null)
   const [userTrainerPokemon, setUserTrainerPokemon] = useState(null)
   const [copyUserTrainerPokemon, setCopyUserTrainerPokemon] = useState(null)
-  const [trainers, setTrainers] = useState(null)
   const [randPokemon, setRandPokemon] = useState(null)
   const [isLoaded, setIsLoaded] = useState(false)
   const [previousRoute, setPreviousRoute] = useState('/')
   const [globalState, setGlobalState] = useContext(GlobalStateContext)
 
-
+  const trainers = useRef()
+  const pokemonData = useRef()
   const pokeBall = useRef()
   const legendBirds = useRef()
 
-  // console.log(globalState)
+
   let random = Math.floor(Math.random()*150) + 1
 
   let fetchData = async () => {
@@ -71,16 +70,16 @@ let App = () => {
     }
   }
 
-  let setTrainerHelper = (trainers, user) => {
-    if (!trainers.find(trainer=> trainer.user_id === user.id)) {
+  let setTrainerHelper = (trainersArray, user) => {
+    if (!trainersArray.find(trainer=> trainer.user_id === user.id)) {
       history.push('/create_a_trainer')
       console.log('new user verified. pushing to create a trainer')
     } else {
-      let opponentTrainers = trainers.filter(trainer => trainer.user_id !== user.id)
-      setUserTrainer(trainers.find(trainer=> trainer.user_id === user.id))
+      let opponentTrainers = trainersArray.filter(trainer => trainer.user_id !== user.id)
+      setUserTrainer(trainersArray.find(trainer=> trainer.user_id === user.id))
       setOpponentTrainer(opponentTrainers[Math.floor(Math.random() * opponentTrainers.length)])
-      setUserTrainerPokemon(trainers.find(trainer=> trainer.user_id === user.id).pokemon)
-      setCopyUserTrainerPokemon(trainers.find(trainer=> trainer.user_id === user.id).pokemon)
+      setUserTrainerPokemon(trainersArray.find(trainer=> trainer.user_id === user.id).pokemon)
+      setCopyUserTrainerPokemon(trainersArray.find(trainer=> trainer.user_id === user.id).pokemon)
       console.log('user verified and all state set.')
     }
   }
@@ -89,19 +88,18 @@ let App = () => {
       fetchData().then(data => {
         console.log('useEffect rerender firing. setting necessary data')
         let legendaryBirds = [data[6], data[7], data[8]]
-        setTrainers(data[0])
-        setPokemonData(data[1])
         setRandPokemon(data[2].front_image)
         setHiddenPokemon(data[3])
         
+        trainers.current = data[0]
+        pokemonData.current = data[1]
         pokeBall.current = data[4].sprites.default
         legendBirds.current = legendaryBirds
 
         if (!data[5].error) {
-          // alert(`Welcome ${data[5].username}`)
           setCurrentUser(data[5])
           setIsLoaded(true)
-          setTrainerHelper(data[0], data[5])
+          setTrainerHelper(trainers.current, data[5])
 
         } else {
           console.log('user unverified. pushing to login')

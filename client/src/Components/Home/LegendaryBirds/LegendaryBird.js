@@ -1,7 +1,6 @@
 import {useState, useEffect} from 'react'
 
 let LegendaryBird = ({name, front_image, types, ability}) => {
-    console.log(name)
     const [displayBird, setDisplayBird] = useState(true)
     const [abilityDescription, setAbilityDescription] = useState(null)
     let abilityURL = ability.ability.url

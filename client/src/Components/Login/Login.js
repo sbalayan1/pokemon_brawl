@@ -39,7 +39,7 @@ let Login = ({setCurrentUser, trainers, setTrainerHelper}) => {
         
         if (userData.id) {
             setCurrentUser(userData)
-            setTrainerHelper(trainers, userData)
+            setTrainerHelper(trainers.current, userData)
         } else {
             setErrors(userData.errors)
         }
