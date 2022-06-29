@@ -4,34 +4,36 @@ import PokeBall from './PokeBall'
 import Ability from './Ability'
 import Move from './Move'
 
-let PC = ({pokemonData, userTrainer, copyUserTrainerPokemon}) => {
-    const [searchedPokemon, setSearchedPokemon] = useState(null)
-    const [selectedPokemon, setSelectedPokemon] = useState(null)
-    const [pokeBall, setPokeBall] = useState(null)
-    const [pokeTeam, setTeam] = useState(userTrainer.pokemon_teams.filter(pokemon => pokemon.team_member === true))
-    const [copyTeam, setCopyTeam] = useState(pokeTeam)
+let PC = ({pokeBall, pokemonData, userTrainer, copyUserTrainerPokemon}) => {
+    const [searched, setSearched] = useState("")
+    const [selected, setSelected] = useState(null)
+    const [team, setTeam] = useState(userTrainer.pokemon_teams.filter(pokemon => pokemon.team_member === true))
     const [displayTeam, setDisplayTeam] = useState(false)
     const [typeCount, setTypeCount] = useState(null)
 
     let handleChange = (e) => {
-        setSearchedPokemon(e.target.value)
-        if (searchedPokemon==="") {
-            setSearchedPokemon(null)
-        }
+        setSearched(e.target.value)
     }
 
-    let displayPokemon =  copyUserTrainerPokemon.filter(pokemon => pokemon.name.includes(searchedPokemon))
-
-    useEffect(() => {
-        fetch('https://pokeapi.co/api/v2/item/poke-ball')
-        .then(res => res.json())
-        .then(data => {
-            setPokeBall(data.sprites.default)
-        })
-    },[])
+    let renderPokemon = () => {
+        let poke = searched !== "" ? copyUserTrainerPokemon.filter(pokemon => pokemon.names.includes(searched)) : copyUserTrainerPokemon
+        
+        return poke.map(pokemon => 
+            <Pokemon 
+                pokemonData={pokemonData} 
+                pokemon={pokemon} 
+                team={team}
+                setCopyTeam={setCopyTeam}  
+                setTeam={setTeam} 
+                userTrainer={userTrainer} 
+                setSelected={setSelected} 
+                setTypeCount={setTypeCount}
+            />
+        )
+    }
 
     let closeSelectedPokemonTab = () => {
-        setSelectedPokemon(null)
+        setSelected(null)
         setTypeCount(null)
     }
 
@@ -65,7 +67,7 @@ let PC = ({pokemonData, userTrainer, copyUserTrainerPokemon}) => {
                     <h3 style={{marginLeft:'5px'}}>My Team</h3>
                 </div>
                 <div style={{display:'flex', justifyContent:'space-evenly', width:'100%'}}>
-                    {copyTeam.map (pokemon => 
+                    {team.map (pokemon => 
                         <PokeBall 
                             pokemon={pokemon} 
                             pokeBall={pokeBall} 
@@ -73,7 +75,7 @@ let PC = ({pokemonData, userTrainer, copyUserTrainerPokemon}) => {
                             displayTeam={displayTeam} 
                             setDisplayTeam={setDisplayTeam} 
                             setTeam={setTeam} 
-                            copyTeam={copyTeam} 
+                            team={team}
                             setCopyTeam={setCopyTeam} 
                             userTrainer={userTrainer}
                         />
@@ -85,48 +87,37 @@ let PC = ({pokemonData, userTrainer, copyUserTrainerPokemon}) => {
                     <div style={{display: 'flex', flexDirection:'column', alignItems:'center'}}>
                         <h3 className="my-pokemon-header">My Pokemon</h3>
                         <div className="pc-pokemon-card">
-                            {searchedPokemon === null ? 
+                            {searched === "" ? 
                                 copyUserTrainerPokemon.map(pokemon => 
                                     <Pokemon 
                                         pokemonData={pokemonData} 
                                         pokemon={pokemon} 
-                                        copyTeam={copyTeam} 
+                                        team={team}
                                         setCopyTeam={setCopyTeam} 
                                         setTeam={setTeam} 
                                         userTrainer={userTrainer} 
-                                        setSelectedPokemon={setSelectedPokemon} 
+                                        setSelected={setSelected} 
                                         setTypeCount={setTypeCount}
                                     />
                                 )
                                 
                             :
-                                displayPokemon.map (pokemon => 
-                                    <Pokemon 
-                                        pokemonData={pokemonData} 
-                                        pokemon={pokemon} 
-                                        copyTeam={copyTeam} 
-                                        setCopyTeam={setCopyTeam}  
-                                        setTeam={setTeam} 
-                                        userTrainer={userTrainer} 
-                                        setSelectedPokemon={setSelectedPokemon} 
-                                        setTypeCount={setTypeCount}
-                                    />
-                                )
+                                {renderPokemon}
                             }
                         </div>
                     </div>
-                    {selectedPokemon === null ? null : 
+                    {selected === null ? null : 
                             <div className="pc-select-pokemon-card">
                                 <div className="select-poke-card">
                                     <button className="select-poke-button" style={{backgroundColor:'Red'}} onClick={closeSelectedPokemonTab}>X</button>
                                 </div>
-                                <h3>{selectedPokemon.name}</h3>
-                                <img className="pokemon-pc-sprite" style={{height:'40%'},{width:'40%'}} src={selectedPokemon.front_image} alt="pokemon"/>
+                                <h3>{selected.name}</h3>
+                                <img className="pokemon-pc-sprite" style={{height:'40%',width:'40%'}} src={selected.front_image} alt="pokemon"/>
                                 {typeCount === 2 ? 
                                     <div className="pc-select-type">
                                     <h4>Types:</h4>
-                                    <p style={{backgroundColor:colorType.find(findType => findType.type === [...new Map(selectedPokemon.types.map(type => [type['name'], type])).values()][0].name).color}}>{[...new Map(selectedPokemon.types.map(type => [type['name'], type])).values()][0].name}</p>
-                                    <p style={{backgroundColor:colorType.find(findType => findType.type === [...new Map(selectedPokemon.types.map(type => [type['name'], type])).values()][1].name).color}}>{[...new Map(selectedPokemon.types.map(type => [type['name'], type])).values()][1].name}</p>
+                                    <p style={{backgroundColor:colorType.find(findType => findType.type === [...new Map(selected.types.map(type => [type['name'], type])).values()][0].name).color}}>{[...new Map(selected.types.map(type => [type['name'], type])).values()][0].name}</p>
+                                    <p style={{backgroundColor:colorType.find(findType => findType.type === [...new Map(selected.types.map(type => [type['name'], type])).values()][1].name).color}}>{[...new Map(selected.types.map(type => [type['name'], type])).values()][1].name}</p>
                                 </div>
                                 :
                                     null
@@ -135,7 +126,7 @@ let PC = ({pokemonData, userTrainer, copyUserTrainerPokemon}) => {
                                 {typeCount === 1 ? 
                                     <div className="pc-select-type">
                                         <h4>Type:</h4>
-                                        <p style={{backgroundColor: colorType.find(findType => findType.type === [...new Map(selectedPokemon.types.map(type => [type['name'], type])).values()][0].name).color}}>{[...new Map(selectedPokemon.types.map(type => [type['name'], type])).values()][0].name}</p>
+                                        <p style={{backgroundColor: colorType.find(findType => findType.type === [...new Map(selected.types.map(type => [type['name'], type])).values()][0].name).color}}>{[...new Map(selected.types.map(type => [type['name'], type])).values()][0].name}</p>
                                     </div>
                                 
                                 :
@@ -144,7 +135,7 @@ let PC = ({pokemonData, userTrainer, copyUserTrainerPokemon}) => {
 
                                 <div>
                                     <h4>Stats</h4>
-                                    {selectedPokemon.stats.map(stat => {
+                                    {selected.stats.map(stat => {
                                         return (
                                             <div className="pc-select-stat-2">
                                                 <p><b>HP:</b> {stat.hp}</p>
@@ -159,13 +150,13 @@ let PC = ({pokemonData, userTrainer, copyUserTrainerPokemon}) => {
                                 </div>
                                 <div className="pc-select-ability">
                                     <h4>Abilities</h4>
-                                    {[...new Map(selectedPokemon.abilities.map(ability => [ability['name'], ability])).values()].map(ability => {
+                                    {[...new Map(selected.abilities.map(ability => [ability['name'], ability])).values()].map(ability => {
                                         return(<Ability ability={ability}/>)
                                     })}
                                 </div>
                                 <div className="pc-select-move">
                                     <h4>Moves</h4>
-                                    {selectedPokemon.moves.map(move => {
+                                    {selected.moves.map(move => {
                                         return(<Move move={move}/>)
                                     })}
                                 </div>

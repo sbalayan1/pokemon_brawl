@@ -20,7 +20,7 @@ let PokeBall = ({pokeBall, pokemon, pokemonData, displayTeam, setDisplayTeam, co
     return (
         <div className="poke-ball-card">
             <button className="poke-ball-button" onClick={removeFromTeam}>X</button>
-            <img className="pokemon-team-pokeball" src={displayTeam === false ? pokeBall : pokemonData.find(pokeData=> pokeData.id === pokemon.pokemon_id).front_image} alt='pokemon' onClick={handleClick}/>
+            <img className="pokemon-team-pokeball" src={displayTeam === false ? pokeBall.current : pokemonData.find(pokeData=> pokeData.id === pokemon.pokemon_id).front_image} alt='pokemon' onClick={handleClick}/>
         </div>
 
     )

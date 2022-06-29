@@ -1,4 +1,4 @@
-let Pokemon = ({pokemonData, pokemon, setTeam, userTrainer, copyTeam, setCopyTeam, setSelectedPokemon, setTypeCount}) => {
+let Pokemon = ({pokemonData, pokemon, setTeam, userTrainer, team, setCopyTeam, setSelected, setTypeCount}) => {
 
     let addToTeam = () => {
         if (copyTeam.length < 6 && copyTeam.find(poke => poke.pokemon_id === pokemon.id) === undefined) {
@@ -21,7 +21,7 @@ let Pokemon = ({pokemonData, pokemon, setTeam, userTrainer, copyTeam, setCopyTea
     }
 
     let selectPokemon = (e) => {
-        setSelectedPokemon(pokemonData.find(poke => poke.front_image === e.target.src))
+        setSelected(pokemonData.find(poke => poke.front_image === e.target.src))
         setTypeCount([...new Map(pokemonData.find(poke => poke.front_image === e.target.src).types.map(type => [type['name'], type])).values()].length)
     }
 

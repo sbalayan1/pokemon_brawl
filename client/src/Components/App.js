@@ -17,7 +17,7 @@ import LegendaryBirds from './Home/LegendaryBirds/LegendaryBirds'
 import SafariZone from './SafariZone'
 import Trainer from './Trainer'
 import BattleHome from './Battle/BattleHome'
-import PC from './PC'
+import PC from './PC/PC'
 import LoadScreen from './LoadScreen'
 import Leaderboards from './Leaderboards'
 import Error from './Error'
@@ -28,26 +28,25 @@ import {GlobalStateContext} from '../GlobalState'
 let App = () => {
   const history = useHistory()
   const [currentUser, setCurrentUser] = useState(null)
-  const [hiddenPokemon, setHiddenPokemon] = useState(null)
   const [userTrainer, setUserTrainer] = useState(null)
   const [opponentTrainer, setOpponentTrainer]=useState(null)
   const [userTrainerPokemon, setUserTrainerPokemon] = useState(null)
   const [copyUserTrainerPokemon, setCopyUserTrainerPokemon] = useState(null)
-  const [randPokemon, setRandPokemon] = useState(null)
   const [isLoaded, setIsLoaded] = useState(false)
   const [previousRoute, setPreviousRoute] = useState('/')
   const [globalState, setGlobalState] = useContext(GlobalStateContext)
 
+
   const trainers = useRef()
-  const pokemonData = useRef()
   const pokeBall = useRef()
   const legendBirds = useRef()
-
-
-  let random = Math.floor(Math.random()*150) + 1
+  const pokemonData = useRef()
+  const loadingPokemon = useRef()
+  const hiddenPokemon = useRef()
 
   let fetchData = async () => {
     try {
+      let random = Math.floor(Math.random()*150) + 1
       let trainers = fetch('/api/trainers')
       let pokemonData = fetch('/api/pokemon')
       let randomPokemon = fetch(`/api/pokemon/${random}`)
@@ -88,11 +87,11 @@ let App = () => {
       fetchData().then(data => {
         console.log('useEffect rerender firing. setting necessary data')
         let legendaryBirds = [data[6], data[7], data[8]]
-        setRandPokemon(data[2].front_image)
-        setHiddenPokemon(data[3])
         
         trainers.current = data[0]
         pokemonData.current = data[1]
+        loadingPokemon.current = data[2].front_image
+        hiddenPokemon.current = data[3]
         pokeBall.current = data[4].sprites.default
         legendBirds.current = legendaryBirds
 
@@ -172,8 +171,6 @@ let App = () => {
             <Route exact path ='/loading'>
               <LoadScreen
                 hiddenPokemon={hiddenPokemon}
-                setHiddenPokemon={setHiddenPokemon}
-                randPokemon={randPokemon}
                 pokeBall={pokeBall}
                 isLoaded={isLoaded}
                 setIsLoaded={setIsLoaded}
@@ -204,8 +201,9 @@ let App = () => {
                 pokeBall={pokeBall}
               />
             </Route>
-            <Route exact path='/my_pc'>
+            <Route exact path='/pc'>
               <PC
+                pokeBall={pokeBall}
                 pokemonData={pokemonData}
                 userTrainer={userTrainer}
                 copyUserTrainerPokemon={copyUserTrainerPokemon}

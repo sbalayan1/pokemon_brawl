@@ -14,7 +14,7 @@ let BuildBattle = ({userTrainer}) => {
     }
 
     let handleTeam = () => {
-        history.push('/my_pc')
+        history.push('/pc')
     }
 
     let handleTrainer = () => {

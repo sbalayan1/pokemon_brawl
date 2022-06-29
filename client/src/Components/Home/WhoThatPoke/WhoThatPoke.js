@@ -32,13 +32,13 @@ let WhoThatPokemon = ({
 
         let pokemonTeam = {
             trainer_id: currentUser.trainer.id, 
-            pokemon_id: pokemonData.find(pokemon => pokemon.name === foundPokemon).id,
+            pokemon_id: pokemonData.current.find(pokemon => pokemon.name === foundPokemon).id,
             team_member: false
         }
 
         let newPokemon = userTrainer.pokemon.find(p => p.name === foundPokemon)
 
-        if(foundPokemon === hiddenPokemon.name && newPokemon === undefined) {
+        if(foundPokemon === hiddenPokemon.current.name && newPokemon === undefined) {
             setCatchAnimation({...catchAnimation, ['throw']: true})
     
             setTimeout(() => {
@@ -69,20 +69,20 @@ let WhoThatPokemon = ({
 
     let renderFoundPokemonMessage = () => {
         return (
-            foundPokemon !== null && foundPokemon.toLowerCase() === hiddenPokemon.name ? 
-            <p>It's {hiddenPokemon.name.charAt(0).toUpperCase() + hiddenPokemon.name.slice(1)}!!!</p>
+            foundPokemon !== null && foundPokemon.toLowerCase() === hiddenPokemon.current.name ? 
+            <p>It's {hiddenPokemon.current.name.charAt(0).toUpperCase() + hiddenPokemon.current.name.slice(1)}!!!</p>
         :
             null
         )
     }
 
     let renderHiddenPokemonImage = () => {
-        let setOpacity = foundPokemon !== null && foundPokemon.toLowerCase() === hiddenPokemon.name ? 1 : 0.05
-        return (<img style={{opacity: `${setOpacity}`}} className="pokemon" alt="pokemon" src={hiddenPokemon.front_image}/>)
+        let setOpacity = foundPokemon !== null && foundPokemon.toLowerCase() === hiddenPokemon.current.name ? 1 : 0.05
+        return (<img style={{opacity: `${setOpacity}`}} className="pokemon" alt="pokemon" src={hiddenPokemon.current.front_image}/>)
     }
 
     let renderGuessingCard = () => {
-        return foundPokemon !== hiddenPokemon.name ? 
+        return foundPokemon !== hiddenPokemon.current.name ? 
             <>
                 <h1>Who's that Pokemon?</h1>
                 <TextField onChange={handleChange} placeholder="Guess that Pokemon!"/>
@@ -91,7 +91,7 @@ let WhoThatPokemon = ({
             <>
                 {catchAnimation['throw'] ? <img className="thrown-pokeball" alt='pokeball' src={pokeBall.current} /> : null}
                 {catchAnimation['bounce'] ? <img className='bounce-pokeball' src={pokeBall.current}/> : null}
-                {catchAnimation['wiggle'] ? <img className="wiggle-pokeball" src={pokeBall.current}/> : <img alt="pokemn" src={hiddenPokemon.front_image} />}
+                {catchAnimation['wiggle'] ? <img className="wiggle-pokeball" src={pokeBall.current}/> : <img alt="pokemn" src={hiddenPokemon.current.front_image} />}
                 <Button variant="contained" onClick={handleSubmit}>Catch that Pokemon!!!</Button>
             </>           
     }
@@ -101,7 +101,7 @@ let WhoThatPokemon = ({
         return catchAnimation['catch'] ? 
             <>
                 <h1>{`You caught ${foundPokemon}`}</h1>
-                <img alt="pokemn" src={hiddenPokemon.front_image}/> 
+                <img alt="pokemn" src={hiddenPokemon.current.front_image}/> 
                 <p>Check your PC to see your new Pokemon!</p>
             </>
         :

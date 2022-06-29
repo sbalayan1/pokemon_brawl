@@ -1,7 +1,7 @@
 import {useState} from 'react'
 import {useHistory} from 'react-router-dom'
-import Move from './Move'
-import Ability from './Ability'
+import Move from './PC/Move'
+import Ability from './PC/Ability'
 
 
 let SafariZone = ({pokemonData, userTrainer}) => {       
