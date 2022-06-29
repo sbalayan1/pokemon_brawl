@@ -1,5 +1,5 @@
 let Pokemon = ({pokemonData, pokemon, setTeam, userTrainer, team, setSelected, setTypeCount}) => {
-
+    
     let addToTeam = () => {
         if (team.length < 6 && team.find(poke => poke.pokemon_id === pokemon.id) === undefined) {
             alert(`You added ${pokemon.name} to your team` )

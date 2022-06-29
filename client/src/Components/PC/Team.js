@@ -1,4 +1,4 @@
-let PokeBall = ({pokeBall, pokemon, pokemonData, displayTeam, setDisplayTeam, copyTeam, setTeam, setCopyTeam, userTrainer}) => {
+let Team = ({pokeBall, pokemon, pokemonData, displayTeam, setDisplayTeam, copyTeam, setTeam, setCopyTeam, userTrainer}) => {
 
     let handleClick = (e) => {
         setDisplayTeam(!displayTeam)
@@ -26,4 +26,4 @@ let PokeBall = ({pokeBall, pokemon, pokemonData, displayTeam, setDisplayTeam, co
     )
 }
 
-export default PokeBall
+export default Team

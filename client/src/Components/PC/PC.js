@@ -1,13 +1,18 @@
 import {useState, useEffect} from 'react'
 import Pokemon from './Pokemon'
-import PokeBall from './PokeBall'
+import Team from './Team'
 import Ability from './Ability'
 import Move from './Move'
 
 let PC = ({pokeBall, pokemonData, userTrainer, copyUserTrainerPokemon}) => {
+    let findTeam = userTrainer.pokemon_teams.filter(p => p.team_member === true)
+    let temp = {}
+    findTeam.forEach(p => temp[p.pokemon_id] = p.pokemon_id)
+    console.log(temp)
     const [searched, setSearched] = useState("")
     const [selected, setSelected] = useState(null)
-    const [team, setTeam] = useState(userTrainer.pokemon_teams.filter(pokemon => pokemon.team_member === true))
+    const [team, setTeam] = useState(findTeam)
+    // console.log(team)
     const [displayTeam, setDisplayTeam] = useState(false)
     const [typeCount, setTypeCount] = useState(null)
 
@@ -67,7 +72,7 @@ let PC = ({pokeBall, pokemonData, userTrainer, copyUserTrainerPokemon}) => {
                 </div>
                 <div style={{display:'flex', justifyContent:'space-evenly', width:'100%'}}>
                     {team.map (pokemon => 
-                        <PokeBall 
+                        <Team
                             pokemon={pokemon} 
                             pokeBall={pokeBall} 
                             pokemonData={pokemonData} 
@@ -86,22 +91,6 @@ let PC = ({pokeBall, pokemonData, userTrainer, copyUserTrainerPokemon}) => {
                         <h3 className="my-pokemon-header">My Pokemon</h3>
                         <div className="pc-pokemon-card">
                             {renderPokemon()}
-                            {/* {searched === "" ? 
-                                copyUserTrainerPokemon.map(pokemon => 
-                                    <Pokemon 
-                                        pokemonData={pokemonData} 
-                                        pokemon={pokemon} 
-                                        team={team}
-                                        setTeam={setTeam} 
-                                        userTrainer={userTrainer} 
-                                        setSelected={setSelected} 
-                                        setTypeCount={setTypeCount}
-                                    />
-                                )
-                                
-                            :
-                                {renderPokemon}
-                            } */}
                         </div>
                     </div>
                     {selected === null ? null : 
