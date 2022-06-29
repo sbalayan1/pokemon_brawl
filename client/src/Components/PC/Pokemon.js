@@ -1,7 +1,7 @@
-let Pokemon = ({pokemonData, pokemon, setTeam, userTrainer, team, setCopyTeam, setSelected, setTypeCount}) => {
+let Pokemon = ({pokemonData, pokemon, setTeam, userTrainer, team, setSelected, setTypeCount}) => {
 
     let addToTeam = () => {
-        if (copyTeam.length < 6 && copyTeam.find(poke => poke.pokemon_id === pokemon.id) === undefined) {
+        if (team.length < 6 && team.find(poke => poke.pokemon_id === pokemon.id) === undefined) {
             alert(`You added ${pokemon.name} to your team` )
             fetch(`http://localhost:3000/pokemon_team/${userTrainer.pokemon_teams.find(poke => poke.pokemon_id === pokemon.id).id}`, {
                 method: 'PATCH',
@@ -11,9 +11,9 @@ let Pokemon = ({pokemonData, pokemon, setTeam, userTrainer, team, setCopyTeam, s
             
             setTeam(userTrainer.pokemon_teams.filter(pokemon => pokemon.team_member === true))
             let newPoke = userTrainer.pokemon_teams.find(poke => poke.pokemon_id === pokemon.id)
-            setCopyTeam([...copyTeam, newPoke])
+            setTeam([...team, newPoke])
 
-        } else if (copyTeam.find(poke => poke.pokemon_id === pokemon.id) !== undefined) {
+        } else if (team.find(poke => poke.pokemon_id === pokemon.id) !== undefined) {
             alert('You already have that pokemon on your team.')
         } else {
             alert('You already have 6 pokemon in your team. Please remove a pokemon first.')
@@ -28,7 +28,7 @@ let Pokemon = ({pokemonData, pokemon, setTeam, userTrainer, team, setCopyTeam, s
     return (
         <div className="pc-pokemon-card-single">
             <button className="poke-ball-pc-box-button" onClick={addToTeam}>+</button>
-            <img style={{height: '75%', width: '95%'}} className="pokemon-pc-sprite" src={pokemon.front_image} alt="pokemon" onClick={selectPokemon}/>
+            <img style={{height: '75%', width: '95%'}} className="pokemon-pc-sprite" src={pokemon.front_image} alt="pokemon" onClick={() => console.log('clicked')}/>
         </div>
     )
 }

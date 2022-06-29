@@ -16,14 +16,13 @@ let PC = ({pokeBall, pokemonData, userTrainer, copyUserTrainerPokemon}) => {
     }
 
     let renderPokemon = () => {
-        let poke = searched !== "" ? copyUserTrainerPokemon.filter(pokemon => pokemon.names.includes(searched)) : copyUserTrainerPokemon
-        
+        let poke = searched !== "" ? copyUserTrainerPokemon.filter(pokemon => pokemon.name.includes(searched)) : copyUserTrainerPokemon
+
         return poke.map(pokemon => 
             <Pokemon 
                 pokemonData={pokemonData} 
                 pokemon={pokemon} 
-                team={team}
-                setCopyTeam={setCopyTeam}  
+                team={team} 
                 setTeam={setTeam} 
                 userTrainer={userTrainer} 
                 setSelected={setSelected} 
@@ -76,7 +75,6 @@ let PC = ({pokeBall, pokemonData, userTrainer, copyUserTrainerPokemon}) => {
                             setDisplayTeam={setDisplayTeam} 
                             setTeam={setTeam} 
                             team={team}
-                            setCopyTeam={setCopyTeam} 
                             userTrainer={userTrainer}
                         />
                     )}
@@ -87,13 +85,13 @@ let PC = ({pokeBall, pokemonData, userTrainer, copyUserTrainerPokemon}) => {
                     <div style={{display: 'flex', flexDirection:'column', alignItems:'center'}}>
                         <h3 className="my-pokemon-header">My Pokemon</h3>
                         <div className="pc-pokemon-card">
-                            {searched === "" ? 
+                            {renderPokemon()}
+                            {/* {searched === "" ? 
                                 copyUserTrainerPokemon.map(pokemon => 
                                     <Pokemon 
                                         pokemonData={pokemonData} 
                                         pokemon={pokemon} 
                                         team={team}
-                                        setCopyTeam={setCopyTeam} 
                                         setTeam={setTeam} 
                                         userTrainer={userTrainer} 
                                         setSelected={setSelected} 
@@ -103,7 +101,7 @@ let PC = ({pokeBall, pokemonData, userTrainer, copyUserTrainerPokemon}) => {
                                 
                             :
                                 {renderPokemon}
-                            }
+                            } */}
                         </div>
                     </div>
                     {selected === null ? null : 
