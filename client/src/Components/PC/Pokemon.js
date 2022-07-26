@@ -20,15 +20,18 @@ let Pokemon = ({pokemonData, pokemon, setTeam, userTrainer, team, setSelected, s
         }
     }
 
+    //Currently working on selecting a pokemon from the PC and updating the selectedPokemon state. pokemonData consists objects of a name and a url so we can't use the front_image to find the appropriate target. we may need to use a fetch in place to grab the selectedPokemon from the api and update state using the get_pokemon method in the Pokemon models of our backend
     let selectPokemon = (e) => {
-        setSelected(pokemonData.find(poke => poke.front_image === e.target.src))
-        setTypeCount([...new Map(pokemonData.find(poke => poke.front_image === e.target.src).types.map(type => [type['name'], type])).values()].length)
+        console.log(pokemonData)
+        // setSelected(pokemonData.find(poke => poke.front_image === e.target.src))
+        // console.log(pokemonData.find(poke => poke.front_image === e.target.src))
+        // setTypeCount([...new Map(pokemonData.find(poke => poke.front_image === e.target.src).types.map(type => [type['name'], type])).values()].length)
     }
 
     return (
         <div className="pc-pokemon-card-single">
             <button className="poke-ball-pc-box-button" onClick={addToTeam}>+</button>
-            <img style={{height: '75%', width: '95%'}} className="pokemon-pc-sprite" src={pokemon.front_image} alt="pokemon" onClick={() => console.log('clicked')}/>
+            <img style={{height: '75%', width: '95%'}} className="pokemon-pc-sprite" src={pokemon.front_image} alt="pokemon" onClick={selectPokemon}/>
         </div>
     )
 }
