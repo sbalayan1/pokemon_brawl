@@ -66,7 +66,7 @@ class Pokemon < ApplicationRecord
         pokemon[:back_image]
     end 
 
-    def get_pokemon_ability id
+    def get_pokemon_abilities id
         pokemon = get_pokemon id
         pokemon[:abilities].map do |pokemon|
             url = pokemon['ability']['url']
@@ -82,7 +82,23 @@ class Pokemon < ApplicationRecord
                 'effect': effect_description
             }
         end
-    end                         
+    end    
+    
+    def get_pokemon_ability name
+        url = "https://pokeapi.co/api/v2/ability/#{name}"
+        uri = URI.parse(url)
+        response = Net::HTTP.get_response(uri)
+        ability = JSON.parse(response.body)
+        ability_description = ability['flavor_text_entries'][0]['flavor_text']
+        effect_description = ability['effect_entries'].filter {|e| e['language']['name'] == 'en'}[0]['short_effect']
+
+        ability_object = {
+            'name': ability['name'],
+            'ability': ability_description,
+            'effect': effect_description
+        }
+        
+    end 
 
     def get_pokemon_moves id
         pokemon = get_pokemon id

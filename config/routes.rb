@@ -12,7 +12,8 @@ Rails.application.routes.draw do
   
     get '/pokemon/:id/front_sprite', to: 'pokemon#front_sprite'
     get '/pokemon/:id/back_sprite', to: 'pokemon#back_sprite'
-    get '/pokemon/:id/abilities', to: 'pokemon#ability'
+    get '/pokemon/:id/abilities', to: 'pokemon#abilities'
+    get '/pokemon/ability/:name', to: 'pokemon#ability'
     get '/pokemon/:id/moves', to: 'pokemon#moves'
     get '/pokemon/move/:name', to: 'pokemon#move'
     

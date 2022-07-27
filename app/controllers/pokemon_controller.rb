@@ -22,10 +22,15 @@ class PokemonController < ApplicationController
         render json: back_image_url
     end 
 
-    def ability
-        ability = Pokemon.new().get_pokemon_ability(params[:id])
-        render json: ability
+    def abilities
+        abilities = Pokemon.new().get_pokemon_abilities(params[:id])
+        render json: abilities
     end 
+
+    def ability
+        ability = Pokemon.new().get_pokemon_ability(params[:name])
+        render json: ability
+    end
 
     def moves
         moves = Pokemon.new().get_pokemon_moves(params[:id])

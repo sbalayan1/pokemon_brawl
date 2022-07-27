@@ -24,7 +24,9 @@ let Pokemon = ({pokemonData, pokemon, setTeam, userTrainer, team, setSelected, s
     let selectPokemon = (e) => {
         fetch(`/api/pokemon/${e.target.id}`)
         .then(res => res.json())
-        .then(data => {setSelected(data)})
+        .then(data => {
+            setSelected(data)
+        })
 
         // setTypeCount([...new Map(pokemonData.find(poke => poke.front_image === e.target.src).types.map(type => [type['name'], type])).values()].length)
     }

@@ -42,15 +42,13 @@ function Selected({selected, closeSelectedPokemonTab, typeCount}) {
             </div>
             <div className="pc-select-ability">
                 <h4>Abilities</h4>
-                {/* {[...new Map(selected.abilities.map(ability => [ability['name'], ability])).values()].map(ability => {
-                    return (<Ability ability={ability} />)
-                })} */}
+                {selected.abilities.map(ability => <Ability key={ability.ability.name} ability={ability.ability}/>)}
             </div>
             <div className="pc-select-move">
-                {/* <h4>Moves</h4>
+                <h4>Moves</h4>
                 {selected.moves.map(move => {
-                    return (<Move move={move} />)
-                })} */}
+                    return (<Move key={move.name} move={move} />)
+                })}
             </div>
         </div>
     )

@@ -1,20 +1,27 @@
-let Ability = ({pokemon}) => {
-    // let findAbility = async () => {
-    //     let foundAbility = await fetch(`api/pokemon/${pokemon.id}`)
-    //     return foundAbility
-    // }
+import React, {useEffect, useState} from "react"
 
-    // useEffect(() => {
-    //     findAbility().then(res => res.json()).then(data => console.log)
-    // }, [])
+let Ability = ({ability}) => {
+   const [abilityState, setAbilityState] = useState({
+        name: null,
+        description: null, 
+        effect: null
+   })
+
+    useEffect(() => {
+        // fetch(`/api/pokemon/ability/${ability.name}`)
+        // .then(res => res.json())
+        // .then(data => {setAbilityState({
+        //     name: data.name, 
+        //     effect: data.effect})})
+    }, [])
 
     return (
         <>
             <h5 style={{margin: '5px'}}>
-                {/* {foundAbility[0].name} */}
+                {abilityState.name}
             </h5>
             <p style={{margin: '5px', fontSize:'12px'}}>
-                {/* {foundAbility[0].description} */}
+                {abilityState.effect}
             </p>
         </>
     )
