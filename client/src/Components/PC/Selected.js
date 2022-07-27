@@ -31,18 +31,14 @@ function Selected({selected, closeSelectedPokemonTab, typeCount}) {
 
             <div>
                 <h4>Stats</h4>
-                {selected.stats.map(stat => {
-                    return (
-                        <div className="pc-select-stat-2">
-                            <p><b>HP:</b> {stat.hp}</p>
-                            <p><b>ATK:</b> {stat.attack}</p>
-                            <p><b>DEF:</b> {stat.defense}</p>
-                            <p><b>SPD:</b> {stat.speed}</p>
-                            <p><b>SP ATK:</b> {stat.sp_attack}</p>
-                            <p><b>SP DEF:</b> {stat.sp_defense}</p>
-                        </div>
-                    )
-                })}
+                <div className="pc-select-stat-2">
+                    <p><b>HP:</b> {selected.stats.hp}</p>
+                    <p><b>ATK:</b> {selected.stats.attack}</p>
+                    <p><b>DEF:</b> {selected.stats.defense}</p>
+                    <p><b>SPD:</b> {selected.stats.speed}</p>
+                    <p><b>SP ATK:</b> {selected.stats["special-attack"]}</p>
+                    <p><b>SP DEF:</b> {selected.stats["special-defense"]}</p>
+                </div>
             </div>
             <div className="pc-select-ability">
                 <h4>Abilities</h4>
