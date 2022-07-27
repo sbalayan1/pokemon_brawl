@@ -2,6 +2,12 @@ import Ability from './Ability'
 import Move from './Move'
 
 function Selected({selected, closeSelectedPokemonTab, typeCount}) {
+    let renderMoves = (moves) => {
+        let arrayOfMoves, copyMoves = moves.slice()
+        arrayOfMoves = copyMoves.length > 50 ? copyMoves.slice(0,25) : copyMoves
+        return arrayOfMoves.map(move => <Move key={move.name} move={move} />)
+    }
+
     return (
         <div className="pc-select-pokemon-card">
             <div className="select-poke-card">
@@ -46,9 +52,7 @@ function Selected({selected, closeSelectedPokemonTab, typeCount}) {
             </div>
             <div className="pc-select-move">
                 <h4>Moves</h4>
-                {selected.moves.map(move => {
-                    return (<Move key={move.name} move={move} />)
-                })}
+                {renderMoves(selected.moves)}
             </div>
         </div>
     )
