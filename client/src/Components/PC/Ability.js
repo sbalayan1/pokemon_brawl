@@ -8,11 +8,11 @@ let Ability = ({ability}) => {
    })
 
     useEffect(() => {
-        // fetch(`/api/pokemon/ability/${ability.name}`)
-        // .then(res => res.json())
-        // .then(data => {setAbilityState({
-        //     name: data.name, 
-        //     effect: data.effect})})
+        fetch(`/api/pokemon/ability/${ability.name}`)
+        .then(res => res.json())
+        .then(data => {setAbilityState({
+            name: data.name, 
+            effect: data.effect})})
     }, [])
 
     return (

@@ -1,12 +1,36 @@
+import React, {useState} from 'react'
 import Ability from './Ability'
 import Move from './Move'
 
 function Selected({selected, closeSelectedPokemonTab, typeCount}) {
+    const [sliceObj, setSliceObj] = useState({
+        start: 0, 
+        end: 25
+    })
+
+    const [scrollStart, setScrollStart] = useState(0)
+
+    let handleScroll = (e) => {
+        let scrollEnd = e.target.scrollTop
+        if (scrollStart < scrollEnd) {
+            sliceObj.start += 1
+            sliceObj.end += 1
+        
+        } else if (scrollStart > scrollEnd) {
+            sliceObj.start -= 1
+            sliceObj.end -= 1
+        }
+        
+        setScrollStart(scrollEnd)
+        setSliceObj(sliceObj)
+    }
+
+    //whenever user scrolls down the list, 25 moves should be shown. It's not that we should cut from the list, we should be adjusting what to display.
     let renderMoves = (moves) => {
-        let arrayOfMoves, copyMoves = moves.slice()
-        arrayOfMoves = copyMoves.length > 50 ? copyMoves.slice(0,25) : copyMoves
+        let arrayOfMoves = moves.slice(sliceObj.start, sliceObj.end)
         return arrayOfMoves.map(move => <Move key={move.name} move={move} />)
     }
+
 
     return (
         <div className="pc-select-pokemon-card">
@@ -50,7 +74,7 @@ function Selected({selected, closeSelectedPokemonTab, typeCount}) {
                 <h4>Abilities</h4>
                 {selected.abilities.map(ability => <Ability key={ability.ability.name} ability={ability.ability}/>)}
             </div>
-            <div className="pc-select-move">
+            <div className="pc-select-move" onScroll={handleScroll}>
                 <h4>Moves</h4>
                 {renderMoves(selected.moves)}
             </div>

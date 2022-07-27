@@ -23,12 +23,12 @@ let Move = ({move}) => {
     }, [])
 
     return (
-        <>
+        <div>
             <h5 style={{marginLeft:'5px'}}>{move.name}</h5>
             <p style={{fontSize:'12px', marginLeft:'5px'}}>{moveState.description}</p>
             <p style={{fontSize:'12px', marginLeft:'5px'}}>Power: {moveState.power}</p>
             <p style={{fontSize:'12px', marginLeft:'5px'}}>PP: {moveState.power_points}</p>
-        </>
+        </div>
     )
 }
 
