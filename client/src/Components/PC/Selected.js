@@ -10,17 +10,20 @@ function Selected({selected, closeSelectedPokemonTab, typeCount}) {
 
     const [scrollStart, setScrollStart] = useState(0)
 
+    //currently working on a scrolling feature that will let me update state when the user scrolls through a pokemon's list of moves. this way, we only need to render what the user will view and update only when the user scrolls
     let handleScroll = (e) => {
         let scrollEnd = e.target.scrollTop
-        if (scrollStart < scrollEnd) {
-            sliceObj.start += 1
-            sliceObj.end += 1
-        
-        } else if (scrollStart > scrollEnd) {
-            sliceObj.start -= 1
-            sliceObj.end -= 1
+
+        if (scrollEnd>3400) {
+            sliceObj.start += 25
+            sliceObj.end += 25
         }
         
+        if (scrollEnd == 0) {
+            sliceObj.start -= 25
+            sliceObj.end -= 25
+        }
+
         setScrollStart(scrollEnd)
         setSliceObj(sliceObj)
     }
