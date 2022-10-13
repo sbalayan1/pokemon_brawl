@@ -1,4 +1,8 @@
+require_relative './concerns/fetch'
+
 class PokemonController < ApplicationController
+    extend Fetch::ClassMethods
+
     rescue_from ActiveRecord::RecordInvalid, with: :render_invalid
     rescue_from ActiveRecord::RecordNotFound, with: :render_not_found
 
@@ -8,7 +12,7 @@ class PokemonController < ApplicationController
     end
 
     def show
-        pokemon = Pokemon.new().get_pokemon(params[:id])
+        pokemon = PokemonController.fetch_pokemon(params[:id])
         render json: pokemon
     end 
 
@@ -54,7 +58,6 @@ class PokemonController < ApplicationController
     end 
 
     private 
-
 
     def pokemon_params
         params.permit(:name, :level, :wins, :front_image, :back_image)
