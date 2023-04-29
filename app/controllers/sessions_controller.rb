@@ -5,7 +5,7 @@ class SessionsController < ApplicationController
             session[:init] = true
             session[:user_id] = user.id
             @current_user = user ##sets the current_user variable to the authenticated user
-            render json: user, status: :created
+            render json: user, status: :ok
         else 
             render json: {errors: "Invalid username or password"}, status: :unauthorized
         end 

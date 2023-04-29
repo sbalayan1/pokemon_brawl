@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_04_29_195700) do
+ActiveRecord::Schema.define(version: 2023_04_29_204340) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -24,24 +24,23 @@ ActiveRecord::Schema.define(version: 2023_04_29_195700) do
   end
 
   create_table "pokemon_teams", force: :cascade do |t|
-    t.integer "team_id"
-    t.integer "pokemon_id"
+    t.integer "team_id", null: false
+    t.integer "pokemon_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "pokemons", force: :cascade do |t|
-    t.string "name"
-    t.integer "level"
-    t.string "front_image"
-    t.integer "wins"
+    t.string "name", null: false
+    t.string "front", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.string "back_image"
+    t.string "back", null: false
+    t.integer "user_id", null: false
   end
 
   create_table "teams", force: :cascade do |t|
-    t.string "name"
+    t.string "name", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.integer "wins", default: 0, null: false
@@ -54,12 +53,13 @@ ActiveRecord::Schema.define(version: 2023_04_29_195700) do
     t.string "first_name", null: false
     t.string "last_name", null: false
     t.string "email_address", null: false
-    t.string "password_digest"
+    t.string "password_digest", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
 
   add_foreign_key "pokemon_teams", "pokemons", on_delete: :cascade
   add_foreign_key "pokemon_teams", "teams", on_delete: :cascade
+  add_foreign_key "pokemons", "users", on_delete: :cascade
   add_foreign_key "teams", "users", on_delete: :cascade
 end

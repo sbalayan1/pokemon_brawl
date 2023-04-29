@@ -3,7 +3,6 @@ require 'pry'
 class UsersController < ApplicationController
     rescue_from ActiveRecord::RecordInvalid, with: :render_invalid
     rescue_from ActiveRecord::RecordNotFound, with: :render_not_found
-    # rescue_from :authorize, with: :unauthorized
    ##before_action :authorize ###authorize method in the application controller is run before any action below is performed. This ensures that we validate the user before letting them perform actions on sensitive data. 
 
     def index

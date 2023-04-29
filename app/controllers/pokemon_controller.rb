@@ -5,62 +5,69 @@ class PokemonController < ApplicationController
 
     rescue_from ActiveRecord::RecordInvalid, with: :render_invalid
     rescue_from ActiveRecord::RecordNotFound, with: :render_not_found
+    before_action :authorize
 
     def index
-        pokemon = Pokemon.get_all_pokemon_urls
-        render json: pokemon
+        # pokemon = Pokemon.get_all_pokemon_urls
+        pokemon = Pokemon.all
+        render json: pokemon, status: :ok
     end
 
     def show
-        pokemon = PokemonController.fetch_pokemon(params[:id])
-        render json: pokemon
+        pokemon = Pokemon.find(params[:id])
+        render json: pokemon, status: :ok
     end 
 
-    def front_sprite 
-        front_image_url = Pokemon.new().get_pokemon_front_image(params[:id])
-        render json: front_image_url
-    end 
+    # def front_sprite 
+    #     front_image_url = Pokemon.new().get_pokemon_front_image(params[:id])
+    #     render json: front_image_url
+    # end 
 
-    def back_sprite
-        back_image_url = Pokemon.new().get_pokemon_back_image(params[:id])
-        render json: back_image_url
-    end 
+    # def back_sprite
+    #     back_image_url = Pokemon.new().get_pokemon_back_image(params[:id])
+    #     render json: back_image_url
+    # end 
 
-    def abilities
-        abilities = Pokemon.new().get_pokemon_abilities(params[:id])
-        render json: abilities
-    end 
+    # def abilities
+    #     abilities = Pokemon.new().get_pokemon_abilities(params[:id])
+    #     render json: abilities
+    # end 
 
-    def ability
-        ability = Pokemon.new().get_pokemon_ability(params[:name])
-        render json: ability
+    # def ability
+    #     ability = Pokemon.new().get_pokemon_ability(params[:name])
+    #     render json: ability
+    # end
+
+    # def moves
+    #     moves = Pokemon.new().get_pokemon_moves(params[:id])
+    #     render json: moves
+    # end 
+
+    # def move
+    #     move = Pokemon.new().get_pokemon_move(params[:name])
+    #     render json: move
+    # end
+    def update
+        poke = Pokemon.find(params[:id])
+        poke.update!(pokemon_params)
+        render json: poke, status: :accepted
     end
-
-    def moves
-        moves = Pokemon.new().get_pokemon_moves(params[:id])
-        render json: moves
-    end 
-
-    def move
-        move = Pokemon.new().get_pokemon_move(params[:name])
-        render json: move
-    end 
 
     def create
         pokemon = Pokemon.create!(pokemon_params)
-        render json: pokemon
+        render json: pokemon, status: :created
     end 
 
     def destroy
         pokemon = Pokemon.find(params[:id])
         pokemon.destroy
-        head :no_content
+        head :no_content, status: :ok
     end 
 
     private 
 
     def pokemon_params
-        params.permit(:name, :level, :wins, :front_image, :back_image)
+        params.permit(:name, :front, :back, :user_id)
     end 
 
     def render_invalid(invalid)

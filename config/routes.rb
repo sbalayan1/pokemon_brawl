@@ -4,31 +4,38 @@ Rails.application.routes.draw do
   scope '/api' do
 
     ###SESSION ENDPOINTS
-    post '/login', to: 'sessions#create'
+    post '/login', to: 'sessions#create' #####endpoint for logging in!!!
     delete '/logout', to: 'sessions#destroy'
     resources :sessions, only: [:index]
 
     ###USER ENDPOINTS
-    post '/signup', to: 'users#create'
+    post '/signup', to: 'users#create' ####endpoint for signing up!
     get '/current_user', to: 'users#show_current_user'
     resources :users, only: [:index, :create, :show, :destroy]
 
     ###TEAM ENDPOINTS
     resources :teams, only: [:index, :create, :show, :update, :destroy]
 
-    delete '/pokemon/:id', to: 'pokemon#destroy'
-    patch '/pokemon_team/:id', to: 'pokemon_teams#update'
-  
-    get '/pokemon/:id/front_sprite', to: 'pokemon#front_sprite'
-    get '/pokemon/:id/back_sprite', to: 'pokemon#back_sprite'
-    get '/pokemon/:id/abilities', to: 'pokemon#abilities'
-    get '/pokemon/ability/:name', to: 'pokemon#ability'
-    get '/pokemon/:id/moves', to: 'pokemon#moves'
-    get '/pokemon/move/:name', to: 'pokemon#move'
+    ###POKEMON TEAMS ENDPOINTS
+    # patch '/pokemon_team/:id', to: 'pokemon_teams#update'
+    resources :pokemon_teams, only: [:index, :show, :create, :update]
+
+
+    ###POKEMON ENDPOINTS
+    # get '/pokemon/:id/front_sprite', to: 'pokemon#front_sprite'
+    # get '/pokemon/:id/back_sprite', to: 'pokemon#back_sprite'
+    # get '/pokemon/:id/abilities', to: 'pokemon#abilities'
+    # get '/pokemon/ability/:name', to: 'pokemon#ability'
+    # get '/pokemon/:id/moves', to: 'pokemon#moves'
+    # get '/pokemon/move/:name', to: 'pokemon#move'
+    resources :pokemon, only: [:index, :create, :show, :update, :destroy]
+
+
+
     
     resources :battles, only: [:index, :show, :create]
-    # resources :pokemon_teams, only: [:index, :show, :create]
-    resources :pokemon, only: [:index, :show, :create, :destroy]
+
+
   end 
 
   ###The below is used to render our static react page. This will not work until we npm run build and move the contents to our public folder

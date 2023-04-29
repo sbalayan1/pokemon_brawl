@@ -1,5 +1,6 @@
 class User < ApplicationRecord
     has_many :teams
+    has_many :pokemons
     # has_many :battles, through: :trainer
     # has_many :pokemon_teams, through: :trainer
 

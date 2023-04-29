@@ -138,6 +138,8 @@ A pokemon can belong to multiple teams but STILL BELONGS TO ONE UNIQUE USER
     -> Update seed file and remove age column from User.creates. 
     -> Check user model, controller, validations, and serializer and remove code for age column.
     -> update user endpoints
+
+
 **DONE**
 2. Update trainer table to team table. 
     -> Rename trainer table to team. 
@@ -154,4 +156,20 @@ A pokemon can belong to multiple teams but STILL BELONGS TO ONE UNIQUE USER
     -> add foreign keys and cascade option
 
 4. Update Pokemon Table
+    -> table updates
+        - remove level and wins column
+        - rename front and back_image columns to front/back
+        - change all columns to not nullable
+        - add user_id column, not nullable
+        - add user_id foreign key with cascade
+    -> serializer should display
+        - id
+        - name
+        - front
+        - back
+        - user
+        - teams
+    -> update relationships with users, pokemon_teams, and teams tables
+    -> update endpoints and controller methods
+
 5. Drop Battles tables
