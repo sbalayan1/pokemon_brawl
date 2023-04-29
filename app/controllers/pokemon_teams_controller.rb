@@ -1,16 +1,28 @@
 class PokemonTeamsController < ApplicationController
     rescue_from ActiveRecord::RecordInvalid, with: :render_invalid
     rescue_from ActiveRecord::RecordNotFound, with: :render_not_found
+    before_action :authorize
+
+    def index
+        pokemon_teams = PokemonTeam.all
+        render json: pokemon_teams, status: :ok
+    end
  
     def create
         pokemon_team = PokemonTeam.create!(pokemon_team_params)
-        render json: pokemon_team
+        render json: pokemon_team, status: :created
     end 
 
     def update
         pokemon_team = PokemonTeam.find(params[:id])
         pokemon_team.update!(pokemon_team_params)
-        render json: pokemon_team
+        render json: pokemon_team, status: :ok
+    end
+
+    def destroy
+        pokemon_team = PokemonTeam.find(params[:id])
+        pokemon_team.destroy
+        render json: pokemon_team, status: :ok
     end
 
     private 

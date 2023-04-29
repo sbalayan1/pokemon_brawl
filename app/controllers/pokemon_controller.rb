@@ -47,6 +47,7 @@ class PokemonController < ApplicationController
     #     move = Pokemon.new().get_pokemon_move(params[:name])
     #     render json: move
     # end
+    
     def update
         poke = Pokemon.find(params[:id])
         poke.update!(pokemon_params)

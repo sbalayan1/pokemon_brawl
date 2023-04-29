@@ -18,7 +18,7 @@ Rails.application.routes.draw do
 
     ###POKEMON TEAMS ENDPOINTS
     # patch '/pokemon_team/:id', to: 'pokemon_teams#update'
-    resources :pokemon_teams, only: [:index, :show, :create, :update]
+    resources :pokemon_teams, only: [:index, :create, :update, :destroy]
 
 
     ###POKEMON ENDPOINTS
