@@ -1,4 +1,4 @@
-class TrainerSerializer < ActiveModel::Serializer
+class TeamSerializer < ActiveModel::Serializer
   attributes :id, :name, :gender, :img_url, :user_id
   
   has_many :pokemon_teams

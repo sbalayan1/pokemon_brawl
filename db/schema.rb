@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_05_19_112024) do
+ActiveRecord::Schema.define(version: 2023_04_29_031603) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -41,24 +41,24 @@ ActiveRecord::Schema.define(version: 2022_05_19_112024) do
     t.string "back_image"
   end
 
-  create_table "trainers", force: :cascade do |t|
+  create_table "teams", force: :cascade do |t|
     t.string "name"
-    t.string "img_url"
-    t.integer "user_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.boolean "gender"
+    t.integer "wins", default: 0, null: false
+    t.integer "total_battles", default: 0, null: false
+    t.integer "user_id", null: false
   end
 
   create_table "users", force: :cascade do |t|
-    t.string "username"
-    t.string "first_name"
-    t.string "last_name"
-    t.string "email_address"
-    t.integer "age"
+    t.string "username", null: false
+    t.string "first_name", null: false
+    t.string "last_name", null: false
+    t.string "email_address", null: false
     t.string "password_digest"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  add_foreign_key "teams", "users", on_delete: :cascade
 end

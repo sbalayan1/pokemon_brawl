@@ -1,4 +1,4 @@
-class TrainersController < ApplicationController
+class TeamsController < ApplicationController
     rescue_from ActiveRecord::RecordInvalid, with: :render_invalid
     rescue_from ActiveRecord::RecordNotFound, with: :render_not_found
 
