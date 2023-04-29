@@ -47,3 +47,5 @@ gem 'faker'
 gem "active_model_serializers", "~> 0.10.12"
 
 gem 'pry'
+
+gem "net-http" ###https://stackoverflow.com/questions/67773514/getting-warning-already-initialized-constant-on-assets-precompile-at-the-time

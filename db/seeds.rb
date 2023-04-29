@@ -5,33 +5,34 @@ puts 'clear old data'
     ActiveRecord::Base.connection.reset_pk_sequence!('pokemon_teams')
     User.delete_all
     ActiveRecord::Base.connection.reset_pk_sequence!('users')
-    Trainer.delete_all
-    ActiveRecord::Base.connection.reset_pk_sequence!('trainers')
+    Team.delete_all
+    ActiveRecord::Base.connection.reset_pk_sequence!('teams')
     Battle.delete_all
     ActiveRecord::Base.connection.reset_pk_sequence!('battles')
 
-puts 'seed pokemon'
-    id = 1
-    while (id <= 151) do
-        url = "https://pokeapi.co/api/v2/pokemon/#{id}"
-        uri = URI.parse(url)
-        response = Net::HTTP.get_response(uri)
-        pokemon = JSON.parse(response.body)
-        Pokemon.create(name: pokemon['name'], level: 10, front_image: pokemon['sprites']['front_shiny'], back_image: pokemon['sprites']['back_shiny'], wins: 0)
-        id += 1
-    end
+# puts 'seeding pokemon'
+#     id = 1
+#     while (id <= 151) do
+#         url = "https://pokeapi.co/api/v2/pokemon/#{id}"
+#         uri = URI.parse(url)
+#         response = Net::HTTP.get_response(uri)
+#         pokemon = JSON.parse(response.body)
+#         Pokemon.create(name: pokemon['name'], level: 10, front_image: pokemon['sprites']['front_shiny'], back_image: pokemon['sprites']['back_shiny'], wins: 0)
+#         id += 1
+#     end
 
-puts 'create user'
-    User.create(username: 'sean', first_name: 'sean', last_name: 'balayan', email_address: 'balayan123@email.com', password: '123456', password_confirmation: '123456')
+puts 'creating users'
+    first_user = User.create(username: 'sean', first_name: 'sean', last_name: 'balayan', email_address: 'balayan123@email.com', password: '123456', password_confirmation: '123456')
+    Team.create(name: "test", user_id: first_user.id)
 
-    9.times do 
-        password = Faker::Alphanumeric.alpha(number: 10)
-        first_name = Faker::Name.first_name
-        last_name = Faker::Name.last_name
-        username = first_name + last_name
+    # 9.times do 
+    #     password = Faker::Alphanumeric.alpha(number: 10)
+    #     first_name = Faker::Name.first_name
+    #     last_name = Faker::Name.last_name
+    #     username = first_name + last_name
 
-        User.create(username: username, first_name: first_name,last_name: last_name, password: password, password_confirmation: password, email_address: Faker::Internet.email)
-    end
+    #     User.create(username: username, first_name: first_name,last_name: last_name, password: password, password_confirmation: password, email_address: Faker::Internet.email)
+    # end
 
 # puts 'create trainer'
 #     Trainer.create(name: 'Sean', gender: true, img_url: 'https://archives.bulbagarden.net/media/upload/4/4c/Spr_RB_Red_2.png', user_id: User.first.id)

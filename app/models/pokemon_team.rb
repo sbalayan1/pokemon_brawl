@@ -1,7 +1,7 @@
 class PokemonTeam < ApplicationRecord
-    belongs_to :trainer
+    belongs_to :team
     belongs_to :pokemon
 
-    validates :trainer_id, presence: true
+    validates :team_id, presence: true
     validates :pokemon_id, presence: true
 end

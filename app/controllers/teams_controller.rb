@@ -1,27 +1,33 @@
 class TeamsController < ApplicationController
     rescue_from ActiveRecord::RecordInvalid, with: :render_invalid
     rescue_from ActiveRecord::RecordNotFound, with: :render_not_found
-
+    before_action :authorize
 
     def index
-        trainers = Trainer.all
-        render json: trainers, include: [:pokemon, :pokemon_teams, :battles]
+        teams = Team.all
+        render json: teams, status: :ok
     end 
 
     def show
-        trainer = Trainer.find(params[:id])
-        render json: trainer, include: [:pokemon, :pokemon_team]
+        team = Team.find(params[:id])
+        render json: team, status: :ok
     end
 
     def create
-        trainer = Trainer.create!(trainer_params)
-        render json: trainer
-    end 
+        team = Team.create!(team_params)
+        render json: team, status: :created
+    end
+
+    def destroy
+        team = Team.find(params[:id])
+        team.destroy
+        render json: team, status: :ok
+    end
 
     private 
     
-    def trainer_params
-        params.permit(:name, :gender, :img_url, :user_id)
+    def team_params
+        params.permit(:name, :user_id)
     end 
 
     def render_invalid(invalid)
@@ -29,6 +35,6 @@ class TeamsController < ApplicationController
     end 
 
     def render_not_found
-        render json: {errors: "Trainer not Found"}, status: :not_found
+        render json: {errors: "Team not found"}, status: :not_found
     end
 end

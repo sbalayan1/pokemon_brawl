@@ -36,6 +36,18 @@
     delete /api/users/:id => deletes user from database
 
 
+
+
+
+
+
+
+
+
+
+
+
+
 ## TEAMS TABLE
     -> id int primary key
     -> name string not null
@@ -58,15 +70,30 @@
     --> User should only be able to view THEIR pokemon team??
 
 ### ENDPOINTS
-    ## note we need to use hyphens when creating the endpoints and not underscores
-
-    post /api/pokemon-teams => creates a new pokemon team. 
+    post /api/teams => creates a new pokemon team. 
         - There must be at least one pokemon associated with the table upon creation
         - all other values will initially be set to null
 
-    get /api/pokemon-teams/:id => shows one pokemon team. Typically associated with 1 user
-    patch /api/pokemon-teams/:id => updates a property of the pokemon team. 
-    delete /api/pokemon-teams/:id => deletes a pokemon team. 
+    get /api/teams/:id => shows one pokemon team. Typically associated with 1 user
+    patch /api/teams/:id => updates a property of the pokemon team. 
+    delete /api/teams/:id => deletes a pokemon team. 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 ## POKEMON TEAMS TABLE
     -> id int primary key
@@ -76,6 +103,11 @@
 ## POKEMON TEAMS RELATIONSHIPS
     pokemon_team <- pokemon: pokemon team belongs to pokemon
     pokemon_team <- team: pokemon team belongs to team
+
+
+
+
+
 
 ## Pokemon Table
     -> id int primary key
@@ -102,14 +134,24 @@ A pokemon can belong to multiple teams but STILL BELONGS TO ONE UNIQUE USER
 
 ### TO DO (4/28)
 **DONE**
-    1. Delete age column from users table. 
-        -> Update seed file and remove age column from User.creates. 
-        -> Check user model, controller, validations, and serializer and remove code for age column.
-    2. Update trainer table to team table. 
-        -> Rename trainer table to team. 
-        -> Add user_id foreign key to team table.
-        -> Enable cascade functionality so that when a user is deleted all of their teams are deleted
-        -> update img_url and gender columns to wins and total battles -> update relationship with teams to user has many teams. 
-        -> Rename trainer files to teams
-    3. Update user endpoints
-    4. Drop Battles tables
+1. Delete age column from users table. 
+    -> Update seed file and remove age column from User.creates. 
+    -> Check user model, controller, validations, and serializer and remove code for age column.
+    -> update user endpoints
+**DONE**
+2. Update trainer table to team table. 
+    -> Rename trainer table to team. 
+    -> Add user_id foreign key to team table.
+    -> Enable cascade functionality so that when a user is deleted all of their teams are deleted
+    -> update img_url and gender columns to wins and total battles -> update relationship with teams to user has many teams. 
+    -> Rename trainer files to teams
+    -> update seed file
+    -> Update routes, serializer, model, and controller
+**DONE**
+3. update pokemon_teams table
+    -> change trainer_id to team_id
+    -> delete team_member column
+    -> add foreign keys and cascade option
+
+4. Update Pokemon Table
+5. Drop Battles tables

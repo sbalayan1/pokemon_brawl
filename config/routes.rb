@@ -3,14 +3,19 @@ Rails.application.routes.draw do
 
   scope '/api' do
 
-    ###USER ENDPOINTS
-    get '/current_user', to: 'users#show_current_user'
-    # get '/user/:id', to: 'users#find_user'
-    resources :users, only: [:index, :create, :show, :destroy]
-
-    post '/signup', to: 'users#create'
+    ###SESSION ENDPOINTS
     post '/login', to: 'sessions#create'
     delete '/logout', to: 'sessions#destroy'
+    resources :sessions, only: [:index]
+
+    ###USER ENDPOINTS
+    post '/signup', to: 'users#create'
+    get '/current_user', to: 'users#show_current_user'
+    resources :users, only: [:index, :create, :show, :destroy]
+
+    ###TEAM ENDPOINTS
+    resources :teams, only: [:index, :create, :show, :update, :destroy]
+
     delete '/pokemon/:id', to: 'pokemon#destroy'
     patch '/pokemon_team/:id', to: 'pokemon_teams#update'
   
@@ -21,11 +26,8 @@ Rails.application.routes.draw do
     get '/pokemon/:id/moves', to: 'pokemon#moves'
     get '/pokemon/move/:name', to: 'pokemon#move'
     
-    resources :sessions, only: [:index]
-
-    resources :trainers, only: [:index, :show, :create]
     resources :battles, only: [:index, :show, :create]
-    resources :pokemon_teams, only: [:index, :show, :create]
+    # resources :pokemon_teams, only: [:index, :show, :create]
     resources :pokemon, only: [:index, :show, :create, :destroy]
   end 
 
