@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
-  # get "*path", to: "fallback#index", constraints: ->(req) { !req.xhr? && req.format.html? }
+
   scope '/api' do
     get '/user', to: 'users#show'
     get '/user/:id', to: 'users#find_user'
@@ -24,4 +24,7 @@ Rails.application.routes.draw do
     resources :pokemon_teams, only: [:index, :show, :create]
     resources :pokemon, only: [:index, :show, :create, :destroy]
   end 
+
+  ###The below is used to render our static react page. This will not work until we npm run build and move the contents to our public folder
+  # get "*path", to: "fallback#index", constraints: ->(req) { !req.xhr? && req.format.html? }
 end
