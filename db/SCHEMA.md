@@ -7,10 +7,6 @@
     -> password_digest string not null
 
 ### User Relationships
-**REMOVING**
-    user -> trainer: user has one trainer 
-    user -> trainer -* battles: user has many battles through trainer 
-    user -> trainer -* pokemon_teams: user has many pokemon_teams through trainer 
 
 **updated**
     user -* teams: user has many teams
@@ -34,11 +30,6 @@
 
     post /api/users => creates a new user and adds to database
     delete /api/users/:id => deletes user from database
-
-
-
-
-
 
 
 
@@ -149,12 +140,14 @@ A pokemon can belong to multiple teams but STILL BELONGS TO ONE UNIQUE USER
     -> Rename trainer files to teams
     -> update seed file
     -> Update routes, serializer, model, and controller
+    
 **DONE**
 3. update pokemon_teams table
     -> change trainer_id to team_id
     -> delete team_member column
     -> add foreign keys and cascade option
 
+**DONE**
 4. Update Pokemon Table
     -> table updates
         - remove level and wins column
