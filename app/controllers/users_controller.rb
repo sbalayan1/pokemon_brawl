@@ -25,7 +25,7 @@ class UsersController < ApplicationController
     ## GET '/current_user', to: 'users#show_current_user' => this method is for grabbing the session's current user. 
     def show_current_user
         if authorize
-            # render json: User.find_by(id: session[:user_id]), status: :ok 
+            render json: User.find_by(id: session[:user_id]), status: :ok 
         else
             render json: {errors: ["Unauthorized"]}, status: :unauthorized
         end
