@@ -33,25 +33,41 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
 
   ### GET '/api/current_user', to: 'users#show_current_user'
   test "GET '/api/current_user' displays the current user after being authorized and returns an OK status code" do
+    
+    #####***CAN WE EXTRACT THIS TO A BEFORE ACTION???? DO WE NEED TO???***
     #creates a test user
     post "/api/signup", params: {username: "sean", first_name: "sean", last_name: "balayan", email_address: "sean@yahoo.com", password: "123456", password_confirmation: "123456"}, as: :json
     assert_response :created
 
-    #login and create a session
+    #logs in and creates a session
     post "/api/login", params: {username: "sean", password: "123456"}
     assert_response :ok
 
+
+
+    ###tests the endpoint
     get "/api/current_user"
-    assert_response :ok
 
+    #authorize method is called
+
+    
+    #response body has the expected attributes
+    expected_attrs = ["username", "first_name", "last_name", "email_address", "teams", "pokemons"]
+    expected_attrs.each do |key|
+      assert response.parsed_body[key], "#{key} is missing from the response body"
+    end
+
+
+    #response body should match the below expected reponse
     expected_response = {id: User.last.id, username: "sean", first_name: "sean", last_name: "balayan", email_address: "sean@yahoo.com", teams: [], pokemons: []}
-
-    puts expected_response, response.parsed_body
-
+    
     response.parsed_body.each do |key, result|
       expected = expected_response[key.to_sym] #key is a string. need to convert to a symbol in order to access symbols within expected_res
       assert_equal expected, result ###expected compared to result
     end
+
+    #endpoint responds with ok status code
+    assert_response :ok
   end
 
 
