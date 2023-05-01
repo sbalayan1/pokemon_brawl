@@ -14,7 +14,13 @@
 
     -> Routes
         post '/signup', to: 'users#create'
+            1. creates a new user without password and password confirmation, returns a json response, and responds with a CREATED status code.
+            2. does not create a new user with mismatched passwords or missing information and throws an unprocessable_entity error
+
         get '/current_user', to: 'users#show_current_user'
+            1. 
+            2.
+            1
         resources :users, only: [:index, :create, :show, :destroy]
 
 

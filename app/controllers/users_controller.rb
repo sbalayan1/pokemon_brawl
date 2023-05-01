@@ -11,10 +11,9 @@ class UsersController < ApplicationController
     end 
 
 
-    ## POST /api/login => json payload with user information is sent to the endpoint triggering the method below. user is created in database, user's id is added to the session
+    ## POST /api/login => json payload with user information is sent to the endpoint triggering the method below. user is created in database
     def create 
         user = User.create!(user_params)
-        session[:user_id] = user.id
         render json: user, status: :created
     end 
 
@@ -23,9 +22,15 @@ class UsersController < ApplicationController
         render json: authorize ? User.find(params[:id]) : {errors: ["Unauthorized"]}, status: :unauthorized
     end
 
-    #this method is for grabbing the session's current user. 
+    ## GET '/current_user', to: 'users#show_current_user' => this method is for grabbing the session's current user. 
     def show_current_user
-        render json: authorize ? User.find_by(id: session[:user_id]) : {errors: ["Unauthorized"]}, status: :unauthorized
+        if authorize
+            render json: User.find_by(id: session[:user_id]), status: :ok 
+        else
+            render json: {errors: ["Unauthorized"]}, status: :unauthorized
+        end
+        # render json: authorize ? User.find_by(id: session[:user_id]), status: :ok : {errors: ["Unauthorized"]},
+        # status: :unauthorized
     end 
 
     def destroy
