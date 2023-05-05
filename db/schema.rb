@@ -10,15 +10,23 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_04_29_204340) do
+ActiveRecord::Schema.define(version: 2023_05_05_024202) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "battles", force: :cascade do |t|
-    t.integer "trainer_id"
-    t.integer "opponent_id"
-    t.boolean "win_loss"
+  create_table "moves", force: :cascade do |t|
+    t.string "name", null: false
+    t.integer "power_points", null: false
+    t.integer "power", null: false
+    t.string "description", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "pokemon_moves", force: :cascade do |t|
+    t.integer "pokemon_id", null: false
+    t.integer "move_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
@@ -37,6 +45,10 @@ ActiveRecord::Schema.define(version: 2023_04_29_204340) do
     t.datetime "updated_at", precision: 6, null: false
     t.string "back", null: false
     t.integer "user_id", null: false
+    t.integer "hp", null: false
+    t.integer "attack", null: false
+    t.integer "defense", null: false
+    t.integer "speed", null: false
   end
 
   create_table "teams", force: :cascade do |t|
@@ -58,6 +70,8 @@ ActiveRecord::Schema.define(version: 2023_04_29_204340) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  add_foreign_key "pokemon_moves", "moves"
+  add_foreign_key "pokemon_moves", "pokemons", on_delete: :cascade
   add_foreign_key "pokemon_teams", "pokemons", on_delete: :cascade
   add_foreign_key "pokemon_teams", "teams", on_delete: :cascade
   add_foreign_key "pokemons", "users", on_delete: :cascade

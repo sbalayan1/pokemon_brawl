@@ -8,7 +8,6 @@ class PokemonController < ApplicationController
     before_action :authorize
 
     def index
-        # pokemon = Pokemon.get_all_pokemon_urls
         pokemon = Pokemon.all
         render json: pokemon, status: :ok
     end
@@ -36,16 +35,6 @@ class PokemonController < ApplicationController
     # def ability
     #     ability = Pokemon.new().get_pokemon_ability(params[:name])
     #     render json: ability
-    # end
-
-    # def moves
-    #     moves = Pokemon.new().get_pokemon_moves(params[:id])
-    #     render json: moves
-    # end 
-
-    # def move
-    #     move = Pokemon.new().get_pokemon_move(params[:name])
-    #     render json: move
     # end
     
     def update

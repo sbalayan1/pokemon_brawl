@@ -27,15 +27,14 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "does not create a new user with mismatched passwords or missing information and returns an UNPROCESSABLE ENTITY error" do
-
+    ##tests the "/api/signup" endpoint and sends a params with incorrect password_confirmation
     post "/api/signup", params: {username:"sean", first_name:"sean", last_name:"balayan", email_address:"sean@yahoo.com", password:"1234", password_confirmation:"123456"}
     assert_response :unprocessable_entity
 
+    ##tests the "/api/signup" endpoint and sends a params with a missing username param
     post "/api/signup", params: {first_name:"sean", last_name:"balayan", email_address:"sean@yahoo.com", password:"1234", password_confirmation:"123456"}
     assert_response :unprocessable_entity
   end
-
-
 
   ### GET '/api/current_user', to: 'users#show_current_user'
   test "GET '/api/current_user' displays the current user after being authorized and returns an OK status code" do
@@ -44,7 +43,7 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
     get "/api/current_user"
     assert_response :unauthorized, "The endpoint did not respond with unauthorized when no user was logged in!"
 
-    ###creates a good user
+    #creates a good user
     post "/api/signup", params: {username: "sean", first_name: "sean", last_name: "balayan", email_address: "sean@yahoo.com", password: "123456", password_confirmation: "123456"}, as: :json
     assert_response :created
 

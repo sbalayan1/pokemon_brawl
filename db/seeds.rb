@@ -53,12 +53,6 @@ puts 'creating users'
 
 #     Trainer.create(name: 'Oak', gender: true, img_url: 'https://archives.bulbagarden.net/media/upload/1/1e/Spr_RG_Oak.png', user_id: User.all[8].id)
 
-# puts 'create battles'
-#     Battle.create(trainer_id: User.first.id, opponent_id: User.second.id, win_loss: true)
-#     Battle.create(trainer_id: User.first.id, opponent_id: User.third.id, win_loss: true)
-#     Battle.create(trainer_id: User.first.id, opponent_id: User.fourth.id, win_loss: true)
-#     Battle.create(trainer_id: User.first.id, opponent_id: 5, win_loss: true)
-
 
 # puts 'seeding PokemonTeam'
 # Trainer.all.map do |t|

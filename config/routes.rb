@@ -11,7 +11,7 @@ Rails.application.routes.draw do
     ###USER ENDPOINTS
     post '/signup', to: 'users#create' ####endpoint for signing up!
     get '/current_user', to: 'users#show_current_user'
-    resources :users, only: [:index, :create, :show, :destroy]
+    resources :users, only: [:index, :show, :destroy]
 
     ###TEAM ENDPOINTS
     resources :teams, only: [:index, :create, :show, :update, :destroy]
@@ -32,8 +32,11 @@ Rails.application.routes.draw do
 
 
 
-    
-    resources :battles, only: [:index, :show, :create]
+    ###POKEMON MOVE ENDPOINTS
+    resources :pokemon_moves, only: [:index, :create, :show, :update, :destroy]
+
+    ###MOVE ENDPOINTS
+    resources :moves, only: [:index, :show, :create]
 
 
   end 

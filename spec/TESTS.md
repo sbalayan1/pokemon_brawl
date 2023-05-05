@@ -18,11 +18,9 @@
             2. does not create a new user with mismatched passwords or missing information and throws an unprocessable_entity error
 
         get '/current_user', to: 'users#show_current_user'
-            1. 
-            2.
-            1
-        resources :users, only: [:index, :create, :show, :destroy]
+            1. displays the current user after being authorized and returns an OK status code
 
+        resources :users, only: [:index, :show, :destroy]
 
     -> Controller
     -> Serializer

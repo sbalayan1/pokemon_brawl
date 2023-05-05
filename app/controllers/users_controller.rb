@@ -3,14 +3,16 @@ require 'pry'
 class UsersController < ApplicationController
     rescue_from ActiveRecord::RecordInvalid, with: :render_invalid
     rescue_from ActiveRecord::RecordNotFound, with: :render_not_found
-   ##before_action :authorize ###authorize method in the application controller is run before any action below is performed. This ensures that we validate the user before letting them perform actions on sensitive data. 
+   ##before_action :authorize ->>>> authorize method in the application controller is run before any action below is performed. This ensures that we validate the user before letting them perform actions on sensitive data. 
 
     def index
-        render json: authorize ? User.all : {errors: ["Unauthorized"]}, status: :unauthorized
-        # render json: @current_user ? User.all : {errors: ["Unauthorized"]}, status: :unauthorized
+        if authorize
+            render json: User.all, status: :ok
+        else
+            render json: {errors: ["Unauthorized"]}, status: :unathorized
+        end
     end 
-
-
+    
     ## POST /api/login => json payload with user information is sent to the endpoint triggering the method below. user is created in database
     def create 
         user = User.create!(user_params)
@@ -19,7 +21,11 @@ class UsersController < ApplicationController
 
     #this method is for looking up users
     def show
-        render json: authorize ? User.find(params[:id]) : {errors: ["Unauthorized"]}, status: :unauthorized
+        if authorize
+            render json: User.find(params[:id]), status: :ok
+        else
+            render json: {errors: ["Unauthorized"]}, status: :unauthorized
+        end
     end
 
     ## GET '/current_user', to: 'users#show_current_user' => this method is for grabbing the session's current user. 
@@ -29,8 +35,6 @@ class UsersController < ApplicationController
         else
             render json: {errors: ["Unauthorized"]}, status: :unauthorized
         end
-        # render json: authorize ? User.find_by(id: session[:user_id]), status: :ok : {errors: ["Unauthorized"]},
-        # status: :unauthorized
     end 
 
     def destroy

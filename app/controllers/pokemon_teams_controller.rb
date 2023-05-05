@@ -16,7 +16,7 @@ class PokemonTeamsController < ApplicationController
     def update
         pokemon_team = PokemonTeam.find(params[:id])
         pokemon_team.update!(pokemon_team_params)
-        render json: pokemon_team, status: :ok
+        render json: pokemon_team, status: :accepted
     end
 
     def destroy

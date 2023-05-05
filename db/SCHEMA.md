@@ -71,21 +71,6 @@
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 ## POKEMON TEAMS TABLE
     -> id int primary key
     -> team_id int foreign key
@@ -94,10 +79,6 @@
 ## POKEMON TEAMS RELATIONSHIPS
     pokemon_team <- pokemon: pokemon team belongs to pokemon
     pokemon_team <- team: pokemon team belongs to team
-
-
-
-
 
 
 ## Pokemon Table
@@ -116,6 +97,20 @@
 
 A pokemon can belong to multiple teams but STILL BELONGS TO ONE UNIQUE USER
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 ### NOTES
     4/28 - currently working through a database update. Thinking through how I want to utilize the pokemon teams table along with the user table. So far I've deleted the trainers table because it's an unnecessary join between the user table and the pokemon team. Further, I am updating the pokemon-teams table to belong to a user and hold 7 rows for each pokemon that belongs to the team. This way, we can find a user's team by looking up each of the pokemon ids
 
@@ -123,15 +118,13 @@ A pokemon can belong to multiple teams but STILL BELONGS TO ONE UNIQUE USER
 
 
 
-### TO DO (4/28)
-**DONE**
+### TO DO (4/28) *DONE*
 1. Delete age column from users table. 
     -> Update seed file and remove age column from User.creates. 
     -> Check user model, controller, validations, and serializer and remove code for age column.
     -> update user endpoints
 
-
-**DONE**
+ 
 2. Update trainer table to team table. 
     -> Rename trainer table to team. 
     -> Add user_id foreign key to team table.
@@ -140,14 +133,12 @@ A pokemon can belong to multiple teams but STILL BELONGS TO ONE UNIQUE USER
     -> Rename trainer files to teams
     -> update seed file
     -> Update routes, serializer, model, and controller
-    
-**DONE**
+     
 3. update pokemon_teams table
     -> change trainer_id to team_id
     -> delete team_member column
     -> add foreign keys and cascade option
-
-**DONE**
+ 
 4. Update Pokemon Table
     -> table updates
         - remove level and wins column
@@ -164,5 +155,5 @@ A pokemon can belong to multiple teams but STILL BELONGS TO ONE UNIQUE USER
         - teams
     -> update relationships with users, pokemon_teams, and teams tables
     -> update endpoints and controller methods
-
+ 
 5. Drop Battles tables
