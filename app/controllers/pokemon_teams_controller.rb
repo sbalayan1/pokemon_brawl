@@ -28,7 +28,7 @@ class PokemonTeamsController < ApplicationController
     private 
 
     def pokemon_team_params
-        params.permit(:pokemon_id, :team_id)
+        params.require(:pokemon_team).permit(:pokemon_id, :team_id)
     end 
 
     def render_invalid(invalid)

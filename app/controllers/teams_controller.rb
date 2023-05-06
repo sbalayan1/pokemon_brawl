@@ -27,7 +27,7 @@ class TeamsController < ApplicationController
     private 
     
     def team_params
-        params.permit(:name, :user_id)
+        params.require(:team).permit(:name, :user_id)
     end 
 
     def render_invalid(invalid)

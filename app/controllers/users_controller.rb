@@ -50,7 +50,9 @@ class UsersController < ApplicationController
     private
 
     def user_params
-        params.permit(:username, :first_name, :last_name, :password, :email_address, :password_confirmation)
+        ##if we require :user here, the not null clause for password and password confirmation throws an error because we try to create a new user without the password and password confirmation. 
+
+        params.permit(:username, :first_name, :last_name, :email_address, :password, :password_confirmation)
     end 
 
     def render_invalid(invalid)

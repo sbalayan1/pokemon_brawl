@@ -96,11 +96,9 @@
 5. add hp, attack, speed, defense to Pokemon table 
 **Done**
 
-
-**Working through the below**
-6. Test!
+6. Test! **DONE**
     Pokemon
-        model: 
+        model *tested*
             name -> must be present, letters only, 2-20 characters
             front -> must be present, must include "https://raw.githubusercontent.com/PokeAPI/sprites/pokemon/"
             back -> must be present, must include "https://raw.githubusercontent.com/PokeAPI/sprites/pokemon/"
@@ -111,30 +109,32 @@
             speed -> must be present, must be a number, 1-5 characters
 
         
-        serializer: 
+        serializer *tested*
             -> when viewing a pokemon, you can see the id, name, front, back, hp, attack, speed, defense, user, teams, and moves
 
         controller:
-            #index
+            #index *tested*
                 -> displays all of the Pokemon in the database
                 -> returns an ok status code
 
-            #show
+            #show *tested*
                 -> searches for a pokemon using the param id.
                 -> returns a single pokemon with an ok status code
                 -> returns a not found error code if no pokemon is found
 
-            #create
+            #create *tested*
                 -> creates a new pokemon and saves it to the database. if successful, returns a new pokemon as json and a created status code
                 -> only allows name, front, back, user_id, hp, attack, defense, and speed as parameters
                 -> raises an exception and returns an unprocessable entity error if there are too many or missing parameters
 
-            #update
+            #update *tested*
                 -> searches for a pokemon using the id param and returns a not found error code if no pokemon is found
-                -> updates the pokemon's attributes using pokemon_params. raises an exception and throws an unprocessable entity error if pokemon_params are unpermitted
+                -> updates the pokemon's attributes using pokemon_params. raises a 400 bad request if no permitted params are sent
                 -> returns the updated pokemon as json and an accepted status code
 
-            #destroy
+            #destroy *tested*
+
+        
 
         
 

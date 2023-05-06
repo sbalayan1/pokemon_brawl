@@ -32,7 +32,7 @@ class PokemonMovesController < ApplicationController
     private
 
     def pokemon_move_params
-        params.permit(:pokemon_id, :move_id)
+        params.require(:pokemon_move).permit(:pokemon_id, :move_id)
     end
 
     def render_invalid(invalid)

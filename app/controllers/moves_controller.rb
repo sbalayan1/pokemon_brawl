@@ -20,7 +20,7 @@ class MovesController < ApplicationController
     private
 
     def move_params
-        params.permit(:name, :power_points, :power, :description)
+        params.require(:move).permit(:name, :power_points, :power, :description)
     end
 
     def render_invalid(invalid)
