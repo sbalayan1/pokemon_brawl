@@ -34,11 +34,6 @@
 
 
 
-
-
-
-
-
 ## TEAMS TABLE
     -> id int primary key
     -> name string not null

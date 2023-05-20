@@ -1,4 +1,4 @@
-class PokemonMoveSerializer < ActiveModel:Serializer
+class PokemonMoveSerializer < ActiveModel::Serializer
     attributes :id
 
     belongs_to :pokemon

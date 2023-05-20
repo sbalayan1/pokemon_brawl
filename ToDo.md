@@ -1,6 +1,3 @@
-## Goals/MVC
-1. 
-
 ## Steps I am taking to refactor, rebuild, and redeploy PokemonBrawl
 
 1. Document goals and MVC.
@@ -138,4 +135,6 @@
 
         
 
-
+5/20/2023
+7. Test!
+    

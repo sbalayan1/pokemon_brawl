@@ -16,7 +16,6 @@ class MovesController < ApplicationController
         render json: move, status: :created
     end
 
-
     private
 
     def move_params

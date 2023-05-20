@@ -1,30 +1,80 @@
-puts 'clear old data'
-    Pokemon.delete_all
-    ActiveRecord::Base.connection.reset_pk_sequence!('pokemons')
-    PokemonTeam.delete_all
-    ActiveRecord::Base.connection.reset_pk_sequence!('pokemon_teams')
-    User.delete_all
-    ActiveRecord::Base.connection.reset_pk_sequence!('users')
-    Team.delete_all
-    ActiveRecord::Base.connection.reset_pk_sequence!('teams')
-    Battle.delete_all
-    ActiveRecord::Base.connection.reset_pk_sequence!('battles')
+require 'pry'
 
-# puts 'seeding pokemon'
-#     id = 1
-#     while (id <= 151) do
-#         url = "https://pokeapi.co/api/v2/pokemon/#{id}"
-#         uri = URI.parse(url)
-#         response = Net::HTTP.get_response(uri)
-#         pokemon = JSON.parse(response.body)
-#         Pokemon.create(name: pokemon['name'], level: 10, front_image: pokemon['sprites']['front_shiny'], back_image: pokemon['sprites']['back_shiny'], wins: 0)
-#         id += 1
-#     end
+puts 'running test seed'
+
+### The below clears old data. Once we deploy we probably don't want to include this. 
+puts 'clear old data'
+User.delete_all
+ActiveRecord::Base.connection.reset_pk_sequence!('users')
+
+Pokemon.delete_all
+ActiveRecord::Base.connection.reset_pk_sequence!('pokemons')
+
+PokemonTeam.delete_all
+ActiveRecord::Base.connection.reset_pk_sequence!('pokemon_teams')
+
+User.delete_all
+ActiveRecord::Base.connection.reset_pk_sequence!('users')
+        
+Team.delete_all
+ActiveRecord::Base.connection.reset_pk_sequence!('teams')
+
+
+### you should never need to delete the move database. The Moves table should only need to be seeded once. Afterwards, whenever this seed file is run, 
+# Move.delete_all
+# ActiveRecord::Base.connection.reset_pk_sequence!('moves')
+
+PokemonMove.delete_all
+ActiveRecord::Base.connection.reset_pk_sequence!('pokemon_moves')
+
+def isOnlyLetters(str)
+    str.match?(/[A-z]/)
+end
+
+
+puts 'seeding pokemon'
+if Move.all.length == 0 #check if Pokemon data is already seeded. This is necessary for our deploy. This way we won't seed the Pokemon unless the table is empty
+    id = 1
+
+    #note there are 903 available moves to seed however we hit an error at move 560
+    while (id <= 559) do
+        puts "seeding move # #{id}"
+        url = "https://pokeapi.co/api/v2/move/#{id}"
+        uri = URI.parse(url)
+        response = Net::HTTP.get_response(uri)
+        move = JSON.parse(response.body)
+
+        if (move['power'] && move['flavor_text_entries'].length > 0)
+            name = move['name'].sub("-", " ").titleize #searches for dashes in string and replaces with a space then capitalizes
+            # name.sub("-", " ") #searches for dashes in string and replaces with a space
+            power = move['power']
+            power_points = move['pp']
+
+            # binding.pry
+            description = move['flavor_text_entries'].find { |obj| obj['language']['name'] == "en" && obj['version_group']['name'] == 'black-white' }['flavor_text'].sub("\n", " ") #filter for english descriptions and substitute all \n with a space.
+        
+            #for descriptions with -\n, we need to
+                #remove the \n with the sub method
+                #split the strings by space
+                #iterate over array of strings
+                    #split the string and pass each letter to the isOnlyLetters method
+                        #if is letter, return letter
+                        #return ""
+
+
+            Move.create!(name: name, power: power, power_points: power_points, description: description);
+        end
+
+        id += 1
+    end
+end
 
 puts 'creating users'
+if User.all.length == 0
     first_user = User.create(username: 'sean', first_name: 'sean', last_name: 'balayan', email_address: 'balayan123@email.com', password: '123456', password_confirmation: '123456')
     Team.create(name: "test", user_id: first_user.id)
 
+end
     # 9.times do 
     #     password = Faker::Alphanumeric.alpha(number: 10)
     #     first_name = Faker::Name.first_name
@@ -34,32 +84,6 @@ puts 'creating users'
     #     User.create(username: username, first_name: first_name,last_name: last_name, password: password, password_confirmation: password, email_address: Faker::Internet.email)
     # end
 
-# puts 'create trainer'
-#     Trainer.create(name: 'Sean', gender: true, img_url: 'https://archives.bulbagarden.net/media/upload/4/4c/Spr_RB_Red_2.png', user_id: User.first.id)
 
-#     Trainer.create(name: 'Red', gender: true, img_url: 'https://archives.bulbagarden.net/media/upload/6/66/Spr_RG_Red_1.png', user_id: User.second.id)
-
-#     Trainer.create(name: 'Blue', gender: true, img_url: 'https://archives.bulbagarden.net/media/upload/9/92/Spr_RG_Blue_1.png', user_id: User.third.id)
-
-#     Trainer.create(name: 'Brock', gender: true, img_url: 'https://archives.bulbagarden.net/media/upload/e/e2/Spr_RG_Brock.png', user_id: User.fourth.id)
-
-#     Trainer.create(name: 'Misty', gender: false, img_url: 'https://archives.bulbagarden.net/media/upload/2/2d/Spr_RG_Misty.png', user_id: 5)
-
-#     Trainer.create(name: 'Sabrina', gender: false, img_url: 'https://archives.bulbagarden.net/media/upload/1/13/Spr_RG_Sabrina.png', user_id: 6)
-
-#     Trainer.create(name: 'Agatha', gender: false, img_url: 'https://archives.bulbagarden.net/media/upload/f/f4/Spr_RG_Agatha.png', user_id: 7)
-
-#     Trainer.create(name: 'Lance', gender: true, img_url: 'https://archives.bulbagarden.net/media/upload/e/eb/Spr_RG_Lance.png', user_id: User.all[7].id)
-
-#     Trainer.create(name: 'Oak', gender: true, img_url: 'https://archives.bulbagarden.net/media/upload/1/1e/Spr_RG_Oak.png', user_id: User.all[8].id)
-
-
-# puts 'seeding PokemonTeam'
-# Trainer.all.map do |t|
-#     6.times do
-#         number = rand(0..151)
-#         PokemonTeam.create(trainer_id: t.id, pokemon_id: number, team_member: true)
-#     end  
-# end
 
 puts 'done seeding'

@@ -8,6 +8,6 @@ class CreatePokemonMovesTable < ActiveRecord::Migration[6.1]
 
     
     add_foreign_key :pokemon_moves, :pokemons, on_delete: :cascade
-    add_foreign_key :pokemon_moves, :moves
+    add_foreign_key :pokemon_moves, :moves, on_delete: :cascade
   end
 end

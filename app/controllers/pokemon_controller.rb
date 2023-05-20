@@ -1,13 +1,12 @@
-require_relative './concerns/fetch'
+# require_relative './concerns/fetch'
 require 'pry'
 
 class PokemonController < ApplicationController
-    extend Fetch::ClassMethods
+    # extend Fetch::ClassMethods
 
     rescue_from ActiveRecord::RecordInvalid, with: :render_invalid
     rescue_from ActiveRecord::RecordNotFound, with: :render_not_found
-
-    before_action :authorize
+    # before_action :authorize -> turned off for nwo
 
     def index
         pokemon = Pokemon.all
@@ -19,26 +18,6 @@ class PokemonController < ApplicationController
         render json: pokemon, status: :ok
     end 
 
-    # def front_sprite 
-    #     front_image_url = Pokemon.new().get_pokemon_front_image(params[:id])
-    #     render json: front_image_url
-    # end 
-
-    # def back_sprite
-    #     back_image_url = Pokemon.new().get_pokemon_back_image(params[:id])
-    #     render json: back_image_url
-    # end 
-
-    # def abilities
-    #     abilities = Pokemon.new().get_pokemon_abilities(params[:id])
-    #     render json: abilities
-    # end 
-
-    # def ability
-    #     ability = Pokemon.new().get_pokemon_ability(params[:name])
-    #     render json: ability
-    # end
-    
     def update
         poke = Pokemon.find(params[:id])
         poke.update!(pokemon_params)

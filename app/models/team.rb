@@ -3,6 +3,6 @@ class Team < ApplicationRecord
     has_many :pokemon_teams
     has_many :pokemon, through: :pokemon_teams
 
-    validates :name, presence: true
+    validates :name, presence: true, uniqueness: { case_sensitive: false }
     validates :user_id, presence: true
 end

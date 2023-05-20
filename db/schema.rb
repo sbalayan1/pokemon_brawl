@@ -70,7 +70,7 @@ ActiveRecord::Schema.define(version: 2023_05_05_024202) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
-  add_foreign_key "pokemon_moves", "moves"
+  add_foreign_key "pokemon_moves", "moves", on_delete: :cascade
   add_foreign_key "pokemon_moves", "pokemons", on_delete: :cascade
   add_foreign_key "pokemon_teams", "pokemons", on_delete: :cascade
   add_foreign_key "pokemon_teams", "teams", on_delete: :cascade

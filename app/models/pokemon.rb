@@ -10,15 +10,43 @@ class Pokemon < ApplicationRecord
     has_many :moves, through: :pokemon_moves
     
 
-    validates :name, presence: true, format: { with: /\A[A-z]+\z/, message: "must consist of letters only" }, length: { in: 2..20 }
-    validates :user_id, presence: true, numericality: { only_integer: true, greater_than: 0, message: "must consist of numbers only and be an existing user's id" }, length: { in: 1..10 }
+    validates :name, 
+        presence: true, 
+        format: { 
+            with: /[A-z\- ]/, 
+            message: "must consist of letters, dashes, and spaces only" 
+        }, 
+        length: { in: 2..20 }
+
+    validates :user_id, 
+        presence: true, 
+        numericality: { 
+            only_integer: true, 
+            greater_than: 0, 
+            message: "must consist of numbers only and be an existing user's id" 
+        }, 
+        length: { in: 1..10 }
 
     [:front, :back].each do |attribute|
-        validates attribute, presence: true, format: { with: /\Ahttps:\/\/raw.githubusercontent.com\/PokeAPI\/sprites\/pokemon\//, message: "url must come from the pokemon api and include https://raw.githubusercontent.com/PokeAPI/sprites/pokemon/"}
+        validates attribute, 
+            presence: true, 
+            format: { 
+                with: /\Ahttps:\/\/raw.githubusercontent.com\/PokeAPI\/sprites\/pokemon\//, 
+                message: "url must come from the pokemon api and include https://raw.githubusercontent.com/PokeAPI/sprites/pokemon/"
+            }
     end
 
     [:hp, :attack, :defense, :speed].each do |attribute|
-        validates attribute, presence: true, numericality: { only_integer: true, message: "must consist of integers only" }, length: { in: 1..5, message: "must be between 1 - 5 characters" }
+        validates attribute, 
+            presence: true, 
+            numericality: { 
+                only_integer: true, 
+                message: "must consist of integers only" 
+            }, 
+            length: { 
+                in: 1..5, 
+                message: "must be between 1 - 5 characters" 
+            }
     end
 
     # def self.get_all_pokemon_urls

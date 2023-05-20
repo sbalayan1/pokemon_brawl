@@ -1,7 +1,7 @@
 class PokemonTeamsController < ApplicationController
     rescue_from ActiveRecord::RecordInvalid, with: :render_invalid
     rescue_from ActiveRecord::RecordNotFound, with: :render_not_found
-    before_action :authorize
+    # before_action :authorize -> turned off for now
 
     def index
         pokemon_teams = PokemonTeam.all
